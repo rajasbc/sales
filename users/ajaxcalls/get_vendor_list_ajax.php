@@ -2,12 +2,7 @@
 include '../../includes/config.php';
 $obj = new Vendor();
 $result =  $obj->get_vendor();
-// print_r($result);die();
-// error_reporting(E_ALL);
 
-// $out_count=count($result);
-
-// $resultdata = $obj->getAllcustomersfilter();
 if (count($result) > 0) {
 
 	$i = 0;
@@ -22,7 +17,7 @@ if (count($result) > 0) {
 		<td>" . $row['mobile'] . "</td>
 		<td>" . $row['city'] . "</td>
 		<td>
-		<a data-id=".$row['id']." class='btn btn-sm btn-success' href='customer.php?id=".$row['id']."' value='".$row['id']."'></a> 
+		<a data-id=".$row['id']." class='btn btn-sm btn-success' href='vendor.php?id=".$row['id']."' value='".$row['id']."'>Edit</a> 
 		</td>
 		</tr>";
 	}

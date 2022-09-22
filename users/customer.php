@@ -30,7 +30,8 @@ if($_GET['id']!=''){
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <li class="breadcrumb-item"><a href="#!">Customer</a></li>
+           <li class="breadcrumb-item"><a href="viewcustomer.php">Customers</a></li>
+           <li class="breadcrumb-item">Customer</li>
            
          </ul>
        </div>
@@ -97,7 +98,21 @@ if($_GET['id']!=''){
 
      </div>
    </div>
-   <button type="reset" class="btn btn-sm btn-warning float-right" id="reset">Reset</button>
+
+
+   <?php
+
+   if($_GET['id']!='')
+   {
+   echo'<a href="viewcustomer.php"><button type="button" class="btn btn-sm btn-warning float-right">Back</button></a>';
+   }
+   else
+   {
+   echo'<button type="reset" class="btn btn-sm btn-warning float-right" id="reset">Reset</button>'; 
+   }
+
+   ?>
+   
 
 
    <button type="submit" class="btn btn-sm btn-success float-right enterAsTab" id="submit">Submit</button>
@@ -163,22 +178,41 @@ $.ajax({
   dataType:"json",
   data:{'name':name,'address':address,'state':state,'email':email,'company_name':company_name,'city':city,'country':country,'mobile':mobile,'id':id},
   success: function(res){
-   $("#name").val(" ");
-   $("#address").val(" ");
-   $("#state").val(" ");
-   $("#email").val(" ");
-   $("#company_name").val(" ");
-   $("#city").val(" ");
-   $("#country").val(" ");
-   $("#mobile").val(" ");
    if(res.status=='success')
    {
+
+    if(id!='')
+    {
+
+    $.growl.notice({
+     title:"SUCCESS",
+     message:"Customer Edited Successfully"
+    });
+
+    setTimeout(function(){
+    window.location='viewcustomer.php';
+    }, 1000);
+
+    }
+    else
+    {
+
+
+     $("#name").val(" ");
+     $("#address").val(" ");
+     $("#state").val(" ");
+     $("#email").val(" ");
+     $("#company_name").val(" ");
+     $("#city").val(" ");
+     $("#country").val(" ");
+     $("#mobile").val(" ");
+
     $.growl.notice({
      title:"SUCCESS",
      message:"Customer Added Successfully"
+    });
 
-   }); 
-
+    }
 
 
   }

@@ -1,3 +1,16 @@
+<?php
+
+$user = $_SESSION['username'];
+
+if ($user == '') 
+{
+header('location:sessionClose.php');
+}
+else
+{
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,12 +30,42 @@
 	<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 	<!-- fontawesome icon -->
 	<link rel="stylesheet" href="assets/fonts/fontawesome/css/fontawesome-all.min.css">
+
 	<!-- animation css -->
 	<link rel="stylesheet" href="assets/plugins/animation/css/animate.min.css">
 	<link rel="stylesheet" href="assets/css/pages/jquery.growl.css">
+	<link rel="stylesheet" href="assets/css/theme.bootstrap_4.css">
 <!-- users\assets\css\pages
  -->	<!-- vendor css -->
 	<link rel="stylesheet" href="assets/css/style.css">
+
+<style type="text/css">
+  
+  .ts-pager .btn
+  {
+    padding: 2px 0px;
+    margin: 2px 0px;
+  }
+
+  .ts-pager .prev
+  {
+  	padding-top: 5px;
+  }
+
+  .ts-pager .next
+  {
+  	padding-top: 5px;
+  	padding-left: 10px;
+  }
+
+  .table thead th
+  {
+  	font-size: 12px;
+  	padding: 10px;
+  }
+
+</style>
+
 </head>
 
 <body class="">
@@ -49,7 +92,7 @@
 					<li class="nav-item">
 						<a href="index.php" class="nav-link"><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
 					</li>
-					<li class="nav-item pcoded-hasmenu">
+					<!-- <li class="nav-item pcoded-hasmenu">
 						<a href="" class="nav-link disable-anchor"><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Componant</span></a>
 						<ul class="pcoded-submenu">
 							<li class=""><a href="bc_button.php" class="">Button</a></li>
@@ -59,21 +102,18 @@
 							<li class=""><a href="bc_tabs.php" class="">Tabs & pills</a></li>
 							<li class=""><a href="bc_typography.php" class="">Typography</a></li>
 						</ul>
+					</li> -->
+					<li class="nav-item">
+						<a href="viewcustomer.php" class="nav-link"><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Customer</span></a>
 					</li>
 					<li class="nav-item">
-						<a href="customer.php" class="nav-link"><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Customer</span></a>
-					</li>
-					<li class="nav-item">
-						<a href="customer_table.php" class="nav-link"><span class="pcoded-micon"><i class="feather icon-align-justify"></i></span><span class="pcoded-mtext">Customer Table</span></a>
-					</li>
-					<li class="nav-item">
-						<a href="vendor.php" class="nav-link"><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">Vendor</span></a>
-					</li>
-					<li class="nav-item">
-						<a href="vendor_table.php" class="nav-link"><span class="pcoded-micon"><i class="feather icon-align-left"></i></span><span class="pcoded-mtext">Vendor Table</span></a>
+						<a href="viewvendor.php" class="nav-link"><span class="pcoded-micon"><i class="feather icon-align-left"></i></span><span class="pcoded-mtext">Vendor</span></a>
 					</li>
 					<li class="nav-item">
 						<a href="chart-morris.php" class="nav-link"><span class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Chart</span></a>
+					</li>
+					<li class="nav-item">
+						<a href="users.php" class="nav-link"><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Users</span></a>
 					</li>
 					<li class="nav-item pcoded-hasmenu">
 						<a href="" class="nav-link disable-anchor"><span class="pcoded-micon"><i class="feather icon-lock"></i></span><span class="pcoded-mtext">Authentication</span></a>
@@ -101,7 +141,7 @@
 			<i class="feather icon-more-horizontal"></i>
 		</a>
 		<div class="collapse navbar-collapse">
-			<a href="#!" class="mob-toggler"></a>
+			<!-- <a href="#!" class="mob-toggler"></a>
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
 					<div class="main-search open">
@@ -116,7 +156,7 @@
 						</div>
 					</div>
 				</li>
-			</ul>
+			</ul> -->
 			<ul class="navbar-nav ml-auto">
 				<li>
 					<div class="dropdown drp-user">
@@ -134,8 +174,7 @@
 							<ul class="pro-body">
 								<li><a href="#!" class="dropdown-item"><i class="feather icon-settings"></i> Settings</a></li>
 								<li><a href="#!" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
-								<li><a href="message.php" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
-								<li><a href="auth-signin.php" class="dropdown-item"><i class="feather icon-lock"></i> Lock Screen</a></li>
+								<li><a href="logout.php" class="dropdown-item"><i class="feather icon-lock"></i> Logout</a></li>
 							</ul>
 						</div>
 					</div>
@@ -144,3 +183,9 @@
 		</div>
 	</header>
 	<!-- [ Header ] end -->
+
+<?php
+
+}
+
+?>
