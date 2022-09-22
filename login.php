@@ -34,13 +34,15 @@
 			<div class="row align-items-center">
 				<div class="col-md-6">
 					<div class="card-body">
+						<form id="parent">
+							<div class="text-danger" id="errorTxt3"></div>
 						<!-- <img src="assets/images/logo-dark.png" alt="" class="img-fluid mb-4"> -->
 						<h4 class="mb-3 f-w-400">Login into your account</h4>
 						<div class="input-group mb-2">
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="feather icon-mail"></i></span>
 							</div>
-							<input type="email" id="username"class="form-control" placeholder="Email address">
+							<input type="email" id="username"class="form-control" placeholder="Email address or Username">
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
@@ -56,8 +58,9 @@
 							</div>
 						</div>
 						<button class="btn btn-primary mb-4" id="login_btn">Login</button>
-						<p class="mb-2 text-muted">Forgot password? <a href="#" class="f-w-400">Reset</a></p>
-						<p class="mb-0 text-muted">Don’t have an account? <a href="signup.php" class="f-w-400">Signup</a></p>
+						<!-- <p class="mb-2 text-muted">Forgot password? <a href="#" class="f-w-400">Reset</a></p>
+						<p class="mb-0 text-muted">Don’t have an account? <a href="signup.php" class="f-w-400">Signup</a></p> -->
+						</form>
 					</div>
 				</div>
 				<div class="col-md-6 d-none d-md-block">
@@ -73,6 +76,16 @@
 <script src="users/assets/js/vendor-all.min.js"></script>
 <script src="users/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+
+	$('#parent').on('keydown', '#input', function (e) {
+    var key = e.which;
+    if(key == 13) {
+        // alert("enter");
+        $('#login_btn').click();
+        // return false;
+    }
+});
+
 	$('#login_btn').click(function(){
 
 		
@@ -111,8 +124,10 @@
                        			window.location='users/index.php';
                        		}
                        		if(res.status=='failed'){
-                       			window.location='index.php';
-
+                       			// window.location='index.php';
+                       			$("#errorTxt3").html("Username or Password are incorrect");
+                       			$("#username").val('');
+                       			$("#password").val('');
                        		}
                        		
                        	}

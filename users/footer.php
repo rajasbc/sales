@@ -11,11 +11,12 @@
     <script src="assets/js/pages/chart-morris-custom.js"></script> -->
         <script src="assets/plugins/jquery/js/jquery.growl.js"></script>
 
-     <!-- <script src="assets/plugins/jquery/js/jquery.tablesorter.js"></script>
+     <!-- -->
+     
      <script src="assets/plugins/jquery/js/jquery.tablesorter.js"></script>
      <script src="assets/plugins/jquery/js/jquery.tablesorter.widgets.js"></script>
- -->
-
+     <script src="assets/plugins/jquery/js/jquery.tablesorter.pager.js"></script>
+    <script src="assets/js/jquery.session.min.js" type="text/javascript"></script>
 
 </body>
 
