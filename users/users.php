@@ -627,7 +627,7 @@ $("#email_id").blur(function(){
                     //$("#referralId").val(res.id);}
                    var rowCount=$("#myTable tr").length;
                     var i=rowCount+1;
-                    $("#mytable").append("<tr id='row"+res.id+"'><td></td><td>"+res.name+"</td><td>"+res.mobile_no+"</td><td>"+res.username+"</td><td>"+res.type+"</td><td><button class='btn btn-sm btn-primary btn-action' data-id='"+res.id+"' data-url='editUser.php?t="+res.id+"' value='"+res.id+"' name='user_edit' id='user_edit"+res.id+"' onclick='userEdit(this)' data-toggle='modal' >Edit</button></td><td><button class='btn btn-sm btn-primary btn-action' data-id='"+res.id+"' data-url='deleteUser.php?t="+res.id+"' value='"+res.id+"' onclick='userDelete(this)' name='user_delete' id='user_delete"+res.id+"' data-toggle='modal' >Delete</button></td></tr>");
+                    $("#mytable").append("<tr id='row"+res.id+"'><td>"+res.name+"</td><td>"+res.mobile_no+"</td><td>"+res.username+"</td><td>"+res.email+"</td><td>"+res.type+"</td><td><button class='btn btn-sm btn-success btn-action' data-id='"+res.id+"' data-url='editUser.php?t="+res.id+"' value='"+res.id+"' name='user_edit' id='user_edit"+res.id+"' onclick='userEdit(this)' data-toggle='modal' >Edit</button> &nbsp; <button class='btn btn-sm btn-warning btn-action' data-id='"+res.id+"' data-url='deleteUser.php?t="+res.id+"' value='"+res.id+"' onclick='userDelete(this)' name='user_delete' id='user_delete"+res.id+"' data-toggle='modal' >Delete</button></td></tr>");
                      $("#user_data")[0].reset();
                      $("#errorMsg").html('');
          $("#addUser .close").click();
@@ -728,7 +728,7 @@ $("#userUpdate").on('click',function(){
                     //$("#referralId").val(res.id);}
                    var rowCount=$("#myTable tr").length;
                     var i=rowCount+1;
-                     $("#row"+res.id).html("<td></td><td>"+res.name+"</td><td>"+res.mobile_no+"</td><td>"+res.username+"</td><td>"+res.type+"</td><td><button class='btn btn-primary btn-action btn-block' data-id='"+res.id+"' data-url='editUser.php?t="+res.id+"' value='"+res.id+"' name='user_edit' onclick='userEdit(this)' id='user_edit"+res.id+"' data-toggle='modal' >Edit</button></td><td><button class='btn btn-primary btn-action btn-block' data-id='"+res.id+"' data-url='deleteUser.php?t="+res.id+"' value='"+res.id+"' onclick='userDelete(this)' name='user_delete' id='user_delete"+res.id+"' data-toggle='modal' >Delete</button></td>");
+                     $("#row"+res.id).html("<td>"+res.name+"</td><td>"+res.mobile_no+"</td><td>"+res.username+"</td><td>"+res.email+"</td><td>"+res.type+"</td><td><button class='btn btn-sm btn-success btn-action' data-id='"+res.id+"' data-url='editUser.php?t="+res.id+"' value='"+res.id+"' name='user_edit' onclick='userEdit(this)' id='user_edit"+res.id+"' data-toggle='modal' >Edit</button> &nbsp; <button class='btn btn-sm btn-warning btn-action' data-id='"+res.id+"' data-url='deleteUser.php?t="+res.id+"' value='"+res.id+"' onclick='userDelete(this)' name='user_delete' id='user_delete"+res.id+"' data-toggle='modal' >Delete</button></td>");
                      $("#user_data")[0].reset();
                      $("#errorMsg").html('');
          $("#editUser .close").click();

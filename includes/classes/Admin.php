@@ -24,6 +24,7 @@ class Admin extends Dbconnection {
 
 		$_SESSION['username'] = $result[0]['username'];
 		$_SESSION['email'] = $result[0]['email'];
+		$_SESSION['uid'] = $result[0]['id'];
 
 		if (count($result)>0) {
 			
@@ -74,7 +75,11 @@ class Admin extends Dbconnection {
 		}
 		
 		else {
-			return ["status" => "success", "msg" => "User Created Successfully", "name" => $result[0]['name'], "mobile_no" => $result[0]['mobile'], "username" => $result[0]['username'], "type" => $result[0]['type'], "id" => $userId];
+
+			$sql="select * from ".$this->tablename." where id='".$userId."'";
+			$result = $this->db->GetResultsArray($sql);
+
+			return ["status" => "success", "msg" => "User Created Successfully", "name" => $result[0]['name'], "mobile_no" => $result[0]['mobile'], "email" => $result[0]['email'], "username" => $result[0]['username'], "type" => $result[0]['type'], "id" => $userId];
 		}
 
 	}
@@ -90,6 +95,7 @@ class Admin extends Dbconnection {
 	function update_users() {
 		$users = array();
 		$users['name'] = $this->db->getpost('username_edit');
+		$users['username'] = $this->db->getpost('username');
 		$users['password'] = md5($this->db->getpost('password_edit'));
 		$users['email'] = $this->db->getpost('edit_email_id');
 		$users['mobile'] = $this->db->getpost('edit_mobile_no');
@@ -114,7 +120,7 @@ class Admin extends Dbconnection {
 		$sql = "select * from " . $this->tablename . " where id=" . $this->db->getpost('userId');
 		$result = $this->db->GetResultsArray($sql);
 		if (count($result) > 0) {
-			return ["status" => "success", "msg" => "User Updated Successfully", "name" => $result[0]['name'], "mobile_no" => $result[0]['mobile'], "username" => $result[0]['username'], "type" => $result[0]['type'], "id" => $result[0]['id']];
+			return ["status" => "success", "msg" => "User Updated Successfully", "name" => $result[0]['name'], "mobile_no" => $result[0]['mobile'], "username" => $result[0]['username'], "email" => $result[0]['email'], "type" => $result[0]['type'], "id" => $result[0]['id']];
 		}
 		}
 	}
@@ -133,6 +139,13 @@ class Admin extends Dbconnection {
 				return ["status" => "faild"];
 			}
 
+	}
+
+	function getsalesperson()
+	{
+		$sql="select * from ".$this->tablename." where type='Sales Person'";
+		$result = $this->db->GetResultsArray($sql);
+		return $result;
 	}
 
 
