@@ -4,6 +4,8 @@
 	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="assets/js/pcoded.min.js"></script>
 
+    <script src="assets/js/jquery-ui.js"></script>
+
 
     <!-- chart-morris Js -->
     <!-- <script src="assets/plugins/chart-morris/js/raphael.min.js"></script>

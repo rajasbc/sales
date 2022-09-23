@@ -68,7 +68,7 @@ $user=$obj->getusername($userId);
 </div>
 
 <div class="form-row">
-    <div class="form-group col-lg-3">Username</div><div class="form-group col-lg-9"><input type="text" name="username" value='<?=$user['username']?>'  id="username" class='form-control' readonly></div></div>   
+    <div class="form-group col-lg-3">Username</div><div class="form-group col-lg-9"><input type="text" name="username" value='<?=$user['username']?>' id="username" class='form-control'></div></div>
 
 
 
