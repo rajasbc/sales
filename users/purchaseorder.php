@@ -61,8 +61,8 @@ include 'header.php';
           <div class="row">
             
             <div class="col-md-6">
-
-                <em id="customername" data-toggle="tooltip" title="Select Customer">
+<input type="hidden" name="s_no" id="s_no">
+                <em id="customername" data-toggle="tooltip" title="Select Vendor">
                   <img src="images\usericon.jpg" class="media-object" id ="selectCustomerBtn" data-toggle="modal" data-target="#customerModal" style="width:40px;cursor:pointer;margin-left:-14px">
                 </em> 
                 <em id='ccustomername'></em><br>
@@ -113,15 +113,25 @@ include 'header.php';
                 </div>
               </div>
 
+              <div class=" col-lg-5 col-sm-5 col-sm-5 md-6">
+                <div class="input-group input-group-sm">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text ">S.Order No.</span>
+                  </div>
+                  <input type='text' id='salesorderno' name='salesorderno' class="form-control" placeholder="Sales Order No" value="<?=base64_decode($_GET['bill_check_group'])?>" readonly />
+                </div>
+              </div>
+
             </div>
 
             <div class="form-group row">
               <div class="col-lg-4 col-sm-4 col-md-4">
                 <div class="input-group input-group-sm">
                   <div class="input-group-prepend">
-                    <span class="input-group-text">HSN Code</span>
+                    <span class="input-group-text">VAT (%)</span>
                   </div>
-                  <input class="form-control"  id="id6" type="text" autocomplete="off">
+                  <!-- <input class="form-control"  id="id6" type="text" autocomplete="off"> -->
+                  <input class="form-control" id="gst_val" type="text" autocomplete="off">
                 </div>
                 <input id="gstpercentage" type="hidden" >
               </div>
@@ -172,7 +182,7 @@ include 'header.php';
                     <th class="text-left">Items</th>
                     <th class="text-left">Price ₹</th>
                     <th class="text-left">Qty</th>
-                    <th class="text-left">GST % </th>
+                    <th class="text-left">VAT % </th>
                     <th class="text-left">Total ₹</th>
                     <th class="text-left">Action</th>
                   </tr>
@@ -223,7 +233,7 @@ include 'header.php';
                       <div class="col-lg-3 col-sm-3 col-md-3">
 
                       <div class="col-lg-1 col-sm-1 col-md-1">
-                        <input type="button" class="btn btn-sm btn-success save_bill" id="pay" value="Pay" />
+                        <input type="button" class="btn btn-sm btn-success save_bill" id="pay" value="Save" />
                       </div>
 
                       </div>
@@ -244,6 +254,8 @@ include 'header.php';
         <input type="hidden" id="iitem_id1">
         <input type="hidden" id="idiscount1">
         <input type="hidden" id="igst1">
+        <input id="cid" type="hidden" name="cid" >
+        <input id="custid" type="hidden" name="custid" >
 
 
 
@@ -254,28 +266,18 @@ include 'header.php';
       <input type="hidden" name="address_info" id="address_info" value="primary">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="customerModalTitle"><strong>Customer Details</strong></h5>
+          <h5 class="modal-title" id="customerModalTitle"><strong>Vendor Details</strong></h5>
           <button class="close" type="button" data-dismiss="modal" id="customerCloseBtn" aria-label="Close"><span aria-hidden="true">×</span></button>
         </div>
         <div class="modal-body">
           <div class="form-group row">
-            <!--     <div class="col-lg-4 col-sm-4 col-md-4">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Title</span>
-                    </div>
-                    <select class="form-control cust_form" id="title" name="title">
-                      <option value="Mr">Mr</option>
-                      <option value="Ms">Ms</option>
-                    </select>
-                  </div>
-                </div> -->
+
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
                       <span class="input-group-text input-group-text1">Name<span style="color: red;">&nbsp;*</span></span>
                     </div>
-                    <input class="form-control cust_form" id="custnameid" name="custname" type="text" placeholder="Customer Name" autocomplete="off" onkeypress="if(this.value.length==50) return false;">
+                    <input class="form-control cust_form" id="custnameid" name="custname" type="text" placeholder="Vendor Name" autocomplete="off" onkeypress="if(this.value.length==50) return false;">
                   </div>
                 </div>
               </div>
@@ -309,7 +311,7 @@ include 'header.php';
                     </div>
                     <input class="form-control cust_form" id="companyname" name="companyname" type="text" autocomplete="off" onkeypress="if(this.value.length==25) return false;">
                     <select class="form-control" style="border-left-width: 0px;display: none" id="billadd"></select>
-                    <input id="cid" type="hidden" name="cid" >
+                    
                     <input id="item_id" type="hidden" name="item_id" >
                   </div>
                 </div>
@@ -546,9 +548,6 @@ var cid=$("#cid").val();
 
     </main>
   </div>
-  <?php
-  include 'footer.php';
-  ?>
 
 <script type="text/javascript">
 $("#exchange_val").click(function(){
@@ -589,6 +588,9 @@ function wastage(){
 }
 }
 </script>
+
+
+
 <script type="text/javascript">
     function customer_wise_price(item,cuid) {
       $.ajax({
@@ -764,7 +766,7 @@ if($('#checked_val').val()=='F' && item.price!='0') {
   $.ajax({
   data: {'bill_id':bill_id,"bill":"bill"} ,
   type: "POST",
-  url:"ajaxCalls/getBillDetails.php",
+  url:"ajaxCalls/getorderdetails.php",
   dataType:'JSON',
   success: function(dataResult) {
   if(dataResult.out=='Cancelled')
@@ -787,11 +789,7 @@ getBillType();
   $("#billDate").attr('min',dataResult.previous_bill_date);
 
   $("#bill_no_val").val(dataResult.invoice_no);
-  if ('<?=$shopConfiguration['bill_number']?>'=='yes') {
-    $("#bill_no_val").val(dataResult.bill_number);
-    $("#bill_number").val(dataResult.bill_number);
-    $("#bill_number").css('display','none');
-  }
+  
   // $("#grandid1").val(dataResult.gtotal);
   // $("#taxid").html(dataResult.totaltax);
   $("#bill_id").val(dataResult.bill_id);
@@ -827,63 +825,51 @@ $("#gst_calc_type").attr("disabled", true);
               "itemno":value.item_id,
               "itemname":value.final_itemname,
               "qty":Number(value.final_qty),
-              "availableQty":100,
               "price":Number(value.final_price),
               "gst":Number(value.final_gst),
               "gstamount":Number(value.gstamount),
-              "gsttype":value.gsttype,
               "gstpercentage":value.final_gstpercentage,
-              "discount":value.final_discount,
               "total":Number(value.final_total),
-              "batch_no":value.batch_no,
-              "cost":Number(value.cost),
-              "weight":Number(value.weight),
-              "grams":value.grams,
-              "combination_id":value.combination_id,
-              "hsn":value.hsn,
-              "deleted":'no',
-              "exchange":value.exchange,
-              "perunit":value.perunit,
-              "bill_date":value.bill_date,
-              "flag":'old',
-              "discount_val":value.lessdiscount,
-              "main_id":value.main_id,
     };
     calculation();
     });
 
-    $('#shipname').val(dataResult.shiping_details['shipname']);
-    $('#shipcname').val(dataResult.shiping_details['ship_companyname']);
-    $('#invoiceNumber').val(dataResult.shiping_details['invoice_number']);
-    $('#deliveryNote').val(dataResult.shiping_details['delivery_note']);
-    $('#supplierRef').val(dataResult.shiping_details['supplier_ref']);
-    $('#buyersOrderNo').val(dataResult.shiping_details['buyers_order_no']);
-    $('#despatchedDocumentNo').val(dataResult.shiping_details['despatched_document_no']);
-    $('#Dispatched_through').val(dataResult.shiping_details['despatched_through']);
-    $('#billOfLoading').val(dataResult.shiping_details['bill_of_loding']);
-    $('#ewaybillno').val(dataResult.shiping_details['EWay_No']);
-    $('#invoiceDated').val(dataResult.shiping_details['invoice_dated']);
-    $('#paymentMode').val(dataResult.shiping_details['payment_mode']);
-    $('#otherReference').val(dataResult.shiping_details['other_reference']);
-    $('#buyersDated').val(dataResult.shiping_details['buyers_dated']);
-    $('#deliveryNoteDate').val(dataResult.shiping_details['delivery_note_date']);
-    $('#destination').val(dataResult.shiping_details['destination']);
-    $('#motorVehicleNo').val(dataResult.shiping_details['motor_vehicle_no']);
-    $('#termsOfDelivery').val(dataResult.shiping_details['terms_of_delivery']);
-    $("#packing_price_id").val(dataResult.pack_amt);
-    $("#pack_gst").val(dataResult.pack_gst_rate);
-    $("#freight_gst").val(dataResult.freight_gst_rate);
-    $("#freight_price_id").val(dataResult.freight_amt);
-    $("#cd_price").val(dataResult.cd_percentage);
-    // $("#cd_percentage").val(dataResult.cd_percentage);
-    $("#pack_charge").text(dataResult.pack_charge);
-    $("#freight_charge").text(dataResult.freight_charge);
-    $("#cd_charges").text(dataResult.cd_charge);
+    // $('#shipname').val(dataResult.shiping_details['shipname']);
+    // $('#shipcname').val(dataResult.shiping_details['ship_companyname']);
+    // $('#invoiceNumber').val(dataResult.shiping_details['invoice_number']);
+    // $('#deliveryNote').val(dataResult.shiping_details['delivery_note']);
+    // $('#supplierRef').val(dataResult.shiping_details['supplier_ref']);
+    // $('#buyersOrderNo').val(dataResult.shiping_details['buyers_order_no']);
+    // $('#despatchedDocumentNo').val(dataResult.shiping_details['despatched_document_no']);
+    // $('#Dispatched_through').val(dataResult.shiping_details['despatched_through']);
+    // $('#billOfLoading').val(dataResult.shiping_details['bill_of_loding']);
+    // $('#ewaybillno').val(dataResult.shiping_details['EWay_No']);
+    // $('#invoiceDated').val(dataResult.shiping_details['invoice_dated']);
+    // $('#paymentMode').val(dataResult.shiping_details['payment_mode']);
+    // $('#otherReference').val(dataResult.shiping_details['other_reference']);
+    // $('#buyersDated').val(dataResult.shiping_details['buyers_dated']);
+    // $('#deliveryNoteDate').val(dataResult.shiping_details['delivery_note_date']);
+    // $('#destination').val(dataResult.shiping_details['destination']);
+    // $('#motorVehicleNo').val(dataResult.shiping_details['motor_vehicle_no']);
+    // $('#termsOfDelivery').val(dataResult.shiping_details['terms_of_delivery']);
+    // $("#packing_price_id").val(dataResult.pack_amt);
+    // $("#pack_gst").val(dataResult.pack_gst_rate);
+    // $("#freight_gst").val(dataResult.freight_gst_rate);
+    // $("#freight_price_id").val(dataResult.freight_amt);
+    // $("#cd_price").val(dataResult.cd_percentage);
+    // // $("#cd_percentage").val(dataResult.cd_percentage);
+    // $("#pack_charge").text(dataResult.pack_charge);
+    // $("#freight_charge").text(dataResult.freight_charge);
+    // $("#cd_charges").text(dataResult.cd_charge);
+
+    $("#taxid").html(dataResult.totaltax);
+    $("#subid").html(dataResult.subtotal);
+
     $("#grandid").text(dataResult.gtotal);
-    $("#balance").val(dataResult.balance);
-    if(dataResult.pack_percentage!=0 || dataResult.freight_percentage!=0){
-      $('#other_charge_check').prop('checked',true);
-    }
+    // $("#balance").val(dataResult.balance);
+    // if(dataResult.pack_percentage!=0 || dataResult.freight_percentage!=0){
+    //   $('#other_charge_check').prop('checked',true);
+    // }
   }
   else
   {
@@ -1440,8 +1426,10 @@ if($('#checked_val').val()=='F' && item.price!='0') {
   var gstp = 0;
   var gstpercentage = 0;
 
-  // gstp=Number($('#gst_val').val());
-  // gstpercentage=gstp/100;
+  // alert(sno);
+
+  gstp=Number($('#gst_val').val());
+  gstpercentage=gstp/100;
   
   data["itemno"]=$("#itemno").val();
 
@@ -1453,7 +1441,11 @@ if($('#checked_val').val()=='F' && item.price!='0') {
   data["batch_no"]=$("#batch_no").val();
   data["qty"]=$("#qty1").val();
   data["gst"]=gstp;
+
+  total1=Number(data["price"])*Number(data["qty"]);
   
+  total=Number(total1)+Number(total1)*gstpercentage;
+
   var cqty=$("#qty1").val();
   data["total"]=total.toFixed(2);
   var cid=$("#cid").val();
@@ -1484,7 +1476,7 @@ gstamount=prototal*Number(gstpercentage);
 //item array insertion
 
   items["sid"+sno] = {
-    "sid":sno,
+  "sid":sno,
   "itemno":$("#itemno").val(),
   "itemname":itemcol,
   "qty":$("#qty1").val(),
@@ -1495,13 +1487,6 @@ gstamount=prototal*Number(gstpercentage);
   "discount":$("#discount1").val(),
   "hsn":$("#id6").val(),
   "total":total,
-  "expiry_date":$('#expiry_date').val(),
-  "deleted":'no',
-  "grams":Number($('#grams').val()).toFixed(3),
-  "silver_price":$("#silver_price_span").text(),
-  "wast":$('#wast').val(),
-  "mc":$('#mc').val(),
-  "flag":'new',
   };
   
 
@@ -1511,35 +1496,15 @@ gstamount=prototal*Number(gstpercentage);
   var trItemTemplate = [
   '<tr id="trItem_{{sno}}">',
     '<td class="text-left ch-4">{{sno}}</td>',
-    '<td class="text-left ch-4 <?php echo $hide_pkgsClass; ?>">{{bags}}</td>',
-    '<td class="text-left ch-4 <?php echo $hide_weight; ?>" style="display:none" id="temp_weight{{sno}}">{{weight}}</td>',
-    '<td class="text-left ch-4 <?php echo $hide_weight; ?>" id="temp_weight{{sno}}">{{weights}}</td>',
-    
-    '<td class="text-left ch-4 <?php echo $hide_unitClass; ?>">{{perunit}}</td>',
     '<td class="text-left ch-10">{{itemname}}</td>',
-    '<td class="text-left ch-5">{{hsn}}</td>',
 
-    //silver shop data
-    '<td class="text-left ch-4 <?php echo $hide_silver_data; ?>">{{grams}}</td>',
-    '<td class="text-left ch-4 <?php echo $hide_silver_data; ?>">{{wast}}</td>',
-    '<td class="text-left ch-4 <?php echo $hide_silver_data; ?>">{{mc}}</td>',
-
-
-    // '<td class="text-left">{{weight}}</td>',
     '<td class="text-left ch-6">',
       '<input type="hidden" name="price[]" id="priceid{{sno}}" value="{{price}}">',
     '{{price}}</td>',
     '<td class="text-left ch-4">',
       '<input onkeyup=priceupdate({{sno}},this) type="number" class="form-control qty" name="qty[]" id="num_qty{{sno}}" value="{{cqty}}" style="width:5rem; height:1.75rem" onkeypress="if(this.value.length==8) return false">',
     '</td>',
-    '<td class="text-left ch-6 <?php echo $hide_free_qtyClass; ?>">',
-      '<input type="hidden" name="temp_free_qty[]" id="temp_free_qty{{sno}}" value="{{free_qty}}">',
-    '{{free_qty}}</td>',
-    '<td class="text-left ch-6 <?php echo $hide_discountClass; ?>">',
-      '<input type="hidden" name="temp_discount[]" id="temp_discount{{sno}}" value="{{discount}}">',
-    '{{discount}}</td>',
-    // '<td class="text-left ch-4 <?php echo $hide_discountClass; ?>">{{discount}}%</td>',
-    '<td class="text-left ch-4 <?php echo $hide_gstClass; ?> id="gstpid{{sno}}"><input type="hidden" id="gstper{{sno}}" value="{{gst}}">{{gst}}</td>',
+    '<td class="text-left ch-4" id="gstpid{{sno}}"><input type="hidden" id="gstper{{sno}}" value="{{gst}}">{{gst}}</td>',
     '<td class="text-right ch-6" id="totalid{{sno}}">{{total}}</td>',
     '<td class="text-left ch-4">',
       '<button type="button" class="btn btn-default btn-sm" onclick="removeItem({{sno}})">',
@@ -1551,19 +1516,9 @@ gstamount=prototal*Number(gstpercentage);
   '</tr>'].join(''),
   tr = trItemTemplate;
   tr = tr.replace(getRegEx('sno'), sno);
-  tr = tr.replace(getRegEx('bags'), data['bags']);
-  tr = tr.replace(getRegEx('weight'), data['weight']);
-  tr = tr.replace(getRegEx('weights'), data['weights']);
-  tr = tr.replace(getRegEx('perunit'), data['perunit']);
   tr = tr.replace(getRegEx('itemname'), data['itemname']);
-  tr = tr.replace(getRegEx('hsn'), data['hsn']);
-  tr = tr.replace(getRegEx('grams'), data['grams']);
-  tr = tr.replace(getRegEx('wast'), (data['wast']==''?0:data['wast'])+wast_unit);
-  tr = tr.replace(getRegEx('mc'), data['mc']==''?0:data['mc']);
   tr = tr.replace(getRegEx('price'), data['price']);
   tr = tr.replace(getRegEx('cqty'), cqty);
-  tr = tr.replace(getRegEx('free_qty'), data['free_qty']);
-  tr = tr.replace(getRegEx('discount'), data['discount']);
   tr = tr.replace(getRegEx('gst'), data['gst']);
   tr = tr.replace(getRegEx('total'), data['total']);
   var emptyTr = $('#tdata .emptyTr').first();
@@ -1578,19 +1533,13 @@ gstamount=prototal*Number(gstpercentage);
   check_radio_id = $("#checked_val").val();
   $('#searchItemDetailForm').trigger("reset");
   $('#itemAttributeForm').trigger("reset");
-  $("#checked_val").val(check_radio_id);
-  $('.price_radio_check').prop('checked',false);
-  $('#'+check_radio_id).prop('checked',true);
   $(".itemAttributeDynamicForm").empty();
   $('#searchItem').val('').focus();
+  $('#gst_val').val('');
+  $('#price1').val('');
+  $('#qty1').val('');  
   $("#combination_id").val(0);
   $("#description_box").css('display','none');
-  $("#wast_span").text("WAST %");
-  <?php if ($shopConfiguration['other_shop_product']=='no') {?>
-  $('#itemno').val('');
-<?php }else{ ?>
-  $('#itemno').val('other');
-<?php } ?>
   }
   });
 
@@ -1602,22 +1551,19 @@ gstamount=prototal*Number(gstpercentage);
   var qtytemp=$(ele).val();
   
   var pricetemp=$("#priceid"+get_id).val();
-  
-  if(weight_preference=='yes'){
-  qtytemp=qtytemp*$('#temp_weight'+idval).text();
-  }
 
 
-  var gstper=$("#gstper"+idval).val();
-  var temp_discount=$("#temp_discount"+get_id).val();
+  var gstper=$("#gstpid"+idval).val();
+
   totaltemp=totaltemp+Number(pricetemp)*Number(qtytemp);
-  totaltemp=totaltemp-(totaltemp*temp_discount/100);
+
   $("#totalid"+get_id).html(totaltemp);
   var ref = "sid"+get_id;
   items[ref].qty=qtytemp1;
   items[ref].total=totaltemp;
   var availableQty=items[ref].availableQty;
   var name=items[ref].itemname;
+
   if(Number(qtytemp)<=0){
     $(ele).css("border","1px solid red");
     $.growl.error({
@@ -1627,37 +1573,22 @@ gstamount=prototal*Number(gstpercentage);
     $('#pay').attr('disabled',true);
     return false;
   }
-  if(Number(qtytemp)>Number(availableQty)){
-  $(ele).css("border","1px solid red");
-  <?php if ($_SESSION['type'] == "bill") {?>
-  $.growl.error({
-  title:"Available Quantity",
-  message:"You have qty on this Item :" + availableQty
-  });
-  <?php }?>
-  // $('#pay').attr('disabled','disabled');
+  else
+  {
+    $('#pay').attr('disabled',false);
+    $(ele).css("border","1px solid #ccc");
+    // return false;
   }
-  else{
-  $(ele).css("border","1px solid lightgray");
-  $('#pay').attr('disabled',false);
-  }
-      var gst_type=$('#gst_type').val();
-  var weight=1;
-  if ($("#temp_weight"+idval).text()!=0){
-    weight=$("#temp_weight"+idval).text();
-  }
+
+// alert(gstper);
+
   var gstpercentage=Number(gstper)/100;
 
-if (gst_type=="inclusive_gst") {
-prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)-(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)*($("#temp_discount"+idval).val()/100)));
 
-gstamount=Number(prototal-(prototal*100/(100+items[ref].gst)));
-}
-if (gst_type=="exclusive_gst") {
-prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)-(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)*($("#temp_discount"+idval).val()/100)));
+prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()));
 
 gstamount=prototal*Number(gstpercentage);
-}
+
 items[ref].gstamount=gstamount;
 items[ref].gstpercentage=gstpercentage;
 
@@ -1665,64 +1596,11 @@ items[ref].gstpercentage=gstpercentage;
 
   }
 
-  function discountupdate(idval,ele){
-
-  var gst_type=$('#gst_type').val();
-  var totaltemp=0;
-  var get_id=idval;
-  var qtytemp1=$("#num_qty"+get_id).val();
-  var qtytemp=$("#num_qty"+get_id).val();
-  
-  var disctemp1=$("#temp_discount"+get_id).val();
-  var disctemp=$("#temp_discount"+get_id).val();
-  
-  // var pricetemp=$(ele).val();
-  var pricetemp=$("#priceid"+get_id).val();
-  
-  if(weight_preference=='yes'){
-  qtytemp=qtytemp*$('#temp_weight'+idval).text();
-  }
-
-
-  var gstper=$("#gstpid"+get_id).val();
-  var temp_discount=$("#temp_discount"+get_id).val();
-
-  totaltemp=totaltemp+Number(pricetemp)*Number(qtytemp);
-  totaltemp=totaltemp-(totaltemp*temp_discount/100);
-
-  $("#totalid"+get_id).html(totaltemp);
-
-  var ref = "sid"+get_id;
-  items[ref].discount=disctemp;
-  items[ref].price=pricetemp;
-  items[ref].total=totaltemp;
-  // var availableQty=items[ref].availableQty;
-  var name=items[ref].itemname;
-       var gst_type=$('#gst_type').val();
-  var weight=1;
-  if ($("#temp_weight"+idval).text()!=0){
-    weight=$("#temp_weight"+idval).text();
-  }
-  var gstpercentage=Number(gstper)/100;
-
-if (gst_type=="inclusive_gst") {
-prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)-(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)*($("#temp_discount"+idval).val()/100)));
-
-gstamount=Number(prototal-(prototal*100/(100+items[ref].gst)));
-}
-if (gst_type=="exclusive_gst") {
-prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)-(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)*($("#temp_discount"+idval).val()/100)));
-
-gstamount=prototal*Number(gstpercentage);
-}
-items[ref].gstamount=gstamount;
-items[ref].gstpercentage=gstpercentage;
-  calculation();
-  }
 
 function gstupdate(idval,ele){
   var gstamount=0;
   var prototal=0;
+  var totaltemp=0;
   var qtytemp1=$(ele).val();
   var ref = "sid"+idval;
   items[ref].gst=Number(qtytemp1);
@@ -1734,23 +1612,29 @@ function gstupdate(idval,ele){
   if ($("#temp_weight"+idval).text()!=0){
     weight=$("#temp_weight"+idval).text();
   }
+
   var gstpercentage=$("#gstpid"+idval).val()/100;
 
-if (gst_type=="inclusive_gst") {
-prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)-(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)*($("#temp_discount"+idval).val()/100)));
 
-gstamount=Number(prototal-(prototal*100/(100+items[ref].gst)));
-}
-if (gst_type=="exclusive_gst") {
-prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)-(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)*($("#temp_discount"+idval).val()/100)));
+prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()));
 
 gstamount=prototal*Number(gstpercentage);
-}
+
+
+// alert(gstamount);
+
+totaltemp=prototal+Number(gstamount);
+
+totaltemp=totaltemp.toFixed(2);
+
+$("#totalid"+idval).html(totaltemp);
+
 items[ref].gstamount=gstamount;
 items[ref].gstpercentage=gstpercentage;
   calculation();
 // enkerkeypress();
   } 
+
   function costupdate(idval,ele){
   var gst_type=$('#gst_type').val();
   var totaltemp=0;
@@ -1759,22 +1643,19 @@ items[ref].gstpercentage=gstpercentage;
   var qtytemp=$("#num_qty"+get_id).val();
   
   var pricetemp=$(ele).val();
-  
-  if(weight_preference=='yes'){
-  qtytemp=qtytemp*$('#temp_weight'+idval).text();
-  }
 
 
   var gstper=$("#gstpid"+get_id).val();
   var temp_discount=$("#temp_discount"+get_id).val();
   totaltemp=totaltemp+Number(pricetemp)*Number(qtytemp);
-  totaltemp=totaltemp-(totaltemp*temp_discount/100);
-  $("#totalid"+get_id).html(totaltemp);
+
+  
+
   var ref = "sid"+get_id;
   items[ref].qty=qtytemp1;
   items[ref].price=pricetemp;
   items[ref].total=totaltemp;
-  var availableQty=items[ref].availableQty;
+
   var name=items[ref].itemname;
   if(Number($(ele).val())==0 || Number($(ele).val())==''){
   $(ele).css("border","1px solid red");
@@ -1786,23 +1667,26 @@ items[ref].gstpercentage=gstpercentage;
         return false;
     
   }
-   var gst_type=$('#gst_type').val();
-  var weight=1;
-  if ($("#temp_weight"+idval).text()!=0){
-    weight=$("#temp_weight"+idval).text();
+  else
+  {
+    $(ele).css("border","1px solid #ccc");
   }
+
+  
   var gstpercentage=Number(gstper)/100;
 
-if (gst_type=="inclusive_gst") {
-prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)-(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)*($("#temp_discount"+idval).val()/100)));
-
-gstamount=Number(prototal-(prototal*100/(100+items[ref].gst)));
-}
-if (gst_type=="exclusive_gst") {
-prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)-(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)*($("#temp_discount"+idval).val()/100)));
+prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()));
 
 gstamount=prototal*Number(gstpercentage);
-}
+
+// alert(gstamount);
+
+totaltemp=totaltemp+Number(gstamount);
+
+totaltemp=totaltemp.toFixed(2);
+
+$("#totalid"+get_id).html(totaltemp);
+
 items[ref].gstamount=gstamount;
 items[ref].gstpercentage=gstpercentage;
   calculation();
@@ -1826,12 +1710,12 @@ items[ref].gstpercentage=gstpercentage;
   var gstper=$("#gstpid"+get_id).val();
   var temp_discount=$("#temp_discount"+get_id).val();
   totaltemp=totaltemp+Number(pricetemp)*Number(qtytemp);
-  totaltemp=totaltemp-(totaltemp*temp_discount/100);
+
   $("#totalid"+get_id).html(totaltemp);
   var ref = "sid"+get_id;
   items[ref].qty=qtytemp1;
   items[ref].total=totaltemp;
-  var availableQty=items[ref].availableQty;
+
   var name=items[ref].itemname;
   if(Number(qtytemp)<=0){
     $(ele).css("border","1px solid red");
@@ -1842,37 +1726,27 @@ items[ref].gstpercentage=gstpercentage;
     $('#pay').attr('disabled',true);
     return false;
   }
-  if(Number(qtytemp)>Number(availableQty)){
-  $(ele).css("border","1px solid red");
-  <?php if ($_SESSION['type'] == "bill") {?>
-  $.growl.error({
-  title:"Available Quantity",
-  message:"You have qty on this Item :" + availableQty
-  });
-  <?php }?>
-  // $('#pay').attr('disabled','disabled');
-  }
-  else{
-  $(ele).css("border","1px solid lightgray");
-  $('#pay').attr('disabled',false);
-  }
-   var gst_type=$('#gst_type').val();
-  var weight=1;
-  if ($("#temp_weight"+idval).text()!=0){
-    weight=$("#temp_weight"+idval).text();
-  }
+
+
+  
+
   var gstpercentage=Number(gstper)/100;
 
-if (gst_type=="inclusive_gst") {
-prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)-(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)*($("#temp_discount"+idval).val()/100)));
 
-gstamount=Number(prototal-(prototal*100/(100+items[ref].gst)));
-}
-if (gst_type=="exclusive_gst") {
-prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)-(($("#priceid"+idval).val()*$("#num_qty"+idval).val()*weight)*($("#temp_discount"+idval).val()/100)));
+prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()));
 
 gstamount=prototal*Number(gstpercentage);
-}
+
+
+// alert(gstamount);
+
+totaltemp=totaltemp+Number(gstamount);
+
+totaltemp=totaltemp.toFixed(2);
+
+$("#totalid"+idval).html(totaltemp);
+
+
 items[ref].gstamount=gstamount;
 items[ref].gstpercentage=gstpercentage;
   calculation();
@@ -1882,58 +1756,7 @@ items[ref].gstpercentage=gstpercentage;
   items[ref].qty=qtytemp;
 }
   }
-  function Weightpdate(idval,ele){
-    if ($("#calcmethod"+idval).val()=='weight_calc') {
-  var gst_type=$('#gst_type').val();
-  var totaltemp=0;
-  var get_id=idval;
-  var qtytemp1=$(ele).val();
-  var qtytemp=$(ele).val();
   
-  var pricetemp=$("#priceid"+get_id).val();
-  if ($("#calcmethod"+idval).val()=='qty_calc') {
-      qtytemp=qtytemp*$('#num_qty'+idval).val();
-}
-  var gstper=$("#gstpid"+get_id).val();
-  var temp_discount=$("#temp_discount"+get_id).val();
-  totaltemp=totaltemp+Number(pricetemp)*Number(qtytemp);
-  totaltemp=totaltemp-(totaltemp*temp_discount/100);
-  $("#totalid"+get_id).html(totaltemp);
-  var ref = "sid"+get_id;
-  items[ref].grams=qtytemp1;
-  items[ref].total=totaltemp;
-  var availableQty=items[ref].availableQty;
-  var name=items[ref].itemname;
-  if(Number(qtytemp)<=0){
-    $(ele).css("border","1px solid red");
-    $.growl.error({
-        title:"Valid Quantity",
-        message:"Please enter Valid quantity:"
-      });
-    $('#pay').attr('disabled',true);
-    return false;
-  }
-  if(Number(qtytemp)>Number(availableQty)){
-  $(ele).css("border","1px solid red");
-  <?php if ($_SESSION['type'] == "bill") {?>
-  $.growl.error({
-  title:"Available Quantity",
-  message:"You have qty on this Item :" + availableQty
-  });
-  <?php }?>
-  // $('#pay').attr('disabled','disabled');
-  }
-  else{
-  $(ele).css("border","1px solid lightgray");
-  $('#pay').attr('disabled',false);
-  }
-  calculation();
-}else{
-  var qtytemp=$(ele).val();
-    var ref = "sid"+idval;
-  items[ref].weight=qtytemp;
-}
-  }
   grand=[];
   $('#overall_disc').on('keyup',function(){
     if($('#grandid1').val()==0){
@@ -1950,28 +1773,29 @@ items[ref].gstpercentage=gstpercentage;
   });
 
 
+
   function calculation(){
-    if ("<?=$_GET['bill_check_group']?>"=="" && '<?=base64_decode($_GET['future_ids'])?>'=='') {
-      var obj12 = $.extend({}, items);
-localStorage.setItem('myArray', JSON.stringify(obj12));
-var array = localStorage.getItem('myArray');
-array = JSON.parse(array);
-    }
+
+  
     
-  var gst_type=$('#gst_type').val();
-  var check_bill=check_credit_bill();
-  if(check_bill=='credit_bill'){
-    $('#credit_bill_check').attr('checked',true);
-  }
-  else{
-    $('#credit_bill_check').attr('checked',false);
-  }
+  // var gst_type=$('#gst_type').val();
+  
+
   itemslist = items;
   qtyarray = [];
   // console.log(itemslist);
-  sessionStorage.setItem("id", JSON.stringify(items));
-  var retrievedData = sessionStorage.getItem("id");
-  var id=JSON.parse(retrievedData);
+  // sessionStorage.setItem("id", JSON.stringify(items));
+  // var retrievedData = sessionStorage.getItem("id");
+  // var id=JSON.parse(retrievedData);
+  
+  
+  var qty;
+  var i=0;
+  var discount=0;
+  var disamt=0;
+  var val=0;
+  var tempItem;
+
   var total=0;
   var temp_subtotal=0;
   var tax=0;
@@ -1980,118 +1804,63 @@ array = JSON.parse(array);
   var temp_tax=0;
   var inclusive_tax=0;
   var inclusive_subtotal=0;
-  
-  var qty;
-  var i=0;
-  var discount=0;
-  var disamt=0;
-  var val=0;
-  var tempItem;
+
+
  if ("<?=$_GET['bill_check_group']?>"=="")  {
+
+
   for(vale in itemslist) {
   tempItem = itemslist[vale];
-  availableQty = tempItem['availableQty'];
   val=Number(tempItem["qty"]);
 
-  if(weight_preference=='no')
-  {
   total= Number(tempItem["price"])*Number(tempItem["qty"]);
-  }
-  else
-  {
-  total= Number(tempItem["price"])*Number(tempItem["qty"])*Number(tempItem["weight"]);
-  }
-
-if(tempItem['exchange']== "true"){
-total= -total;
-}else{
-  total=total;
-}
+  
   qtyarray.push({
   'itemId': tempItem["itemno"],
-  'combinationId': tempItem['combination_id'],
-  'itemPurchaseCount': val,
-  'itemAvailableQty': availableQty
+  'itemPurchaseCount': val
   });
   
-  temp_subtotal=Number(tempItem["total"]);
-  // console.log(temp_subtotal);
-   if(tempItem['exchange']== "true"){
-    temp_subtotal= -temp_subtotal;
-}else{
-  temp_subtotal=temp_subtotal;
-}
+  // temp_subtotal=Number(tempItem["total"]);
+
+  temp_subtotal=Number(total);
 
   subtotal1=Number(subtotal1)+Number(temp_subtotal);
-  temp_tax=(temp_subtotal-(temp_subtotal*100/(100+tempItem.gst)));
-  inclusive_tax+=temp_tax;
-  inclusive_subtotal+=(temp_subtotal-temp_tax);
 
-
-  if($('#is_silver_shop').val()=='yes'){
-    discount=Number(discount)+Number(tempItem["discount_val"]);
-  }
-  else{
-    discount=Number(discount)+(Number(total)*Number(tempItem["discount"]/100));
-  }
   tax=Number(tax)+Number(temp_subtotal)*Number(tempItem.gstpercentage);
   i++;
 
   }
-}else{
+
+
+
+ }else{
   for(vale in itemslist) {
-   if (itemslist[vale]['deleted']=='no') {
+
+// alert(subtotal1);
+
   tempItem = itemslist[vale];
-  availableQty = tempItem['availableQty'];
   val=Number(tempItem["qty"]);
 
-  if(weight_preference=='no')
-  {
   total= Number(tempItem["price"])*Number(tempItem["qty"]);
-  }
-  else
-  {
-  total= Number(tempItem["price"])*Number(tempItem["qty"])*Number(tempItem["weight"]);
-  }
 
-if(tempItem['exchange']== "true"){
-total= -total;
-}else{
-  total=total;
-}
+
   qtyarray.push({
   'itemId': tempItem["itemno"],
-  'combinationId': tempItem['combination_id'],
-  'itemPurchaseCount': val,
-  'itemAvailableQty': availableQty
+  'itemPurchaseCount': val
   });
   
-  temp_subtotal=Number(tempItem["total"]);
-  // console.log(temp_subtotal);
-   if(tempItem['exchange']== "true"){
-    temp_subtotal= -temp_subtotal;
-}else{
-  temp_subtotal=temp_subtotal;
-}
+  // temp_subtotal=Number(tempItem["total"]);
 
+  temp_subtotal=Number(total);
+  
   subtotal1=Number(subtotal1)+Number(temp_subtotal);
-  temp_tax=(temp_subtotal-(temp_subtotal*100/(100+tempItem.gst)));
-  inclusive_tax+=temp_tax;
-  inclusive_subtotal+=(temp_subtotal-temp_tax);
-
-  if($('#is_silver_shop').val()=='yes'){
-    discount=Number(discount)+Number(tempItem["discount_val"]);
-  }
-  else{
-    discount=Number(discount)+(Number(total)*Number(tempItem["discount"]/100));
-  }
 
   tax=Number(tax)+Number(temp_subtotal)*Number(tempItem.gstpercentage);
   i++;
-}
+
   }
 }
-  if(gst_type=='exclusive_gst'){
+
   // This calculation for exclusive_Tax and it was default calculation
   grand_total=Number(tax)+Number(subtotal1);
   var fgrand_total=(Number(grand_total));
@@ -2102,20 +1871,7 @@ total= -total;
   $("#discid").html(discount.toFixed(2));
   $("#grandid").html(Math.round(fgrand_total));
   $("#grandid1").val(Math.round(fgrand_total));
-  }
-  else
-  {
-  var oqty=$.extend({},qtyarray);
-  // This calculation for inclusive_tax
-  grand_total=Math.round(Number(subtotal1));
-  var fgrand_total=(Number(grand_total));
-  $("#subid").html(inclusive_subtotal.toFixed(2));
-  $("#subid1").val(inclusive_subtotal.toFixed(2));
-  $("#taxid").html(inclusive_tax.toFixed(2));
-  $("#discid").html(discount.toFixed(2));
-  $("#grandid").html(Math.round(grand_total));
-  $("#grandid1").val(Math.round(grand_total));
-  }
+  
   grand['id']=fgrand_total;
   other_charges_calc();
 
@@ -2297,14 +2053,15 @@ function other_charges_calc()
   }
   $(document).ready(function(){
   $('#custnameid').autocomplete({
-  source: "ajaxCalls/get_custom.php",
+  source: "ajaxCalls/get_vendor.php",
   minLength: 1,
   select: function(event,ui) {
   if( ui.item.label != 'No Record Found')
   {
   // console.log(ui.item);
   // alert(ui.item[0].address_info);
-  $('#cid').val(ui.item.cid);
+  $('#cid').val(ui.item.id);
+  $('#custid').val(ui.item.id);
   $('#mobile').val(ui.item.mobile);
   $('#custnameid').val(ui.item.name);
   $('#email').val(ui.item.email);
@@ -2351,6 +2108,7 @@ $('#phone').css("border","1px solid #ced4da");
 var email=$("#idemail").val();
 var customname=$("#custnameid").val();
 var cid=$("#cid").val();
+// alert(cid);
 customerarray["cid"]=cid;
 var phonevar=$("#mobile").val();
 var address_line_1=$("#address").val();
@@ -2422,7 +2180,7 @@ var cust_address_id=$('#cust_address_id').val();
 
 if(cust_address_id==0){
 $.ajax({
-url:"ajaxCalls/add_custom.php",
+url:"ajaxCalls/add_vendor.php",
 type: "POST",
 dataType: "json",
 data:  $('#cform').serialize(),
@@ -2592,17 +2350,8 @@ $("#product_subcategory").append('<option value=' + value['name'] + '>' + value[
     }).blur();
     //var subid=$("#subid").val();
     $('.save_bill').on('click', function(e){
-      <?php if ($shopConfiguration['bill_number'] === 'yes' && $_SESSION['type']=='bill' && $_SESSION['is_silver_shop']=='no') { ?>
-  if ($("#bill_number").val()=='') {
-    $.growl.error({title:"Error", message:"Please Enter Bill Number"
-    });
-    $("#bill_number").focus();
-    $("#bill_number").css('border','1px solid red');
-    return false;
-  }else{
-    $("#bill_number").css('border','1px solid grey');
-  }
-<?php }?>
+
+     
     if($('#advance').val()!='')
     {
     if($('#payment_mode_conf').val()=='yes')
@@ -2649,6 +2398,9 @@ check.length=1;
     
     bill_log['change']=change;
     var cid=$("#cid").val();
+
+    // alert(cid);
+
     var billType = getBillType();
     var checked_credit=check_credit_bill();
     // var gst_calc_type=$("#cal_type_gst").val();
@@ -2656,39 +2408,32 @@ check.length=1;
   if ($('#cal_type_gst').val()=="") {
     var gst_calc_type='GST';
   }
-  if(checked_credit=='credit_bill'){
-    if(cid==''|| cid==0){
-    $.growl.warning({title:"Notice", message:"Customer Name is Mandatory for Credit Bill"
-    });  
-    return false;
-    }
-  }
+  // if(checked_credit=='credit_bill'){
+  //   if(cid==''|| cid==0){
+  //   $.growl.warning({title:"Notice", message:"Customer Name is Mandatory for Credit Bill"
+  //   });  
+  //   return false;
+  //   }
+  // }
+
+
 
     // console.log(gst_calc_type);
-    customerarray["bill_date"]=$("#billDate").val();
-    customerarray["cid"]=cid;
-    customerarray["billType"]=checked_credit!='' ? checked_credit:billType;
+    customerarray["cid"]=$("#custid").val();
     customerarray["taxable_amt"]=$("#subid1").val();
-    customerarray["gst_calc_type"]=gst_calc_type;
+    // customerarray["gst_calc_type"]=gst_calc_type;
     customerarray["totalgstamount"]=$("#taxid").text();
-    customerarray["cust_address_id"]=$("#cust_address_id").val();
+    // customerarray["cust_address_id"]=$("#cust_address_id").val();
     var cobj=$.extend({},customerarray);
     var obj = $.extend({}, items);
-    var bobj=$.extend({},bill_log);
-    var pay=$("#payment_mode").val();
+    // var bobj=$.extend({},bill_log);
     // console.log(obj);
-    if($("#shoptype").val()=='bill')
-    {
-    var ship = $('#shippingForm').serialize();
-    }
-    else{
-    var ship='';
-    }
+    
     $('#pay').attr('disabled','disabled');
     $('#pay').val('loading');
-    var shop_id=$('#shop_id').val();
-    var gst_type=$('#gst_type').val();
-    var business_type =$("#businesstype").val();
+    // var shop_id=$('#shop_id').val();
+    // var gst_type=$('#gst_type').val();
+    // var business_type =$("#businesstype").val();
     var bill_id=atob('<?php echo $_GET['bill_check_group']?>');
   if(bill_id=='')
   {
@@ -2699,125 +2444,23 @@ check.length=1;
     var bill_number = $("#bill_number").val();
     // var other_charges=get_other_charges();
     var pack_per=pack_percentage();
-      ajaxRequest();
+
+    var salesorderno=$("#salesorderno").val();
+
+      // ajaxRequest();
       $.ajax({
       type: "POST",
-      url:"ajaxCalls/add_bill.php",
+      url:"ajaxCalls/add_purchaseorder.php",
       dataType:'JSON',
-      data: $.param(obj)+'&'+$.param(cobj)+'&'+$.param(bobj)+'&'+ship+'&'+'shop_id='+shop_id+'&'+'gst_type='+gst_type+'&'+'business_type='+business_type+'&'+'bill_id='+bill_id+'&pack_per='+pack_per+'&'+get_other_charges()+'&'+'cd_amt='+cd_amt+'&'+'dc_number='+dc_number+'&'+'bill_number='+bill_number,
+      data: $.param(obj)+'&'+$.param(cobj)+'&salesorderno='+salesorderno,
       success: function(dataResult) {
-        localStorage.clear('myArray');
+        // localStorage.clear('myArray');
       // console.log(dataResult);
       if (dataResult['status'] === 'success') {
-        localStorage.clear('myArray');
-      var bill_id = btoa(dataResult.bill_id);
-      var shop_id=btoa(dataResult.shop_id);
-      $('#shippingForm').trigger("reset");
-      $('#pay').attr('disabled','false');
-      $('#advance').val('');
-      $('#payment_mode').val('');
-      $('#packing_price_id').val('');
-      $('#pack_gst').val('');
-      $('#freight_price_id').val('');
-      $('#freight_gst').val('');
-      if($('#overall_disc').val()!=undefined){
-      $('#overall_disc').val('');
-      $('#disc_pref_rupee').prop('checked',true);
-      $('#span_disc').html('Disc ₹');
-      }
-
-      $('#other_charge_check').prop('checked',false);
-      if(which_btn_click=="pay")
-      {
-      if($("#billformat").val()=='BillFormat1.jpg')
-      {
-      window.open('printUpdateDuplicate.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-      }
-      else if($("#billformat").val()=='BillFormat2.jpg'){
-      window.open('billprint.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-      }
-      else if($("#billformat").val()=='BillFormat3.jpg'){
-      window.open('bill_format_3.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-      }
-       else if($("#billformat").val()=='BillFormat4.jpg'){
-      window.open('estimation_bill.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-      }
-      else if($("#billformat").val()=='exchange_format.png'){
-      window.open('exchange_format.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-      }
-
-      else if($("#billformat").val()=='BillFormat5.jpg'){
-      window.open('3inch_print.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-      }
-
-      else if($("#billformat").val()=='BillFormat6.jpg'){
-      window.open('4inch_print.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-      }
-      else if($("#billformat").val()=='BillFormat7.jpg'){
-      window.open('dotmatrix.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-      }
-      else if($("#billformat").val()=='BillFormat8.png'){
-      window.open('printUpdateDuplicateBatch.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-      }
-      else if($("#billformat").val()=='BillFormat9.png'){
-      window.open('printUpdateBatchExpiry.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-      }
-      else if($("#billformat").val()=='BillFormat10.jpg'){
-      window.open('print_new_format.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-      }
-      else if($("#billformat").val()=='BillFormat11.jpg')
-      {
-      window.open('print_invoice_and_receipt.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-      }
-      else if($("#billformat").val()=='BillFormat12.jpg')
-      {
-      window.open('print_medical_billing.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-      }
-      else if($("#billformat").val()=='BillFormat13.jpg')
-      {
-        // alert('ddd');
-      window.open('3inch_bill_print.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-      }
-      else{
-        if($('#is_silver_shop').val()=='no'){
-        window.open('printUpdateDuplicate.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-        }
-        else{
-        window.open('4inch_print.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-        }
+        window.location.href="viewpurchaseorder.php";
       }
       
-      }
-      else
-      {
-        var bill_id = dataResult.bill_id;
-        var shop_id = dataResult.shop_id;
-        $.ajax({
-          type: "POST",
-          url:"ajaxCalls/add_billing_log.php",
-          dataType:'JSON',
-          data:{"bill_id":bill_id,"shop_id":shop_id},
-          success: function(res) {
-            if($res.status=='sucess'){
-              window.location.href=window.location.href;
-            }
-          }
-        });
-      }
       
-      }
-      else {
-      $.growl.error({
-      title:"Unable to make Payment",
-      message:"Please contact Sales Team"
-      });
-      }
-      $('#bill_type').prop('checked',true);
-      $('#credit_bill_check').prop('checked',false);
-      window.location.href=window.location.href;
-      if ('<?=base64_decode($_GET['future_ids'])?>'!='') {
-        window.location.href='orders_list.php';
-      }
       }
       });
     }
@@ -2904,15 +2547,17 @@ check.length=1;
 var div = document.createElement('div');
 div.innerHTML = ajaxLoader;
 document.body.appendChild(div);
-function ajaxRequest(){
-$(document).ajaxStart(function(){
-$('.ajax-loader').show();
-$('.ajax-loader-overlay').show();
-}).ajaxStop(function(){
-$('.ajax-loader').hide();
-$('.ajax-loader-overlay').hide();
-});
-}
+
+// function ajaxRequest(){
+// $(document).ajaxStart(function(){
+// $('.ajax-loader').show();
+// $('.ajax-loader-overlay').show();
+// }).ajaxStop(function(){
+// $('.ajax-loader').hide();
+// $('.ajax-loader-overlay').hide();
+// });
+// }
+
 </script>
 <script type="text/javascript">
 $("#back_to_home").click(function(){
