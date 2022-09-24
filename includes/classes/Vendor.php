@@ -44,6 +44,14 @@ class Vendor extends Dbconnection {
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
 	}
+
+	function getvendor_details(){
+         $sql = "select * from " . $this->tablename." WHERE is_delete='NO' and  (name LIKE '%".$this->db->getpost('term')."%' ) LIMIT 0,15";
+        $result = $this->db->GetResultsArray($sql);
+        return $result;
+
+    }
+
 	function getAllcustomersfilter() {
 
 		$no_of_records_per_page =$this->db->getpost('size');
