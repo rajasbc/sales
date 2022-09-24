@@ -73,6 +73,19 @@ class Vendor extends Dbconnection {
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
 	}
+	public function search_email1(){
+		$sql = "select email from " . $this->tablename . " where  email = '".$this->db->getpost('email')."'";
+		$res=$this->db->GetResultsArray($sql);
+		if(count($res)==0)
+		{
+			return " Email Availble";
+			
+		}
+		else
+		{
+			return " Email Already Availble";
+		}
+	}
 
 }
 ?>

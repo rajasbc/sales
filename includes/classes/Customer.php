@@ -87,6 +87,19 @@ $sql = "select * from " . $this->tablename . " where  id = ".$cId;
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
 	}
+	public function search_email(){
+		$sql = "select email from " . $this->tablename . " where  email = '".$this->db->getpost('email')."'";
+		$res=$this->db->GetResultsArray($sql);
+		if(count($res)==0)
+		{
+			return " Email Availble";
+			
+		}
+		else
+		{
+			return " Email Already Availble";
+		}
+	}
 
 }
 ?>
