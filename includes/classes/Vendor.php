@@ -5,6 +5,7 @@ class Vendor extends Dbconnection {
 	var $invitee_obj;
 	var $msg = '';
 	var $tablename = "vendor";
+	var $countries = "bird_countries";
 	
 	
 
@@ -58,6 +59,11 @@ class Vendor extends Dbconnection {
 
 		$result = $this->db->GetResultsArray($sql);
 		return $result;	
+	}
+	function get_countries() {
+		$sql = "select * from bird_countries";
+		$result = $this->db->GetResultsArray($sql);
+		return $result;
 	}
 
 }
