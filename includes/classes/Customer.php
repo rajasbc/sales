@@ -46,7 +46,7 @@ class Customer extends Dbconnection {
 		return $result;
 	}
 	function get_customers($id) {
-		$sql = " select * from " . $this->tablename." where id=".$id;
+		$sql = " select * from " . $this->tablename." where id='".$id."'";
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
 	}

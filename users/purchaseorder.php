@@ -1354,16 +1354,9 @@ if($('#checked_val').val()=='F' && item.price!='0') {
   source: "ajaxCalls/get_items.php?type=text",
   minLength: 1,
   select: function(event,ui) {
-    if("<?=$shopDetails['customer_previous_prcie_and_discount']?>"=='no'){
+
       autoFillSearchItem(ui.item);
-    }else{
-      if ($("#cid").val()!='') {
-        customer_wise_price(ui.item,$("#cid").val());
-      }else{
-        autoFillSearchItem(ui.item);
-      }
-      
-    }
+    
 
   }
   }).data('ui-autocomplete')._renderItem = function(ul, item){
@@ -1494,7 +1487,7 @@ gstamount=prototal*Number(gstpercentage);
   $("#batch").hide();
   $("#comb_batch").hide();
   var trItemTemplate = [
-  '<tr id="trItem_{{sno}}">',
+  '<tr class="productrow" id="trItem_{{sno}}">',
     '<td class="text-left ch-4">{{sno}}</td>',
     '<td class="text-left ch-10">{{itemname}}</td>',
 
@@ -2380,6 +2373,9 @@ check.length=1;
    if(localStorage.getItem('myArray')!=''){
 check.length=1;
   }
+
+// alert(vale.length);
+
     if(check.length>0){
     var advance=$("#advance").val();
     var change=$("#change").val();
@@ -2420,6 +2416,17 @@ check.length=1;
 
     // console.log(gst_calc_type);
     customerarray["cid"]=$("#custid").val();
+
+    if(customerarray["cid"]=='')
+    {
+          $.growl.error({
+           title:"SUCCESS",
+           message:"Select Vendor"
+          });
+          return false;
+    }
+
+
     customerarray["taxable_amt"]=$("#subid1").val();
     // customerarray["gst_calc_type"]=gst_calc_type;
     customerarray["totalgstamount"]=$("#taxid").text();
@@ -2427,7 +2434,16 @@ check.length=1;
     var cobj=$.extend({},customerarray);
     var obj = $.extend({}, items);
     // var bobj=$.extend({},bill_log);
-    // console.log(obj);
+    // console.log($.isEmptyObject(items));
+
+    if($.isEmptyObject(items)==true)
+    {
+
+    $.growl.warning({title:"Error",message:"Enter the Item Details"});
+
+    return false;
+
+    }
     
     $('#pay').attr('disabled','disabled');
     $('#pay').val('loading');
@@ -2447,6 +2463,11 @@ check.length=1;
 
     var salesorderno=$("#salesorderno").val();
 
+
+
+
+
+
       // ajaxRequest();
       $.ajax({
       type: "POST",
@@ -2457,7 +2478,18 @@ check.length=1;
         // localStorage.clear('myArray');
       // console.log(dataResult);
       if (dataResult['status'] === 'success') {
-        window.location.href="viewpurchaseorder.php";
+        // window.location.href="viewpurchaseorder.php";
+
+
+          $.growl.notice({
+           title:"SUCCESS",
+           message:"Purchase Order Successfully"
+          });
+
+          setTimeout(function(){
+          window.location='viewpurchaseorderdetails.php?id='+dataResult.order_id;
+          }, 1000);
+
       }
       
       

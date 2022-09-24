@@ -7,6 +7,7 @@ if(count($result)>0){
 foreach($result as $row){
 $temp_array=array();
 $temp_array['id']=$row['id'];
+$temp_array['item_no']=$row['id'];
 $temp_array['label']=$row['name'];
 $temp_array['name']=$row['name'];
 $temp_array['category']=$row['category'];
