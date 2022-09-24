@@ -74,6 +74,7 @@ $get_countries=$obj->get_countries();
          <div class="form-group">
           <label for="email">Email <span class="danger"> *</span></label> 
           <input type="email" class="form-control enterAsTab" id="email" placeholder="Enter Email" value="<?php echo $result[0]['email'] ?>">
+          <label style="display: none" id='email_available'></label>
         </div>
       </div>
       <div class="col-md-6">
@@ -284,7 +285,7 @@ $.ajax({
 });
 </script>
 <script>
-  $("#email").keyup(function(){
+  $("#email").blur(function(){
     var email=$('#email').val();
     if(email!='')
     {
@@ -292,8 +293,9 @@ $.ajax({
         url:'ajaxCalls/search_email1.php',
         data:{"email":email},
         type:'POST',
+        dataType:'json',
         success:function(res){
-          if(res==" Email Availble")
+          if(res=="Email Availble")
           {
             $('#email_available').text(res).css('display','display').css('color','#00bba2');
             $('#submit').attr('disabled',false);
@@ -315,9 +317,6 @@ $.ajax({
         message:"Choose other Email Address"
       });
       $('#submit').attr('disabled','disabled');
-    }
-    if(email==''){
-      $('#submit').attr('disabled',false);
     }
   });
 

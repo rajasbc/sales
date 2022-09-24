@@ -70,12 +70,12 @@ class Vendor extends Dbconnection {
 		$res=$this->db->GetResultsArray($sql);
 		if(count($res)==0)
 		{
-			return " Email Availble";
+			return "Email Availble";
 			
 		}
 		else
 		{
-			return " Email Already Availble";
+			return "Email Already Availble";
 		}
 	}
 
