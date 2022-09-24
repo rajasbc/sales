@@ -73,6 +73,7 @@ $get_countries=$obj->get_countries();
          <div class="form-group">
           <label for="email">Email <span class="danger"> *</span></label> 
           <input type="email" class="form-control enterAsTab" id="email" placeholder="Enter Email" value="<?php echo $result[0]['email'] ?>">
+          <label style="display: none" id='email_available'></label>
         </div>
       </div>
       <div class="col-md-6">
@@ -218,9 +219,9 @@ $.ajax({
      });
       $("#customer_form").trigger('reset');
       window.location='viewcustomer.php';
-      setTimeout(function(){
-        window.location='viewcustomer.php';
-      }, 1000);
+      // setTimeout(function(){
+      //   window.location='viewcustomer.php';
+      // }, 1000);
 
     }
     else
@@ -239,9 +240,9 @@ $.ajax({
        message:"Customer Added Successfully"
      });
      $("#customer_form").trigger('reset');
-     setTimeout(function(){
+     // setTimeout(function(){
        window.location='viewcustomer.php';
-     }, 1000);
+     // }, 1000);
 
    }
 
@@ -277,4 +278,43 @@ $.ajax({
     return false;
   }
 });
+</script>
+<script>
+  $("#email").keyup(function(){
+    var email=$('#email').val();
+    if(email!='')
+    {
+      $.ajax({
+        url:'ajaxCalls/search_email.php',
+        data:{"email":email},
+        type:'POST',
+        success:function(res){
+          if(res==" Email Availble")
+          {
+            $('#email_available').text(res).css('display','display').css('color','#00bba2');
+            $('#submit').attr('disabled',false);
+          }
+          else
+          {
+            $('#email_available').text(res).css('display','block').css('color','#FF0000');
+            $('#email_available').focus();
+            $('#submit').attr('disabled','disabled');
+          }
+        }
+      });
+    }
+    else
+    {
+      $('#email_available').css('display','none');
+      $.growl.warning({
+        title:"Warning",
+        message:"Choose other Email Address"
+      });
+      $('#submit').attr('disabled','disabled');
+    }
+    if(email==''){
+      $('#submit').attr('disabled',false);
+    }
+  });
+
 </script>

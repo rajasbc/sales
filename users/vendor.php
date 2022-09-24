@@ -119,18 +119,18 @@ $get_countries=$obj->get_countries();
  </div>
 
  
-   <?php
+ <?php
 
-   if($_GET['id']!='')
-   {
+ if($_GET['id']!='')
+ {
    echo'<a href="viewvendor.php"><button type="button" class="btn btn-sm btn-warning float-right">Back</button></a>';
-   }
-   else
-   {
+ }
+ else
+ {
    echo'<button type="reset" class="btn btn-sm btn-warning float-right" id="reset">Reset</button>'; 
-   }
+ }
 
-   ?>
+ ?>
 
 
  <button type="submit" class="btn btn-sm btn-success float-right enterAsTab" id="submit">Submit</button>
@@ -206,54 +206,55 @@ $.ajax({
   dataType:"json",
   data:{'name':name,'address':address,'state':state,'email':email,'company_name':company_name,'city':city,'country':country,'mobile':mobile,'id':id},
   success: function(res){
-       
+
 
    if(res.status=='success')
+   {
+
+    if(id!='')
     {
-      
-      if(id!='')
-      {
 
       $.growl.notice({
        title:"SUCCESS",
        message:"Vendor Edited Successfully"
-      });
+     });
 
       $("#vendor_form").trigger('reset');
       window.location='viewvendor.php';
-      setTimeout(function(){
-        window.location='viewvendor.php';
-      }, 1000);
-
-      }
-      else
-      {
-
-
-       $("#name").val(" ");
-       $("#address").val(" ");
-       $("#state").val(" ");
-       $("#email").val(" ");
-       $("#company_name").val(" ");
-       $("#city").val(" ");
-       $("#country").val(" ");
-       $("#mobile").val(" ");
-
-      $.growl.notice({
-       title:"SUCCESS",
-       message:"Vendor Added Successfully"
-      });
-       setTimeout(function(){
-        $("#vendor_form").trigger('reset');
-       window.location='viewvendor.php';
-     }, 1000);
-
-      }
+      // setTimeout(function(){
+      //   window.location='viewvendor.php';
+      // }, 1000);
 
     }
+    else
+    {
 
 
-  }
+     $("#name").val(" ");
+     $("#address").val(" ");
+     $("#state").val(" ");
+     $("#email").val(" ");
+     $("#company_name").val(" ");
+     $("#city").val(" ");
+     $("#country").val(" ");
+     $("#mobile").val(" ");
+
+     $.growl.notice({
+       title:"SUCCESS",
+       message:"Vendor Added Successfully"
+     });
+     $("#vendor_form").trigger('reset');
+
+     // setTimeout(function(){
+       window.location='viewvendor.php';
+     // }, 1000);
+
+   }
+
+ }
+
+
+}
 });
 
 });
@@ -282,3 +283,43 @@ $.ajax({
   }
 });
 </script>
+<script>
+  $("#email").keyup(function(){
+    var email=$('#email').val();
+    if(email!='')
+    {
+      $.ajax({
+        url:'ajaxCalls/search_email1.php',
+        data:{"email":email},
+        type:'POST',
+        success:function(res){
+          if(res==" Email Availble")
+          {
+            $('#email_available').text(res).css('display','display').css('color','#00bba2');
+            $('#submit').attr('disabled',false);
+          }
+          else
+          {
+            $('#email_available').text(res).css('display','block').css('color','#FF0000');
+            $('#email_available').focus();
+            $('#submit').attr('disabled','disabled');
+          }
+        }
+      });
+    }
+    else
+    {
+      $('#email_available').css('display','none');
+      $.growl.warning({
+        title:"Warning",
+        message:"Choose other Email Address"
+      });
+      $('#submit').attr('disabled','disabled');
+    }
+    if(email==''){
+      $('#submit').attr('disabled',false);
+    }
+  });
+
+</script>
+
