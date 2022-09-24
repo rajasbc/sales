@@ -44,6 +44,7 @@ try
 
 	$sales['customer']=$_POST['cid'];
     $sales['date']=date('Y-m-d');
+    $sales['createdby']=$_POST['salesperson'];
     $sales['status']='New';
     $sales['created_at']=date('Y-m-d H:i:s');
     $bill_id=$this->db->mysql_insert($this->tablename,$sales);
@@ -66,7 +67,7 @@ try
 
     }
 
-$response = ["status" => "success" ,"order_id"=>$sales['orderid']];
+$response = ["status" => "success" ,"order_id"=>$bill_id];
         } 
 
         catch (Exception $e) {

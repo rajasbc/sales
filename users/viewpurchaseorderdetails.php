@@ -108,7 +108,7 @@ $pobj = new Product();
         <div class="col-md-6">
 
           <table>
-            <tr><td class="first-col">Sales Order No.</td><td style="padding:0 7px;">:</td><td><?=$ordresult['sales_orderid']?></td></tr>
+            <tr><td class="first-col">Sales Order Ref No.</td><td style="padding:0 7px;">:</td><td><?=$ordresult['sales_orderid']?></td></tr>
           </table>
           
         </div>

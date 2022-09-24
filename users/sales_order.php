@@ -524,16 +524,22 @@ $('.numeric').on('input', function (event) {
   function removeItem(idval){
   // $("#trItem_"+idval).remove();
   
-  
+  if ("<?=$_GET['bill_check_group']?>"=="") {
+  jQuery("#trItem_"+idval).empty('');
+  delete items["sid"+idval] ;
+}else{
   jQuery("#trItem_"+idval).empty('');
   var ref = "sid"+idval;
   items[ref].deleted='yes';
-
+}
   // sno--;
   $('#tdata tr').each(function(index){
     $(this).find('span.sn').html(index+1);
   });
-}
+  // calculation();
+  // $("#subid").remove();
+  // $("#taxid").remove();
+  }
 
 
 var sno = 0;
@@ -643,8 +649,9 @@ else {
 }
 
 $('#save_bill').attr('disabled',false);
-$('#searchItemDetailForm').trigger("reset");
+// $('#searchItemDetailForm').trigger("reset");
 $('#searchItem').val('').focus();
+$('#qty1').val('');
 <?php if ($shopConfiguration['other_shop_product']=='no') {?>
   $('#itemno').val('');
 <?php }else{ ?>
@@ -725,9 +732,31 @@ if(res.status=='success'){
     // console.log(gst_calc_type);
     customerarray["bill_date"]=$("#billDate").val();
     customerarray["cid"]=cid;
+
+    if(customerarray["cid"]=='')
+    {
+          $.growl.error({
+           title:"SUCCESS",
+           message:"Select Customer"
+          });
+          return false;
+    }
     
     var cobj=$.extend({},customerarray);
     var obj = $.extend({}, items);
+
+    // console.log(items);
+
+    if($.isEmptyObject(items)==true)
+    {
+
+    $.growl.warning({title:"Error",message:"Enter the Item Details"});
+
+    return false;
+
+    }
+
+    var salesperson = $("#salesperson").val();
     
 
       // ajaxRequest();
@@ -735,61 +764,25 @@ if(res.status=='success'){
         type: "POST",
         url:"ajaxCalls/add_order.php",
         dataType:'JSON',
-        data: $.param(obj)+'&'+$.param(cobj),
+        data: $.param(obj)+'&'+$.param(cobj)+'&salesperson='+salesperson,
         success: function(dataResult) {
 
           var order_id = (dataResult.order_id);
           // window.open('sales_order_bill.php?order_id='+order_id);
-          location.reload();
+          // location.reload();
+
+          $.growl.notice({
+           title:"SUCCESS",
+           message:"Sales Order Successfully"
+          });
+
+          setTimeout(function(){
+          window.location='viewsalesorderdetails.php?id='+dataResult.order_id;
+          }, 1000);
+
+
           localStorage.clear('myArray');
-      // console.log(dataResult);
-      if (dataResult['status'] === 'success') {
-        localStorage.clear('myArray');
-        var bill_id = btoa(dataResult.bill_id);
-        var shop_id=btoa(dataResult.shop_id);
-        $('#shippingForm').trigger("reset");
-        $('#pay').attr('disabled','false');
-        $('#advance').val('');
-        $('#payment_mode').val('');
-        $('#packing_price_id').val('');
-        $('#pack_gst').val('');
-        $('#freight_price_id').val('');
-        $('#freight_gst').val('');
-        if($('#overall_disc').val()!=undefined){
-          $('#overall_disc').val('');
-          $('#disc_pref_rupee').prop('checked',true);
-          $('#span_disc').html('Disc ₹');
-        }
-
-        $('#other_charge_check').prop('checked',false);
-        if(which_btn_click=="pay")
-        {
-          if($("#billformat").val()=='BillFormat1.jpg')
-          {
-            window.open('printUpdateDuplicate.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-          }
-          else if($("#billformat").val()=='BillFormat2.jpg'){
-            window.open('billprint.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-          }
-
-          else{
-            if($('#is_silver_shop').val()=='no'){
-              window.open('printUpdateDuplicate.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-            }
-            else{
-              window.open('4inch_print.php?bill_check_group='+bill_id+'&shop_id='+shop_id,'_blank');
-            }
-          }
-
-        }
-      }
-
-      $('#bill_type').prop('checked',true);
-      $('#credit_bill_check').prop('checked',false);
-      window.location.href=window.location.href;
-      if ('<?=base64_decode($_GET['future_ids'])?>'!='') {
-        window.location.href='orders_list.php';
-      }
+      
     }
   });
     }
