@@ -5,6 +5,7 @@ class Customer extends Dbconnection {
 	var $invitee_obj;
 	var $msg = '';
 	var $tablename = "customer";
+	var $countries = "bird_countries";
 	
 	
 
@@ -81,6 +82,11 @@ $sql = "select * from " . $this->tablename . " where  id = ".$cId;
             return $result;
         }
         }
+        function get_countries() {
+		$sql = "select * from bird_countries";
+		$result = $this->db->GetResultsArray($sql);
+		return $result;
+	}
 
 }
 ?>

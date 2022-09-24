@@ -7,6 +7,8 @@ if($_GET['id']!=''){
 
   $result =  $obj->get_vendors($id);
 }
+$obj = new Vendor();
+$get_countries=$obj->get_countries();
 ?>
 <style>
   .danger{
@@ -26,12 +28,12 @@ if($_GET['id']!=''){
         <div class="row align-items-center">
          <div class="col-md-12">
           <div class="page-header-title">
-           <h5 class="m-b-10">Vendor</h5>
+           <h5 class="m-b-10">Vendor </h5>
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <li class="breadcrumb-item"><a href="viewvendor.php">Vendors</a></li>
-           <li class="breadcrumb-item">Vendor</li>
+           <li class="breadcrumb-item"><a href="viewcustomer.php">Vendor</a></li>
+           <li class="breadcrumb-item">Add Vendor</li>
            
          </ul>
        </div>
@@ -44,61 +46,78 @@ if($_GET['id']!=''){
    <!-- [ form-element ] start -->
    <div class="col-sm-12">
     <div class="card">
-     <div class="card-header">
+   <!--   <div class="card-header">
       <h5>Basic Componant</h5>
-    </div>
+    </div> -->
     <div class="card-body">
-      <form onsubmit="return false;">
+      <form onsubmit="return false;" id="vendor_form">
 
+        <div class="row">
+         <div class="col-md-6">
 
-      <div class="row">
-       <div class="col-md-6">
+          <div class="form-group">
+           <label for="name">Name <span class="danger"> *</span></label>
+           <input type="text" class="form-control enterAsTab" id="name" aria-describedby="nameHelp" placeholder="Enter Name"  value="<?php echo $result[0]['name'] ?>" autofocus>
+
+         </div>
+         <div class="form-group">
+           <label for="exampleInputPassword1">Company Name <span class="danger"> *</span></label>
+           <input type="text" class="form-control enterAsTab" id="company_name" placeholder="Enter Company Name" value="<?php echo $result[0]['company_name'] ?>">
+         </div>
+         <div class="form-group ">
+           <label for="mobile">Mobile <span class="danger"> *</span></label>
+           <input type="text" class="form-control enterAsTab" id="mobile" aria-describedby="mobileHelp" placeholder="Enter Mobile" value="<?php echo $result[0]['mobile'] ?>" >
+
+         </div>
+         
+
+         <div class="form-group">
+          <label for="email">Email <span class="danger"> *</span></label> 
+          <input type="email" class="form-control enterAsTab" id="email" placeholder="Enter Email" value="<?php echo $result[0]['email'] ?>">
+        </div>
+      </div>
+      <div class="col-md-6">
 
         <div class="form-group">
-         <label for="name">Name <span class="danger"> * </span></label>
-         <input type="text" class="form-control enterAsTab" id="name"  placeholder="Enter Name"  value="<?php echo $result[0]['name'] ?>">
+         <label for="country">Country</label>
+         <select  type='text' name='country' id='country' class='form-control enterAsTab'  >
+          <?php
+          foreach ($get_countries as $value) {
+            if ($value['name']=="India") {
+             echo "<option value='".$value['id']."' data-id='".$value['phonecode']."' selected='selected'>" . $value["name"]."</option>";
+           }
+           else
+           {                        
+             echo "<option value='".$value['id']."' data-id='".$value['phonecode']."'>" . $value["name"]."</option>";
+           }
+         }
+         ?>
+       </select> 
 
-       </div>
-       <div class="form-group">
-         <label for="address">Address</label>
-         <textarea class="form-control enterAsTab" id="address" placeholder="Enter Address"  ><?php echo $result[0]['address'] ?></textarea>
-       </div>
-       <div class="form-group">
-         <label for="state">State</label>
-         <input type="text" class="form-control enterAsTab" id="state"  placeholder="Enter State" value="<?php echo $result[0]['state'] ?>">
-
-       </div>
-       <div class="form-group">
-         <label for="email">Email <span class="danger"> * </span></label>
-         <input type="email" class="form-control enterAsTab" id="email" placeholder="Enter Email" value="<?php echo $result[0]['email'] ?>">
-       </div>
      </div>
-     <div class="col-md-6">
+     <div class="form-group">
+       <label for="state">State</label>
+       <input type="text" class="form-control enterAsTab" id="state" aria-describedby="stateHelp" placeholder="Enter State" value="<?php echo $result[0]['state'] ?>">
 
-      <div class="form-group">
-       <label for="exampleInputPassword1">Company Name</label>
-       <input type="text" class="form-control enterAsTab" id="company_name" placeholder="Enter Company Name" value="<?php echo $result[0]['company_name'] ?>">
      </div>
      <div class="form-group">
        <label for="city">City</label>
-       <input type="text" class="form-control enterAsTab" id="city" placeholder="Enter City" value="<?php echo $result[0]['city'] ?>">
+       <input type="text" class="form-control enterAsTab" id="city" aria-describedby="cityHelp" placeholder="Enter City" value="<?php echo $result[0]['city'] ?>">
      </div>
-     <div class="form-group pt-4">
-       <label for="country">Country</label>
-       <input type="text" class="form-control enterAsTab" id="country" placeholder="Enter Country" value="<?php echo $result[0]['country'] ?>">
 
+     <div class="form-group">
+       <label for="address">Address</label>
+       <textarea class="form-control enterAsTab" id="address" placeholder="Enter Address" aria-describedby="addressHelp" ><?php echo $result[0]['address'] ?></textarea>
      </div>
-     <div class="form-group ">
-       <label for="mobile">Mobile <span class="danger"> *</span></label>
-       <input type="text" class="form-control enterAsTab" id="mobile"  placeholder="Enter Mobile" value="<?php echo $result[0]['mobile'] ?>" onkeypress="if(this.value.length==10)return false;">
 
-     </div>
+
 
 
 
 
    </div>
  </div>
+
  
    <?php
 
@@ -137,8 +156,7 @@ include 'footer.php';
 <script>
  $(document).ready(function(){
   $("#submit").click(function(){
-
-   if($("#name").val()==''){
+    if($("#name").val()==''){
      $('#name').css("border","1px solid red");
      $('#name').focus();
      return false
@@ -146,13 +164,13 @@ include 'footer.php';
    else{
     $('#name').css("border","1px solid lightgray");
   }
-  if($("#email").val()==''){
-   $('#email').css("border","1px solid red");
-   $('#email').focus();
+  if($("#company_name").val()==''){
+   $('#company_name').css("border","1px solid red");
+   $('#company_name').focus();
    return false
  }
  else{
-  $('#email').css("border","1px solid lightgray");
+  $('#company_name').css("border","1px solid lightgray");
 }
 if($("#mobile").val()==''){
  $('#mobile').css("border","1px solid red");
@@ -162,6 +180,15 @@ if($("#mobile").val()==''){
 else{
   $('#mobile').css("border","1px solid lightgray");
 } 
+if($("#email").val()==''){
+ $('#email').css("border","1px solid red");
+ $('#email').focus();
+ return false
+}
+else{
+  $('#email').css("border","1px solid lightgray");
+}
+
 
 
 var name=$("#name").val();
@@ -192,8 +219,10 @@ $.ajax({
        message:"Vendor Edited Successfully"
       });
 
-      setTimeout(function(){
+      $("#vendor_form").trigger('reset');
       window.location='viewvendor.php';
+      setTimeout(function(){
+        window.location='viewvendor.php';
       }, 1000);
 
       }
@@ -214,6 +243,10 @@ $.ajax({
        title:"SUCCESS",
        message:"Vendor Added Successfully"
       });
+       setTimeout(function(){
+        $("#vendor_form").trigger('reset');
+       window.location='viewvendor.php';
+     }, 1000);
 
       }
 
@@ -235,9 +268,14 @@ $.ajax({
     var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
     focusable = form.find(selector).filter(':visible');
     next = focusable.eq(focusable.index(this)+1);
-
-
+    if ($(e.target).closest("#submit").length>0){
+      self.click();
+    }
     if (next.length) {
+      // console.log($next).attr('id');
+      if ($(next).attr('id')=='submit') {
+        $("#submit").click();
+      }
       next.focus();
     }
     return false;
