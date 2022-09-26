@@ -768,7 +768,7 @@ if(res.status=='success'){
         success: function(dataResult) {
 
           var order_id = (dataResult.order_id);
-          // window.open('sales_order_bill.php?order_id='+order_id);
+          window.open('sales_order_bill.php?order_id='+order_id);
           // location.reload();
 
           $.growl.notice({
