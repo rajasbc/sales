@@ -58,6 +58,10 @@ $userdet = $userobj->getusername($uid);
   z-index: 99999;
 }
 
+select.custom-select {
+    -webkit-appearance: menulist;
+}
+
 </style>
 
 <link rel="stylesheet" href="assets/css/jquery-ui.css" />
@@ -147,8 +151,8 @@ $userdet = $userobj->getusername($uid);
       
 
       <input type="hidden" name="checked_val" id="checked_val" value="F">
-      <div class="form-group row">
-        <div class=" col-lg-7 col-sm-7 col-sm-7 md-6">
+      <div class="form-group">
+        <div class=" col-lg-7 col-sm-7 col-sm-7" style="padding:0px;">
           <div class="input-group input-group-sm">
             <div class="input-group-prepend">
               <span class="input-group-text ">🔎</span>
@@ -157,17 +161,17 @@ $userdet = $userobj->getusername($uid);
 
             <input type='hidden' id='originalname' name='originalname' >
           </div>
-        </div>&nbsp;  
+        </div>  
       </div>
-      <div class="form-group row">
+      <div class="form-group">
 
         
-        <div class="col-lg-7 col-sm-7 col-md-7">
+        <div class="col-lg-7 col-sm-7 col-md-7" style="padding:0px;">
           <div class="input-group input-group-sm">
             <div class="input-group-prepend">
               <span class="input-group-text">QTY<div id="available_qty" style="display:none"> <span class="ml-3"  data-toggle='view_qty' title='QTY=' style="cursor:pointer">i</span></div></span>
             </div>
-            <input class="form-control focus numeric" id="qty1" type="text" autocomplete="off">
+            <input class="form-control focus numeric" id="qty1" type="text" placeholder="Enter Qty" autocomplete="off">
 
           </div>
           <input class="form-control" id="qty2" type="hidden" >
@@ -185,14 +189,15 @@ $userdet = $userobj->getusername($uid);
         if($userdet['type']=='Admin')
         {
         ?>
-<div class="form-group row">
-        <div class="col-lg-7 col-sm-7 col-md-7">
-          <div class="input-group input-group-sm">
-            <div class="input-group-prepend">
+        <div class="col-lg-7 col-sm-7 col-md-7" style="padding:0px;">
+<div class="form-group" style="height:25px;">
+  
+              <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
               <span class="input-group-text">Sales Person</span>
             </div>
             
-            <select name="salesperson" id="salesperson" style="width:222px; background-color: #eff3f6; border:1px solid #ccc; color:#666;">
+            <select name="salesperson" id="salesperson" class="custom-select custom-select-sm">
               <option value="">-- Select --</option>
               <?php
 
@@ -770,7 +775,7 @@ if(res.status=='success'){
         success: function(dataResult) {
 
           var order_id = (dataResult.order_id);
-          window.open('sales_order_bill.php?order_id='+order_id);
+          // window.open('sales_order_bill.php?order_id='+order_id);
           // location.reload();
 
           $.growl.notice({

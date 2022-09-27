@@ -107,13 +107,8 @@ $get_countries=$obj->get_countries();
 
      <div class="form-group">
        <label for="address">Address</label>
-       <textarea class="form-control enterAsTab" id="address" placeholder="Enter Address" aria-describedby="addressHelp" ><?php echo $result[0]['address'] ?></textarea>
+       <textarea class="form-control" id="address" placeholder="Enter Address" aria-describedby="addressHelp" ><?php echo $result[0]['address'] ?></textarea>
      </div>
-
-
-
-
-
 
    </div>
  </div>
