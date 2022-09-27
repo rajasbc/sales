@@ -161,7 +161,7 @@ $pobj = new Product();
 
         <tfoot>
           
-          <tr style="font-weight: bold;"><td colspan="5" style="text-align: center;">Total Qty</td><td style='text-align: right;'><?=number_format($total,2,'.','')?></td></tr>
+          <tr style="font-weight: bold;"><td colspan="5" style="text-align: right;">Total</td><td style='text-align: right;'><?=number_format($total,2,'.','')?></td></tr>
 
         </tfoot>
 

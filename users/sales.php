@@ -2481,7 +2481,7 @@ check.length=1;
 
           $.growl.notice({
            title:"SUCCESS",
-           message:"Purchase Order Successfully"
+           message:"Sales Invoice Created Successfully"
           });
 
           setTimeout(function(){

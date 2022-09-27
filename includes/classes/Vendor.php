@@ -27,12 +27,14 @@ class Vendor extends Dbconnection {
 		$vendor['mobile'] = $this->db->getpost('mobile');
 		if ($this->db->getpost('id')=='') {
 			$vendor_insert = $this->db->mysql_insert($this->tablename, $vendor);
+			$vendid = $vendor_insert;
 		}else{
 			$vendor_insert = $this->db->mysql_update($this->tablename, $vendor,'id='.$this->db->getpost('id'));
+			$vendid = $this->db->getpost('id');
 		}
 		
 
-		return  ["status"=>'success'];
+		return  ["status"=>'success','id'=>$vendid,"name"=>$vendor['name'],"company_name"=>$vendor['company_name'],"mobile"=>$vendor['mobile'],"address"=>$vendor['address'],"city"=>$vendor['city'],"state"=>$vendor['state'],"country"=>$vendor['country']];
 
 	}
 	function get_vendor() {

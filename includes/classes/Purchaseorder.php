@@ -74,6 +74,7 @@ try
     $order_details['orderid']=$bill_id;
     $order_details['product']=$itemvar['itemno'];
     $order_details['qty']=$itemvar['qty'];
+    $order_details['balance_qty']=$itemvar['qty'];
     $order_details['rate']=$itemvar['price'];
     $order_details['tax_amount']=$itemvar['gstamount'];
     $order_details['tax']=$itemvar['gst'];

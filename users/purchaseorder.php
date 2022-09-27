@@ -1383,9 +1383,53 @@ if($('#checked_val').val()=='F' && item.price!='0') {
   $('input[type="button"]').click(function() {
   which_btn_click=this.id;  
   });
+
+
+
+$("#add").on('click',function(){
+   if($("#searchItem").val()==''  ){
+    $.growl.error({
+      title:"Warning",
+      message:"Atleast Add One Item"
+    });
+    $("#searchItem").focus();
+    return false;
+  }
+  var product_name=$("#searchItem").val();
+  // var hsn_code=$("#id6").val();
+  var price=$("#price1").val();
+  var id=$("#item_id").val();
+  var qty=$("#qty1").val();
+
+  $.ajax({
+    type:"POST",
+    url:"ajaxCalls/add_products.php",
+    data:{'product_name':product_name,"price":price,"qty":qty,"id":id},
+    dataType:'json',
+    success: function(res){
+      // alert(res);
+      if(res.status=="success"){
+        $("#itemno").val(res.id);
+
+
+        add_productrow();
+
+      }
+
+    }
+  });
+
+
+});
+
+
+
   
   //add click function 
-  $('#add').on('click', function(){
+  function add_productrow(){
+
+
+
 
     // alert();
     
@@ -1536,7 +1580,7 @@ gstamount=prototal*Number(gstpercentage);
   $("#combination_id").val(0);
   $("#description_box").css('display','none');
   }
-  });
+  };
 
  function priceupdate(idval,ele){
   var gst_type=$('#gst_type').val();
@@ -2171,14 +2215,25 @@ $('#saveCustomerBtn').attr('disabled','disabled');
 $('#saveCustomerBtn').html('loading');
 $("#customerModal").modal("toggle");
 $("#customer_icon_hide").show();
+
 var cust_address_id=$('#cust_address_id').val();
+
+  var name=$("#custnameid").val();
+  var address=$("#address").val();
+  var state=$("#state").val();
+  var email=$("#email").val();
+  var company_name=$("#companyname").val();
+  var city=$("#city").val();
+  var country=$("#country").val();
+  var mobile=$("#mobile").val();
+  var id = $("#cid").val();
 
 if(cust_address_id==0){
 $.ajax({
 url:"ajaxCalls/add_vendor.php",
 type: "POST",
 dataType: "json",
-data:  $('#cform').serialize(),
+data:{'name':name,'address':address,'state':state,'email':email,'company_name':company_name,'city':city,'country':country,'mobile':mobile,'id':id},
 // cache: false,
 success: function(dataResult)
 {
@@ -2188,7 +2243,18 @@ $("#destination").show();
 $("#shipadd").hide();
 $("#credit_amt").val(dataResult.prepaid);
 }
-$("#cid").val(dataResult.insert_id);
+$("#cid").val(dataResult.id);
+$("#custid").val(dataResult.id);
+
+  $('#mobile').val(dataResult.mobile);
+  $('#custnameid').val(dataResult.name);
+  $('#email').val(dataResult.email);
+  $('#address').val(dataResult.address);
+  $('#city').val(dataResult.city);
+  $('#state').val(dataResult.state);
+  $('#country').val(dataResult.country);
+  $('#companyname').val(dataResult.companyname);
+
 $('#billadd').hide();
 $('#saveCustomerBtn').attr('disabled',false);
 $('#saveCustomerBtn').html('Save');
@@ -2485,7 +2551,7 @@ check.length=1;
 
           $.growl.notice({
            title:"SUCCESS",
-           message:"Purchase Order Successfully"
+           message:"Purchase Order Created Successfully"
           });
 
           setTimeout(function(){

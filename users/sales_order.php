@@ -780,7 +780,7 @@ if(res.status=='success'){
 
           $.growl.notice({
            title:"SUCCESS",
-           message:"Sales Order Successfully"
+           message:"Sales Order Created Successfully"
           });
 
           setTimeout(function(){

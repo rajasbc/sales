@@ -34,12 +34,12 @@ $output .=  "<tr id='trItem_".$sno."'><input type='hidden' id='calcmethod".$sno.
 <td>".$sno."</td>";
 $output.="<td>".$itemresult['name']."</td>";
 
-$output .="<td><input onkeyup=costupdate(".$sno.",this) type='number' class='form-control price enterKeyclass' name='price[]' id='priceid".$sno."' data-id='".$sno."' value='0' style='width:5rem; height:1.75rem' onkeypress='if(this.value.length==8) return false'></td>";
+$output .="<td><input onkeyup=costupdate(".$sno.",this) type='text' class='form-control price enterKeyclass' name='price[]' id='priceid".$sno."' data-id='".$sno."' value='0' style='width:5rem; height:1.75rem' onkeypress='if(this.value.length==8) return false'></td>";
 
-  $output.="<td><input onkeyup=priceupdate1(".$sno.",this) type='number' class='form-control qty' name='qty[]' id='num_qty".$sno."' value='".number_format($value['qty'])."' style='width:5rem; height:1.75rem' onkeypress='if(this.value.length==8) return false'></td>";
+  $output.="<td><input onkeyup=priceupdate1(".$sno.",this) type='text' class='form-control qty' name='qty[]' id='num_qty".$sno."' value='".number_format($value['qty'])."' style='width:5rem; height:1.75rem' onkeypress='if(this.value.length==8) return false'></td>";
 
 
-$output.="<td><input onkeyup=gstupdate(".$sno.",this) type='number' value='0' class='form-control gst'
+$output.="<td><input onkeyup=gstupdate(".$sno.",this) type='text' value='0' class='form-control gst'
 name='gst[]' id='gstpid".$sno."' style='width:5rem; height:1.75rem'
 onkeypress='if(this.value.length==6) return false'></td>";
 
