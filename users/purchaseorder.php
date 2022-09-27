@@ -2132,6 +2132,34 @@ else
 $('#custnameid').css("border","1px solid #ced4da");
 }
 
+
+
+  if($("#email").val()=='')
+  {
+    $('#email').css("border","1px solid red");
+    $('#email').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Email"});
+    return false;
+  }
+  else
+  {
+    $('#email').css("border","1px solid #ced4da");
+  }
+
+
+  if($("#mobile").val()=='')
+  {
+    $('#mobile').css("border","1px solid red");
+    $('#mobile').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Email"});
+    return false;
+  }
+  else
+  {
+    $('#mobile').css("border","1px solid #ced4da");
+  }
+
+
 if($("#phone").val()=='')
 {
 $('#phone').css("border","1px solid red");

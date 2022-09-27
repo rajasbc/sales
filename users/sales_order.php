@@ -328,9 +328,9 @@ select.custom-select {
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">Email</span>
+                      <span class="input-group-text input-group-text1">Email<span style="color: red;">&nbsp;*</span></span>
                     </div>
-                    <input  class="form-control cust_form" type="email" id="email"  name="email" autocomplete="off" placeholder="Email Id" onkeypress="if(this.value.length==25) return false;">
+                    <input  class="form-control cust_form" type="email" id="email" name="email" autocomplete="off" placeholder="Email Id" onkeypress="if(this.value.length==25) return false;">
                   </div>
                 </div>
               </div>
@@ -680,6 +680,32 @@ $("#saveCustomerBtn").on('click',function(){
   {
     $('#custnameid').css("border","1px solid #ced4da");
   }
+
+  if($("#email").val()=='')
+  {
+    $('#email').css("border","1px solid red");
+    $('#email').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Email"});
+    return false;
+  }
+  else
+  {
+    $('#email').css("border","1px solid #ced4da");
+  }
+
+
+  if($("#mobile").val()=='')
+  {
+    $('#mobile').css("border","1px solid red");
+    $('#mobile').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Email"});
+    return false;
+  }
+  else
+  {
+    $('#mobile').css("border","1px solid #ced4da");
+  }
+
   var name=$("#custnameid").val();
   var address=$("#address").val();
   var state=$("#state").val();
