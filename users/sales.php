@@ -208,7 +208,7 @@ include 'header.php';
                       <div class="col-lg-3 col-sm-3 col-md-3">
                         <div class="">
                         
-                          <span class="changegst">GST ₹</span>
+                          <span>VAT ₹</span>
                           <span class="" id="taxid">0</span>
                         
                         </div>

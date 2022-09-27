@@ -217,7 +217,7 @@ include 'header.php';
                       <div class="col-lg-3 col-sm-3 col-md-3">
                         <div class="">
                         
-                          <span class="changegst">GST ₹</span>
+                          <span>VAT ₹</span>
                           <span class="" id="taxid">0</span>
                         
                         </div>
@@ -298,7 +298,7 @@ include 'header.php';
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">Email</span>
+                      <span class="input-group-text input-group-text1">Email<span style="color: red">&nbsp;*</span></span>
                     </div>
                     <input  class="form-control cust_form" type="email" id="email"  name="email" autocomplete="off" placeholder="Email Id" onkeypress="if(this.value.length==25) return false;">
                   </div>

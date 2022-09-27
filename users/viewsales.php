@@ -128,18 +128,7 @@ include 'footer.php';
   <script>
     $(document).ready(function(){
 
-     $.ajax({
-      type:"POST",
-      url:'ajaxCalls/getsales.php',
-      dataType:"json",
-      success: function(res){
-
-        $('#mytable').html(res.out);
-        $("table").trigger('update');
-
-
-      }
-    });
+     getsales();
 
 
      $('#mytable').on('click',".btn-action",function(){
@@ -191,39 +180,43 @@ include 'footer.php';
             var cust_id=$('#cust_id').val();
             $.ajax({
                 type:"POST",
-                url:"ajaxCalls/addBalance.php",
+                url:"ajaxCalls/addreceipt.php",
                 dataType:"json",
-                data:({"shop_id":shop_id,"bill_id":bill_id,"invoice_no_for_log":invoice_no,"balance":balance,"balance_received":balance_received,"add_discount":add_discount,"discount":'<?=$row['final_discount']?>',"advance":'<?=$row['advance']?>',"max_total":max_total,"payment_mode":payment_mode,'chequenumber':chequenumber,'change_val':change_val,'paypage':'bill_list','is_credit_checked':is_credit_checked,"cust_id":cust_id,"is_credit_amount_checked":is_credit_amount_checked,"remain_balance_check":remain_balance_check}),
+                data:({"bill_id":bill_id,"cust_id":cust_id,"pay":balance_received}),
                 success:function(res)
                 {
                     // console.log(res);
                     $.growl.notice({
                         title:"SUCCESS",
-                        message:"The Balance Bill Amount Received"
+                        message:"The Bill Amount Received"
                     });
-                     //$(".check").attr('checked',true);
-                    $("#bill_settlement .close").click();
-                    window.reload="bill_list.php";
-                   $("#balance_amount"+res.id).html(res.balance);
-                   $("#discount"+res.id).html(res.discount);
-                   $("#paid_amount"+res.id).html(res.paid);
-
-                    //$("#balance_amount").apped(res.balance);
-                    if(res.balance==0){
-                        // console.log(res.balance);
-                        $("#balance_amount"+res.id).html(res.balance);
-                        $("#test_edit"+res.id).hide();
-                         //$("#paid"+res.id).removeClass('d-none');
-                         $("#"+res.id).prop('checked',true);
-                          //$().click();
-                          $("#paid_status"+res.id).html("<button class='btn btn-success btn-block paid btn-sm' data-id='"+res.id+"' data-url='paidDetails.php?t="+res.id+"&shop_id="+res.shop_id+"' value='"+res.id+"' name='test_edit' id='test_edit"+res.id+"' data-toggle='modal'>Paid</button>")
-                         // echo"";
-                         setTimeout(function(){ $('table').trigger("update"); }, 500);
-                    }
+                     
+                     $("#bill_settlement").modal('hide');
+                     getsales();
 
                 }
                 });
 }
+
+
+function getsales()
+{
+
+    $.ajax({
+      type:"POST",
+      url:'ajaxCalls/getsales.php',
+      dataType:"json",
+      success: function(res){
+
+        $('#mytable').html(res.out);
+        $("table").trigger('update');
+
+
+      }
+    });
+
+}
+
 
  </script>
 

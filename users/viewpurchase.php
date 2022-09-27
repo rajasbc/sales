@@ -87,8 +87,9 @@ include 'header.php';
             <th style="width:10%;">Bill#</th>
             <th>Date</th>
             <th>Vendor</th>
-            <th>Email</th>
             <th>Total</th>
+            <th>Paid</th>
+            <th>Balance</th>
             <th>Pay</th>
             <th>Actions</th>
           </tr>
@@ -127,20 +128,7 @@ include 'footer.php';
   <script>
     $(document).ready(function(){
 
-     $.ajax({
-      type:"POST",
-      url:'ajaxCalls/getpurchase.php',
-      dataType:"json",
-      success: function(res){
-
-        $('#mytable').html(res.out);
-        $("table").trigger('update');
-
-
-      }
-    });
-
-
+      getpurchase();
 
      $('#mytable').on('click',".btn-action",function(){
       var url=$(this).data("url");
@@ -167,6 +155,70 @@ include 'footer.php';
 
 
    });
+ </script>
+
+ <script type="text/javascript">
+   
+
+   function postValue(){
+
+    // alert("df");
+        
+                    if($("#balance_received").val()==''){
+                        $("#balance_received").css("border","1px solid red");
+                        $("#balance_received").focus();
+                        return false;
+                    }
+            $("#add_balance").attr("disabled","disabled");
+            var bill_id=$("#bill_id").val();
+            var balance=$("#balance").val();
+            var balance_received=$("#balance_received").val();
+
+            var max_total=$("#max_total").val();
+            
+            var totalBalance=balance-balance_received;
+            
+            
+            var v_id=$('#vend_id').val();
+            $.ajax({
+                type:"POST",
+                url:"ajaxCalls/addpayment.php",
+                dataType:"json",
+                data:({"bill_id":bill_id,"v_id":v_id,"pay":balance_received}),
+                success:function(res)
+                {
+                    // console.log(res);
+                    $.growl.notice({
+                        title:"SUCCESS",
+                        message:"The Bill Amount Received"
+                    });
+                     
+                     $("#bill_settlement").modal('hide');
+                     getpurchase();
+
+                }
+                });
+}
+
+
+   function getpurchase() {
+     
+      $.ajax({
+      type:"POST",
+      url:'ajaxCalls/getpurchase.php',
+      dataType:"json",
+      success: function(res){
+
+        $('#mytable').html(res.out);
+        $("table").trigger('update');
+
+
+      }
+      });
+
+   }
+
+
  </script>
 
  <script id="js">
