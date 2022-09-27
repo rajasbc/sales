@@ -13,7 +13,8 @@ $result = $bill->get_bill($billId);
 	<button type='button' class='close text-danger font-weight-bold' data-dismiss='modal'>&times;</button><br /><br />
 
 	<div class="form-row">
-			
+			<input type="hidden" id="cust_id" name="cust_id" value="<?=$result['customer']?>">
+			<input type="hidden" id="bill_id" name="bill_id" value="<?=$billId?>">
 				<table class="table">
 					<thead>
 						<tr>
@@ -34,7 +35,7 @@ $result = $bill->get_bill($billId);
 						<td>Total Bill Amount</td>
 						<td>-</td>
 						<td class='text-right'>".$result['grandtotal']."</td>
-						<td class='text-right'>".round($result['grandtotal']).".00</td></tr>";
+						<td class='text-right'>".$result['grandtotal']."</td></tr>";
 						$balance=$result['grandtotal'];
 						?>
 					</tbody>
@@ -43,7 +44,7 @@ $result = $bill->get_bill($billId);
 						<th colspan="4">Total Paid (&#8377;)</th><th class='text-right'><?=$paid?></th><th></th></tr>
 					</tr>
 					<tr>
-						<th colspan="4">Balance Amount (&#8377;)</th><th colspan="2" class='text-right'><input type="hidden" name="balance" id="balance" value=<?=$balance?>><?=round($balance)?>.00</th>
+						<th colspan="4">Balance Amount (&#8377;)</th><th colspan="2" class='text-right'><input type="hidden" name="balance" id="balance" value=<?=$balance?>><?=$balance?></th>
 					</tr>
 					</tfoot>
 				</table>
@@ -55,11 +56,9 @@ $result = $bill->get_bill($billId);
 					<div class="input-group-prepend">
 						<span class="input-group-text">Amt Receive</span>
 					</div>
-					<?php if ($_SESSION['type']=='bill') {?>
+					
 					<input name="balance_received" id="balance_received" class="form-control" placeholder="0" onkeypress="if(this.value.length==10)return false">
-				<?php } else{?>
-					<input name="balance_received" id="balance_received" class="form-control" value='<?=$balance?>' disabled placeholder="0" onkeypress="if(this.value.length==10)return false">
-				<?php }?>
+
 				</div>
 			</div>
 			<div class="col-lg-4 col-sm-4 col-md-4">
@@ -74,7 +73,7 @@ $result = $bill->get_bill($billId);
 
 	<div class="form-row">
 		
-		<div class="col-lg-2 mt-2"><button class="btn btn-sm btn-warning btnupdate btn-block" onclick="postValue()" id='add_balance' disabled>Pay</button></div>
+		<div class="col-lg-2 mt-2"><button class="btn btn-sm btn-warning btnupdate btn-block" onclick="postValue()" id='add_balance'>Pay</button></div>
 		<div class="form-group col-lg-10">
 			
 		</div>
@@ -83,17 +82,18 @@ $result = $bill->get_bill($billId);
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#chequeid').hide();
-		$("#payment_mode").on('change', function(){
-var payment_mode=$("#payment_mode").val();
-// console.log(payment_mode);
-		if(payment_mode=='Cheque'){
-$('#chequeid').show();
-}
-else{
-$('#chequeid').hide();
-}
-});
+// 		$('#chequeid').hide();
+// 		$("#payment_mode").on('change', function(){
+// 		var payment_mode=$("#payment_mode").val();
+
+// if(payment_mode=='Cheque'){
+// $('#chequeid').show();
+// }
+// else{
+// $('#chequeid').hide();
+// }
+// });
+
 		var credit=[];
 		var balance=$("#balance").val();
 		var deposit_credit=$('#deposit_credit').text();
@@ -107,20 +107,12 @@ $('#chequeid').hide();
 			var change=balance_received-balance;
 			$('#change').val(change);
 			$('#balance_amt').val('0');
-			if(business_type=='bill' && $('#is_silver_shop').val()=='no'){
-				// if(Number(balance))
-			$('#credit_check').show();
-			$('#deposit_credit_confirm').hide();
 			}
-			// $('#add_balance').attr('disabled','disabled');
-			// $("#balance_received").css('border','1px solid red');
-		}
-		else
-		{
+			else
+			{
 			$('#remain_balance_div').show();
 			credit=deposit_credit.split(":");
-			// console.log();
-			// $('#add_balance').attr('disabled',false);
+
 			if(business_type=='bill'){
 			$('#credit_check').hide();
 			if(Number(credit[1])>0 && $('#is_silver_shop').val()=='no'){
@@ -128,29 +120,22 @@ $('#chequeid').hide();
 			if ($("#remain_balance_check").prop('checked')==true) {
 				$('#deposit_credit_confirm').hide();
 			}
-			// if(Number($("#deposit_credit1").text())<Number(balance_received)){
-
-			// 		$('#deposit_credit_confirm').hide();
-			// 		if($("#is_credit_amount_checked").prop('checked') == true){
-			// 			$("#is_credit_amount_checked").prop('checked',false);
-   //              }
-			// 	}
 			}
 			}
 			$("#balance_received").css('border','1px solid #ced4da');
-		}
-		if(Number(balance_received)<Number(balance))
-		{
-			var balance_amt=balance-balance_received;
-			$('#change').val('0');
-			$('#balance_amt').val(balance_amt);
-		}
-		if(Number(balance_received)==Number(balance))
-		{
-			$('#change').val('0');
-			$('#balance_amt').val('0');
-		}
-			
+			}
+			if(Number(balance_received)<Number(balance))
+			{
+				var balance_amt=balance-balance_received;
+				$('#change').val('0');
+				$('#balance_amt').val(balance_amt);
+			}
+			if(Number(balance_received)==Number(balance))
+			{
+				$('#change').val('0');
+				$('#balance_amt').val('0');
+			}
+
 	});
 		$("#remain_balance_check").on('click',function(){
 			if ($("#remain_balance_check").prop('checked')==true) {

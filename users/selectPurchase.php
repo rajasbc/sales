@@ -13,7 +13,8 @@ $result = $bill->get_bill($billId);
 	<button type='button' class='close text-danger font-weight-bold' data-dismiss='modal'>&times;</button><br /><br />
 
 	<div class="form-row">
-			
+			<input type="hidden" id="vend_id" name="vend_id" value="<?=$result['vendor']?>">
+			<input type="hidden" id="bill_id" name="bill_id" value="<?=$billId?>">
 				<table class="table">
 					<thead>
 						<tr>
@@ -74,7 +75,7 @@ $result = $bill->get_bill($billId);
 
 	<div class="form-row">
 		
-		<div class="col-lg-2 mt-2"><button class="btn btn-sm btn-warning btnupdate btn-block" onclick="postValue()" id='add_balance' disabled>Pay</button></div>
+		<div class="col-lg-2 mt-2"><button class="btn btn-sm btn-warning btnupdate btn-block" onclick="postValue()" id='add_balance'>Pay</button></div>
 		<div class="form-group col-lg-10">
 			
 		</div>
