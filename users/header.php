@@ -16,7 +16,7 @@ else
 
 <head>
 
-	<title>Billing</title>
+	<title>Purchase Order Management System</title>
 	<!-- Meta -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -82,7 +82,7 @@ else
 		<div class="navbar-wrapper ">
 			<div class="navbar-brand header-logo">
 				<a href="index.php" class="b-brand">
-					<img src="assets/images/logo1.png" alt="" class="logo images">
+					<img src="images/logo.png" alt="" class="logo images" style="width: 170px;">
 					<img src="assets/images/logo-icon1.png" alt="" class="logo-thumb images">
 				</a>
 				<span class="mobile-menu" id="mobile-collapse" style="cursor: pointer;"><span></span></span>

@@ -3,7 +3,7 @@
 
 <head>
 
-	<title>Billing</title>
+	<title>Purchase Order Management System</title>
 	
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -37,10 +37,16 @@
 						<form id="parent">
 							<div class="text-danger" id="errorTxt3"></div>
 						<!-- <img src="assets/images/logo-dark.png" alt="" class="img-fluid mb-4"> -->
-						<h4 class="mb-3 f-w-400">Login into your account</h4>
+						
+						<center><img src="users/images/logo.png" width="200" /></center>
+
+						<div class="row mt-4">
+
+						<h3>Purchase Order Management System</h3>
+						<h6 class="mb-3 f-w-400">Login into your account</h6>
 						<div class="input-group mb-2">
 							<div class="input-group-prepend">
-								<span class="input-group-text"><i class="feather icon-mail"></i></span>
+								<span class="input-group-text"><i class="feather icon-user"></i></span>
 							</div>
 							<input type="email" id="username"class="form-control" placeholder="Email address or Username">
 						</div>
@@ -51,13 +57,14 @@
 							<input type="password" id="password"class="form-control" placeholder="Password">
 						</div>
 						
-						<div class="form-group text-left mt-2">
+						<!-- <div class="form-group text-left mt-2">
 							<div class="checkbox checkbox-primary d-inline">
 								<input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" checked="">
 								<label for="checkbox-fill-a1" class="cr"> Save credentials</label>
 							</div>
+						</div> -->
+						<button class="btn btn-primary mb-4" id="login_btn">Sign In &nbsp; <i class="fas fa-arrow-alt-circle-right mt-1"></i></button>
 						</div>
-						<button class="btn btn-primary mb-4" id="login_btn">Login</button>
 						<!-- <p class="mb-2 text-muted">Forgot password? <a href="#" class="f-w-400">Reset</a></p>
 						<p class="mb-0 text-muted">Don’t have an account? <a href="signup.php" class="f-w-400">Signup</a></p> -->
 						</form>
