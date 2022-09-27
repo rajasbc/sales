@@ -110,7 +110,7 @@ else
 						<a href="" class="nav-link disable-anchor"><span class="pcoded-micon"><i class="feather icon-grid"></i></span><span class="pcoded-mtext">Sales</span></a>
 						<ul class="pcoded-submenu">
 							<li class=""><a href="viewsalesorder.php" class="">Orders</a></li>
-							<li class=""><a href="#" class="">Invoice</a></li>
+							<li class=""><a href="viewsales.php" class="">Invoice</a></li>
 							<li class=""><a href="#" class="">Receipt</a></li>
 						</ul>
 					</li>
@@ -121,10 +121,19 @@ else
 						<a href="" class="nav-link disable-anchor"><span class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Purchase</span></a>
 						<ul class="pcoded-submenu">
 							<li class=""><a href="viewpurchaseorder.php" class="">Orders</a></li>
-							<li class=""><a href="#" class="">Purchase</a></li>
+							<li class=""><a href="viewpurchase.php" class="">Purchase</a></li>
 							<li class=""><a href="#" class="">Payment</a></li>
 						</ul>
 					</li>
+
+					<li class="nav-item pcoded-hasmenu">
+						<a href="" class="nav-link disable-anchor"><span class="pcoded-micon"><i class="feather icon-map"></i></span><span class="pcoded-mtext">Outstandings</span></a>
+						<ul class="pcoded-submenu">
+							<li class=""><a href="" class="">Payables</a></li><!-- payables.php -->
+							<li class=""><a href="" class="">Receivables</a></li><!-- receivables.php -->
+						</ul>
+					</li>
+
 					<!-- <li class="nav-item">
 						<a href="chart-morris.php" class="nav-link"><span class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Chart</span></a>
 					</li> -->
@@ -182,8 +191,8 @@ else
 								</a>
 							</div> -->
 							<ul class="pro-body">
-								<li><a href="#!" class="dropdown-item"><i class="feather icon-settings"></i> Settings</a></li>
-								<li><a href="#!" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
+								<!-- <li><a href="#!" class="dropdown-item"><i class="feather icon-settings"></i> Settings</a></li>
+								<li><a href="#!" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li> -->
 								<li><a href="logout.php" class="dropdown-item"><i class="feather icon-lock"></i> Logout</a></li>
 							</ul>
 						</div>

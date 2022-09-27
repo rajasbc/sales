@@ -24,10 +24,10 @@ if (count($result) > 0) {
 		<td>
 		<a class='btn btn-sm btn-success' href='viewpurchaseorderdetails.php?id=".$row['orderid']."'>View</a> &nbsp; ";
 
-		// if($row['status']=='New')
-		// {
-		// $out .="<a class='btn btn-sm btn-warning' href='purchaseorder.php?bill_check_group=".base64_encode($row['orderid'])."'>Raise PO</a>";
-		// }
+		if($row['status']=='New')
+		{
+		$out .="<a class='btn btn-sm btn-warning' href='purchase.php?bill_check_group=".base64_encode($row['orderid'])."'>Invoice</a>";
+		}
 
 		$out .="</td>
 		</tr>";
