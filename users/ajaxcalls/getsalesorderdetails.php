@@ -2,13 +2,17 @@
 include '../../includes/config.php';
 // error_reporting(E_ALL);
 $obj = new Salesorder();
+$customer_obj=new Customer();
 $Itemobj = new Product();
 
 $output_array=array();
 $output='';
 
-
+$ordresult = $obj->get_order($_POST['bill_id']);
     $result = $obj->get_orderdetails($_POST['bill_id']);
+    $customer_result=$customer_obj->get_customers($ordresult['customer']);
+
+    // print_r($customer_result);
 
 $sno=0;
 $items=array();
@@ -54,7 +58,7 @@ $output.="</tr>";
 }
 
 
-$out=['out'=>$output,'item'=>$new_array,'sno'=>$sno,'gtotal'=>'0.00','subtotal'=>'0.00','totaltax'=>'0.00'];
+$out=['out'=>$output,'item'=>$new_array,'sno'=>$sno,'gtotal'=>'0.00','subtotal'=>'0.00','totaltax'=>'0.00','cid'=>$customer_result[0]['id'],'ccustomername'=>$customer_result[0]['name'],'ccompanyname'=>$customer_result[0]['company_name'],'ccaddress_line_1'=>$customer_result[0]['address'],'city'=>$customer_result[0]['city'],'cstate'=>$customer_result[0]['state'],'ccphone'=>$customer_result[0]['mobile'],'cemailid'=>$customer_result[0]['email'],'orderdate'=>date('d-m-Y',strtotime($ordresult['date']))];
 
 echo json_encode($out);
 

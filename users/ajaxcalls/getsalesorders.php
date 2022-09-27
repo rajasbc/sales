@@ -28,6 +28,11 @@ if (count($result) > 0) {
 		$out .="<a class='btn btn-sm btn-warning' href='purchaseorder.php?bill_check_group=".base64_encode($row['orderid'])."'>Raise PO</a>";
 		}
 
+		if($row['status']!='New')
+		{
+		$out .="<a class='btn btn-sm btn-danger' href='sales.php?bill_check_group=".base64_encode($row['orderid'])."'>Invoice</a>";
+		}
+
 		$out .="</td>
 		</tr>";
 	}
