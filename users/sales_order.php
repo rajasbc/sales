@@ -78,7 +78,9 @@ $userdet = $userobj->getusername($uid);
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <li class="breadcrumb-item"><a href="#!">Sales Order</a></li>
+           <li class="breadcrumb-item"><a href="#!">Sales </a></li>
+           <li class="breadcrumb-item"><a href="viewsalesorder.php">Sales Orders</a></li>
+           <li class="breadcrumb-item"><a href="#!">New Sales Order</a></li>
            
          </ul>
        </div>
@@ -190,7 +192,7 @@ $userdet = $userobj->getusername($uid);
               <span class="input-group-text">Sales Person</span>
             </div>
             
-            <select name="salesperson" id="salesperson" style="width:174px; background-color: #eff3f6; border:1px solid #ccc; color:#666;">
+            <select name="salesperson" id="salesperson" style="width:222px; background-color: #eff3f6; border:1px solid #ccc; color:#666;">
               <option value="">-- Select --</option>
               <?php
 
@@ -302,7 +304,7 @@ $userdet = $userobj->getusername($uid);
                     <div class="input-group-prepend">
                       <span class="input-group-text input-group-text1">Name<span style="color: red;">&nbsp;*</span></span>
                     </div>
-                    <input class="form-control cust_form" id="custnameid" name="custname" type="text" placeholder="Customer Name" autocomplete="off" onkeypress="if(this.value.length==50) return false;">
+                    <input class="form-control cust_form enterAsTab" id="custnameid" name="custname" type="text" placeholder="Customer Name" autocomplete="off" onkeypress="if(this.value.length==50) return false;">
                   </div>
                 </div>
               </div>
@@ -313,7 +315,7 @@ $userdet = $userobj->getusername($uid);
                     <div class="input-group-prepend">
                       <span class="input-group-text input-group-text1">+91<span style="color: red">&nbsp;*</span></span>
                     </div>
-                    <input class="form-control cust_form"  id="mobile" name="mobile" onKeyPress="if(this.value.length==10)return false;" type="text" autocomplete="off"placeholder='Mobile No.'>
+                    <input class="form-control cust_form "  id="mobile" name="mobile" onKeyPress="if(this.value.length==10)return false;" type="text" autocomplete="off"placeholder='Mobile No.'>
                   </div>
                 </div>
               </div>
@@ -791,5 +793,22 @@ if(res.status=='success'){
     }
   });
 
+</script>
+<script type="text/javascript">
+    var selector = '.cust_form';
+  $('body').on('keydown', selector, function(e) {
+    if (e.key === "Enter") {
+        var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
+        focusable = form.find(selector).filter(':visible');
+        next = focusable.eq(focusable.index(this)+1);
+        if ($(e.target).closest('#patient_save').length > 0) {
+          self.click();
+        }
+        if (next.length) {
+            next.focus();
+        }
+        return false;
+    }
+  }); 
 </script>
 
