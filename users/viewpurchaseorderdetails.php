@@ -126,9 +126,9 @@ $pobj = new Product();
             <th>S.No.</th>
             <th>Product</th>
             <th>Qty</th>
-            <th>Rate</th>
+            <th>Rate ($)</th>
             <th>VAT (%)</th>
-            <th>Total</th>
+            <th>Total ($)</th>
           </tr>
         </thead>
         <tbody>
@@ -161,7 +161,7 @@ $pobj = new Product();
 
         <tfoot>
           
-          <tr style="font-weight: bold;"><td colspan="5" style="text-align: right;">Total</td><td style='text-align: right;'><?=number_format($total,2,'.','')?></td></tr>
+          <tr style="font-weight: bold;"><td colspan="5" style="text-align: right;">Total ($)</td><td style='text-align: right;'><?=number_format($total,2,'.','')?></td></tr>
 
         </tfoot>
 

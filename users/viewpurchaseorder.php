@@ -88,7 +88,7 @@ include 'header.php';
             <th>Date</th>
             <th>Vendor</th>
             <th>Email</th>
-            <th>Total</th>
+            <th>Total ($)</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>

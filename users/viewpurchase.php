@@ -87,9 +87,9 @@ include 'header.php';
             <th style="width:10%;">Bill#</th>
             <th>Date</th>
             <th>Vendor</th>
-            <th>Total</th>
-            <th>Paid</th>
-            <th>Balance</th>
+            <th>Total ($)</th>
+            <th>Paid ($)</th>
+            <th>Balance ($)</th>
             <th>Pay</th>
             <th>Actions</th>
           </tr>
