@@ -139,7 +139,7 @@ include 'header.php';
               <div class=" col-lg-4 col-sm-4 col-md-4" >
                 <div class="input-group input-group-sm">
                   <div class="input-group-prepend">
-                    <span class="input-group-text">Price ₹</span>
+                    <span class="input-group-text">Price ($)</span>
                   </div>
                   <input class="form-control" id="price1" type="number" onkeypress="if(this.value.length==15)return false" autocomplete="off">
                 </div>
@@ -181,7 +181,7 @@ include 'header.php';
                   <tr>
                     <th class="text-left">S.No</th>
                     <th class="text-left">Items</th>
-                    <th class="text-left">Price ₹</th>
+                    <th class="text-left">Price ($)</th>
                     <th class="text-left">Qty</th>
                     <th class="text-left">VAT % </th>
                     <th class="text-left">Total ₹</th>
@@ -208,7 +208,7 @@ include 'header.php';
                     <div class="row">
                       <div class="col-lg-3 col-sm-3 col-md-3">
                         <div class="">
-                          <span class="">Total Amount  Before Tax ₹</span>
+                          <span class="">Total Amount  Before Tax ($)</span>
                           <span class="" id="subid">0</span>
                           <input type="hidden" name="subid1" id="subid1">
                         </div>
@@ -216,7 +216,7 @@ include 'header.php';
                       <div class="col-lg-3 col-sm-3 col-md-3">
                         <div class="">
                         
-                          <span>VAT ₹</span>
+                          <span>VAT ($)</span>
                           <span class="" id="taxid">0</span>
                         
                         </div>
@@ -224,7 +224,7 @@ include 'header.php';
                       <div class="col-lg-3 col-sm-3 col-md-3">
                         <div class="">
                           
-                          <span class="">Total Amount ₹</span>
+                          <span class="">Total Amount ($)</span>
                         
                           <span class="text" id="grandid">0</span>
                           <input type='hidden' class="text" id="grandid1" value="0">
