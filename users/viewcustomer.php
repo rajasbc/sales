@@ -75,7 +75,7 @@ include 'header.php';
 
       <div class="col-md-2" style="float:right; margin-top: 5px;">
 
-      <a class="btn btn-sm btn-primary" href="customer.php" style="margin-top: 10px; float: right;">+New</a>
+      <a class="btn btn-sm btn-info" href="customer.php" style="margin-top: 10px; float: right;">+New</a>
 
       </div>
 
