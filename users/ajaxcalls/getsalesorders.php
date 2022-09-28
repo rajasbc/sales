@@ -28,7 +28,7 @@ if (count($result) > 0) {
 		$out .="<a class='btn btn-sm btn-warning' href='purchaseorder.php?bill_check_group=".base64_encode($row['orderid'])."'>Raise PO</a>";
 		}
 
-		if($row['status']!='New')
+		if($row['status']!='New' && $row['status']!='Completed')
 		{
 		$out .="<a class='btn btn-sm btn-danger' href='sales.php?bill_check_group=".base64_encode($row['orderid'])."'>Invoice</a>";
 		}
@@ -42,5 +42,6 @@ if (count($result) > 0) {
 $output=['out'=>$out];
 
 echo json_encode($output);
+
 
 ?>

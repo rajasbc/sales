@@ -76,7 +76,7 @@ try
     $gtot=$gtot+$rowtotal;
 
 
-    $sl="select * from salesorder_details where orderid='".$_POST['purchaseorderno']."' and product='".$itemvar['itemno']."'";
+    $sl="select * from salesorder_details where orderid='".$_POST['salesorderno']."' and product='".$itemvar['itemno']."'";
     $sl1=$this->db->GetAsIsArray($sl);
 
     $bal = $sl1['balance_qty']-$itemvar['qty'];
@@ -100,17 +100,17 @@ try
 
     if(count($sl1)==0)
     {
-    $up="update salesorder set status='Completed' where orderid='".$_POST['purchaseorderno']."'";
+    $up="update salesorder set status='Completed' where orderid='".$_POST['salesorderno']."'";
     $this->db->ExecuteQuery($up);
 	}
 	elseif(count($sl1)!=0 && count($spl1)!=0)
 	{
-	$up="update salesorder set status='Partially Completed' where orderid='".$_POST['purchaseorderno']."'";
+	$up="update salesorder set status='Partially Completed' where orderid='".$_POST['salesorderno']."'";
     $this->db->ExecuteQuery($up);
 	}
 
 
-	//purchase total update
+	//sales total update
 
 	$up="update sales set billid='".$bill_id."',subtotal='".$sub."',tax_amount='".$gtax."',grandtotal='".$gtot."' where id='".$bill_id."'";
     $this->db->ExecuteQuery($up);
