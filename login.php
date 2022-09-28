@@ -35,16 +35,19 @@
 				<div class="col-md-6">
 					<div class="card-body">
 						<form id="parent">
-							<div class="text-danger" id="errorTxt3"></div>
 						<!-- <img src="assets/images/logo-dark.png" alt="" class="img-fluid mb-4"> -->
 						
 						<center><img src="users/images/logo.png" width="200" /></center>
 
 						<div class="row mt-4">
-
+						
+						<div class="text-danger" id="errorTxt3"></div>
+						
 						<h3>Purchase Order Management System</h3>
 						<h6 class="mb-3 f-w-400">Login into your account</h6>
+
 						<div class="input-group mb-2">
+
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="feather icon-user"></i></span>
 							</div>
