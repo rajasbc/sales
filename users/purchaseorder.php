@@ -43,7 +43,6 @@ include 'header.php';
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
            <li class="breadcrumb-item">Purchase </li>
             <li class="breadcrumb-item">Purchase Order</li>
-            <li class="breadcrumb-item">New Purchase Order</li>
          </ul>
        </div>
      </div>

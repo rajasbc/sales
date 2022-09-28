@@ -83,8 +83,7 @@ select.custom-select {
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
            <li class="breadcrumb-item"><a href="#!">Sales </a></li>
-           <li class="breadcrumb-item"><a href="viewsalesorder.php">Sales Orders</a></li>
-           <li class="breadcrumb-item"><a href="#!">New Sales Order</a></li>
+           <li class="breadcrumb-item"><a href="#!">Sales Order</a></li>
            
          </ul>
        </div>

@@ -64,6 +64,11 @@ else
   	padding: 10px;
   }
 
+  .icon-home
+  {
+  	color: #666;
+  }
+
 </style>
 
 </head>

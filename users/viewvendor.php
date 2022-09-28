@@ -72,7 +72,7 @@ include 'header.php';
       </div>
 
       <div class="col-md-2">
-      <a class="btn btn-sm btn-primary" href="vendor.php" style="margin-top: 10px; float: right;">+New</a>
+      <a class="btn btn-sm btn-info" href="vendor.php" style="margin-top: 10px; float: right;">+New</a>
       </div>
     </div>
 
