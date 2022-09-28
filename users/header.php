@@ -111,7 +111,7 @@ else
 						<ul class="pcoded-submenu">
 							<li class=""><a href="viewsalesorder.php" class="">Orders</a></li>
 							<li class=""><a href="viewsales.php" class="">Invoice</a></li>
-							<li class=""><a href="#" class="">Receipt</a></li>
+							<li class=""><a href="viewreceipt.php" class="">Receipt</a></li>
 						</ul>
 					</li>
 					<li class="nav-item">
@@ -122,7 +122,7 @@ else
 						<ul class="pcoded-submenu">
 							<li class=""><a href="viewpurchaseorder.php" class="">Orders</a></li>
 							<li class=""><a href="viewpurchase.php" class="">Purchase</a></li>
-							<li class=""><a href="#" class="">Payment</a></li>
+							<li class=""><a href="viewpayment.php" class="">Payment</a></li>
 						</ul>
 					</li>
 
