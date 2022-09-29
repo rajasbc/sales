@@ -1673,7 +1673,7 @@ totaltemp=totaltemp.toFixed(2);
 $("#totalid"+get_id).html(totaltemp);
 
 items[ref].gstamount=gstamount;
-items[ref].gstpercentage=gstpercentage;
+items[ref].gstpercentage=gstper;
   calculation();
 
   }
@@ -1817,7 +1817,7 @@ items[ref].gstpercentage=gstpercentage;
 
   subtotal1=Number(subtotal1)+Number(temp_subtotal);
 
-  tax=Number(tax)+Number(temp_subtotal)*Number(tempItem.gstpercentage);
+  tax=Number(tax)+Number(temp_subtotal)*Number(tempItem.gstpercentage)/100;
   i++;
 
   }
@@ -1846,7 +1846,7 @@ items[ref].gstpercentage=gstpercentage;
   
   subtotal1=Number(subtotal1)+Number(temp_subtotal);
 
-  tax=Number(tax)+Number(temp_subtotal)*Number(tempItem.gstpercentage);
+  tax=Number(tax)+Number(temp_subtotal)*Number(tempItem.gstpercentage)/100;
   i++;
 
   }

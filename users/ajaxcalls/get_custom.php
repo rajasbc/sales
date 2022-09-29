@@ -1,5 +1,6 @@
 <?php
 include '../../includes/config.php';
+// error_reporting(E_ALL);
 $obj= new Customer();
 $result =  $obj->getcustom_details();
 $output=array();
