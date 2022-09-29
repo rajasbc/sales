@@ -1585,7 +1585,7 @@ items[ref].gstpercentage=gstpercentage;
 function gstupdate(idval,ele){
 
 
-  
+
   var gstamount=0;
   var prototal=0;
   var totaltemp=0;
@@ -1618,7 +1618,7 @@ totaltemp=totaltemp.toFixed(2);
 $("#totalid"+idval).html(totaltemp);
 
 items[ref].gstamount=gstamount;
-items[ref].gstpercentage=gstpercentage;
+items[ref].gstpercentage=(gstpercentage*100);
   calculation();
 // enkerkeypress();
   } 
