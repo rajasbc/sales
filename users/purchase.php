@@ -1583,6 +1583,9 @@ items[ref].gstpercentage=gstpercentage;
 
 
 function gstupdate(idval,ele){
+
+
+  
   var gstamount=0;
   var prototal=0;
   var totaltemp=0;
@@ -1674,6 +1677,7 @@ $("#totalid"+get_id).html(totaltemp);
 
 items[ref].gstamount=gstamount;
 items[ref].gstpercentage=gstper;
+
   calculation();
 
   }
@@ -1739,7 +1743,7 @@ $("#totalid"+idval).html(totaltemp);
 
 
 items[ref].gstamount=gstamount;
-items[ref].gstpercentage=gstpercentage;
+items[ref].gstpercentage=gstper;
   calculation();
 }else{
    var qtytemp=$(ele).val();
@@ -1851,6 +1855,8 @@ items[ref].gstpercentage=gstpercentage;
 
   }
 }
+
+// alert(tax);
 
   // This calculation for exclusive_Tax and it was default calculation
   grand_total=Number(tax)+Number(subtotal1);
