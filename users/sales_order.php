@@ -423,7 +423,7 @@ $('.numeric').on('input', function (event) {
 
         $('#custnameid').autocomplete({
 
-          source: "ajaxcalls/get_custom.php",
+          source: "ajaxCalls/get_custom.php",
           minLength: 1,
           select: function(event,ui) {
             if( ui.item.label != 'No Record Found')
