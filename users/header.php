@@ -112,10 +112,10 @@ else
 						<a href="viewcustomer.php" class="nav-link"><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Customer</span></a>
 					</li>
 					<li class="nav-item pcoded-hasmenu">
-						<a href="" class="nav-link disable-anchor"><span class="pcoded-micon"><i class="feather icon-grid"></i></span><span class="pcoded-mtext">Sales</span></a>
+						<a href="" class="nav-link disable-anchor"><span class="pcoded-micon"><i class="feather icon-grid"></i></span><span class="pcoded-mtext">Incoming</span></a>
 						<ul class="pcoded-submenu">
-							<li class=""><a href="viewsalesorder.php" class="">Orders</a></li>
-							<li class=""><a href="viewsales.php" class="">Invoice</a></li>
+							<li class=""><a href="viewsalesorder.php" class="">Incoming PO</a></li>
+							<li class=""><a href="viewsales.php" class="">Outgoing Invoice</a></li>
 							<li class=""><a href="viewreceipt.php" class="">Receipt</a></li>
 						</ul>
 					</li>
@@ -123,10 +123,10 @@ else
 						<a href="viewvendor.php" class="nav-link"><span class="pcoded-micon"><i class="feather icon-align-left"></i></span><span class="pcoded-mtext">Vendor</span></a>
 					</li>
 					<li class="nav-item pcoded-hasmenu">
-						<a href="" class="nav-link disable-anchor"><span class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Purchase</span></a>
+						<a href="" class="nav-link disable-anchor"><span class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Outgoing</span></a>
 						<ul class="pcoded-submenu">
-							<li class=""><a href="viewpurchaseorder.php" class="">Orders</a></li>
-							<li class=""><a href="viewpurchase.php" class="">Purchase</a></li>
+							<li class=""><a href="viewpurchaseorder.php" class="">Incoming PO</a></li>
+							<li class=""><a href="viewpurchase.php" class="">Outgoing</a></li>
 							<li class=""><a href="viewpayment.php" class="">Payment</a></li>
 						</ul>
 					</li>
