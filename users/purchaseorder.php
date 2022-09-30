@@ -1,6 +1,8 @@
 <?php
 include '../includes/config.php';
 include 'header.php';
+$obj1= new Product();
+$get_countries=$obj1->get_countries();
 
 ?>
 
@@ -86,6 +88,9 @@ include 'header.php';
                   <span id="city_show_hide">
                     <em id="ccity"></em>
                   </span>
+                   <span id="country_show_hide">
+              <em id="ccountry"></em>
+            </span>
                   <span id="pincode_show_hide">
                     <em id="cpincode"></em>
                   </span>
@@ -104,7 +109,7 @@ include 'header.php';
 
 
               <div class="form-group row">
-              <div class=" col-lg-7 col-sm-7 col-sm-7 md-6">
+              <!-- <div class=" col-lg-7 col-sm-7 col-sm-7 md-6">
                 <div class="input-group input-group-sm">
                   <div class="input-group-prepend">
                     <span class="input-group-text ">🔎</span>
@@ -112,7 +117,7 @@ include 'header.php';
                   <input type='text' id='searchItem' name='searchItem'  class="form-control" placeholder="Search Product Here" autocomplete="off">
                   <input type='hidden' id='originalname' name='originalname' >
                 </div>
-              </div>
+              </div> -->
 
               <div class=" col-lg-5 col-sm-5 col-sm-5 md-6">
                 <div class="input-group input-group-sm">
@@ -126,17 +131,17 @@ include 'header.php';
             </div>
 
             <div class="form-group row">
-              <div class="col-lg-4 col-sm-4 col-md-4">
-                <div class="input-group input-group-sm">
+              <!-- <div class="col-lg-4 col-sm-4 col-md-4"> -->
+       <!--          <div class="input-group input-group-sm">
                   <div class="input-group-prepend">
                     <span class="input-group-text">VAT (%)</span>
                   </div>
-                  <!-- <input class="form-control"  id="id6" type="text" autocomplete="off"> -->
+                  <input class="form-control"  id="id6" type="text" autocomplete="off">
                   <input class="form-control" id="gst_val" type="text" autocomplete="off">
                 </div>
                 <input id="gstpercentage" type="hidden" >
-              </div>
-              <div class=" col-lg-4 col-sm-4 col-md-4" >
+              </div> -->
+        <!--       <div class=" col-lg-4 col-sm-4 col-md-4" >
                 <div class="input-group input-group-sm">
                   <div class="input-group-prepend">
                     <span class="input-group-text">Price ($)</span>
@@ -144,8 +149,8 @@ include 'header.php';
                   <input class="form-control" id="price1" type="number" onkeypress="if(this.value.length==15)return false" autocomplete="off">
                 </div>
                 <input class="form-control" id="price2" type="hidden" onkeypress="if(this.value.length==15)return false">                
-              </div>
-              <div class="col-lg-4 col-sm-4 col-md-4">
+              </div> -->
+<!--               <div class="col-lg-4 col-sm-4 col-md-4">
                 <div class="input-group input-group-sm">
                   <div class="input-group-prepend">
                     <span class="input-group-text">QTY<div id="available_qty" style="display:none"> <span class="ml-3"  data-toggle='view_qty' title='QTY=' style="cursor:pointer">i</span></div></span>
@@ -154,20 +159,21 @@ include 'header.php';
                   
                 </div>
                 <input class="form-control" id="qty2" type="hidden" >
-              </div>
+              </div> -->
             </div>
 
-              <div class="form-group row">              
+             <!--  <div class="form-group row">              
               <div class="col-lg-2 col-sm-2 col-md-2">
                 <input id="itemno" type="hidden" value="0">
                   <button class="btn btn-sm btn-info align-center" id="add" type="button>">ADD</button>
               </div>
-              </div>
+              </div> -->
 
 
           </div>
 
-        </div><!-- row -->
+        </div>
+        <!-- row -->
 
 
 
@@ -361,7 +367,27 @@ include 'header.php';
                     <div class="input-group-prepend">
                       <span class="input-group-text input-group-text1">Country</span>
                     </div>
-                    <input class="form-control cust_form" id="country" name="country" type="text" autocomplete="off" placeholder="Country" onkeypress="if(this.value.length==25) return false;">
+                   
+                      <select name="country" class="form-control cust_form" id="country" >
+
+                         <?php
+
+                                    foreach ($get_countries as $value) {
+                                      // print_r($value);die();
+                                        if ($value['name']=="INDIA") {
+                                           echo "<option value='".$value['name']."' selected='selected' data-id='".$value['phonecode']."'>". $value["name"]."</option>";
+
+                                       }
+                                       else
+                                       {                        
+                                           echo "<option value='".$value['name']."' data-id='".$value['phonecode']."' >" . $value["name"]."</option>";
+
+                                       }
+                                   }
+
+                                   ?>
+
+                          </select>
                   </div>
                 </div>
                 
@@ -2190,6 +2216,7 @@ var area=$("#area").val();
 var state_code=$("#state_code").val();
 
 var companynamevar=$("#companyname").val();
+var country=$("#country option:selected").val();
 var cgst=$("#customer_gst").val();
 var cdlno=$("#customer_dlno").val();
 var shopscode=$("#addressid2").text();
@@ -2219,6 +2246,7 @@ $('#ccustomername').html(customname);
 $('#ccompanyname').html(companynamevar);
 $('#ccphone').html(phonevar);
 $('#ccemailid').html(email);
+$('#ccountry').html(country);
 $('#companynameid').html(companynamevar);
 $('#ccaddress_line_1').html(address_line_1);
 $('#ccity').html(city);
@@ -2234,6 +2262,8 @@ customers["city"]=city;
 customers["pincode"]=pincode;
 customers["state"]=state;
 customers["companynamevar"]=companynamevar;
+customers["country"]=country;
+
 customers["cgst"]=cgst;
 
 
@@ -2251,7 +2281,7 @@ var cust_address_id=$('#cust_address_id').val();
   var email=$("#email").val();
   var company_name=$("#companyname").val();
   var city=$("#city").val();
-  var country=$("#country").val();
+  var country=$("#country option:selected").val();
   var mobile=$("#mobile").val();
   var id = $("#cid").val();
 
@@ -2318,6 +2348,7 @@ $('#cform').trigger("reset");
 (city !== '') ? $("#city_show_hide").show(): $("#city_show_hide").hide();
 (area !== '') ? $("#area_show_hide").show(): $("#area_show_hide").hide();
 (pincode !== '') ? $("#pincode_show_hide").show(): $("#pincode_show_hide").hide();
+(country !== '') ? $("#country_show_hide").show(): $("#country_show_hide").hide();
 (state !== '') ? $("#state_show_hide").show(): $("#state_show_hide").hide(); 
 (cgst !== '') ? $("#ccgst").show(): $("#ccgst").hide();
 $('#searchItem').focus();
