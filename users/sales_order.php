@@ -161,7 +161,7 @@ select.custom-select {
             <div class="input-group-prepend">
               <span class="input-group-text ">🔎</span>
             </div>
-            <input type='text' id='searchItem' name='searchItem'  class="form-control" placeholder="Search Product Here" autocomplete="off">
+            <input type='text' id='searchItem' name='searchItem'  class="form-control product_add" placeholder="Search Product Here" autocomplete="off">
 
             <input type='hidden' id='originalname' name='originalname' >
           </div>
@@ -206,7 +206,7 @@ select.custom-select {
                     <span class="input-group-text">VAT (%)</span>
                   </div>
                   <!-- <input class="form-control"  id="id6" type="text" autocomplete="off"> -->
-                  <input class="form-control" id="gst_val" type="text" autocomplete="off">
+                  <input class="form-control product_add" id="gst_val" type="text" autocomplete="off">
                 </div>
                 <input id="gstpercentage" type="hidden" >
               </div>
@@ -215,7 +215,7 @@ select.custom-select {
                   <div class="input-group-prepend">
                     <span class="input-group-text">Price ($)</span>
                   </div>
-                  <input class="form-control" id="price1" type="number" onkeypress="if(this.value.length==15)return false" autocomplete="off">
+                  <input class="form-control product_add" id="price1" type="text" onkeypress="if(this.value.length==15)return false" autocomplete="off">
                 </div>
                 <input class="form-control" id="price2" type="hidden" onkeypress="if(this.value.length==15)return false">                
               </div>
@@ -224,7 +224,7 @@ select.custom-select {
                   <div class="input-group-prepend">
                     <span class="input-group-text">QTY<div id="available_qty" style="display:none"> <span class="ml-3"  data-toggle='view_qty' title='QTY=' style="cursor:pointer">i</span></div></span>
                   </div>
-                  <input class="form-control focus" id="qty1" type="number"  onkeypress="if(this.value.length==10)return false" autocomplete="off">
+                  <input class="form-control focus product_add" id="qty1" type="text"  onkeypress="if(this.value.length==10)return false" autocomplete="off">
                   
                 </div>
                 <input class="form-control" id="qty2" type="hidden" >
@@ -246,7 +246,7 @@ select.custom-select {
               <span class="input-group-text">Sales Person</span>
             </div>
             
-            <select name="salesperson" id="salesperson" class="custom-select custom-select-sm">
+            <select name="salesperson" id="salesperson" class="custom-select custom-select-sm product_add">
               <option value="">-- Select --</option>
               <?php
 
@@ -276,7 +276,7 @@ select.custom-select {
       <div class="form-group row">
 
         <div class="col-lg-2 col-sm-2 col-md-2">
-          <button class="btn btn-sm btn-info align-center" id="add" type="button>" >ADD</button>
+          <button class="btn btn-sm btn-info align-center product_add" id="add" type="button>" >ADD</button>
         </div>
 
       </div>
@@ -950,6 +950,26 @@ if(res.status=='success'){
             next.focus();
         }else{
           $("#saveCustomerBtn").click();
+
+        }
+        return false;
+    }
+  }); 
+</script>
+<script type="text/javascript">
+    var selector = '.product_add';
+  $('body').on('keydown', selector, function(e) {
+    if (e.key === "Enter") {
+        var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
+        focusable = form.find(selector).filter(':visible');
+        next = focusable.eq(focusable.index(this)+1);
+        if ($(e.target).closest('#add').length > 0) {
+         $("#add").click();
+        }
+        if (next.length) {
+            next.focus();
+        }else{
+          $("#add").click();
 
         }
         return false;
