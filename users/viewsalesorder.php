@@ -16,12 +16,12 @@ include 'header.php';
         <div class="row align-items-center">
          <div class="col-md-12">
           <div class="page-header-title">
-           <h5 class="m-b-10">Sales Orders</h5>
+           <h5 class="m-b-10">Incoming Po</h5>
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <li class="breadcrumb-item">Sales</li>
-           <li class="breadcrumb-item">Sales Orders</li>
+           <li class="breadcrumb-item">Incoming Po</li>
+           <li class="breadcrumb-item">Incoming Po List</li>
          </ul>
        </div>
      </div>

@@ -83,12 +83,12 @@ select.custom-select {
         <div class="row align-items-center">
          <div class="col-md-12">
           <div class="page-header-title">
-           <h5 class="m-b-10">Sales Order</h5>
+           <h5 class="m-b-10">Incoming PO</h5>
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <li class="breadcrumb-item"><a href="#!">Sales </a></li>
-           <li class="breadcrumb-item"><a href="#!">Sales Order</a></li>
+           <li class="breadcrumb-item"><a href="#!">Incoming</a></li>
+           <li class="breadcrumb-item"><a href="#!">Incoming PO</a></li>
            
          </ul>
        </div>
