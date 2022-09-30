@@ -5,6 +5,7 @@ class Product extends Dbconnection {
 	var $invitee_obj;
 	var $msg = '';
 	var $tablename = "product";
+	var $tablename1 = "`bird_countries`";
 
 	function __construct() {
 		parent::__construct();
@@ -42,6 +43,14 @@ class Product extends Dbconnection {
 		 $sql = "select * from " . $this->tablename." where id='".$id."'";
 		$result = $this->db->GetAsIsArray($sql);
 		return $result;
+	}
+
+	
+ function get_countries(){
+	$sql="select * from ".$this->tablename1." order by name asc";
+		$result = $this->db->GetResultsArray($sql);
+		return $result;
+
 	}
 
 

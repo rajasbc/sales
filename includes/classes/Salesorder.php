@@ -53,15 +53,22 @@ try
     $this->db->ExecuteQuery($up);
 
 	foreach ($item as $itemvar) {
+		// print_r($itemvar);die();
 
     if ((isset($itemvar["itemname"]) && $itemvar["itemname"] !== '')) 
     {
     $sales_details=array();
+
+    $totalvalue = $itemvar['qty']*$itemvar['price'];
+
+    $rowtotal = $totalvalue+$itemvar['gstamount'];
     
     $sales_details['orderid']=$bill_id;
     $sales_details['product']=$itemvar['itemno'];
     $sales_details['qty']=$itemvar['qty'];
+    $sales_details['tax']=$itemvar['gst'];
     $sales_details['balance_qty']=$itemvar['qty'];
+    $sales_details['total']=$rowtotal;
     $sql=$this->db->mysql_insert($this->tablename1,$sales_details);
 	}
 
