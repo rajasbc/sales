@@ -2,15 +2,19 @@
 include '../includes/config.php';
 include 'header.php';
 // error_reporting(E_ALL);
-if($_GET['id']!=''){
+// if($_GET['id']!=''){
   $id=$_GET['id'];
   $obj = new Vendor();
 
-  $result =  $obj->get_vendors($id);
+  // $result =  $obj->get_vendors($id);
   $obj1= new Product();
-  $state =  $obj1->get_state();
+ 
 
-}
+$get_countries=$obj1->get_countries();
+// print_r($get_countries);die();
+// echo $get_countries;
+
+// }
 
 
 $uid = $_SESSION['uid'];
@@ -19,6 +23,7 @@ $uid = $_SESSION['uid'];
 $userobj = new Admin();
 $userresult = $userobj->getsalesperson();
 $userdet = $userobj->getusername($uid);
+
 
 ?>
 <style>
@@ -162,7 +167,7 @@ select.custom-select {
           </div>
         </div>  
       </div>
-      <div class="form-group">
+<!--       <div class="form-group">
 
         
         <div class="col-lg-7 col-sm-7 col-md-7" style="padding:0px;">
@@ -176,10 +181,55 @@ select.custom-select {
           <input class="form-control" id="qty2" type="hidden" >
           <input class="form-control" id="reorder_qty" type="hidden" >
           <input class="form-control" id="reorder_level" type="hidden" >
-          <input id="itemno" type="hidden">
+          
+        </div>
+
+          <div class="col-lg-8 col-sm-8 col-md-8" style="padding:15px; border-left-width: 50px;">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Price<div id="price"> <span class="ml-3"  data-toggle='price' title='price=' style="cursor:pointer"></span></div></span>
+            </div>
+            <input class="form-control focus numeric" id="price1" type="text" placeholder="Enter Price" autocomplete="off">
+
+          </div>
+          
         </div>
         
-      </div>
+      </div> -->
+
+
+<input id="itemno" type="hidden">
+            <div class="form-group row">
+              <div class="col-lg-4 col-sm-4 col-md-4">
+                <div class="input-group input-group-sm">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">VAT (%)</span>
+                  </div>
+                  <!-- <input class="form-control"  id="id6" type="text" autocomplete="off"> -->
+                  <input class="form-control" id="gst_val" type="text" autocomplete="off">
+                </div>
+                <input id="gstpercentage" type="hidden" >
+              </div>
+              <div class=" col-lg-4 col-sm-4 col-md-4" >
+                <div class="input-group input-group-sm">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Price ($)</span>
+                  </div>
+                  <input class="form-control" id="price1" type="number" onkeypress="if(this.value.length==15)return false" autocomplete="off">
+                </div>
+                <input class="form-control" id="price2" type="hidden" onkeypress="if(this.value.length==15)return false">                
+              </div>
+              <div class="col-lg-4 col-sm-4 col-md-4">
+                <div class="input-group input-group-sm">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">QTY<div id="available_qty" style="display:none"> <span class="ml-3"  data-toggle='view_qty' title='QTY=' style="cursor:pointer">i</span></div></span>
+                  </div>
+                  <input class="form-control focus" id="qty1" type="number"  onkeypress="if(this.value.length==10)return false" autocomplete="off">
+                  
+                </div>
+                <input class="form-control" id="qty2" type="hidden" >
+              </div>
+            </div>
 
 
       
@@ -244,7 +294,10 @@ select.custom-select {
             <tr>
               <th class="text-left">S.No</th>
               <th class="text-left">Item Name</th>
-              <th class="text-left">Qty ₹</th>
+              <th class="text-left">Price</th>
+              <th class="text-left">Qty</th>
+               <th class="text-left">VAT</th>
+               <th class="text-left">Total</th>
               <th class="text-left">Action</th>
             </tr>
           </thead>
@@ -253,8 +306,11 @@ select.custom-select {
               <tr class="emptyTr">
                 <td id="s_no">&nbsp;</td>
                 <td id="item_name">&nbsp;</td>
+                 <td id="price">&nbsp;</td>
                 <td id="qty">&nbsp;</td>
-                <td id="action">&nbsp;</td>
+                 <td id="vat">&nbsp;</td>
+                 <td id="total">&nbsp;</td>
+                 <td id="action">&nbsp;</td>
 
               </tr>
             <?php }?>
@@ -391,7 +447,32 @@ select.custom-select {
                     <div class="input-group-prepend">
                       <span class="input-group-text input-group-text1">Country</span>
                     </div>
-                    <input class="form-control cust_form" id="country" name="country" type="text" autocomplete="off" placeholder="Country" onkeypress="if(this.value.length==25) return false;">
+                   <!--  <input class="form-control cust_form" id="country" name="country" type="text" autocomplete="off" placeholder="Country" onkeypress="if(this.value.length==25) return false;"> -->
+
+                      <select name="country" class="form-control cust_form" id="country" >
+
+                         <?php
+
+                                    foreach ($get_countries as $value) {
+                                      // print_r($value);die();
+                                        if ($value['name']=="INDIA") {
+                                           echo "<option value='".$value['name']."' selected='selected' data-id='".$value['phonecode']."'>". $value["name"]."</option>";
+
+                                       }
+                                       else
+                                       {                        
+                                           echo "<option value='".$value['name']."' data-id='".$value['phonecode']."' >" . $value["name"]."</option>";
+
+                                       }
+                                   }
+
+                                   ?>
+
+                          </select>
+
+
+
+
                   </div>
                 </div>
                 
@@ -500,8 +581,11 @@ $('.numeric').on('input', function (event) {
   var product_name=$("#searchItem").val();
   // var hsn_code=$("#id6").val();
   var price=$("#price1").val();
+   var price=$("#price1").val();
+    var price=$("#price1").val();
   var id=$("#item_id").val();
   var qty=$("#qty1").val();
+
 
   $.ajax({
     type:"POST",
@@ -593,6 +677,14 @@ if(Number(serial_no)!=0)
 sno=sno+1;
 var gqty=$("#qty1").val();
 
+var gstp = 0;
+  var gstpercentage = 0;
+
+  // alert(sno);
+
+  gstp=Number($('#gst_val').val());
+  gstpercentage=gstp/100;
+
   // data["itemno"]=$("#itemno").val();
   
   data['bags']='';
@@ -607,11 +699,20 @@ var price=$("#price1").val();
 var qty=$("#qty1").val();
 var itemno=$("#itemno").val();
 
-
+  data["gstpercentage"]=gstpercentage;
   data["itemname"]=itemcol;
   data["price"]=price;
   data["id"]=itemno;
+  data["gst"]=gstp;
 
+  total1=Number(data["price"])*Number(data["qty"]);
+  
+  total=Number(total1)+Number(total1)*gstpercentage;
+
+  prototal=Number(($("#price1").val()*$("#qty1").val()));
+
+gstamount=prototal*Number(gstpercentage);
+ data["total"]=total.toFixed(2);
   // alert($("#qty1").val());
 
 //item array insertion
@@ -621,31 +722,42 @@ items["sid"+sno] = {
   "itemno":itemno,
   "itemname":itemcol,
   "price":price,
+  "gst":gstp,
+  "gstpercentage":gstpercentage,
+  "gstamount":gstamount,
   "qty":$("#qty1").val(),
+  "total":total,
 };
 
 
 var trItemTemplate = [
-'<tr id="trItem_{{sno}}">',
-'<td class="text-left ch-4">{{sno}}</td>',
-'<td class="text-left ch-10">{{itemname}}</td>',
-'<td class="text-left ch-4">',
-'<input onkeyup=priceupdate({{sno}},this) type="number" class="form-control qty" name="qty[]" id="num_qty{{sno}}" value="{{qty}}" style="width:5rem; height:1.75rem" onkeypress="if(this.value.length==8) return false">',
-'</td>',
+  '<tr class="productrow" id="trItem_{{sno}}">',
+    '<td class="text-left ch-4">{{sno}}</td>',
+    '<td class="text-left ch-10">{{itemname}}</td>',
 
-'<td class="text-left ch-4">',
-'<button type="button" class="btn btn-default btn-sm" onclick="removeItem({{sno}})">',
-'<span class="glyphicon glyphicon-trash">',
-'<i class="fas fa-trash"></i>',
-'</span>',
-'</button>',
-'</td>',
-'</tr>'].join(''),
+    '<td class="text-left ch-6">',
+      '<input type="hidden" name="price[]" id="priceid{{sno}}" value="{{price}}">',
+    '{{price}}</td>',
+    '<td class="text-left ch-4">',
+      '<input onkeyup=priceupdate({{sno}},this) type="number" class="form-control qty" name="qty[]" id="num_qty{{sno}}" value="{{qty}}" style="width:5rem; height:1.75rem" onkeypress="if(this.value.length==8) return false">',
+    '</td>',
+    '<td class="text-left ch-4" id="gstpid{{sno}}"><input type="hidden" id="gstper{{sno}}" value="{{gst}}">{{gst}}</td>',
+    '<td class="text-right ch-6" id="totalid{{sno}}">{{total}}</td>',
+    '<td class="text-left ch-4">',
+      '<button type="button" class="btn btn-default btn-sm" onclick="removeItem({{sno}})">',
+      '<span class="glyphicon glyphicon-trash">',
+        '<i class="fas fa-trash"></i>',
+      '</span>',
+      '</button>',
+    '</td>',
+  '</tr>'].join(''),
 tr = trItemTemplate;
 tr = tr.replace(getRegEx('sno'), sno);
 tr = tr.replace(getRegEx('itemname'), data['itemname']);
-tr = tr.replace(getRegEx('hsn'), data['hsn']);
+tr = tr.replace(getRegEx('price'),data['price']);
 tr = tr.replace(getRegEx('qty'), data['qty']);
+tr = tr.replace(getRegEx('gst'), data['gst']);
+tr = tr.replace(getRegEx('total'), data['total']);
 var emptyTr = $('#tdata .emptyTr').first();
 if (emptyTr.length === 0) {
   $('#tdata').append(tr);
@@ -711,7 +823,7 @@ $("#saveCustomerBtn").on('click',function(){
   var email=$("#email").val();
   var company_name=$("#companyname").val();
   var city=$("#city").val();
-  var country=$("#country").val();
+  var country=$("#country option:selected").val();
   var mobile=$("#mobile").val();
   var id = $("#cid").val();
 
@@ -831,11 +943,14 @@ if(res.status=='success'){
         var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
         focusable = form.find(selector).filter(':visible');
         next = focusable.eq(focusable.index(this)+1);
-        if ($(e.target).closest('#patient_save').length > 0) {
-          self.click();
+        if ($(e.target).closest('#saveCustomerBtn').length > 0) {
+         $("#saveCustomerBtn").click();
         }
         if (next.length) {
             next.focus();
+        }else{
+          $("#saveCustomerBtn").click();
+
         }
         return false;
     }
