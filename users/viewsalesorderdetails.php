@@ -125,7 +125,10 @@ $aresult = $aobj->getusername($ordresult['createdby']);
            <tr>
             <th>S.No.</th>
             <th>Product</th>
+            <th>Price($)</th>
             <th>Qty</th>
+            <th>VAT(%)</th>
+            <th>Total</th>
           </tr>
         </thead>
         <tbody>
@@ -134,6 +137,9 @@ $aresult = $aobj->getusername($ordresult['createdby']);
 
           $sno=0;
           $tqty = 0;
+          $tprice=0;
+          $total_amount=0;
+          $tvat=0;
           foreach($result as $row)
           {
 
@@ -141,9 +147,14 @@ $aresult = $aobj->getusername($ordresult['createdby']);
 
             $presult = $pobj->getitem($row['product']);
 
-            echo"<tr><td>".$sno."</td><td>".$presult['name']."</td><td>".$row['qty']."</td></tr>";
+            $total_value= $row['qty']*$presult['price'];
+
+            echo"<tr><td>".$sno."</td><td>".$presult['name']."</td><td>".$presult['price']."</td><td>".$row['qty']."</td><td>".$row['tax']."</td><td>".$row['total']."</td></tr>";
 
             $tqty=$tqty+$row['qty'];
+            $tprice=$tprice+$presult['price'];
+            $tvat=$tvat+$row['tax'];
+            $total_amount=$total_amount+$row['total'];
 
           }
 
@@ -153,7 +164,35 @@ $aresult = $aobj->getusername($ordresult['createdby']);
 
         <tfoot>
           
-          <tr style="font-weight: bold;"><td colspan="2" style="text-align: center;">Total Qty</td><td><?=number_format($tqty,2,'.','')?></td></tr>
+                     <tr>
+                  <td colspan="13" class="td-last-1">
+                   
+                    <div class="row">
+                
+                      <div class="col-lg-3 col-sm-3 col-md-3">
+                        <div class="">
+                        
+                          <span>VAT ($) </span>
+                          <span class="" id="taxid"> <?=$tvat?></span>
+                        
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-3 col-md-3">
+                        <div class="">
+                          
+                          <span class="">Total Amount ($)</span>
+                        
+                          <span class="text" id="grandid"> <?=$total_amount?></span>
+                          <input type='hidden' class="text" id="grandid1" value="0">
+                        </div>
+                      </div>
+
+                  
+
+                    </div>
+                    
+                  </td>
+                </tr>
 
         </tfoot>
 

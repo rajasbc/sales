@@ -147,7 +147,7 @@ select.custom-select {
         </div>
 
       
-
+<input type="hidden" id="s_no">
   <div class="col-sm-6 col-lg-6 ml-auto col-md-6 mt-1">
     <input class="form-control" id="combination_id" type="hidden" value="0" >
     
@@ -159,7 +159,7 @@ select.custom-select {
         <div class=" col-lg-7 col-sm-7 col-sm-7" style="padding:0px;">
           <div class="input-group input-group-sm">
             <div class="input-group-prepend">
-              <span class="input-group-text ">🔎</span>
+              <span class="input-group-text ">🔎<span class="text-danger">*</span></span>
             </div>
             <input type='text' id='searchItem' name='searchItem'  class="form-control product_add" placeholder="Search Product Here" autocomplete="off">
 
@@ -222,7 +222,7 @@ select.custom-select {
               <div class="col-lg-4 col-sm-4 col-md-4">
                 <div class="input-group input-group-sm">
                   <div class="input-group-prepend">
-                    <span class="input-group-text">QTY<div id="available_qty" style="display:none"> <span class="ml-3"  data-toggle='view_qty' title='QTY=' style="cursor:pointer">i</span></div></span>
+                    <span class="input-group-text">QTY<span class="text-danger">*</span><div id="available_qty" style="display:none"> <span class="ml-3"  data-toggle='view_qty' title='QTY=' style="cursor:pointer">i</span></div></span>
                   </div>
                   <input class="form-control focus product_add" id="qty1" type="text"  onkeypress="if(this.value.length==10)return false" autocomplete="off">
                   
@@ -294,15 +294,16 @@ select.custom-select {
             <tr>
               <th class="text-left">S.No</th>
               <th class="text-left">Item Name</th>
-              <th class="text-left">Price</th>
+              <th class="text-left">Price($)</th>
               <th class="text-left">Qty</th>
-               <th class="text-left">VAT</th>
-               <th class="text-left">Total</th>
+               <th class="text-left">VAT(
+               %)</th>
+               <th class="text-left">Total($)</th>
               <th class="text-left">Action</th>
             </tr>
           </thead>
           <tbody class="text-left" id="tdata">
-            <?php for ($i = 1; $i < 9; $i++) { ?>
+            <?php for ($i = 1; $i < 3; $i++) { ?>
               <tr class="emptyTr">
                 <td id="s_no">&nbsp;</td>
                 <td id="item_name">&nbsp;</td>
@@ -364,7 +365,7 @@ select.custom-select {
                     <div class="input-group-prepend">
                       <span class="input-group-text input-group-text1">Name<span style="color: red;">&nbsp;*</span></span>
                     </div>
-                    <input class="form-control cust_form enterAsTab" id="custnameid" name="custname" type="text" placeholder="Customer Name" autocomplete="off" onkeypress="if(this.value.length==50) return false;">
+                    <input class="form-control cust_form" id="custnameid" name="custname" type="text" placeholder="Customer Name" autocomplete="off" onkeypress="if(this.value.length==50) return false;">
                   </div>
                 </div>
               </div>
@@ -396,7 +397,7 @@ select.custom-select {
                     <div class="input-group-prepend">
                       <span class="input-group-text input-group-text1" id="com">Company Name<span style="color: red" class="<?php echo $hide_silver_data1?>"></span></span>
                     </div>
-                    <input class="form-control cust_form" id="companyname" name="companyname" type="text" autocomplete="off" onkeypress="if(this.value.length==25) return false;">
+                    <input class="form-control cust_form" id="companyname" name="companyname" type="text" autocomplete="off" placeholder="Company name"onkeypress="if(this.value.length==25) return false;">
                     <select class="form-control" style="border-left-width: 0px;display: none" id="billadd"></select>
                     <input id="cid" type="hidden" name="cid" >
                     <input id="item_id" type="hidden" name="item_id" >
@@ -435,7 +436,7 @@ select.custom-select {
                     <div class="input-group-prepend">
                       <span class="input-group-text input-group-text1">State</span>
                     </div>
-                    <input class="form-control cust_form" id="state" name="state" type="text" autocomplete="off" placeholder="City" onkeypress="if(this.value.length==25) return false;">
+                    <input class="form-control cust_form" id="state" name="state" type="text" autocomplete="off" placeholder="State" onkeypress="if(this.value.length==25) return false;">
                     
                   </div>
                 </div>
@@ -450,6 +451,7 @@ select.custom-select {
                    <!--  <input class="form-control cust_form" id="country" name="country" type="text" autocomplete="off" placeholder="Country" onkeypress="if(this.value.length==25) return false;"> -->
 
                       <select name="country" class="form-control cust_form" id="country" >
+                        <option value="select">Select Country</option>
 
                          <?php
 
@@ -585,7 +587,21 @@ $('.numeric').on('input', function (event) {
     var price=$("#price1").val();
   var id=$("#item_id").val();
   var qty=$("#qty1").val();
-
+  if(Number($("#qty1").val())==0)
+  {
+    $("#qty1").css("border","1px solid red");
+    $("#qty1").focus();
+    var qty1= $("#qty1").val(); 
+    $.growl.error({
+      title:"Quantity issue",
+      message:"Please enter quantity"
+    });
+    return false;
+  }
+  else
+  {
+    $("#qty1").css("border","1px solid #ced4da");
+  }
 
   $.ajax({
     type:"POST",
@@ -617,10 +633,12 @@ $('.numeric').on('input', function (event) {
   if ("<?=$_GET['bill_check_group']?>"=="") {
   jQuery("#trItem_"+idval).empty('');
   delete items["sid"+idval] ;
+  $("#s_no").val(idval-sno);
 }else{
   jQuery("#trItem_"+idval).empty('');
   var ref = "sid"+idval;
   items[ref].deleted='yes';
+  // $("#s_no").val(idval);
 }
   // sno--;
   $('#tdata tr').each(function(index){
@@ -647,21 +665,21 @@ function add_productrow()
 
   
   // var item_id_check=$('#itemno').val();
-  if(Number($("#qty1").val())==0)
-  {
-    $("#qty1").css("border","1px solid red");
-    $("#qty1").focus();
-    var qty1= $("#qty1").val(); 
-    $.growl.error({
-      title:"Quantity issue",
-      message:"Please enter quantity"
-    });
-    return false;
-  }
-  else
-  {
-    $("#qty1").css("border","1px solid #ced4da");
-  }
+  // if(Number($("#qty1").val())==0)
+  // {
+  //   $("#qty1").css("border","1px solid red");
+  //   $("#qty1").focus();
+  //   var qty1= $("#qty1").val(); 
+  //   $.growl.error({
+  //     title:"Quantity issue",
+  //     message:"Please enter quantity"
+  //   });
+  //   return false;
+  // }
+  // else
+  // {
+  //   $("#qty1").css("border","1px solid #ced4da");
+  // }
 
 
   if($("#searchItem").val()!=""){
