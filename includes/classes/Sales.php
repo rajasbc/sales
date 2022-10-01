@@ -159,6 +159,15 @@ try
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
 	}
+
+
+	function getreceiptdetails($id)
+	{
+		$sql = "select * from receipt where billid='".$id."'";
+		$result = $this->db->GetResultsArray($sql);
+		return $result;
+	}
+
     function get_docdetails($id) {
         $sql = "select * from sales_documents where sales_id='".$id."' and is_deleted='NO'";
         $result = $this->db->GetResultsArray($sql);
@@ -170,6 +179,7 @@ try
         $result = $this->db->ExecuteQuery($sql);
         return ['status'=>'success'];
     }
+
 	
 
 }

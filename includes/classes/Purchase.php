@@ -156,6 +156,15 @@ try
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
 	}
+
+
+	function getpaymentdetails($id)
+	{
+		$sql = "select * from payment where billid='".$id."'";
+		$result = $this->db->GetResultsArray($sql);
+		return $result;
+	}
+
     function get_docdetails($id) {
         $sql = "select * from purchase_documents where purchase_id='".$id."' and is_deleted='NO'";
         $result = $this->db->GetResultsArray($sql);
@@ -167,10 +176,10 @@ try
         $result = $this->db->ExecuteQuery($sql);
         return ['status'=>'success'];
     }
+
 	
 
 }
-
 
 
 
