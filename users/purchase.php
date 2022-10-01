@@ -67,7 +67,7 @@ include 'header.php';
             
             <div class="col-md-6">
 <input type="hidden" name="s_no" id="s_no">
-
+<input type="hidden" name="doc_sno" id="doc_sno" value="0">
                   <img src="images\usericon.jpg" class="media-object" data-toggle="modal" data-target="#customerModal" style="width:40px;cursor:pointer;margin-left:-10px"> <b style="font-weight:bold; font-size: 15px;">Vendor Details</b>
 
                   <div class="row">
@@ -152,6 +152,30 @@ include 'header.php';
 
               <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
               </div>
+              <div class=" col-lg-8 col-sm-8 col-sm-8 md-6 mt-1">
+                <div class="input-group input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">File Upload</span>
+                  </div>
+                  <input type='file' id='file' name='file' class="form-control">
+                  <span name="file_base" id="file_base" style="display: none"></span>
+                </div>
+              </div>
+
+              <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
+              </div>
+               <div class=" col-lg-8 col-sm-8 col-sm-8 md-6 mt-1">
+                <div class="input-group input-group-sm">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Description</span>
+                  </div>
+                  <textarea class="form-control" id='description' name="description"></textarea>
+                </div>
+              </div>
+
+              <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
+              <i class="fa fa-plus-circle" style="font-size: xx-large;color: crimson;cursor: pointer;" aria-hidden="true" id="file_upload"></i>
+              </div>
 
             </div>
 
@@ -167,6 +191,19 @@ include 'header.php';
 
         <div class="row mt-3">
           <div class="well col-sm-12 col-md-12 col-lg-12 mt-1">
+            <div class="table-scroll">
+              <table class="table bill-table table-bordered" id="doc-table" style="display: none">
+                <thead>
+                  <tr>
+                    <th class="text-left">S.No</th>
+                    <th class="text-left">File Name</th>
+                    <th class="text-left">Description</th>
+                    <th class="text-left">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="text-left" id="docdata">
+                </tbody>
+            </div>
             <div id="table-scroll" class="table-scroll">
               <table class="table bill-table table-bordered" id="bill-table">
                 <thead>
@@ -2048,6 +2085,13 @@ function other_charges_calc()
   // $("#subid").remove();
   // $("#taxid").remove();
   }
+      function removeDocItem(idval){
+  jQuery("#trDoc_"+idval).empty('');
+  delete doc_items["sid"+idval] ;
+  if (doc_items.length==0) {
+    $("#doc-table").css('display','none');
+  }
+  }
   $(document).ready(function(){
   $('#custnameid').autocomplete({
   source: "ajaxCalls/get_vendor.php",
@@ -2437,6 +2481,7 @@ check.length=1;
     // customerarray["cust_address_id"]=$("#cust_address_id").val();
     var cobj=$.extend({},customerarray);
     var obj = $.extend({}, items);
+    var doc_obj = $.extend({}, doc_items);
     // var bobj=$.extend({},bill_log);
     // console.log($.isEmptyObject(items));
 
@@ -2477,7 +2522,7 @@ check.length=1;
       type: "POST",
       url:"ajaxCalls/add_purchase.php",
       dataType:'JSON',
-      data: $.param(obj)+'&'+$.param(cobj)+'&purchaseorderno='+purchaseorderno,
+      data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&purchaseorderno='+purchaseorderno,
       success: function(dataResult) {
         // localStorage.clear('myArray');
       // console.log(dataResult);
@@ -2644,6 +2689,7 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
+      doc_items = [];
       var cost_j=0;
       if ('<?=base64_decode($_GET['future_ids'])?>'!='') {
           // $(".modal .close").click();
@@ -2924,4 +2970,67 @@ getBillType();
           return false;
           }
         })
+      </script>
+      <script type="text/javascript">
+        $("#file_upload").click(function(){
+          $("#doc-table").css('display','');
+           data=[];
+          var file_base='';
+          var doc_sno=Number($("#doc_sno").val())+1;
+         var file = $('#file')[0].files[0];
+      var file_name=file['name'];
+      var file_type=file['type'];
+      var file_description=$("#description").val();
+     
+  data["file_name"]=file_name;
+  data["file_type"]=file_type;
+  data["file_base"]=$("#file_base").text();
+  data["file_description"]=file_description;
+
+    doc_items["docsid"+doc_sno] = {
+    "sid":doc_sno,
+    "file_name":file_name,
+    "file_type":file_type,
+    "file_base":$("#file_base").text(),
+    "file_description":file_description,
+    };
+
+
+var trItemTemplate = [
+'<tr id="trDoc_{{sno}}">',
+'<td class="text-left ch-4">{{sno}}</td>',
+'<td class="text-left ch-10">{{file_name}}</td>',
+'<td class="text-left ch-10">{{file_description}}</td>',
+
+'<td class="text-left ch-4">',
+'<button type="button" class="btn btn-default btn-sm" onclick="removeDocItem({{sno}})">',
+'<span class="glyphicon glyphicon-trash">',
+'<i class="fas fa-trash"></i>',
+'</span>',
+'</button>',
+'</td>',
+'</tr>'].join(''),
+tr = trItemTemplate;
+tr = tr.replace(getRegEx('sno'), doc_sno);
+tr = tr.replace(getRegEx('file_name'), data['file_name']);
+tr = tr.replace(getRegEx('file_description'), data['file_description']);
+var emptyTr = $('#docdata .emptyTr').first();
+if (emptyTr.length === 0) {
+  $('#docdata').append(tr);
+}
+else {
+  $('#docdata .emptyTr').first().replaceWith(tr);
+}
+$("#file").val('');
+$("#description").val('');
+$("#doc_sno").val(doc_sno);
+        });
+        $("#file").on('change',function(){
+          var file = $('#file')[0].files[0];
+         var reader = new FileReader();
+         reader.readAsDataURL($('#file')[0].files[0]);
+         reader.onload = function () {
+       $("#file_base").html(reader.result);
+             };
+        });
       </script>

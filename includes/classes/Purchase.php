@@ -87,9 +87,28 @@ try
 
 
 	}
+    if ((isset($itemvar["file_name"]) && $itemvar["file_name"] !== '' && $itemvar["file_base"] !== '')) 
+    {
+    $image_data = $itemvar["file_base"]; 
+    $fullname =$itemvar["file_name"];
+    $tsrget="../../upload/purchase_documents/";
 
+    if (file_put_contents($tsrget . $fullname, file_get_contents($image_data))) {
+    $result = $fullname;
+    } else {
+    $result = "error";
+    }
+    if ($result!='error') {
+        $document_array=array();
+        $document_array['purchase_id']=$bill_id;
+        $document_array['document_name']=$result;
+        $document_array['description']=$itemvar["file_description"];
+        $this->db->mysql_insert('purchase_documents',$document_array);
+    }
+    
     }
 
+    }
     //order details update
 
     $sl="select * from purchaseorder_details where orderid='".$_POST['purchaseorderno']."' and balance_qty!='0'";
@@ -138,12 +157,26 @@ try
 		return $result;
 	}
 
+
 	function getpaymentdetails($id)
 	{
 		$sql = "select * from payment where billid='".$id."'";
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
 	}
+
+    function get_docdetails($id) {
+        $sql = "select * from purchase_documents where purchase_id='".$id."' and is_deleted='NO'";
+        $result = $this->db->GetResultsArray($sql);
+        return $result;
+    }
+    function delete_document($id) {
+
+        $sql = "UPDATE purchase_documents SET is_deleted='YES' WHERE id=".$id;
+        $result = $this->db->ExecuteQuery($sql);
+        return ['status'=>'success'];
+    }
+
 	
 
 }

@@ -1,4 +1,5 @@
 <?php
+include '../config.php';
 class Sales extends Dbconnection {
 	var $name;
 	var $db;
@@ -52,6 +53,8 @@ try
 	foreach ($item as $itemvar) {
 
 
+    
+
 
     if ((isset($itemvar["itemname"]) && $itemvar["itemname"] !== '')) 
     {
@@ -87,9 +90,28 @@ try
 
 
 	}
+    if ((isset($itemvar["file_name"]) && $itemvar["file_name"] !== '' && $itemvar["file_base"] !== '')) 
+    {
+    $image_data = $itemvar["file_base"]; 
+    $fullname =$itemvar["file_name"];
+    $tsrget="../../upload/sales_documents/";
 
+    if (file_put_contents($tsrget . $fullname, file_get_contents($image_data))) {
+    $result = $fullname;
+    } else {
+    $result = "error";
     }
-
+    if ($result!='error') {
+        $document_array=array();
+        $document_array['sales_id']=$bill_id;
+        $document_array['document_name']=$result;
+        $document_array['description']=$itemvar["file_description"];
+        $this->db->mysql_insert('sales_documents',$document_array);
+    }
+    
+    }
+   
+    }
     //order details update
 
     $sl="select * from salesorder_details where orderid='".$_POST['salesorderno']."' and balance_qty!='0'";
@@ -138,12 +160,26 @@ try
 		return $result;
 	}
 
+
 	function getreceiptdetails($id)
 	{
 		$sql = "select * from receipt where billid='".$id."'";
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
 	}
+
+    function get_docdetails($id) {
+        $sql = "select * from sales_documents where sales_id='".$id."' and is_deleted='NO'";
+        $result = $this->db->GetResultsArray($sql);
+        return $result;
+    }
+    function delete_document($id) {
+
+        $sql = "UPDATE sales_documents SET is_deleted='YES' WHERE id=".$id;
+        $result = $this->db->ExecuteQuery($sql);
+        return ['status'=>'success'];
+    }
+
 	
 
 }
