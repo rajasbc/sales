@@ -141,7 +141,7 @@ $pobj = new Product();
 
             echo'<tr id="doc_data'.$value['id'].'"><td>'.$i.'</td><td>'.$value['document_name'].'</td>
             <td>'.$value['description'].'</td>
-            <td><button type="button" class="btn btn-default btn-sm" data-id="../upload/sales_documents/'.$value['document_name'].'" onclick="viewItem(this)"><span class="glyphicon glyphicon-trash"><i class="fas fa-eye" style="    color:darkblue;"></i></span></button><button type="button" class="btn btn-default btn-sm" onclick="removeItem('.$value['id'].')"><span class="glyphicon glyphicon-trash"><i class="fas fa-trash" style="    color: crimson;"></i></span></button></td></tr>';
+            <td><button type="button" class="btn btn-default btn-sm" data-id="../upload/purchase_documents/'.$value['document_name'].'" onclick="viewItem(this)"><span class="glyphicon glyphicon-trash"><i class="fas fa-eye" style="    color:darkblue;"></i></span></button><button type="button" class="btn btn-default btn-sm" onclick="removeItem('.$value['id'].')"><span class="glyphicon glyphicon-trash"><i class="fas fa-trash" style="    color: crimson;"></i></span></button></td></tr>';
 
           }
 
