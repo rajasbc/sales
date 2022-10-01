@@ -21,7 +21,7 @@ $result = $bill->get_bill($billId);
 							<th>S.No</th>
 							<th>Date & Time</th>
 							<th>Description</th>
-							<th>Mode of Payment</th>
+							<!-- <th>Mode of Payment</th> -->
 							<th>Amount</th>
 							<th>Balance</th>
 						</tr>
@@ -33,18 +33,33 @@ $result = $bill->get_bill($billId);
 						$paid=0;
 						echo"<tr><td>".$i."</td><td>".date('d-M-Y h:i:s a',strtotime($result['created_at']))."</td>
 						<td>Total Bill Amount</td>
-						<td>-</td>
 						<td class='text-right'>".$result['grandtotal']."</td>
 						<td class='text-right'>".$result['grandtotal']."</td></tr>";
-						$balance=$result['grandtotal'];
+
+						$balance=$balance+$result['grandtotal'];
+
+						$payment_details=$bill->getreceiptdetails($billId);
+
+						foreach($payment_details as $payment){
+						$i++;
+						
+						$balance=$balance-$payment['pay'];
+						
+						$paid=$paid+$payment['pay'];
+
+						echo"<tr><td>".$i."</td><td>".date('d-M-Y h:i:s', strtotime($payment['created_at']))."</td><td>Payment</td><td class='text-right'>".$payment['pay']."</td><td class='text-right'>".number_format($balance,2,'.','')."</td></tr>";
+						}
+
+
+						// $balance=$result['grandtotal'];
 						?>
 					</tbody>
 					<tfoot>
 					<tr>
-						<th colspan="4">Total Paid (&#8377;)</th><th class='text-right'><?=$paid?></th><th></th></tr>
+						<th colspan="3">Total Paid (&#8377;)</th><th class='text-right'><?=$paid?></th><th></th></tr>
 					</tr>
 					<tr>
-						<th colspan="4">Balance Amount (&#8377;)</th><th colspan="2" class='text-right'><input type="hidden" name="balance" id="balance" value=<?=$balance?>><?=$balance?></th>
+						<th colspan="3">Balance Amount (&#8377;)</th><th colspan="2" class='text-right'><input type="hidden" name="balance" id="balance" value=<?=$balance?>><?=$balance?></th>
 					</tr>
 					</tfoot>
 				</table>
@@ -57,7 +72,7 @@ $result = $bill->get_bill($billId);
 						<span class="input-group-text">Amt Receive</span>
 					</div>
 					
-					<input name="balance_received" id="balance_received" class="form-control" placeholder="0" onkeypress="if(this.value.length==10)return false">
+					<input name="balance_received" id="balance_received" class="form-control" placeholder="0" onkeypress="if(this.value.length==10)return false" value="<?=$balance?>">
 
 				</div>
 			</div>

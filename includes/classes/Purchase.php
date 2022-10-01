@@ -137,10 +137,16 @@ try
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
 	}
+
+	function getpaymentdetails($id)
+	{
+		$sql = "select * from payment where billid='".$id."'";
+		$result = $this->db->GetResultsArray($sql);
+		return $result;
+	}
 	
 
 }
-
 
 
 

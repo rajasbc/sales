@@ -137,6 +137,13 @@ try
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
 	}
+
+	function getreceiptdetails($id)
+	{
+		$sql = "select * from receipt where billid='".$id."'";
+		$result = $this->db->GetResultsArray($sql);
+		return $result;
+	}
 	
 
 }

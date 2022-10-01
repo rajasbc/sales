@@ -125,8 +125,8 @@ else
 					<li class="nav-item pcoded-hasmenu">
 						<a href="" class="nav-link disable-anchor"><span class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Outgoing</span></a>
 						<ul class="pcoded-submenu">
-							<li class=""><a href="viewpurchaseorder.php" class="">Incoming PO</a></li>
-							<li class=""><a href="viewpurchase.php" class="">Outgoing</a></li>
+							<li class=""><a href="viewpurchaseorder.php" class="">Outgoing PO</a></li>
+							<li class=""><a href="viewpurchase.php" class="">Incoming Invoice</a></li>
 							<li class=""><a href="viewpayment.php" class="">Payment</a></li>
 						</ul>
 					</li>
@@ -134,8 +134,8 @@ else
 					<li class="nav-item pcoded-hasmenu">
 						<a href="" class="nav-link disable-anchor"><span class="pcoded-micon"><i class="feather icon-map"></i></span><span class="pcoded-mtext">Outstandings</span></a>
 						<ul class="pcoded-submenu">
-							<li class=""><a href="" class="">Payables</a></li><!-- payables.php -->
-							<li class=""><a href="" class="">Receivables</a></li><!-- receivables.php -->
+							<li class=""><a href="payables.php" class="">Payables</a></li><!-- payables.php -->
+							<li class=""><a href="receivables.php" class="">Receivables</a></li><!-- receivables.php -->
 						</ul>
 					</li>
 
