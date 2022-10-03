@@ -168,16 +168,18 @@ $aresult = $aobj->getusername($ordresult['createdby']);
                   <td colspan="13" class="td-last-1">
                    
                     <div class="row">
+                      <div class="col-lg-8"></div>
                 
-                      <div class="col-lg-3 col-sm-3 col-md-3">
+                      <div class="col-lg-1 col-sm-1 col-md-1">
                         <div class="">
                         
-                          <span>VAT ($) </span>
+                          <span>VAT (%) </span>
                           <span class="" id="taxid"> <?=$tvat?></span>
                         
                         </div>
                       </div>
-                      <div class="col-lg-3 col-sm-3 col-md-3">
+                      <div class="col-lg-1"></div>
+                      <div class="col-lg-2 col-sm-2 col-md-2">
                         <div class="">
                           
                           <span class="">Total Amount ($)</span>
