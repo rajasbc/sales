@@ -149,7 +149,7 @@ $pobj = new Product();
             <td>".$row['qty']."</td>
             <td>".$row['rate']."</td>
             <td>".$row['tax']." %</td>
-            <td style='text-align:right;'>".$row['total']."</td></tr>";
+            <td >".$row['total']."</td></tr>";
 
             $total=$total+$row['total'];
 
@@ -161,7 +161,7 @@ $pobj = new Product();
 
         <tfoot>
           
-          <tr style="font-weight: bold;"><td colspan="5" style="text-align: right;">Total ($)</td><td style='text-align: right;'><?=number_format($total,2,'.','')?></td></tr>
+          <tr style="font-weight: bold;"><td colspan="5" style="text-align: right;">Total ($)</td><td><?=number_format($total,2,'.','')?></td></tr>
 
         </tfoot>
 

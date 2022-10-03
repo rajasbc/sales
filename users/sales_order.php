@@ -614,6 +614,7 @@ $('.numeric').on('input', function (event) {
         $("#itemno").val(res.id);
 
 
+
         add_productrow();
 
       }
@@ -788,6 +789,9 @@ $('#save_bill').attr('disabled',false);
 // $('#searchItemDetailForm').trigger("reset");
 $('#searchItem').val('').focus();
 $('#qty1').val('');
+$("#gst_val").val('');
+        $("#price1").val('');
+       
 <?php if ($shopConfiguration['other_shop_product']=='no') {?>
   $('#itemno').val('');
 <?php }else{ ?>
