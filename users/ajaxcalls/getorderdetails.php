@@ -26,7 +26,7 @@ $sno++;
     $output_array['item_id']=$value['product'];
     $output_array['final_itemname']=$itemresult['name'];
     $output_array['final_qty']=$value['qty'];
-    $output_array['final_total']=0;
+    $output_array['final_total']=$value['total'];
     $output_array['final_gst']=0;
     $output_array['final_gstpercentage']=0;
     $output_array['final_price']=$itemresult['price'];
@@ -62,10 +62,6 @@ $overalltotal=$overalltotal+$value['total'];
 $total_tax=$total_tax+$value['tax'];
 
 }
-
-
-
-
 
 $out=['out'=>$output,'item'=>$new_array,'sno'=>$sno,'gtotal'=>$overalltotal,'subtotal'=>$total_subtotal,'totaltax'=>$total_tax];
 
