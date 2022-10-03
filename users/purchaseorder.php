@@ -462,7 +462,7 @@ include 'footer.php';
                 $('#bill_type').prop('checked',false);
                 getBillType();
               }
-              $("#shop_id").val(dataResult.shop_id);
+             
               $("#balance").val(dataResult.balance);
               $("#balancedb").val(dataResult.balance);
               $("#billDate").val(dataResult.bill_date);
@@ -537,67 +537,10 @@ include 'footer.php';
       $('#pay').attr('disabled','disabled');
       $('#save_bill').attr('disabled','disabled');
     }
-    $("#thisshopid").val(<?php echo $shopDetails['id']; ?>);
-    var shoplist="";
-    var last_checked=0;
-    $("#Select_shop").click(function(){
-      var shop_id=$('#shop_id').val();
-      var userid=$('#user_id').val();
-  // console.log(userid);
-  $.ajax({
-    data: {'userid':userid} ,
-    type: "POST",
-    url:"ajaxCalls/getAllshop_details.php",
-    success: function(e){
-      $(".list_of_all_branches").html(e);
-      var results=JSON.parse(e);
-      var results_rows="";
-  // console.log(results);
-  shoplist=results;
-  // console.log("ram"+shoplist);
-  
-  $.each( results, function( key1, value1 ) {
-    var checked;
+   
 
-    if(shop_id==value1['id'])
-    {
-      checked="<input type='radio' class='shopname' id='shopname_"+key1+"' name='shopname' value='"+key1+"' checked>";
-    }
-    else
-    {
-      checked="<input type='radio' class='shopname' id='shopname_"+value1["id"]+"'  name='shopname' value='"+key1+"'>";
-    }
-    results_rows=results_rows+
-    "<div style='margin-top:10px'>"+
-    checked+"&nbsp"+"<b>"+value1["name"]+"</b><br>"+"&nbsp;&nbsp;&nbsp;&nbsp"+
-    ('<img src="images/location_icon.png" style="width:15px">')+'&nbsp'+
-    value1["address1"]+", "+
-    value1["address2"]+"&nbsp"+value1["area"]+"<br>"+
 
-    "<div id='multiple_shop_area' style='display:none'>"
-    +value1["area"]+"<br>"+
-    "</div>"+
-
-    "&nbsp;&nbsp;&nbsp;&nbsp"+
-    ('<img src="images/location_icon.png" style="width:15px">')+'&nbsp'+
-    value1["city"]+"-"+
-    value1["pincode"]+", "+
-    value1["state"]+"<br>"+"&nbsp;&nbsp;&nbsp;&nbsp"+
-    ('<img src="images/landline.svg" style="width:15px">')+'&nbsp'+
-    value1["mobile_no"];
-
-    "</div></option>";
-  });
-  
-  $(".list_of_all_branches").html(results_rows);
-}
 });
-  
-});
-
-
-
-  });
 function getBillType() {
   var BILL_TYPE = 'bill';
   if ($('#bill_type').prop('checked') === false) {
@@ -719,9 +662,6 @@ $(document).ready(function(){
     $('#originalname').val(item.label);
     $('#perunit').val(item.units);
     $('#expiry_date').val(item.item_expiry_date);
-    <?php if ($shopConfiguration['required_weight_multiple']=='yes') {?>
-      $('#weight').val(item.default_wt);
-    <?php } ?>
     $('#is_weight_reduce').val(item.is_weight_reduce);
     $('#price2').val(item.price);
     if($("#wholesale_check").prop('checked')==true){
@@ -747,10 +687,7 @@ $(document).ready(function(){
         $('#price1').val(parseFloat(gold_price).toFixed(2));
       }
     }
-    <?php if ($shopDetails['is_silver_shop']=='yes') {?>
-      $('#reorder_qty').val(item.reorder_qty);
-      $('#reorder_level').val(item.reorder_level);
-    <?php } ?>
+
     $('#weight').val('');
     <?php if ($shopConfiguration['required_weight_multiple']=='yes') {?>
       $('#weight').val(item.default_wt);
@@ -1560,7 +1497,7 @@ function removeItem(idval){
   $('#tdata tr').each(function(index){
     $(this).find('span.sn').html(index+1);
   });
-  calculation();
+  // calculation();
   // $("#subid").remove();
   // $("#taxid").remove();
 }
@@ -1723,7 +1660,6 @@ $("#customerModal").modal("toggle");
 $("#customer_icon_hide").show();
 
 var cust_address_id=$('#cust_address_id').val();
-
 var name=$("#custnameid").val();
 var address=$("#address").val();
 var state=$("#state").val();
