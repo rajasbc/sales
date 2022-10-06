@@ -1497,7 +1497,7 @@ function removeItem(idval){
   $('#tdata tr').each(function(index){
     $(this).find('span.sn').html(index+1);
   });
-  // calculation();
+  calculation();
   // $("#subid").remove();
   // $("#taxid").remove();
 }

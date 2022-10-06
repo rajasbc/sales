@@ -3,12 +3,12 @@ include '../includes/config.php';
 include 'header.php';
 // error_reporting(E_ALL);
 // if($_GET['id']!=''){
-  $id=$_GET['id'];
-  $obj = new Vendor();
+$id=$_GET['id'];
+$obj = new Vendor();
 
   // $result =  $obj->get_vendors($id);
-  $obj1= new Product();
- 
+$obj1= new Product();
+
 
 $get_countries=$obj1->get_countries();
 // print_r($get_countries);die();
@@ -50,22 +50,22 @@ $userdet = $userobj->getusername($uid);
     z-index: 99999;
   }
   
-.nav-fixed #layoutSidenav #layoutSidenav_content {
-  padding-left: 0rem;
-  top: 0rem;
-}
-.footer {
-  height: 0rem;
-}
+  .nav-fixed #layoutSidenav #layoutSidenav_content {
+    padding-left: 0rem;
+    top: 0rem;
+  }
+  .footer {
+    height: 0rem;
+  }
 
-#ui-id-1
-{
-  z-index: 99999;
-}
+  #ui-id-1
+  {
+    z-index: 99999;
+  }
 
-select.custom-select {
+  select.custom-select {
     -webkit-appearance: menulist;
-}
+  }
 
 </style>
 
@@ -87,7 +87,7 @@ select.custom-select {
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <li class="breadcrumb-item"><a href="#!">Incoming</a></li>
+           <li class="breadcrumb-item"><a href="viewsalesorder.php">Incoming PO list</a></li>
            <li class="breadcrumb-item"><a href="#!">Incoming PO</a></li>
            
          </ul>
@@ -102,71 +102,71 @@ select.custom-select {
      <div class="card-body">
 
 
-         <div class="row">
-          <div class="col-xs-6 col-sm-6 col-md-6 text-left">
-           <em id="customername" data-toggle="tooltip" title="Select Customer">
-            <img src="images\usericon.jpg" class="media-object" id ="selectCustomerBtn" data-toggle="modal" data-target="#customerModal" style="width:40px;cursor:pointer;margin-left:-14px">
-          </em> 
-          <em id='ccustomername'></em>
-          <div id="customer_icon_hide" style="display: none;">
-            <div id="companyname_show_hide">
-              <em id="companyname_1">
-                <img src="images\company_icon.png" class="media-object" style="width:10px">
-              </em>
-              <em id='ccompanyname'></em>
-            </div>
-            <div id="address_1_show_hide">
-              <em>
-                <img src="images\location_icon.png" class="media-object" style="width:10px">
-              </em>
-              <em id="ccaddress"></em>
-            </div>
-
-            <span id="area_show_hide">
-              <em id="carea"></em>
-            </span>
-            <span id="city_show_hide">
-              <em id="ccity"></em>
-            </span>
-            <span id="state_show_hide">
-              <em id="cstate"></em>
-            </span>
-            <span id="Country_show_hide">
-              <em id="ccountry"></em>
-            </span>
-
-            <div id="phone_show_hide">
-              <em id="cphone">
-                <img src="images\landline.svg" class="media-object" style="width:10px">
-              </em>
-              <em id="ccphone"></em><br>
-            </div>
-
-            <em id="ccgst"></em>
+       <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 text-left">
+         <em id="customername" data-toggle="tooltip" title="Select Customer">
+          <img src="images\usericon.jpg" class="media-object" id ="selectCustomerBtn" data-toggle="modal" data-target="#customerModal" style="width:40px;cursor:pointer;margin-left:-14px">
+        </em> 
+        <em id='ccustomername'></em>
+        <div id="customer_icon_hide" style="display: none;">
+          <div id="companyname_show_hide">
+            <em id="companyname_1">
+              <img src="images\company_icon.png" class="media-object" style="width:10px">
+            </em>
+            <em id='ccompanyname'></em>
           </div>
+          <div id="address_1_show_hide">
+            <em>
+              <img src="images\location_icon.png" class="media-object" style="width:10px">
+            </em>
+            <em id="ccaddress"></em>
+          </div>
+
+          <span id="area_show_hide">
+            <em id="carea"></em>
+          </span>
+          <span id="city_show_hide">
+            <em id="ccity"></em>
+          </span>
+          <span id="state_show_hide">
+            <em id="cstate"></em>
+          </span>
+          <span id="Country_show_hide">
+            <em id="ccountry"></em>
+          </span>
+
+          <div id="phone_show_hide">
+            <em id="cphone">
+              <img src="images\landline.svg" class="media-object" style="width:10px">
+            </em>
+            <em id="ccphone"></em><br>
+          </div>
+
+          <em id="ccgst"></em>
         </div>
-
-      
-<input type="hidden" id="s_no">
-  <div class="col-sm-6 col-lg-6 ml-auto col-md-6 mt-1">
-    <input class="form-control" id="combination_id" type="hidden" value="0" >
-    
-    <form id="searchItemDetailForm" onsubmit="javascript:return false;">
-      
-
-      <input type="hidden" name="checked_val" id="checked_val" value="F">
-      <div class="form-group">
-        <div class=" col-lg-7 col-sm-7 col-sm-7" style="padding:0px;">
-          <div class="input-group input-group-sm">
-            <div class="input-group-prepend">
-              <span class="input-group-text ">🔎<span class="text-danger">*</span></span>
-            </div>
-            <input type='text' id='searchItem' name='searchItem'  class="form-control product_add" placeholder="Search Product Here" autocomplete="off">
-
-            <input type='hidden' id='originalname' name='originalname' >
-          </div>
-        </div>  
       </div>
+
+      
+      <input type="hidden" id="s_no">
+      <div class="col-sm-6 col-lg-6 ml-auto col-md-6 mt-1">
+        <input class="form-control" id="combination_id" type="hidden" value="0" >
+
+        <form id="searchItemDetailForm" onsubmit="javascript:return false;">
+
+
+          <input type="hidden" name="checked_val" id="checked_val" value="F">
+          <div class="form-group">
+            <div class=" col-lg-7 col-sm-7 col-sm-7" style="padding:0px;">
+              <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                  <span class="input-group-text ">🔎<span class="text-danger">*</span></span>
+                </div>
+                <input type='text' id='searchItem' name='searchItem'  class="form-control product_add" placeholder="Search Product Here" autocomplete="off">
+
+                <input type='hidden' id='originalname' name='originalname' >
+              </div>
+            </div>  
+          </div>
 <!--       <div class="form-group">
 
         
@@ -198,78 +198,78 @@ select.custom-select {
       </div> -->
 
 
-<input id="itemno" type="hidden">
-            <div class="form-group row">
-              <div class="col-lg-4 col-sm-4 col-md-4">
-                <div class="input-group input-group-sm">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">VAT (%)</span>
-                  </div>
-                  <!-- <input class="form-control"  id="id6" type="text" autocomplete="off"> -->
-                  <input class="form-control product_add" id="gst_val" type="text" autocomplete="off">
-                </div>
-                <input id="gstpercentage" type="hidden" >
-              </div>
-              <div class=" col-lg-4 col-sm-4 col-md-4" >
-                <div class="input-group input-group-sm">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Price ($)</span>
-                  </div>
-                  <input class="form-control product_add" id="price1" type="text" onkeypress="if(this.value.length==15)return false" autocomplete="off">
-                </div>
-                <input class="form-control" id="price2" type="hidden" onkeypress="if(this.value.length==15)return false">                
-              </div>
-              <div class="col-lg-4 col-sm-4 col-md-4">
-                <div class="input-group input-group-sm">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">QTY<span class="text-danger">*</span><div id="available_qty" style="display:none"> <span class="ml-3"  data-toggle='view_qty' title='QTY=' style="cursor:pointer">i</span></div></span>
-                  </div>
-                  <input class="form-control focus product_add" id="qty1" type="text"  onkeypress="if(this.value.length==10)return false" autocomplete="off">
-                  
-                </div>
-                <input class="form-control" id="qty2" type="hidden" >
-              </div>
+      <input id="itemno" type="hidden">
+      <div class="form-group row">
+        <div class="col-lg-4 col-sm-4 col-md-4">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text">VAT (%)</span>
             </div>
+            <!-- <input class="form-control"  id="id6" type="text" autocomplete="off"> -->
+            <input class="form-control product_add" id="gst_val" type="text" autocomplete="off">
+          </div>
+          <input id="gstpercentage" type="hidden" >
+        </div>
+        <div class=" col-lg-4 col-sm-4 col-md-4" >
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Price ($)</span>
+            </div>
+            <input class="form-control product_add" id="price1" type="text" onkeypress="if(this.value.length==15)return false" autocomplete="off">
+          </div>
+          <input class="form-control" id="price2" type="hidden" onkeypress="if(this.value.length==15)return false">                
+        </div>
+        <div class="col-lg-4 col-sm-4 col-md-4">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text">QTY<span class="text-danger">*</span><div id="available_qty" style="display:none"> <span class="ml-3"  data-toggle='view_qty' title='QTY=' style="cursor:pointer">i</span></div></span>
+            </div>
+            <input class="form-control focus product_add" id="qty1" type="text"  onkeypress="if(this.value.length==10)return false" autocomplete="off">
+
+          </div>
+          <input class="form-control" id="qty2" type="hidden" >
+        </div>
+      </div>
 
 
       
 
-        <?php
-        if($userdet['type']=='Admin')
-        {
+      <?php
+      if($userdet['type']=='Admin')
+      {
         ?>
         <div class="col-lg-7 col-sm-7 col-md-7" style="padding:0px;">
-<div class="form-group" style="height:25px;">
-  
-              <div class="input-group input-group-sm">
-                <div class="input-group-prepend">
-              <span class="input-group-text">Sales Person</span>
+          <div class="form-group" style="height:25px;">
+
+            <div class="input-group input-group-sm">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Sales Person</span>
+              </div>
+
+              <select name="salesperson" id="salesperson" class="custom-select custom-select-sm product_add">
+                <option value="">-- Select --</option>
+                <?php
+
+                foreach($userresult as $row)
+                {
+                  echo"<option value='".$row['id']."'>".$row['name']."</option>";
+                }
+
+                ?>
+              </select>
+
             </div>
-            
-            <select name="salesperson" id="salesperson" class="custom-select custom-select-sm product_add">
-              <option value="">-- Select --</option>
-              <?php
-
-              foreach($userresult as $row)
-              {
-                echo"<option value='".$row['id']."'>".$row['name']."</option>";
-              }
-
-              ?>
-            </select>
-
           </div>
-        </div>
         </div>
 
         <?php
-        }
-        else
-        {
-          echo"<input type='hidden' name='salesperson' id='salesperson' value='".$_SESSION['uid']."' />";
-        }
-        ?>
-        
+      }
+      else
+      {
+        echo"<input type='hidden' name='salesperson' id='salesperson' value='".$_SESSION['uid']."' />";
+      }
+      ?>
+
       
 
 
@@ -283,57 +283,107 @@ select.custom-select {
     </form>
   </div>
 
-  </div>
+</div>
 
 
-  <div class="row mt-2">
-    <div class="well col-sm-12 col-md-12 col-lg-12 mt-1">
-      <div id="table-scroll" class="table-scroll">
-        <table class="table table-bordered bill-table" id="bill-table">
-          <thead>
-            <tr>
-              <th class="text-left">S.No</th>
-              <th class="text-left">Item Name</th>
-              <th class="text-left">Price($)</th>
-              <th class="text-left">Qty</th>
-               <th class="text-left">VAT(
-               %)</th>
-               <th class="text-left">Total($)</th>
-              <th class="text-left">Action</th>
+<div class="row mt-2">
+  <div class="well col-sm-12 col-md-12 col-lg-12 mt-1">
+    <div id="table-scroll" class="table-scroll">
+      <table class="table table-bordered bill-table" id="bill-table">
+        <thead>
+          <tr>
+            <th class="text-left">S.No</th>
+            <th class="text-left">Item Name</th>
+            <th class="text-left">Price($)</th>
+            <th class="text-left">Qty</th>
+            <th class="text-left">VAT(
+            %)</th>
+            <th class="text-left">Total($)</th>
+            <th class="text-left">Action</th>
+          </tr>
+        </thead>
+        <tbody class="text-left" id="tdata">
+          <?php for ($i = 1; $i < 3; $i++) { ?>
+            <tr class="emptyTr">
+              <td id="s_no">&nbsp;</td>
+              <td id="item_name">&nbsp;</td>
+              <td id="price">&nbsp;</td>
+              <td id="qty">&nbsp;</td>
+              <td id="vat">&nbsp;</td>
+              <td id="total">&nbsp;</td>
+              <td id="action">&nbsp;</td>
+
             </tr>
-          </thead>
-          <tbody class="text-left" id="tdata">
-            <?php for ($i = 1; $i < 3; $i++) { ?>
-              <tr class="emptyTr">
-                <td id="s_no">&nbsp;</td>
-                <td id="item_name">&nbsp;</td>
-                 <td id="price">&nbsp;</td>
-                <td id="qty">&nbsp;</td>
-                 <td id="vat">&nbsp;</td>
-                 <td id="total">&nbsp;</td>
-                 <td id="action">&nbsp;</td>
+          <?php }?>
+        </tbody>
 
-              </tr>
-            <?php }?>
-          </tbody>
-        </table>
-      </div>
+        <tfoot>
+          <tr>
+            <td colspan="13" class="td-last-1">
+
+              <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-2 col-sm-2 col-md-2">
+                  <div class="">
+                    <span class="">Total Amount  Before Tax ($)</span>
+                    <span class="" id="subid">0</span>
+                    <input type="hidden" name="subid1" id="subid1">
+                  </div>
+                </div>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-2 col-sm-2 col-md-2">
+                  <div class="">
+
+                    <span>VAT ($)</span>
+                    <span class="" id="taxid">0</span>
+
+                  </div>
+                </div>
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="">
+
+                    <span class="">Total Amount ($)</span>
+
+                    <span class="text" id="grandid">0</span>
+                    <input type='hidden' class="text" id="grandid1" value="0">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-11"></div>
+
+                <div class="col-lg-1 col-sm-1 col-md-1">
+                  <input type="button" class="btn btn-sm btn-success save_bill" id="save_bill" value="Save" />
+                </div>
+
+
+              </div>
+
+            </td>
+          </tr>
+
+        </tfoot>
+
+
+      </table>
     </div>
   </div>
-  <div class='col-lg-12 col-sm-12 col-md-12 mt-2 text-right'>
+</div>
+<!--   <div class='col-lg-12 col-sm-12 col-md-12 mt-2 text-right'>
     <div class='row'>
       <div class="col-lg-10 col-sm-10 col-md-10">
       </div>
       <div class="col-lg-2 col-sm-2 col-md-2">
-        <!-- <button class="btn btn-info col-lg-6 col-sm-6 col-md-6" id="nextid" >Next</button> -->
-        <input type="button" class=" col-lg-6 col-sm-6 col-md-6 mr-5 btn btn-sm btn-success save_bill" id="save_bill" value="Save">
-        <!-- <a class="btn btn-info col-lg-6 col-sm-6 col-md-6 mr-5" target="_blank" href="bill.php">Save/Next</a> -->
-      </div> </div>
-    </div>
+       <button class="btn btn-info col-lg-6 col-sm-6 col-md-6" id="nextid" >Next</button> -->
+       <!-- <input type="button" class=" col-lg-6 col-sm-6 col-md-6 mr-5 btn btn-sm btn-success save_bill" id="save_bill" value="Save"> -->
+       <!-- <a class="btn btn-info col-lg-6 col-sm-6 col-md-6 mr-5" target="_blank" href="bill.php">Save/Next</a> -->
+    <!--   </div>
+       </div>
+     </div>  -->
 
 
-  </div>
-</div>
+   </div>
+ </div>
 </div>
 <!-- Modal -->
 
@@ -448,69 +498,69 @@ select.custom-select {
                     <div class="input-group-prepend">
                       <span class="input-group-text input-group-text1">Country</span>
                     </div>
-                   <!--  <input class="form-control cust_form" id="country" name="country" type="text" autocomplete="off" placeholder="Country" onkeypress="if(this.value.length==25) return false;"> -->
+                    <!--  <input class="form-control cust_form" id="country" name="country" type="text" autocomplete="off" placeholder="Country" onkeypress="if(this.value.length==25) return false;"> -->
 
-                      <select name="country" class="form-control cust_form" id="country" >
-                        <option value="select">Select Country</option>
+                    <select name="country" class="form-control cust_form" id="country" >
+                      <option value="select">Select Country</option>
 
-                         <?php
+                      <?php
 
-                                    foreach ($get_countries as $value) {
+                      foreach ($get_countries as $value) {
                                       // print_r($value);die();
-                                        if ($value['name']=="INDIA") {
-                                           echo "<option value='".$value['name']."' selected='selected' data-id='".$value['phonecode']."'>". $value["name"]."</option>";
+                        if ($value['name']=="INDIA") {
+                         echo "<option value='".$value['name']."' selected='selected' data-id='".$value['phonecode']."'>". $value["name"]."</option>";
 
-                                       }
-                                       else
-                                       {                        
-                                           echo "<option value='".$value['name']."' data-id='".$value['phonecode']."' >" . $value["name"]."</option>";
+                       }
+                       else
+                       {                        
+                         echo "<option value='".$value['name']."' data-id='".$value['phonecode']."' >" . $value["name"]."</option>";
 
-                                       }
-                                   }
+                       }
+                     }
 
-                                   ?>
+                     ?>
 
-                          </select>
-
-
+                   </select>
 
 
-                  </div>
-                </div>
-                
 
-              </div>
-              <div style="margin-left: 320px;margin-top: 10px;"><span style="color: red;">&nbsp;* </span><i>Required Fields</i></div>
-            </div>
-            <div class="modal-footer">
-              <button class="btn btn-sm btn-success cust_form" type="button" id="saveCustomerBtn" data-dismiss="modal">Save</button>
-              <button class="btn btn-sm btn-warning"  id="modelclose" type="button" data-dismiss="modal">Close</button>
-            </div>
+
+                 </div>
+               </div>
+
+
+             </div>
+             <div style="margin-left: 320px;margin-top: 10px;"><span style="color: red;">&nbsp;* </span><i>Required Fields</i></div>
+           </div>
+           <div class="modal-footer">
+            <button class="btn btn-sm btn-success cust_form" type="button" id="saveCustomerBtn" data-dismiss="modal">Save</button>
+            <button class="btn btn-sm btn-warning"  id="modelclose" type="button" data-dismiss="modal">Close</button>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
+  </div>
 
 
-    <?php
-    include 'footer.php';
-    ?>
+  <?php
+  include 'footer.php';
+  ?>
 
-    <script type="text/javascript">
+  <script type="text/javascript">
 
-$('.numeric').on('input', function (event) { 
-    this.value = this.value.replace(/[^0-9\.]/g, '');
-});
+    $('.numeric').on('input', function (event) { 
+      this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
 
-      $(document).ready(function(){
+    $(document).ready(function(){
 
-        $('#custnameid').autocomplete({
+      $('#custnameid').autocomplete({
 
-          source: "ajaxCalls/get_custom.php",
-          minLength: 1,
-          select: function(event,ui) {
-            if( ui.item.label != 'No Record Found')
-            {
+        source: "ajaxCalls/get_custom.php",
+        minLength: 1,
+        select: function(event,ui) {
+          if( ui.item.label != 'No Record Found')
+          {
   // console.log(ui.item);
   // alert(ui.item[0].address_info);
   $('#cid').val(ui.item.id);
@@ -583,8 +633,8 @@ $('.numeric').on('input', function (event) {
   var product_name=$("#searchItem").val();
   // var hsn_code=$("#id6").val();
   var price=$("#price1").val();
-   var price=$("#price1").val();
-    var price=$("#price1").val();
+  var price=$("#price1").val();
+  var price=$("#price1").val();
   var id=$("#item_id").val();
   var qty=$("#qty1").val();
   if(Number($("#qty1").val())==0)
@@ -617,6 +667,7 @@ $('.numeric').on('input', function (event) {
 
         add_productrow();
 
+
       }
 
     }
@@ -632,23 +683,23 @@ $('.numeric').on('input', function (event) {
   // $("#trItem_"+idval).remove();
   
   if ("<?=$_GET['bill_check_group']?>"=="") {
-  jQuery("#trItem_"+idval).empty('');
-  delete items["sid"+idval] ;
-  $("#s_no").val(idval-sno);
-}else{
-  jQuery("#trItem_"+idval).empty('');
-  var ref = "sid"+idval;
-  items[ref].deleted='yes';
+    jQuery("#trItem_"+idval).empty('');
+    delete items["sid"+idval] ;
+    $("#s_no").val(idval-sno);
+  }else{
+    jQuery("#trItem_"+idval).empty('');
+    var ref = "sid"+idval;
+    items[ref].deleted='yes';
   // $("#s_no").val(idval);
 }
   // sno--;
   $('#tdata tr').each(function(index){
     $(this).find('span.sn').html(index+1);
   });
-  // calculation();
+  calculation();
   // $("#subid").remove();
   // $("#taxid").remove();
-  }
+}
 
 
 var sno = 0;
@@ -697,7 +748,7 @@ sno=sno+1;
 var gqty=$("#qty1").val();
 
 var gstp = 0;
-  var gstpercentage = 0;
+var gstpercentage = 0;
 
   // alert(sno);
 
@@ -714,9 +765,9 @@ var gstp = 0;
   // data["total"]=total.toFixed(2);
   // var cid=$("#cid").val();
   var itemcol=$("#searchItem").val();
-var price=$("#price1").val();
-var qty=$("#qty1").val();
-var itemno=$("#itemno").val();
+  var price=$("#price1").val();
+  var qty=$("#qty1").val();
+  var itemno=$("#itemno").val();
 
   data["gstpercentage"]=gstpercentage;
   data["itemname"]=itemcol;
@@ -730,8 +781,8 @@ var itemno=$("#itemno").val();
 
   prototal=Number(($("#price1").val()*$("#qty1").val()));
 
-gstamount=prototal*Number(gstpercentage);
- data["total"]=total.toFixed(2);
+  gstamount=prototal*Number(gstpercentage);
+  data["total"]=total.toFixed(2);
   // alert($("#qty1").val());
 
 //item array insertion
@@ -748,28 +799,27 @@ items["sid"+sno] = {
   "total":total,
 };
 
-
 var trItemTemplate = [
-  '<tr class="productrow" id="trItem_{{sno}}">',
-    '<td class="text-left ch-4">{{sno}}</td>',
-    '<td class="text-left ch-10">{{itemname}}</td>',
+'<tr class="productrow" id="trItem_{{sno}}">',
+'<td class="text-left ch-4">{{sno}}</td>',
+'<td class="text-left ch-10">{{itemname}}</td>',
 
-    '<td class="text-left ch-6">',
-      '<input type="hidden" name="price[]" id="priceid{{sno}}" value="{{price}}">',
-    '{{price}}</td>',
-    '<td class="text-left ch-4">',
-      '<input onkeyup=priceupdate({{sno}},this) type="number" class="form-control qty" name="qty[]" id="num_qty{{sno}}" value="{{qty}}" style="width:5rem; height:1.75rem" onkeypress="if(this.value.length==8) return false">',
-    '</td>',
-    '<td class="text-left ch-4" id="gstpid{{sno}}"><input type="hidden" id="gstper{{sno}}" value="{{gst}}">{{gst}}</td>',
-    '<td class="text-right ch-6" id="totalid{{sno}}">{{total}}</td>',
-    '<td class="text-left ch-4">',
-      '<button type="button" class="btn btn-default btn-sm" onclick="removeItem({{sno}})">',
-      '<span class="glyphicon glyphicon-trash">',
-        '<i class="fas fa-trash"></i>',
-      '</span>',
-      '</button>',
-    '</td>',
-  '</tr>'].join(''),
+'<td class="text-left ch-6">',
+'<input type="hidden" name="price[]" id="priceid{{sno}}" value="{{price}}">',
+'{{price}}</td>',
+'<td class="text-left ch-4">',
+'<input onkeyup=priceupdate({{sno}},this) type="number" class="form-control qty" name="qty[]" id="num_qty{{sno}}" value="{{qty}}" style="width:5rem; height:1.75rem" onkeypress="if(this.value.length==8) return false">',
+'</td>',
+'<td class="text-left ch-4" id="gstpid{{sno}}"><input type="hidden" id="gstper{{sno}}" value="{{gst}}">{{gst}}</td>',
+'<td class="text-right ch-6" id="totalid{{sno}}">{{total}}</td>',
+'<td class="text-left ch-4">',
+'<button type="button" class="btn btn-default btn-sm" onclick="removeItem({{sno}})">',
+'<span class="glyphicon glyphicon-trash">',
+'<i class="fas fa-trash"></i>',
+'</span>',
+'</button>',
+'</td>',
+'</tr>'].join(''),
 tr = trItemTemplate;
 tr = tr.replace(getRegEx('sno'), sno);
 tr = tr.replace(getRegEx('itemname'), data['itemname']);
@@ -778,6 +828,8 @@ tr = tr.replace(getRegEx('qty'), data['qty']);
 tr = tr.replace(getRegEx('gst'), data['gst']);
 tr = tr.replace(getRegEx('total'), data['total']);
 var emptyTr = $('#tdata .emptyTr').first();
+
+
 if (emptyTr.length === 0) {
   $('#tdata').append(tr);
 }
@@ -790,8 +842,8 @@ $('#save_bill').attr('disabled',false);
 $('#searchItem').val('').focus();
 $('#qty1').val('');
 $("#gst_val").val('');
-        $("#price1").val('');
-       
+$("#price1").val('');
+calculation();
 <?php if ($shopConfiguration['other_shop_product']=='no') {?>
   $('#itemno').val('');
 <?php }else{ ?>
@@ -901,11 +953,11 @@ if(res.status=='success'){
 
     if(customerarray["cid"]=='')
     {
-          $.growl.error({
-           title:"SUCCESS",
-           message:"Select Customer"
-          });
-          return false;
+      $.growl.error({
+       title:"SUCCESS",
+       message:"Select Customer"
+     });
+      return false;
     }
     
     var cobj=$.extend({},customerarray);
@@ -916,9 +968,9 @@ if(res.status=='success'){
     if($.isEmptyObject(items)==true)
     {
 
-    $.growl.warning({title:"Error",message:"Enter the Item Details"});
+      $.growl.warning({title:"Error",message:"Enter the Item Details"});
 
-    return false;
+      return false;
 
     }
 
@@ -940,62 +992,156 @@ if(res.status=='success'){
           $.growl.notice({
            title:"SUCCESS",
            message:"Sales Order Created Successfully"
-          });
+         });
 
           setTimeout(function(){
-          window.location='viewsalesorderdetails.php?id='+dataResult.order_id;
+            window.location='viewsalesorderdetails.php?id='+dataResult.order_id;
           }, 1000);
 
 
           localStorage.clear('myArray');
-      
-    }
-  });
+
+        }
+      });
     }
     else{
       $.growl.warning({title:"Error",message:"Enter the Item Details"});
     }
   });
 
+
+
+  function calculation(){
+  
+
+  itemslist = items;
+  qtyarray = [];
+  
+  var qty;
+  var i=0;
+  var discount=0;
+  var disamt=0;
+  var val=0;
+  var tempItem;
+
+  var total=0;
+  var temp_subtotal=0;
+  var tax=0;
+  var grand_total=0;
+  var subtotal1=0;
+  var temp_tax=0;
+  var inclusive_tax=0;
+  var inclusive_subtotal=0;
+
+
+  if ("<?=$_GET['bill_check_group']?>"=="")  {
+
+
+    for(vale in itemslist) {
+      tempItem = itemslist[vale];
+      val=Number(tempItem["qty"]);
+
+      total= Number(tempItem["price"])*Number(tempItem["qty"]);
+
+      qtyarray.push({
+        'itemId': tempItem["itemno"],
+        'itemPurchaseCount': val
+      });
+
+  // temp_subtotal=Number(tempItem["total"]);
+
+  temp_subtotal=Number(total);
+
+  subtotal1=Number(subtotal1)+Number(temp_subtotal);
+
+  tax=Number(tax)+Number(temp_subtotal)*Number(tempItem.gstpercentage);
+  i++;
+
+}
+
+}else{
+  for(vale in itemslist) {
+
+// alert(subtotal1);
+
+tempItem = itemslist[vale];
+val=Number(tempItem["qty"]);
+
+total= Number(tempItem["price"])*Number(tempItem["qty"]);
+
+
+qtyarray.push({
+  'itemId': tempItem["itemno"],
+  'itemPurchaseCount': val
+});
+
+  // temp_subtotal=Number(tempItem["total"]);
+
+  temp_subtotal=Number(total);
+  
+  subtotal1=Number(subtotal1)+Number(temp_subtotal);
+
+  tax=Number(tax)+Number(temp_subtotal)*Number(tempItem.gstpercentage);
+  i++;
+
+}
+}
+
+  // This calculation for exclusive_Tax and it was default calculation
+  grand_total=Number(tax)+Number(subtotal1);
+  var fgrand_total=(Number(grand_total));
+  var oqty=$.extend({},qtyarray);
+  $("#subid").html(subtotal1.toFixed(2));
+  $("#subid1").val(subtotal1.toFixed(2));
+  $("#taxid").html(tax.toFixed(2));
+  $("#discid").html(discount.toFixed(2));
+  $("#grandid").html(Math.round(fgrand_total));
+  $("#grandid1").val(Math.round(fgrand_total));
+  
+  grand['id']=fgrand_total;
+  other_charges_calc();
+
+}
+
 </script>
 <script type="text/javascript">
-    var selector = '.cust_form';
+  var selector = '.cust_form';
   $('body').on('keydown', selector, function(e) {
     if (e.key === "Enter") {
-        var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
-        focusable = form.find(selector).filter(':visible');
-        next = focusable.eq(focusable.index(this)+1);
-        if ($(e.target).closest('#saveCustomerBtn').length > 0) {
-         $("#saveCustomerBtn").click();
-        }
-        if (next.length) {
-            next.focus();
-        }else{
-          $("#saveCustomerBtn").click();
+      var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
+      focusable = form.find(selector).filter(':visible');
+      next = focusable.eq(focusable.index(this)+1);
+      if ($(e.target).closest('#saveCustomerBtn').length > 0) {
+       $("#saveCustomerBtn").click();
+     }
+     if (next.length) {
+      next.focus();
+    }else{
+      $("#saveCustomerBtn").click();
 
-        }
-        return false;
     }
-  }); 
+    return false;
+  }
+}); 
 </script>
 <script type="text/javascript">
-    var selector = '.product_add';
+  var selector = '.product_add';
   $('body').on('keydown', selector, function(e) {
     if (e.key === "Enter") {
-        var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
-        focusable = form.find(selector).filter(':visible');
-        next = focusable.eq(focusable.index(this)+1);
-        if ($(e.target).closest('#add').length > 0) {
-         $("#add").click();
-        }
-        if (next.length) {
-            next.focus();
-        }else{
-          $("#add").click();
+      var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
+      focusable = form.find(selector).filter(':visible');
+      next = focusable.eq(focusable.index(this)+1);
+      if ($(e.target).closest('#add').length > 0) {
+       $("#add").click();
+     }
+     if (next.length) {
+      next.focus();
+    }else{
+      $("#add").click();
 
-        }
-        return false;
     }
-  }); 
+    return false;
+  }
+}); 
 </script>
 

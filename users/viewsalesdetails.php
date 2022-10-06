@@ -46,7 +46,7 @@ $pobj = new Product();
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <li class="breadcrumb-item">Sales Invoice</li>
+           <li class="breadcrumb-item"><a href="viewsales.php">Outgoing Invoice</a></li>
            <li class="breadcrumb-item">Sales Details</li>
          </ul>
        </div>
