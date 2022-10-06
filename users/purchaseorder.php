@@ -4,6 +4,12 @@ include 'header.php';
 $obj1= new Product();
 $get_countries=$obj1->get_countries();
 
+if($_GET['bill_check_group']!='')
+{
+  $oobj = new Salesorder();
+  $ores = $oobj->get_order(base64_decode($_GET['bill_check_group']));
+}
+
 ?>
 <style type="text/css">
 
@@ -71,7 +77,7 @@ $get_countries=$obj1->get_countries();
 
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-5">
             <div class="form-group row">
               <!-- <div class=" col-lg-7 col-sm-7 col-sm-7 md-6">
                 <div class="input-group input-group-sm">
@@ -83,12 +89,15 @@ $get_countries=$obj1->get_countries();
                 </div>
               </div> -->
 
-              <div class=" col-lg-5 col-sm-5 col-sm-5 md-6">
+              <div class=" col-lg-7 col-sm-7 col-sm-7 md-6">
                 <div class="input-group input-group-sm">
                   <div class="input-group-prepend">
                     <span class="input-group-text ">S.Order No.</span>
+
+                    <input type='hidden' id='salesorderno' name='salesorderno' class="form-control" placeholder="Sales Order No" value="<?=base64_decode($_GET['bill_check_group'])?>" readonly />
+
                   </div>
-                  <input type='text' id='salesorderno' name='salesorderno' class="form-control" placeholder="Sales Order No" value="<?=base64_decode($_GET['bill_check_group'])?>" readonly />
+                  <input type='text' class="form-control" value="<?=$ores['invoice_no']?>" readonly />
                 </div>
               </div>
 

@@ -132,9 +132,16 @@ try
 	}
 
 
+    $seldt = "select MAX(invoice_id) as iid from sales where date='".date('Y-m-d')."'";
+    $selin = $this->db->GetAsIsArray($seldt);
+
+    $newinv = $selin['iid']+1;
+
+    $invoiceno = '2crsipi'.date('ymd').sprintf("%04d", $newinv);
+
 	//sales total update
 
-	$up="update sales set billid='".$bill_id."',subtotal='".$sub."',tax_amount='".$gtax."',grandtotal='".$gtot."' where id='".$bill_id."'";
+	$up="update sales set billid='".$bill_id."',subtotal='".$sub."',tax_amount='".$gtax."',grandtotal='".$gtot."',invoice_id='".$newinv."',invoice_no='".$invoiceno."' where id='".$bill_id."'";
     $this->db->ExecuteQuery($up);
 
 	$response = ["status" => "success" ,"bill_id"=>$bill_id];

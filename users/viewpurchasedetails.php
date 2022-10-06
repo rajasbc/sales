@@ -15,6 +15,10 @@ $cresult = $cobj->get_vendors($ordresult['vendor']);
 
 $pobj = new Product();
 
+
+$sobj = new Purchaseorder();
+$sordresult = $sobj->get_order($ordresult['purchase_orderid']);
+
 // $aobj = new Admin();
 // $aresult = $aobj->getusername($ordresult['createdby']);
 
@@ -66,7 +70,7 @@ $pobj = new Product();
       <div class="row">
       <div class="col-md-10">
         
-      <h4>Bill# <?=$_GET['id']?></h4>
+      <h4>Invoice# <span style="color:#fd6a01;"><?=$ordresult['invoice_no']?></span></h4>
 
       </div>
 
@@ -108,7 +112,7 @@ $pobj = new Product();
         <div class="col-md-6">
 
           <table>
-            <tr><td class="first-col">Purchase Order Ref No.</td><td style="padding:0 7px;">:</td><td><?=$ordresult['purchase_orderid']?></td></tr>
+            <tr><td class="first-col">Purchase Order Ref No.</td><td style="padding:0 7px;">:</td><td><?=$sordresult['invoice_no']?></td></tr>
           </table>
           
         </div>
