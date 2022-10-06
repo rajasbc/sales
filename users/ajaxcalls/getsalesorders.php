@@ -23,6 +23,9 @@ if (count($result) > 0) {
 		<td>
 		<a class='btn btn-sm btn-success' href='viewsalesorderdetails.php?id=".$row['orderid']."'>View</a> &nbsp; ";
 
+		if($_SESSION['utype']=='Admin')
+		{
+
 		if($row['status']=='New')
 		{
 		$out .="<a class='btn btn-sm btn-warning' href='purchaseorder.php?bill_check_group=".base64_encode($row['orderid'])."'>Raise PO</a>";
@@ -31,6 +34,8 @@ if (count($result) > 0) {
 		if($row['status']!='New' && $row['status']!='Completed')
 		{
 		$out .="<a class='btn btn-sm btn-danger' href='sales.php?bill_check_group=".base64_encode($row['orderid'])."'>Invoice</a>";
+		}
+
 		}
 
 		$out .="</td>
@@ -42,6 +47,5 @@ if (count($result) > 0) {
 $output=['out'=>$out];
 
 echo json_encode($output);
-
 
 ?>

@@ -464,7 +464,7 @@ $("#email_id").blur(function(){
                 }
     })
    
-        $("#username").blur(function(){
+        $("#login_username").blur(function(){
             var name=$(this).val();
             $.ajax({
                 type:"POST",
@@ -472,16 +472,79 @@ $("#email_id").blur(function(){
                 dataType:"json",
                 data:{"name":name},
                 success: function(res){
-                    if(res.status=='success'){
-                        $("#login_username").val(res.username);
-                    }
-                    else if(res.status=='failed'){
-                         $("#username").blur();
+                    if(res.status=='failed'){
+                         $("#login_username").focus();
+                         $.growl.error({title:"FAILED",message:"Username already exist"});
+                         return false;
                     }
 
                 }
             });
         });
+
+
+        $("#email_id").blur(function(){
+            var email=$(this).val();
+            $.ajax({
+                type:"POST",
+                url:"ajaxCalls/emailVerify.php",
+                dataType:"json",
+                data:{"email":email},
+                success: function(res){
+                    if(res.status=='failed'){
+                         $("#email_id").focus();
+                         $.growl.error({title:"FAILED",message:"Email already exist"});
+                         return false;
+                    }
+
+                }
+            });
+        });
+
+
+
+
+        $(document).on("blur","#username",function(){
+            var name=$(this).val();
+            var userId=$("#userId").val();
+            $.ajax({
+                type:"POST",
+                url:"ajaxCalls/userVerify.php",
+                dataType:"json",
+                data:{"name":name,"userId":userId},
+                success: function(res){
+                    if(res.status=='failed'){
+                         $("#username").focus();
+                         $.growl.error({title:"FAILED",message:"Username already exist"});
+                         return false;
+                    }
+
+                }
+            });
+        });
+
+
+        $(document).on("blur","#edit_email_id",function(){
+            var email=$(this).val();
+            var userId=$("#userId").val();
+            $.ajax({
+                type:"POST",
+                url:"ajaxCalls/emailVerify.php",
+                dataType:"json",
+                data:{"email":email,"userId":userId},
+                success: function(res){
+                    if(res.status=='failed'){
+                         $("#edit_email_id").focus();
+                         $.growl.error({title:"FAILED",message:"Email already exist"});
+                         return false;
+                    }
+
+                }
+            });
+        });
+
+
+        
 
 
           $("#confirm_password").blur(function(){

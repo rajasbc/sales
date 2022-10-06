@@ -2,6 +2,8 @@
 include '../includes/config.php';
 include 'header.php';
 
+$id=$_GET['id'];
+
 ?>
 
 <section class="pcoded-main-container">
@@ -16,12 +18,12 @@ include 'header.php';
         <div class="row align-items-center">
          <div class="col-md-12">
           <div class="page-header-title">
-           <h5 class="m-b-10">Incoming PO</h5>
+           <h5 class="m-b-10">Payables</h5>
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <!-- <li class="breadcrumb-item">Incoming Po</li> -->
-           <li class="breadcrumb-item">Incoming Po List</li>
+           <li class="breadcrumb-item">Outstandings</li>
+           <li class="breadcrumb-item">Payables</li>
          </ul>
        </div>
      </div>
@@ -40,40 +42,29 @@ include 'header.php';
       <div class="row">
       <div class="col-md-10">
         
-        <table>
-                        <thead>
-                            <tr>
-                <th class="ts-pager">
-                  <div class="form-inline">
-                    <div class="btn-group" style="margin: 5px;" role="group">
-                      <button type="button" class="btn first" title="first"><i class="fa fa-backward" aria-hidden="true"></i></button>
-                      <button type="button" class="btn prev" title="previous"><i class="fa fa-caret-left fa-lg" aria-hidden="true"></i></button>
+                  <div class="form-group col-lg-4 col-md-4 col-sm-4">
+                    <div class="input-group input-group-sm mx-1">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text ">From</span>
+                      </div>
+                      <input type="date" class="form-control" name="date" id="wfdate" value='<?=date('Y-m-d')?>'>
                     </div>
-                    <span class="pagedisplay"></span>
-                    <div class="btn-group"  style="margin: 5px;" role="group">
-                      <button type="button" class="btn  next" title="next"><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i></button>
-                      <button type="button" class="btn  last" title="last"><i class="fa fa-forward" aria-hidden="true"></i></button>
-                    </div>
-                    <select class="form-control custom-select pagesize"  style="margin: 5px;" title="Select page size">
-                      <option selected="selected" value="10">10</option>
-                      <option value="20">20</option>
-                      <option value="30">30</option>
-                      <option value="all">All Rows</option>
-                    </select>
-                    <select class="form-control custom-select px-4 pagenum"  style="margin: 5px;" title="Select page number"></select>
-
-                    <input type="text" class="form-control" placeholder="Search...." id="mySearch" style="width: 270px; margin: 5px;" />
-
                   </div>
-                </th>
-              </tr>
-                        </thead>
-                    </table>
+                  <div class="form-group col-lg-4 col-md-4 col-sm-4">
+
+                    <div class="input-group input-group-sm mx-1">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text ">To</span>
+                      </div>
+                      <input type="date" class="form-control" name="date" id="wtdate" value='<?=date('Y-m-d',strtotime($todate))?>' >
+                    </div>
+                  </div>
 
       </div>
 
       <div class="col-md-2">
-      <a class="btn btn-sm btn-info" href="sales_order.php" style="margin-top: 10px; float: right;">+New</a>
+      
+
       </div>
     </div>
 
@@ -84,12 +75,11 @@ include 'header.php';
         <table class="table table-hover">
           <thead>
            <tr>
-            <th style="width:10%;">Order#</th>
-            <th>Date</th>
-            <th>Customer</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th>S.No</th>
+            <th style="width:30%;">Vendor</th>
+            <th>Balance</th>
+            <th>Last Payment Date</th>
+            <th>View</th>
           </tr>
         </thead>
         <tbody id="mytable">
@@ -120,7 +110,7 @@ include 'footer.php';
 
      $.ajax({
       type:"POST",
-      url:'ajaxCalls/getsalesorders.php',
+      url:'ajaxCalls/getvendorpayable.php',
       dataType:"json",
       success: function(res){
 
