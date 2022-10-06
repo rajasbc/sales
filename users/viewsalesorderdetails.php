@@ -140,6 +140,10 @@ $aresult = $aobj->getusername($ordresult['createdby']);
           $tprice=0;
           $total_amount=0;
           $tvat=0;
+          $total_tax=0;
+          $overalltotal=0;
+          $total_subtotal=0;
+          $tax=0;
           foreach($result as $row)
           {
 
@@ -151,10 +155,22 @@ $aresult = $aobj->getusername($ordresult['createdby']);
 
             echo"<tr><td>".$sno."</td><td>".$presult['name']."</td><td>".$presult['price']."</td><td>".$row['qty']."</td><td>".$row['tax']."</td><td>".$row['total']."</td></tr>";
 
-            $tqty=$tqty+$row['qty'];
-            $tprice=$tprice+$presult['price'];
-            $tvat=$tvat+$row['tax'];
-            $total_amount=$total_amount+$row['total'];
+            // $tqty=$tqty+$row['qty'];
+            // $tprice=$tprice+$presult['price'];
+            // $tvat=$tvat+$row['tax'];
+            // $total_amount=$total_amount+$row['total'];
+
+
+            // $total_product_value=$itemresult['price']*$value['qty'];
+// $total_tax_value=$total_tax_value+$value['tax'];
+            $tax_value=$presult['price']*$row['qty'];
+$total_subtotal=$total_subtotal+$total_value;
+
+$total_amount=$total_amount+$row['total'];
+$overalltotal=$overalltotal+$row['total'];
+$total_tax=$total_tax+$row['tax'];
+$tvat=$tvat+$row['tax'];
+$tax=$tax+$tax_value*($row['tax']/100);
 
           }
 
@@ -165,36 +181,40 @@ $aresult = $aobj->getusername($ordresult['createdby']);
         <tfoot>
           
                      <tr>
-                  <td colspan="13" class="td-last-1">
-                   
-                    <div class="row">
-                      <div class="col-lg-8"></div>
-                
-                      <div class="col-lg-1 col-sm-1 col-md-1">
-                        <div class="">
-                        
-                          <span>VAT (%) </span>
-                          <span class="" id="taxid"> <?=$tvat?></span>
-                        
-                        </div>
-                      </div>
-                      <div class="col-lg-1"></div>
-                      <div class="col-lg-2 col-sm-2 col-md-2">
-                        <div class="">
-                          
-                          <span class="">Total Amount ($)</span>
-                        
-                          <span class="text" id="grandid"> <?=$total_amount?></span>
-                          <input type='hidden' class="text" id="grandid1" value="0">
-                        </div>
-                      </div>
+            <td colspan="13" class="td-last-1">
 
-                  
+              <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-2 col-sm-2 col-md-2">
+                  <div class="">
+                    <span class="">Total Amount  Before Tax ($)</span>
+                    <span class="" id="subid"><?=number_format($total_subtotal,2,'.','')?></span>
+                    <input type="hidden" name="subid1" id="subid1">
+                  </div>
+                </div>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-2 col-sm-2 col-md-2">
+                  <div class="">
 
-                    </div>
-                    
-                  </td>
-                </tr>
+                    <span>VAT ($)</span>
+                    <span class="" id="taxid"><?=number_format($tax,2,'.','')?></span>
+
+                  </div>
+                </div>
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="">
+
+                    <span class="">Total Amount ($)</span>
+
+                    <span class="text" id="grandid"><?=number_format($overalltotal,2,'.','')?></span>
+                    <input type='hidden' class="text" id="grandid1" value="0">
+                  </div>
+                </div>
+              </div>
+  
+
+            </td>
+          </tr>
 
         </tfoot>
 
