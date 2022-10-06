@@ -46,7 +46,7 @@ $aresult = $aobj->getusername($ordresult['createdby']);
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <li class="breadcrumb-item">Incoming PO</li>
+           <li class="breadcrumb-item"><a href="sales_order.php">Incoming PO List</a></li>
            <li class="breadcrumb-item">Order Details</li>
          </ul>
        </div>
