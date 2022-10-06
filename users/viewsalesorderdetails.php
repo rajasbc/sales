@@ -46,7 +46,7 @@ $aresult = $aobj->getusername($ordresult['createdby']);
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <li class="breadcrumb-item">Incoming PO</li>
+           <li class="breadcrumb-item"><a href="sales_order.php">Incoming PO List</a></li>
            <li class="breadcrumb-item">Order Details</li>
          </ul>
        </div>
@@ -140,6 +140,10 @@ $aresult = $aobj->getusername($ordresult['createdby']);
           $tprice=0;
           $total_amount=0;
           $tvat=0;
+          $total_tax=0;
+          $overalltotal=0;
+          $total_subtotal=0;
+          $tax=0;
           foreach($result as $row)
           {
 
@@ -151,10 +155,22 @@ $aresult = $aobj->getusername($ordresult['createdby']);
 
             echo"<tr><td>".$sno."</td><td>".$presult['name']."</td><td>".$presult['price']."</td><td>".$row['qty']."</td><td>".$row['tax']."</td><td style='text-align:right;'>".$row['total']."</td></tr>";
 
-            $tqty=$tqty+$row['qty'];
-            $tprice=$tprice+$presult['price'];
-            $tvat=$tvat+$row['tax'];
-            $total_amount=$total_amount+$row['total'];
+            // $tqty=$tqty+$row['qty'];
+            // $tprice=$tprice+$presult['price'];
+            // $tvat=$tvat+$row['tax'];
+            // $total_amount=$total_amount+$row['total'];
+
+
+            // $total_product_value=$itemresult['price']*$value['qty'];
+// $total_tax_value=$total_tax_value+$value['tax'];
+            $tax_value=$presult['price']*$row['qty'];
+$total_subtotal=$total_subtotal+$total_value;
+
+$total_amount=$total_amount+$row['total'];
+$overalltotal=$overalltotal+$row['total'];
+$total_tax=$total_tax+$row['tax'];
+$tvat=$tvat+$row['tax'];
+$tax=$tax+$tax_value*($row['tax']/100);
 
           }
 
@@ -163,8 +179,9 @@ $aresult = $aobj->getusername($ordresult['createdby']);
         </tbody>
 
         <tfoot>
-          
+
                      <tr>
+
                         <td colspan="5" style="text-align:right;">
                    
                           <span class="text-right">Total Amount ($)</span>

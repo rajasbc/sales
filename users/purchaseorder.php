@@ -48,7 +48,7 @@ if($_GET['bill_check_group']!='')
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <li class="breadcrumb-item">Purchase </li>
+           <!-- <li class="breadcrumb-item">Purchase </li> -->
            <li class="breadcrumb-item">Purchase Order</li>
          </ul>
        </div>
@@ -74,6 +74,37 @@ if($_GET['bill_check_group']!='')
               <img src="images\usericon.jpg" class="media-object" id ="selectCustomerBtn" data-toggle="modal" data-target="#customerModal" style="width:40px;cursor:pointer;margin-left:-14px">
             </em> 
             <em id='ccustomername'></em><br>
+
+                       <div id="companyname_show_hide"  style="display:none;" >
+                    <em id="companyname_1">
+                      <img src="images\company_icon.png" class="media-object" style="width:10px">
+                    </em>
+                    <em id='ccompanyname'></em><br>
+                  
+                  <div id="address_1_show_hide">
+                    <em>
+                      <img src="images\location_icon.png" class="media-object" style="width:10px">
+                    </em>
+                    <em id="ccaddress_line_1"></em>
+                  </div>
+                  <span id="area_show_hide">
+                    <em id="carea"></em>
+                  </span>
+                  <span id="city_show_hide">
+                    <em id="ccity"></em>
+                  </span>
+                  <span id="pincode_show_hide">
+                    <em id="cpincode"></em>
+                  </span>
+                  <div id="phone_show_hide">
+                    <em id="cphone">
+                      <img src="images\landline.svg" class="media-object" style="width:10px">
+                    </em>
+                    <em id="ccphone"></em>
+                  </div>
+
+                  </div>
+
 
           </div>
 
