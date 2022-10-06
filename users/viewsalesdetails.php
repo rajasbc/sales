@@ -175,6 +175,7 @@ $pobj = new Product();
           $total_tax=0;
           $overalltotal=0;
           $total_subtotal=0;
+            $tax=0;
           foreach($result as $row)
           {
 
@@ -187,6 +188,7 @@ $pobj = new Product();
             <td>".$row['rate']."</td>
             <td>".$row['tax']." %</td>
             <td >".$row['total']."</td></tr>";
+             $tax_value=$row['rate']*$row['tax'];
 
             $total=$total+$row['total'];
             $total_product_value=$row['rate']*$row['qty'];
@@ -195,6 +197,7 @@ $total_subtotal=$total_subtotal+$total_product_value;
 
 $overalltotal=$overalltotal+$row['total'];
 $total_tax=$total_tax+$row['tax'];
+$tax=$tax+$tax_value*($row['tax']/100);
             // $total_rate=$total+$row['total'];
 
           }
@@ -221,7 +224,7 @@ $total_tax=$total_tax+$row['tax'];
                   <div class="">
 
                     <span>VAT ($)</span>
-                    <span class="" id="taxid"><?=number_format($total_tax,2,'.','')?></span>
+                    <span class="" id="taxid"><?=number_format($tax,2,'.','')?></span>
 
                   </div>
                 </div>
