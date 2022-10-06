@@ -143,6 +143,7 @@ $aresult = $aobj->getusername($ordresult['createdby']);
           $total_tax=0;
           $overalltotal=0;
           $total_subtotal=0;
+          $tax=0;
           foreach($result as $row)
           {
 
@@ -162,12 +163,14 @@ $aresult = $aobj->getusername($ordresult['createdby']);
 
             // $total_product_value=$itemresult['price']*$value['qty'];
 // $total_tax_value=$total_tax_value+$value['tax'];
+            $tax_value=$presult['price']*$row['qty'];
 $total_subtotal=$total_subtotal+$total_value;
 
 $total_amount=$total_amount+$row['total'];
 $overalltotal=$overalltotal+$row['total'];
 $total_tax=$total_tax+$row['tax'];
 $tvat=$tvat+$row['tax'];
+$tax=$tax+$tax_value*($row['tax']/100);
 
           }
 
@@ -194,7 +197,7 @@ $tvat=$tvat+$row['tax'];
                   <div class="">
 
                     <span>VAT ($)</span>
-                    <span class="" id="taxid"><?=number_format($total_tax,2,'.','')?></span>
+                    <span class="" id="taxid"><?=number_format($tax,2,'.','')?></span>
 
                   </div>
                 </div>
