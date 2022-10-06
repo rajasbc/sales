@@ -15,11 +15,19 @@ if (count($result) > 0) {
 		<td>" . $row['company_name']. "</td>
 		<td>" .$row['email'] . "</td>
 		<td>" . $row['mobile'] . "</td>
-		<td>" . $row['city'] . "</td>
-		<td>
+		<td>" . $row['city'] . "</td>";
+
+
+		if($_SESSION['utype']=='Admin')
+        {
+
+		$out .= "<td>
 		<a data-id=".$row['id']." class='btn btn-sm btn-success' href='vendor.php?id=".$row['id']."' value='".$row['id']."'>Edit</a> 
-		</td>
-		</tr>";
+		</td>";
+
+		}
+
+		$out .= "</tr>";
 	}
 }
 

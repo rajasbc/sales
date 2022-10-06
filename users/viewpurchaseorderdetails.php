@@ -42,7 +42,7 @@ $pobj = new Product();
         <div class="row align-items-center">
          <div class="col-md-12">
           <div class="page-header-title">
-           <h5 class="m-b-10">Purchase Order Details</h5>
+           <h5 class="m-b-10">Outgoing PO Details</h5>
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>

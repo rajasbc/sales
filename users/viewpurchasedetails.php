@@ -42,11 +42,11 @@ $pobj = new Product();
         <div class="row align-items-center">
          <div class="col-md-12">
           <div class="page-header-title">
-           <h5 class="m-b-10">Purchase Invoice Details</h5>
+           <h5 class="m-b-10">Incoming Invoice</h5>
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <li class="breadcrumb-item">Purchase Invoice</li>
+           <li class="breadcrumb-item">Incoming Invoice</li>
            <li class="breadcrumb-item">Invoice Details</li>
          </ul>
        </div>

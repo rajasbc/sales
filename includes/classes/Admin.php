@@ -25,6 +25,7 @@ class Admin extends Dbconnection {
 		$_SESSION['username'] = $result[0]['username'];
 		$_SESSION['email'] = $result[0]['email'];
 		$_SESSION['uid'] = $result[0]['id'];
+		$_SESSION['utype'] = $result[0]['type'];
 
 		if (count($result)>0) {
 			
@@ -146,6 +147,78 @@ class Admin extends Dbconnection {
 		$sql="select * from ".$this->tablename." where type='Sales Person'";
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
+	}
+
+
+	function password_change()
+	{
+
+
+	$password = $this->db->getpost('password');
+
+	$opass = md5($password);
+
+
+	$sql = "update " . $this->tablename . " set password='".$opass."' where id ='" . $_SESSION['uid'] . "'";
+	$result = $this->db->ExecuteQuery($sql);
+
+
+	
+		return ["status" => "success"];
+	
+
+	}
+
+
+	function getUserVerify() {
+		
+		$name = $this->db->getpost('name');
+
+		$id = $this->db->getpost('userId');
+
+		if($id!='')
+		{
+		$sql = "select username from " . $this->tablename . " where username='" . $name . "' and id!='".$id."'";
+		}
+		else
+		{
+		$sql = "select username from " . $this->tablename . " where username='" . $name . "'";
+		}
+
+		$result = $this->db->GetAsIsArray($sql);
+
+		if (count($result) > 0) {
+			return ["status" => 'failed'];
+		} else {
+			return ["status" => 'success', "username" => $name];
+		}
+
+	}
+
+
+	function getEmailVerify() {
+		
+		$email = $this->db->getpost('email');
+
+		$id = $this->db->getpost('userId');
+
+		if($id!='')
+		{
+		$sql = "select email from " . $this->tablename . " where email='" . $email . "' and id!='".$id."'";
+		}
+		else
+		{
+		$sql = "select email from " . $this->tablename . " where email='" . $email . "'";
+		}
+
+		$result = $this->db->GetAsIsArray($sql);
+
+		if (count($result) > 0) {
+			return ["status" => 'failed'];
+		} else {
+			return ["status" => 'success', "email" => $email];
+		}
+
 	}
 
 

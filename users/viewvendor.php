@@ -89,7 +89,16 @@ include 'header.php';
             <th>Email</th>
             <th>Mobile</th>
             <th>City</th>
-            <th>Action</th>
+
+            <?php
+            if($_SESSION['utype']=='Admin')
+            {
+            ?>
+            <th class="filter-false">Action</th>
+            <?php
+            }
+            ?>
+            
           </tr>
         </thead>
         <tbody id="mytable">
