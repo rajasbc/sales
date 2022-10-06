@@ -66,7 +66,7 @@ $aresult = $aobj->getusername($ordresult['createdby']);
       <div class="row">
       <div class="col-md-10">
         
-      <h4>Order# <?=$_GET['id']?></h4>
+      <h4>Order# <span style="color:#fd6a01;"><?=$ordresult['invoice_no']?></span></h4>
 
       </div>
 
@@ -153,7 +153,7 @@ $aresult = $aobj->getusername($ordresult['createdby']);
 
             $total_value= $row['qty']*$presult['price'];
 
-            echo"<tr><td>".$sno."</td><td>".$presult['name']."</td><td>".$presult['price']."</td><td>".$row['qty']."</td><td>".$row['tax']."</td><td>".$row['total']."</td></tr>";
+            echo"<tr><td>".$sno."</td><td>".$presult['name']."</td><td>".$presult['price']."</td><td>".$row['qty']."</td><td>".$row['tax']."</td><td style='text-align:right;'>".$row['total']."</td></tr>";
 
             // $tqty=$tqty+$row['qty'];
             // $tprice=$tprice+$presult['price'];
@@ -179,42 +179,21 @@ $tax=$tax+$tax_value*($row['tax']/100);
         </tbody>
 
         <tfoot>
-          
+
                      <tr>
-            <td colspan="13" class="td-last-1">
 
-              <div class="row">
-                <div class="col-lg-3"></div>
-                <div class="col-lg-2 col-sm-2 col-md-2">
-                  <div class="">
-                    <span class="">Total Amount  Before Tax ($)</span>
-                    <span class="" id="subid"><?=number_format($total_subtotal,2,'.','')?></span>
-                    <input type="hidden" name="subid1" id="subid1">
-                  </div>
-                </div>
-                <div class="col-lg-2"></div>
-                <div class="col-lg-2 col-sm-2 col-md-2">
-                  <div class="">
+                        <td colspan="5" style="text-align:right;">
+                   
+                          <span class="text-right">Total Amount ($)</span>
 
-                    <span>VAT ($)</span>
-                    <span class="" id="taxid"><?=number_format($tax,2,'.','')?></span>
+                        </td>
+                       
+                       <td style="text-align:right;">
+                    
+                    <span class="text" id="grandid"> <?=number_format($total_amount,2,'.','')?></span>
 
-                  </div>
-                </div>
-                <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="">
-
-                    <span class="">Total Amount ($)</span>
-
-                    <span class="text" id="grandid"><?=number_format($overalltotal,2,'.','')?></span>
-                    <input type='hidden' class="text" id="grandid1" value="0">
-                  </div>
-                </div>
-              </div>
-  
-
-            </td>
-          </tr>
+                  </td>
+                </tr>
 
         </tfoot>
 

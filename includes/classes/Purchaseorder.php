@@ -51,6 +51,14 @@ try
     $bill_id=$this->db->mysql_insert($this->tablename,$purchase);
 
 
+    $seldt = "select MAX(invoice_id) as iid from purchaseorder where date='".date('Y-m-d')."'";
+    $selin = $this->db->GetAsIsArray($seldt);
+
+    $newinv = $selin['iid']+1;
+
+    $invoiceno = '2crsipo'.date('ymd').sprintf("%04d", $newinv);
+
+
     $upsales = "update salesorder set status='Converted' where orderid='".$_POST['salesorderno']."'";
     $this->db->ExecuteQuery($upsales);
 
@@ -89,7 +97,7 @@ try
 
     }
 
-    $up="update purchaseorder set orderid='".$bill_id."',subtotal='".$sub."',tax_amount='".$gtax."',grandtotal='".$gtot."' where id='".$bill_id."'";
+    $up="update purchaseorder set orderid='".$bill_id."',subtotal='".$sub."',tax_amount='".$gtax."',grandtotal='".$gtot."',invoice_id='".$newinv."',invoice_no='".$invoiceno."' where id='".$bill_id."'";
     $this->db->ExecuteQuery($up);
 
 $response = ["status" => "success" ,"order_id"=>$bill_id];

@@ -23,7 +23,7 @@ if (count($result) > 0) {
 		$i++;
 		$out .= "
 		<tr>
-		<td>" . $row['billid'] . "</td>
+		<td>" . $row['invoice_no'] . "</td>
 		<td>" . date('d-m-Y',strtotime($row['date'])) . "</td>
 		<td>" . $cresult[0]['name']. "</td>
 		<td>" . $row['grandtotal'] . "</td>

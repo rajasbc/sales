@@ -49,7 +49,18 @@ try
     $sales['created_at']=date('Y-m-d H:i:s');
     $bill_id=$this->db->mysql_insert($this->tablename,$sales);
 
-    $up="update salesorder set orderid='".$bill_id."' where id='".$bill_id."'";
+
+    $seldt = "select MAX(invoice_id) as iid from salesorder where date='".date('Y-m-d')."'";
+    $selin = $this->db->GetAsIsArray($seldt);
+
+    $newinv = $selin['iid']+1;
+
+    $invoiceno = '2crsiso'.date('ymd').sprintf("%04d", $newinv);
+
+
+    //update orderid and invoiceno
+
+    $up="update salesorder set orderid='".$bill_id."',invoice_id='".$newinv."',invoice_no='".$invoiceno."' where id='".$bill_id."'";
     $this->db->ExecuteQuery($up);
 
 	foreach ($item as $itemvar) {
