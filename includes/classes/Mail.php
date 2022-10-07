@@ -1,5 +1,8 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 class Mail extends Dbconnection {
 	var $mail;
 	var $db;
@@ -10,25 +13,26 @@ class Mail extends Dbconnection {
 	}
 
 	public function sendEmail(){
-		
-		$headers  = "From: no-reply@2crsi.com\r\n";
-		$headers .= "MIME-Version: 1.0\r\n";
-		$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 
-		$subject = 'Registered as PO Tracking System - 2crsi';
-		$message = 'Hi, You are registered as 2crsi PO Tracking System, Your login details below., <br /><br /><table><tr><td>User Name : '.$users['username'].'</td></tr><tr><td>User Name : '.$originalpassword.'</td></tr></table><br />Thank You,';
+		$mail = new PHPMailer(true);
 
-		$to = $users['email'];
+		$mail->From = "adminpo@2crsi.com";
+		$mail->FromName = "Admin";
 
 
-		if(mail($to, $subject, $message, $headers))
-		{
+		$mail->addAddress($users['email'], $users['name']);
 
-			return 'Success';
+		$mail->isHTML(true);
 
+		$mail->Subject = "Registered as PO Tracking System - 2crsi";
+		$mail->Body = "Hi, You are registered as 2crsi PO Tracking System, Your login details below., <br /><br /><table><tr><td>User Name : ".$users['username']."</td></tr><tr><td>User Name : ".$originalpassword."</td></tr></table><br />Thank You,";
+
+		try {
+		    $mail->send();
+		    return 'Success';
+		} catch (Exception $e) {
+		    return 'Failed';
 		}
-
-
 		
 
 	}
