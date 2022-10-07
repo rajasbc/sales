@@ -151,26 +151,15 @@ $aresult = $aobj->getusername($ordresult['createdby']);
 
             $presult = $pobj->getitem($row['product']);
 
-            $total_value= $row['qty']*$presult['price'];
+            $total_value= $row['qty']*$row['rate'];
 
-            echo"<tr><td>".$sno."</td><td>".$presult['name']."</td><td>".$presult['price']."</td><td>".$row['qty']."</td><td>".$row['tax']."</td><td style='text-align:right;'>".$row['total']."</td></tr>";
+            echo"<tr><td>".$sno."</td><td>".$presult['name']."</td><td>".$row['rate']."</td><td>".$row['qty']."</td><td>".$row['tax']."</td><td style='text-align:right;'>".$row['total']."</td></tr>";
 
-            // $tqty=$tqty+$row['qty'];
+            $tqty=$tqty+$row['qty'];
             // $tprice=$tprice+$presult['price'];
-            // $tvat=$tvat+$row['tax'];
-            // $total_amount=$total_amount+$row['total'];
+            $tvat=$tvat+$row['tax'];
+            $total_amount=$total_amount+$row['total'];
 
-
-            // $total_product_value=$itemresult['price']*$value['qty'];
-// $total_tax_value=$total_tax_value+$value['tax'];
-            $tax_value=$presult['price']*$row['qty'];
-$total_subtotal=$total_subtotal+$total_value;
-
-$total_amount=$total_amount+$row['total'];
-$overalltotal=$overalltotal+$row['total'];
-$total_tax=$total_tax+$row['tax'];
-$tvat=$tvat+$row['tax'];
-$tax=$tax+$tax_value*($row['tax']/100);
 
           }
 
