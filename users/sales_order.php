@@ -459,7 +459,7 @@ $userdet = $userobj->getusername($uid);
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">Address<span style="color: red" class="<?php echo $hide_silver_data1?>">&nbsp;*</span></span>
+                      <span class="input-group-text input-group-text1">Address<span style="color: red" class="<?php echo $hide_silver_data1?>">&nbsp;</span></span>
                     </div>
                     <input class="form-control cust_form" id="address" name="address" type="text" autocomplete="off" placeholder="Address" onkeypress="if(this.value.length==50) return false;">
                     <!-- <select class="form-control" style="border-left-width: 0px" id="billadd"></select> -->
