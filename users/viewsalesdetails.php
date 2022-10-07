@@ -162,7 +162,7 @@ $sordresult = $sobj->get_order($ordresult['sales_orderid']);
           <thead>
            <tr>
             <th>S.No.</th>
-            <th>Product</th>
+            <th style="width:21%;">Product</th>
             <th>Qty</th>
             <th>Rate ($)</th>
             <th>VAT (%)</th>
@@ -200,8 +200,7 @@ $sordresult = $sobj->get_order($ordresult['sales_orderid']);
 $total_subtotal=$total_subtotal+$total_product_value;
 
 $overalltotal=$overalltotal+$row['total'];
-$total_tax=$total_tax+$row['tax'];
-$tax=$tax+$tax_value*($row['tax']/100);
+$tax=$tax+$row['tax_amount'];
             // $total_rate=$total+$row['total'];
 
           }
@@ -211,46 +210,30 @@ $tax=$tax+$tax_value*($row['tax']/100);
         </tbody>
 
         <tfoot>
-                    <tr>
-            <td colspan="13" class="td-last-1">
+            <tr>
+            <td colspan="2"></td>
+            <td colspan="2">
 
-              <div class="row">
-                <div class="col-lg-3"></div>
-                <div class="col-lg-2 col-sm-2 col-md-2">
-                  <div class="">
                     <span class="">Total Amount  Before Tax ($)</span>
                     <span class="" id="subid"><?=number_format($total_subtotal,2,'.','')?></span>
-                    <input type="hidden" name="subid1" id="subid1">
-                  </div>
-                </div>
-                <div class="col-lg-2"></div>
-                <div class="col-lg-2 col-sm-2 col-md-2">
-                  <div class="">
+                    
+            </td>
 
+            <td>
+                 
                     <span>VAT ($)</span>
                     <span class="" id="taxid"><?=number_format($tax,2,'.','')?></span>
 
-                  </div>
-                </div>
-                <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="">
+            </td>
+
+            <td>
 
                     <span class="">Total Amount ($)</span>
 
                     <span class="text" id="grandid"><?=number_format($overalltotal,2,'.','')?></span>
-                    <input type='hidden' class="text" id="grandid1" value="0">
-                  </div>
-                </div>
-              </div>
-  
 
             </td>
           </tr>
-
-
-
-          
-         <!--  <tr style="font-weight: bold;"><td>Total ($)</td><td style='text-align: right;'><?=number_format($total,2,'.','')?></td></tr> -->
 
         </tfoot>
 

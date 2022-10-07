@@ -29,7 +29,7 @@ $sno++;
     $output_array['final_qty']=$value['qty'];
     $output_array['final_total']=$value['total'];
     $output_array['final_gst']=$value['tax'];
-    $output_array['final_gstpercentage']=$value['tax'];
+    $output_array['final_gstpercentage']=$value['tax']/100;
     $output_array['gstamount']=$value['tax_amount'];
     $output_array['final_price']=$value['rate'];
    
