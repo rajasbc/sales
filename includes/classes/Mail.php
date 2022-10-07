@@ -40,5 +40,38 @@ class Mail extends Dbconnection {
 
 	}
 
+	public function sendorderEmail(){
+
+		$mail = new PHPMailer\PHPMailer\PHPMailer(true);
+
+		$mail->From = "adminpo@2crsi.com";
+		$mail->FromName = "Admin";
+
+
+		$obj = new Admin();
+		$adres = $obj -> getadmin();
+
+		$ures = $obj->getusername($_POST['salesperson']);	
+
+
+		$mail->addAddress($adres['email'], $adres['username']);
+
+		$mail->isHTML(true);
+
+		$mail->Subject = "New PO - 2crsi";
+		$mail->Body = "Hi Admin, ".$ures['name']." raise new po<br />Thank You,";
+
+		// echo $mail;
+
+		try {
+		    $mail->send();
+		    return 'Success';
+		} catch (Exception $e) {
+		    return 'Failed';
+		}
+		
+
+	}
+
 
 }
