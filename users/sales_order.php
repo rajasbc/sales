@@ -459,7 +459,7 @@ $userdet = $userobj->getusername($uid);
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">Address<span style="color: red" class="<?php echo $hide_silver_data1?>">&nbsp;*</span></span>
+                      <span class="input-group-text input-group-text1">Address<span style="color: red" class="<?php echo $hide_silver_data1?>">&nbsp;</span></span>
                     </div>
                     <input class="form-control cust_form" id="address" name="address" type="text" autocomplete="off" placeholder="Address" onkeypress="if(this.value.length==50) return false;">
                     <!-- <select class="form-control" style="border-left-width: 0px" id="billadd"></select> -->
@@ -1104,7 +1104,7 @@ qtyarray.push({
 }
 
 </script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   var selector = '.cust_form';
   $('body').on('keydown', selector, function(e) {
     if (e.key === "Enter") {
@@ -1123,6 +1123,34 @@ qtyarray.push({
     return false;
   }
 }); 
+</script> -->
+
+<script type="text/javascript">
+
+  $('#cform').on('keydown', 'input', function(e) {
+    var cid=$("#cid").val();
+    if (e.key === "Enter") {
+      var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
+    // console.log(form.find)
+    focusable = form.find('.cust_form').filter(':visible');
+    next = focusable.eq(focusable.index(this)+1);
+    if(cid!=''){
+      $('#saveCustomerBtn').click();
+    }
+    else
+    {
+      if (next.length) {
+        next.focus();
+      } else {
+        $('#saveCustomerBtn').click();
+      }
+    }
+    
+    return false;
+  }
+
+})
+
 </script>
 <script type="text/javascript">
   var selector = '.product_add';
