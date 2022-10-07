@@ -100,6 +100,13 @@ class Admin extends Dbconnection {
 	}
 
 
+	function getadmin($id) {
+		$sql = "select * from " . $this->tablename . " where type='Admin'";
+		$result = $this->db->GetAsIsArray($sql);
+		return $result;
+	}
+
+
 	function update_users() {
 		$users = array();
 		$users['name'] = $this->db->getpost('username_edit');

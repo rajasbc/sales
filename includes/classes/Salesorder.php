@@ -112,6 +112,11 @@ try
 
     $up="update salesorder set subtotal='".$sub."',tax_amount='".$gtax."',grandtotal='".$gtot."' where id='".$bill_id."'";
     $this->db->ExecuteQuery($up);
+
+
+    	$mobj = new Mail();
+		$mres = $mobj->sendorderEmail();
+
     
 
 $response = ["status" => "success" ,"order_id"=>$bill_id];
