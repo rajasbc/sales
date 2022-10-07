@@ -69,7 +69,14 @@ class Admin extends Dbconnection {
 		$users['username'] = $this->db->getpost('login_username');
 		$users['status'] = 'Active';
 
+		$originalpassword = $this->db->getpost('password');
+
 		$userId = $this->db->mysql_insert($this->tablename, $users);
+
+
+		$mobj = new Mail();
+		$mres = $mobj->sendEmail();
+
 
 		if (!$userId) {
 			return ["status" => "failed", "msg" => "This User Allready Created"];
