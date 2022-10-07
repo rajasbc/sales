@@ -1104,7 +1104,7 @@ qtyarray.push({
 }
 
 </script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   var selector = '.cust_form';
   $('body').on('keydown', selector, function(e) {
     if (e.key === "Enter") {
@@ -1123,6 +1123,34 @@ qtyarray.push({
     return false;
   }
 }); 
+</script> -->
+
+<script type="text/javascript">
+
+  $('#cform').on('keydown', 'input', function(e) {
+    var cid=$("#cid").val();
+    if (e.key === "Enter") {
+      var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
+    // console.log(form.find)
+    focusable = form.find('.cust_form').filter(':visible');
+    next = focusable.eq(focusable.index(this)+1);
+    if(cid!=''){
+      $('#saveCustomerBtn').click();
+    }
+    else
+    {
+      if (next.length) {
+        next.focus();
+      } else {
+        $('#saveCustomerBtn').click();
+      }
+    }
+    
+    return false;
+  }
+
+})
+
 </script>
 <script type="text/javascript">
   var selector = '.product_add';

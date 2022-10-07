@@ -366,7 +366,7 @@ if($_GET['bill_check_group']!='')
                         <div class="input-group-prepend">
                           <span class="input-group-text input-group-text1">State</span>
                         </div>
-                        <input class="form-control cust_form" id="state" name="state" type="text" autocomplete="off" placeholder="City" onkeypress="if(this.value.length==25) return false;">
+                        <input class="form-control cust_form" id="state" name="state" type="text" autocomplete="off" placeholder="State" onkeypress="if(this.value.length==25) return false;">
 
                       </div>
                     </div>
@@ -380,6 +380,7 @@ if($_GET['bill_check_group']!='')
                         </div>
 
                         <select name="country" class="form-control cust_form" id="country" >
+                           <option value="select">Select Country</option>
 
                          <?php
 
