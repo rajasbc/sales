@@ -147,12 +147,12 @@ $aresult = $aobj->getusername($ordresult['createdby']);
 
             $presult = $pobj->getitem($row['product']);
 
-            $total_value= $row['qty']*$presult['price'];
+            $total_value= $row['qty']*$row['rate'];
 
-            echo"<tr><td>".$sno."</td><td>".$presult['name']."</td><td>".$presult['price']."</td><td>".$row['qty']."</td><td>".$row['tax']."</td><td style='text-align:right;'>".$row['total']."</td></tr>";
+            echo"<tr><td>".$sno."</td><td>".$presult['name']."</td><td>".$row['rate']."</td><td>".$row['qty']."</td><td>".$row['tax']."</td><td style='text-align:right;'>".$row['total']."</td></tr>";
 
             $tqty=$tqty+$row['qty'];
-            $tprice=$tprice+$presult['price'];
+            // $tprice=$tprice+$presult['price'];
             $tvat=$tvat+$row['tax'];
             $total_amount=$total_amount+$row['total'];
 

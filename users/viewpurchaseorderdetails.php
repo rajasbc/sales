@@ -166,7 +166,7 @@ $sordresult = $sobj->get_order($ordresult['sales_orderid']);
 
         <tfoot>
           
-          <tr style="font-weight: bold;"><td colspan="5" style="text-align: right;">Total ($)</td><td><?=number_format($total,2,'.','')?></td></tr>
+          <tr style="font-weight: bold;"><td colspan="5" style="text-align: right; padding-right:105px;">Total ($)</td><td><?=number_format($total,2,'.','')?></td></tr>
 
         </tfoot>
 

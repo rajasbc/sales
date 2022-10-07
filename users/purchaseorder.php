@@ -75,6 +75,43 @@ if($_GET['bill_check_group']!='')
             </em> 
             <em id='ccustomername'></em><br>
 
+            <div id="customer_icon_hide" style="display: none;">
+          <div id="companyname_show_hide">
+            <em id="companyname_1">
+              <img src="images\company_icon.png" class="media-object" style="width:10px">
+            </em>
+            <em id='ccompanyname'></em>
+          </div>
+          <div id="address_1_show_hide">
+            <em>
+              <img src="images\location_icon.png" class="media-object" style="width:10px">
+            </em>
+            <em id="ccaddress"></em>
+          </div>
+
+          <span id="area_show_hide">
+            <em id="carea"></em>
+          </span>
+          <span id="city_show_hide">
+            <em id="ccity"></em>
+          </span>
+          <span id="state_show_hide">
+            <em id="cstate"></em>
+          </span>
+          <span id="Country_show_hide">
+            <em id="ccountry"></em>
+          </span>
+
+          <div id="phone_show_hide">
+            <em id="cphone">
+              <img src="images\landline.svg" class="media-object" style="width:10px">
+            </em>
+            <em id="ccphone"></em><br>
+          </div>
+
+          <em id="ccgst"></em>
+        </div>
+
           </div>
 
           <div class="col-md-5">
@@ -178,13 +215,13 @@ if($_GET['bill_check_group']!='')
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colspan="13" class="td-last-1">
+                    <td colspan="7" class="td-last-1">
 
                       <div class="row">
                         <div class="col-lg-3"></div>
                         <div class="col-lg-2 col-sm-2 col-md-2">
                           <div class="">
-                            <span class="">Total Amount  Before Tax ($)</span>
+                            <span class="">Amount Before Tax ($)</span>
                             <span class="" id="subid">0</span>
                             <input type="hidden" name="subid1" id="subid1">
                           </div>
@@ -208,11 +245,11 @@ if($_GET['bill_check_group']!='')
                           </div>
                         </div>
 </div>
-<div class="row">
-  <div class="col-lg-11"></div>
+<div class="row mt-3">
+  <div class="col-lg-10"></div>
                         
 
-                          <div class="col-lg-1 col-sm-1 col-md-1">
+                          <div class="col-lg-2 col-sm-2 col-md-2">
                             <input type="button" class="btn btn-sm btn-success save_bill" id="pay" value="Save" />
                           </div>
 
@@ -1643,10 +1680,10 @@ $('#ccphone').html(phonevar);
 $('#ccemailid').html(email);
 $('#ccountry').html(country);
 $('#companynameid').html(companynamevar);
-$('#ccaddress_line_1').html(address_line_1);
+$('#ccaddress').html(address_line_1);
 $('#ccity').html(city);
-$('#cstate').html("("+state_code+")"+state);
-$('#cstate_code').val(state_code);
+$('#cstate').html(state);
+// $('#cstate_code').val(state_code);
 $("#modelclose").click();
 
 customers["customname"]=customname;
@@ -1700,8 +1737,8 @@ success: function(dataResult)
   $('#mobile').val(dataResult.mobile);
   $('#custnameid').val(dataResult.name);
   $('#email').val(dataResult.email);
-  $('#address').val(dataResult.address);
-  $('#city').val(dataResult.city);
+  $('#ccaddress').val(dataResult.address);
+  $('#ccity').val(dataResult.city);
   $('#state').val(dataResult.state);
   $('#country').val(dataResult.country);
   $('#companyname').val(dataResult.companyname);
