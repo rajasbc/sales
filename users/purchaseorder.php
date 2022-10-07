@@ -44,12 +44,12 @@ if($_GET['bill_check_group']!='')
         <div class="row align-items-center">
          <div class="col-md-12">
           <div class="page-header-title">
-           <h5 class="m-b-10">Purchase Order</h5>
+           <h5 class="m-b-10">Outgoing PO</h5>
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <!-- <li class="breadcrumb-item">Purchase </li> -->
-           <li class="breadcrumb-item">Purchase Order</li>
+           <li class="breadcrumb-item"><a href="viewpurchaseorder.php">Outgoing PO view </a></li>
+           <li class="breadcrumb-item">Outgoing PO List</li>
          </ul>
        </div>
      </div>
@@ -135,7 +135,7 @@ if($_GET['bill_check_group']!='')
                     <input type='hidden' id='salesorderno' name='salesorderno' class="form-control" placeholder="Sales Order No" value="<?=base64_decode($_GET['bill_check_group'])?>" readonly />
 
                   </div>
-                  <input type='text' class="form-control" value="<?=$ores['invoice_no']?>" readonly />
+                  <input type='text' class="form-control" style="width:150px;" value="<?=$ores['invoice_no']?>" readonly />
                 </div>
               </div>
 
