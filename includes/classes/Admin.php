@@ -100,7 +100,7 @@ class Admin extends Dbconnection {
 	}
 
 
-	function getadmin($id) {
+	function getadmin() {
 		$sql = "select * from " . $this->tablename . " where type='Admin'";
 		$result = $this->db->GetAsIsArray($sql);
 		return $result;

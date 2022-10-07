@@ -127,7 +127,7 @@ if($_GET['bill_check_group']!='')
                 </div>
               </div> -->
 
-              <div class=" col-lg-7 col-sm-7 col-sm-7 md-6">
+              <div class=" col-lg-10 col-sm-10 col-sm-10 md-6">
                 <div class="input-group input-group-sm">
                   <div class="input-group-prepend">
                     <span class="input-group-text ">S.Order No.</span>
@@ -135,7 +135,7 @@ if($_GET['bill_check_group']!='')
                     <input type='hidden' id='salesorderno' name='salesorderno' class="form-control" placeholder="Sales Order No" value="<?=base64_decode($_GET['bill_check_group'])?>" readonly />
 
                   </div>
-                  <input type='text' class="form-control" style="width:150px;" value="<?=$ores['invoice_no']?>" readonly />
+                  <input type='text' class="form-control" value="<?=$ores['invoice_no']?>" readonly />
                 </div>
               </div>
 
@@ -1353,6 +1353,8 @@ qtyarray.push({
   
   subtotal1=Number(subtotal1)+Number(temp_subtotal);
 
+  // alert(tempItem.gstpercentage);
+
   tax=Number(tax)+Number(temp_subtotal)*Number(tempItem.gstpercentage);
   i++;
 
@@ -1367,11 +1369,11 @@ qtyarray.push({
   $("#subid1").val(subtotal1.toFixed(2));
   $("#taxid").html(tax.toFixed(2));
   $("#discid").html(discount.toFixed(2));
-  $("#grandid").html(Math.round(fgrand_total));
-  $("#grandid1").val(Math.round(fgrand_total));
+  $("#grandid").html(fgrand_total.toFixed(2));
+  $("#grandid1").val(fgrand_total.toFixed(2));
   
-  grand['id']=fgrand_total;
-  other_charges_calc();
+  // grand['id']=fgrand_total;
+  // other_charges_calc();
 
 }
 

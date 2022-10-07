@@ -600,7 +600,7 @@ $userdet = $userobj->getusername($uid);
   // alert(ui.item[0].address_info);
   $('#searchItem').val(ui.item.name);
   $('#id6').val(ui.item.hsn_code);
-  $('#price1').val(ui.item.price);
+  // $('#price1').val(ui.item.price);
   // $('#qty1').val(ui.item.qty);
   $('#item_id').val(ui.item.id);
   
@@ -805,12 +805,12 @@ var trItemTemplate = [
 '<td class="text-left ch-10">{{itemname}}</td>',
 
 '<td class="text-left ch-6">',
-'<input type="hidden" name="price[]" id="priceid{{sno}}" value="{{price}}">',
-'{{price}}</td>',
-'<td class="text-left ch-4">',
-'<input onkeyup=priceupdate({{sno}},this) type="number" class="form-control qty" name="qty[]" id="num_qty{{sno}}" value="{{qty}}" style="width:5rem; height:1.75rem" onkeypress="if(this.value.length==8) return false">',
+'<input type="text" onkeyup=costupdate({{sno}},this) class="form-control price" name="price[]" id="priceid{{sno}}" value="{{price}}" style="width:5rem; height:1.75rem">',
 '</td>',
-'<td class="text-left ch-4" id="gstpid{{sno}}"><input type="hidden" id="gstper{{sno}}" value="{{gst}}">{{gst}}</td>',
+'<td class="text-left ch-4">',
+'<input onkeyup=priceupdate({{sno}},this) type="text" class="form-control qty" name="qty[]" id="num_qty{{sno}}" value="{{qty}}" style="width:5rem; height:1.75rem" onkeypress="if(this.value.length==8) return false">',
+'</td>',
+'<td class="text-left ch-4"><input type="text" class="form-control gst" onkeyup=gstupdate({{sno}},this) id="gstpid{{sno}}" value="{{gst}}" style="width:5rem; height:1.75rem"></td>',
 '<td class="text-right ch-6" id="totalid{{sno}}">{{total}}</td>',
 '<td class="text-left ch-4">',
 '<button type="button" class="btn btn-default btn-sm" onclick="removeItem({{sno}})">',
@@ -852,6 +852,170 @@ calculation();
 }
 
 }
+
+
+function priceupdate(idval,ele){
+  var gst_type=$('#gst_type').val();
+  var totaltemp=0;
+  var get_id=idval;
+  var qtytemp1=$(ele).val();
+  var qtytemp=$(ele).val();
+  var pricetemp=$("#priceid"+get_id).val();
+  var gstper=$("#gstpid"+idval).val();
+
+  totaltemp=totaltemp+Number(pricetemp)*Number(qtytemp);
+
+  
+  var ref = "sid"+get_id;
+  items[ref].qty=qtytemp1;
+  items[ref].total=totaltemp;
+  var availableQty=items[ref].availableQty;
+  var name=items[ref].itemname;
+
+  if(Number(qtytemp)<=0){
+    $(ele).css("border","1px solid red");
+    $.growl.error({
+      title:"Valid Quantity",
+      message:"Please enter Valid quantity:"
+    });
+    $('#pay').attr('disabled',true);
+    return false;
+  }
+  else
+  {
+    $('#pay').attr('disabled',false);
+    $(ele).css("border","1px solid #ccc");
+    // return false;
+  }
+
+// alert(gstper);
+
+var gstpercentage=Number(gstper)/100;
+
+
+prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()));
+
+gstamount=prototal*Number(gstpercentage);
+
+var grnd = Number(prototal)+Number(gstamount);
+
+// alert(gstper);
+
+$("#totalid"+get_id).html(grnd);
+
+items[ref].gstamount=gstamount;
+items[ref].gstpercentage=gstpercentage;
+
+calculation();
+
+}
+
+
+function gstupdate(idval,ele){
+  var gstamount=0;
+  var prototal=0;
+  var totaltemp=0;
+  var qtytemp1=$(ele).val();
+  var ref = "sid"+idval;
+  items[ref].gst=Number(qtytemp1);
+  if ($(ele).val()=='') {
+    items[ref].gst=0;
+  }
+
+// alert();
+
+  var gst_type=$('#gst_type').val();
+  var weight=1;
+  if ($("#temp_weight"+idval).text()!=0){
+    weight=$("#temp_weight"+idval).text();
+  }
+
+  var gstpercentage=$(ele).val()/100;
+
+  // alert(gstpercentage);
+
+
+  prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()));
+
+  gstamount=prototal*Number(gstpercentage);
+
+
+// alert(gstamount);
+
+totaltemp=prototal+Number(gstamount);
+
+totaltemp=totaltemp.toFixed(2);
+
+
+
+$("#totalid"+idval).html(totaltemp);
+
+items[ref].gstamount=gstamount;
+items[ref].gstpercentage=gstpercentage;
+calculation();
+// enkerkeypress();
+} 
+
+function costupdate(idval,ele){
+  var gst_type=$('#gst_type').val();
+  var totaltemp=0;
+  var get_id=idval;
+  var qtytemp1=$("#num_qty"+get_id).val();
+  var qtytemp=$("#num_qty"+get_id).val();
+  
+  var pricetemp=$(ele).val();
+
+
+  var gstper=$("#gstpid"+get_id).val();
+  var temp_discount=$("#temp_discount"+get_id).val();
+  totaltemp=totaltemp+Number(pricetemp)*Number(qtytemp);
+
+  
+
+  var ref = "sid"+get_id;
+  items[ref].qty=qtytemp1;
+  items[ref].price=pricetemp;
+  items[ref].total=totaltemp;
+
+  var name=items[ref].itemname;
+  if(Number($(ele).val())==0 || Number($(ele).val())==''){
+    $(ele).css("border","1px solid red");
+    $.growl.error({
+      title:"Error",
+      message:"Please enter Valid Amount"
+    });
+    $(ele).focus();
+    return false;
+    
+  }
+  else
+  {
+    $(ele).css("border","1px solid #ccc");
+  }
+
+  
+  var gstpercentage=Number(gstper)/100;
+
+  prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()));
+
+  gstamount=prototal*Number(gstpercentage);
+
+// alert(gstamount);
+
+totaltemp=totaltemp+Number(gstamount);
+
+totaltemp=totaltemp.toFixed(2);
+
+$("#totalid"+get_id).html(totaltemp);
+
+items[ref].gstamount=gstamount;
+items[ref].gstpercentage=gstpercentage;
+calculation();
+
+}
+
+
+
 
 $("#saveCustomerBtn").on('click',function(){
   if($("#custnameid").val()=='' || $("#custnameid").val()=='No Record Found')
@@ -1052,9 +1216,13 @@ if(res.status=='success'){
 
   temp_subtotal=Number(total);
 
+  // alert(temp_subtotal);
+
   subtotal1=Number(subtotal1)+Number(temp_subtotal);
 
-  tax=Number(tax)+Number(temp_subtotal)*Number(tempItem.gstpercentage);
+  // alert(tempItem["gst"]);
+
+  tax=Number(tax)+Number(temp_subtotal)*(Number(tempItem["gst"])/100);
   i++;
 
 }
@@ -1087,6 +1255,8 @@ qtyarray.push({
 }
 }
 
+// alert(tax);
+
   // This calculation for exclusive_Tax and it was default calculation
   grand_total=Number(tax)+Number(subtotal1);
   var fgrand_total=(Number(grand_total));
@@ -1095,11 +1265,11 @@ qtyarray.push({
   $("#subid1").val(subtotal1.toFixed(2));
   $("#taxid").html(tax.toFixed(2));
   $("#discid").html(discount.toFixed(2));
-  $("#grandid").html(Math.round(fgrand_total));
-  $("#grandid1").val(Math.round(fgrand_total));
+  $("#grandid").html(fgrand_total.toFixed(2));
+  $("#grandid1").val(fgrand_total.toFixed(2));
   
-  grand['id']=fgrand_total;
-  other_charges_calc();
+  // grand['id']=fgrand_total;
+  // other_charges_calc();
 
 }
 
