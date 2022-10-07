@@ -15,6 +15,7 @@ $total_tax=0;
 $total_subtotal=0;
 $overalltotal=0;
 $total_tax_value=0;
+$tax=0;
 $items=array();
 foreach ($result as $key => $value) {
 
@@ -60,6 +61,7 @@ $total_product_value=$itemresult['price']*$value['qty'];
 $total_subtotal=$total_subtotal+$total_product_value;
 
 $overalltotal=$overalltotal+$value['total'];
+
 $total_tax=$total_tax+$value['tax_amount'];
 
 }

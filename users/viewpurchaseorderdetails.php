@@ -143,6 +143,10 @@ $sordresult = $sobj->get_order($ordresult['sales_orderid']);
           $sno=0;
           $tqty = 0;
           $total=0;
+          $total_tax=0;
+          $overalltotal=0;
+          $total_subtotal=0;
+          $tax=0;
           foreach($result as $row)
           {
 
@@ -156,7 +160,17 @@ $sordresult = $sobj->get_order($ordresult['sales_orderid']);
             <td>".$row['tax']." %</td>
             <td >".$row['total']."</td></tr>";
 
+            $tax_value=$row['rate']*$row['tax'];
+
+
             $total=$total+$row['total'];
+            $total_product_value=$row['rate']*$row['qty'];
+// $total_tax_value=$total_tax_value+$value['tax'];
+$total_subtotal=$total_subtotal+$total_product_value;
+
+$overalltotal=$overalltotal+$row['total'];
+$total_tax=$total_tax+$row['tax'];
+$tax=$tax+$tax_value*($row['tax']/100);
 
           }
 
@@ -166,7 +180,9 @@ $sordresult = $sobj->get_order($ordresult['sales_orderid']);
 
         <tfoot>
           
+
           <tr style="font-weight: bold;"><td colspan="5" style="text-align: right; padding-right:105px;">Total ($)</td><td><?=number_format($total,2,'.','')?></td></tr>
+
 
         </tfoot>
 

@@ -46,7 +46,7 @@ $aresult = $aobj->getusername($ordresult['createdby']);
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <li class="breadcrumb-item">Incoming PO</li>
+           <li class="breadcrumb-item"><a href="sales_order.php">Incoming PO List</a></li>
            <li class="breadcrumb-item">Order Details</li>
          </ul>
        </div>
@@ -140,6 +140,10 @@ $aresult = $aobj->getusername($ordresult['createdby']);
           $tprice=0;
           $total_amount=0;
           $tvat=0;
+          $total_tax=0;
+          $overalltotal=0;
+          $total_subtotal=0;
+          $tax=0;
           foreach($result as $row)
           {
 
@@ -156,6 +160,7 @@ $aresult = $aobj->getusername($ordresult['createdby']);
             $tvat=$tvat+$row['tax'];
             $total_amount=$total_amount+$row['total'];
 
+
           }
 
           ?>
@@ -163,8 +168,9 @@ $aresult = $aobj->getusername($ordresult['createdby']);
         </tbody>
 
         <tfoot>
-          
+
                      <tr>
+
                         <td colspan="5" style="text-align:right;">
                    
                           <span class="text-right">Total Amount ($)</span>

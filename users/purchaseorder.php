@@ -48,7 +48,7 @@ if($_GET['bill_check_group']!='')
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <li class="breadcrumb-item">Purchase </li>
+           <!-- <li class="breadcrumb-item">Purchase </li> -->
            <li class="breadcrumb-item">Purchase Order</li>
          </ul>
        </div>
@@ -111,6 +111,7 @@ if($_GET['bill_check_group']!='')
 
           <em id="ccgst"></em>
         </div>
+
 
           </div>
 
