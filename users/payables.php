@@ -75,7 +75,7 @@ select.custom-select {
                     </select>
                     <select class="form-control custom-select px-4 pagenum" style="padding: 0px 15px; height: 31px; margin: 5px;" title="Select page number"></select>
 
-                    <input type="text" class="form-control" placeholder="Search...." id="mySearch" style="width: 170px; margin: 5px;" />
+                    <input type="text" class="form-control" placeholder="Search...." id="mySearch" style="width: 170px; margin: 5px;" onkeyup="getpayables(this)" />
 
                   </div>
                 </th>
@@ -131,68 +131,63 @@ include 'footer.php';
   <script>
     $(document).ready(function(){
 
-     $.ajax({
-      type:"POST",
-      url:'ajaxCalls/getpayables.php',
-      dataType:"json",
-      success: function(res){
+    //  $.ajax({
+    //   type:"POST",
+    //   url:'ajaxCalls/getpayables.php',
+    //   dataType:"json",
+    //   success: function(res){
 
-        $('#mytable').html(res.out);
-        $("table").trigger('update');
-
-
-      }
-    });
+    //     $('#mytable').html(res.out);
+    //     $("table").trigger('update');
 
 
-     $("#mySearch").keyup(function() {
-    var value = $(this).val().toLowerCase();
-    $("#mytable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
+    //   }
+    // });
+
+    getpayables();
+
+
+  //    $("#mySearch").keyup(function() {
+  //   var value = $(this).val().toLowerCase();
+  //   $("#mytable tr").filter(function() {
+  //     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  //   });
+  // });
 
 
    });
  </script>
 
- <script id="js">
+<script id="js">
+
+function getpayables()
+{
+
+  var search = $("#mySearch").val();
+
   $(function() {
-$.fn.columnCount = function() {
-    return $('th', $(this).find('thead')).length;
-        };
+       $.fn.columnCount = function() {
+       return $('th', $(this).find('thead')).length;
+       };
        var count=$('table').columnCount();
-//alert(count);
 
     $("table").tablesorter({
        theme : "bootstrap",
 
         widthFixed: true,
 
-        // widget code contained in the jquery.tablesorter.widgets.js file
-        // use the zebra stripe widget if you plan on hiding any rows (filter widget)
-        // the uitheme widget is NOT REQUIRED!
-        //widgets : [ "filter"],
         headers: {
         4: { sorter: false, filter: false },
         7: { sorter: false, filter: false },
-        //5: { sorter: false, filter: false },
-        //8: { sorter: false, filter: false },
-        //9: { sorter: false, filter: false },
         10: { sorter: false, filter: false }
         },
         widgetOptions : {
-            // using the default zebra striping class name, so it actually isn't included in the theme variable above
-            // this is ONLY needed for bootstrap theming if you are using the filter widget, because rows are hidden
+            
             zebra : ["even", "odd"],
 
-            // class names added to columns when sorted
-            // columns: [ "primary", "secondary", "tertiary" ],
-
-            // reset filters button
+            
             filter_reset : ".reset",
 
-            // extra css class name (string or array) added to the filter element (input or select)
             filter_cssFilter: [
                 'form-control',
                 'form-control',
@@ -200,7 +195,7 @@ $.fn.columnCount = function() {
                 'form-control',
                 'form-control',
                 'form-control',
-        'form-control',
+                'form-control',
                 'form-control',
                 'form-control'
             ]
@@ -211,18 +206,30 @@ $.fn.columnCount = function() {
     })
     .tablesorterPager({
 
-        // target the pager markup - see the HTML block below
         container: $(".ts-pager"),
 
-        // target the pager page select dropdown - choose a page
         cssGoto  : ".pagenum",
 
-        // remove rows from the table to speed up the sort of large tables.
-        // setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.
         removeRows: false,
 
-        // output string - default is '{page}/{totalPages}';
-        // possible variables: {page}, {totalPages}, {filteredPages}, {startRow}, {endRow}, {filteredRows} and {totalRows}
+        ajaxUrl: "ajaxCalls/getpayables.php?page={page}&size={size}&search="+search,
+      customAjaxUrl: function(table, url) {
+
+            $(table).trigger('changingUrl');
+
+            return url += '&currentUrl=' + window.location.href;
+          },
+          ajaxProcessing: function(data){
+
+              var total = data.count;
+
+              $("#count_item").text(data.count).css('color','blue');
+              $('#mytable').html(data.out);
+              $("table").trigger('update');
+              return [total];
+
+          },
+
         output: '{startRow} to {endRow} of {filteredRows} ({totalRows})'
 
     });
@@ -230,6 +237,7 @@ $.fn.columnCount = function() {
 
 });
 
+}
 
 
 </script>

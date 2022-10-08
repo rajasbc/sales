@@ -3,6 +3,8 @@ include '../../includes/config.php';
 $obj = new Vendor();
 $result =  $obj->get_vendor();
 
+$out='';
+
 if (count($result) > 0) {
 
 	$i = 0;
@@ -32,13 +34,15 @@ if (count($result) > 0) {
 }
 
 
-$output=['out'=>$out];
+// $output=['out'=>$out];
+
+$output1=['out'=>$out,'count'=>count($result)];
 
 
 
 
 
-echo json_encode($output);
+echo json_encode($output1);
 
 
 ?>
