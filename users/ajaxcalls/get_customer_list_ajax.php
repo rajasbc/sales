@@ -2,12 +2,9 @@
 include '../../includes/config.php';
 $obj = new Customer();
 $result =  $obj->get_customer();
-// print_r($result);die();
-// error_reporting(E_ALL);
 
-// $out_count=count($result);
+$out='';
 
-// $resultdata = $obj->getAllcustomersfilter();
 if (count($result) > 0) {
 
 	$i = 0;
@@ -37,14 +34,17 @@ if (count($result) > 0) {
 }
 
 
-$output=['out'=>$out];
+// $output=['out'=>$out];
+
+$output1=['out'=>$out,'count'=>count($result)];
 
 
 
 
 
-echo json_encode($output);
+echo json_encode($output1);
 
 
 ?>
+
 
