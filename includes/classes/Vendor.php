@@ -34,7 +34,7 @@ class Vendor extends Dbconnection {
 		}
 		
 
-		return  ["status"=>'success','id'=>$vendid,"name"=>$vendor['name'],"company_name"=>$vendor['company_name'],"mobile"=>$vendor['mobile'],"address"=>$vendor['address'],"city"=>$vendor['city'],"state"=>$vendor['state'],"country"=>$vendor['country']];
+		return  ["status"=>'success','id'=>$vendid,"name"=>$vendor['name'],"company_name"=>$vendor['company_name'],"email"=>$vendor['email'],"mobile"=>$vendor['mobile'],"address"=>$vendor['address'],"city"=>$vendor['city'],"state"=>$vendor['state'],"country"=>$vendor['country'],"companyname"=>$vendor['company_name']];
 
 	}
 	function get_vendor() {
@@ -76,7 +76,18 @@ class Vendor extends Dbconnection {
 		return $result;
 	}
 	public function search_email1(){
+
+		$id = $this->db->getpost('id');
+
+		if($id!='')
+		{
+		$sql = "select email from " . $this->tablename . " where  email = '".$this->db->getpost('email')."' and id!='".$id."'";
+		}
+		else
+		{
 		$sql = "select email from " . $this->tablename . " where  email = '".$this->db->getpost('email')."'";
+		}
+
 		$res=$this->db->GetResultsArray($sql);
 		if(count($res)==0)
 		{
@@ -85,9 +96,12 @@ class Vendor extends Dbconnection {
 		}
 		else
 		{
-			return "Email Already Availble";
+			return "Email Already Exist";
 		}
+
 	}
 
 }
+
+
 ?>

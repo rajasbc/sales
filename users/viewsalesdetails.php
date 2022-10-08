@@ -166,7 +166,7 @@ $sordresult = $sobj->get_order($ordresult['sales_orderid']);
             <th>Qty</th>
             <th>Rate ($)</th>
             <th>VAT (%)</th>
-            <th>Total ($)</th>
+            <th style="width:15%;">Total ($)</th>
           </tr>
         </thead>
         <tbody>
@@ -179,7 +179,7 @@ $sordresult = $sobj->get_order($ordresult['sales_orderid']);
           $total_tax=0;
           $overalltotal=0;
           $total_subtotal=0;
-            $tax=0;
+          $tax=0;
           foreach($result as $row)
           {
 
@@ -190,18 +190,15 @@ $sordresult = $sobj->get_order($ordresult['sales_orderid']);
             echo"<tr><td>".$sno."</td><td>".$presult['name']."</td>
             <td>".$row['qty']."</td>
             <td>".$row['rate']."</td>
-            <td>".$row['tax']." %</td>
-            <td >".$row['total']."</td></tr>";
-             $tax_value=$row['rate']*$row['tax'];
+            <td class='text-center'>".$row['tax']." %</td>
+            <td class='text-right pr-5'>".$row['total']."</td></tr>";
 
             $total=$total+$row['total'];
             $total_product_value=$row['rate']*$row['qty'];
-// $total_tax_value=$total_tax_value+$value['tax'];
-$total_subtotal=$total_subtotal+$total_product_value;
+            $total_subtotal=$total_subtotal+$total_product_value;
 
-$overalltotal=$overalltotal+$row['total'];
-$tax=$tax+$row['tax_amount'];
-            // $total_rate=$total+$row['total'];
+            $overalltotal=$overalltotal+$row['total'];
+            $tax=$tax+$row['tax_amount'];
 
           }
 
@@ -210,30 +207,33 @@ $tax=$tax+$row['tax_amount'];
         </tbody>
 
         <tfoot>
-            <tr>
-            <td colspan="2"></td>
-            <td colspan="2">
-
-                    <span class="">Total Amount  Before Tax ($)</span>
-                    <span class="" id="subid"><?=number_format($total_subtotal,2,'.','')?></span>
                     
-            </td>
+                    <tr style="font-weight:bold;">
 
-            <td>
-                 
-                    <span>VAT ($)</span>
-                    <span class="" id="taxid"><?=number_format($tax,2,'.','')?></span>
+                      <td colspan="2"></td>
+                      <td colspan="2">
 
-            </td>
+                              <span class="">Total Amount  Before Tax ($)</span> &nbsp; 
+                              <span class="" id="subid"><?=number_format($total_subtotal,2,'.','')?></span>
+                              
+                      </td>
 
-            <td>
+                      <td>
+                           
+                              <span>VAT ($)</span> &nbsp; 
+                              <span class="" id="taxid"><?=number_format($tax,2,'.','')?></span>
 
-                    <span class="">Total Amount ($)</span>
+                      </td>
 
-                    <span class="text" id="grandid"><?=number_format($overalltotal,2,'.','')?></span>
+                        <td class="text-right pr-5">
+                   
+                        <span class="text-right">Total Amount ($)</span> &nbsp; 
+                    
+                        <span class="text" id="grandid"> <?=number_format($overalltotal,2,'.','')?></span>
 
-            </td>
-          </tr>
+                        </td>
+                      
+                      </tr>
 
         </tfoot>
 
