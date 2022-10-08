@@ -1743,8 +1743,8 @@ success: function(dataResult)
   $('#mobile').val(dataResult.mobile);
   $('#custnameid').val(dataResult.name);
   $('#email').val(dataResult.email);
-  $('#ccaddress').val(dataResult.address);
-  $('#ccity').val(dataResult.city);
+  $('#address').val(dataResult.address);
+  $('#city').val(dataResult.city);
   $('#state').val(dataResult.state);
   $('#country').val(dataResult.country);
   $('#companyname').val(dataResult.companyname);

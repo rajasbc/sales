@@ -5,6 +5,8 @@ $result =  $obj->get_orders();
 
 $cobj = new Customer();
 
+$out = '';
+
 if (count($result) > 0) {
 
 	$i = 0;
@@ -41,6 +43,10 @@ if (count($result) > 0) {
 		$out .="</td>
 		</tr>";
 	}
+}
+else
+{
+	$out = '<td colspan="6" style="text-align:center;">No Records Found</td>';
 }
 
 

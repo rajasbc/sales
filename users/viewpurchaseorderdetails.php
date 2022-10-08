@@ -129,11 +129,11 @@ $sordresult = $sobj->get_order($ordresult['sales_orderid']);
           <thead>
            <tr>
             <th>S.No.</th>
-            <th>Product</th>
+            <th style="width:21%;">Product</th>
             <th>Qty</th>
             <th>Rate ($)</th>
             <th>VAT (%)</th>
-            <th>Total ($)</th>
+            <th style="width:15%;">Total ($)</th>
           </tr>
         </thead>
         <tbody>
@@ -157,20 +157,15 @@ $sordresult = $sobj->get_order($ordresult['sales_orderid']);
             echo"<tr><td>".$sno."</td><td>".$presult['name']."</td>
             <td>".$row['qty']."</td>
             <td>".$row['rate']."</td>
-            <td>".$row['tax']." %</td>
-            <td >".$row['total']."</td></tr>";
-
-            $tax_value=$row['rate']*$row['tax'];
-
+            <td class='text-center'>".$row['tax']." %</td>
+            <td class='text-right pr-5'>".$row['total']."</td></tr>";
 
             $total=$total+$row['total'];
             $total_product_value=$row['rate']*$row['qty'];
-// $total_tax_value=$total_tax_value+$value['tax'];
-$total_subtotal=$total_subtotal+$total_product_value;
+            $total_subtotal=$total_subtotal+$total_product_value;
 
-$overalltotal=$overalltotal+$row['total'];
-$total_tax=$total_tax+$row['tax'];
-$tax=$tax+$tax_value*($row['tax']/100);
+            $overalltotal=$overalltotal+$row['total'];
+            $tax=$tax+$row['tax_amount'];
 
           }
 
@@ -180,9 +175,32 @@ $tax=$tax+$tax_value*($row['tax']/100);
 
         <tfoot>
           
+                    <tr style="font-weight:bold;">
 
-          <tr style="font-weight: bold;"><td colspan="5" style="text-align: right; padding-right:105px;">Total ($)</td><td><?=number_format($total,2,'.','')?></td></tr>
+                      <td colspan="2"></td>
+                      <td colspan="2">
 
+                              <span class="">Total Amount  Before Tax ($)</span> &nbsp; 
+                              <span class="" id="subid"><?=number_format($total_subtotal,2,'.','')?></span>
+                              
+                      </td>
+
+                      <td>
+                           
+                              <span>VAT ($)</span> &nbsp; 
+                              <span class="" id="taxid"><?=number_format($tax,2,'.','')?></span>
+
+                      </td>
+
+                        <td class="text-right pr-5">
+                   
+                        <span class="text-right">Total Amount ($)</span> &nbsp; 
+                    
+                        <span class="text" id="grandid"> <?=number_format($overalltotal,2,'.','')?></span>
+
+                        </td>
+                      
+                    </tr>
 
         </tfoot>
 

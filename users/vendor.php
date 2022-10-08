@@ -57,23 +57,23 @@ $get_countries=$obj->get_countries();
 
           <div class="form-group">
            <label for="name">Name <span class="danger"> *</span></label>
-           <input type="text" class="form-control enterAsTab" id="name" aria-describedby="nameHelp" placeholder="Enter Name"  value="<?php echo $result[0]['name'] ?>" autofocus>
+           <input type="text" class="form-control enterAsTab" id="name" aria-describedby="nameHelp" placeholder="Enter Name"  value="<?php echo $result[0]['name'] ?>" autofocus autocomplete="off">
 
          </div>
          <div class="form-group">
            <label for="exampleInputPassword1">Company Name <span class="danger"> *</span></label>
-           <input type="text" class="form-control enterAsTab" id="company_name" placeholder="Enter Company Name" value="<?php echo $result[0]['company_name'] ?>">
+           <input type="text" class="form-control enterAsTab" id="company_name" placeholder="Enter Company Name" value="<?php echo $result[0]['company_name'] ?>" autocomplete="off">
          </div>
          <div class="form-group ">
            <label for="mobile">Mobile <span class="danger"> *</span></label>
-           <input type="text" class="form-control enterAsTab" id="mobile" aria-describedby="mobileHelp" placeholder="Enter Mobile" value="<?php echo $result[0]['mobile'] ?>" >
+           <input type="text" class="form-control enterAsTab" id="mobile" aria-describedby="mobileHelp" placeholder="Enter Mobile" value="<?php echo $result[0]['mobile'] ?>" autocomplete="off" >
 
          </div>
          
 
          <div class="form-group">
           <label for="email">Email <span class="danger"> *</span></label> 
-          <input type="email" class="form-control enterAsTab" id="email" placeholder="Enter Email" value="<?php echo $result[0]['email'] ?>">
+          <input type="email" class="form-control enterAsTab" id="email" placeholder="Enter Email" value="<?php echo $result[0]['email'] ?>" autocomplete="off">
           <label style="display: none" id='email_available'></label>
         </div>
       </div>
@@ -98,12 +98,12 @@ $get_countries=$obj->get_countries();
      </div>
      <div class="form-group">
        <label for="state">State</label>
-       <input type="text" class="form-control enterAsTab" id="state" aria-describedby="stateHelp" placeholder="Enter State" value="<?php echo $result[0]['state'] ?>">
+       <input type="text" class="form-control enterAsTab" id="state" aria-describedby="stateHelp" placeholder="Enter State" value="<?php echo $result[0]['state'] ?>" autocomplete="off">
 
      </div>
      <div class="form-group">
        <label for="city">City</label>
-       <input type="text" class="form-control enterAsTab" id="city" aria-describedby="cityHelp" placeholder="Enter City" value="<?php echo $result[0]['city'] ?>">
+       <input type="text" class="form-control enterAsTab" id="city" aria-describedby="cityHelp" placeholder="Enter City" value="<?php echo $result[0]['city'] ?>" autocomplete="off">
      </div>
 
      <div class="form-group">
@@ -114,22 +114,25 @@ $get_countries=$obj->get_countries();
    </div>
  </div>
 
+<div class="col-md-12 text-right">
+
+ <button type="submit" class="btn btn-sm btn-success enterAsTab" id="submit">Submit</button>
+
  
  <?php
 
  if($_GET['id']!='')
  {
-   echo'<a href="viewvendor.php"><button type="button" class="btn btn-sm btn-warning float-right">Back</button></a>';
+   echo'<a href="viewvendor.php"><button type="button" class="btn btn-sm btn-warning">Back</button></a>';
  }
  else
  {
-   echo'<button type="reset" class="btn btn-sm btn-warning float-right" id="reset">Reset</button>'; 
+   echo'<button type="reset" class="btn btn-sm btn-warning" id="reset">Reset</button>';
  }
 
  ?>
 
-
- <button type="submit" class="btn btn-sm btn-success float-right enterAsTab" id="submit">Submit</button>
+ </div>
 
 
 </form>
@@ -152,6 +155,7 @@ include 'footer.php';
 <script>
  $(document).ready(function(){
   $("#submit").click(function(){
+
     if($("#name").val()==''){
      $('#name').css("border","1px solid red");
      $('#name').focus();
@@ -282,11 +286,14 @@ $.ajax({
 <script>
   $("#email").blur(function(){
     var email=$('#email').val();
+
+    var id = '<?=$_GET['id']?>';
+
     if(email!='')
     {
       $.ajax({
         url:'ajaxCalls/search_email1.php',
-        data:{"email":email},
+        data:{"email":email,'id':id},
         type:'POST',
         dataType:'json',
         success:function(res){

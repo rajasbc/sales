@@ -9,6 +9,15 @@ $result = $obj->getUserData();
 
 <style type="text/css">
   
+.form-control
+{
+  height: 31px;
+}
+
+select.custom-select {
+    -webkit-appearance: menulist;
+  }
+
   #editUser{
         z-index: 99999 !important;
     }
@@ -64,15 +73,15 @@ $result = $obj->getUserData();
                       <button type="button" class="btn  next" title="next"><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i></button>
                       <button type="button" class="btn  last" title="last"><i class="fa fa-forward" aria-hidden="true"></i></button>
                     </div>
-                    <select class="form-control custom-select pagesize"  style="margin: 5px;" title="Select page size">
+                    <select class="form-control custom-select pagesize" style="padding: 0px 15px; height: 31px; margin: 5px;" title="Select page size">
                       <option selected="selected" value="10">10</option>
                       <option value="20">20</option>
                       <option value="30">30</option>
                       <option value="all">All Rows</option>
                     </select>
-                    <select class="form-control custom-select px-4 pagenum"  style="margin: 5px;" title="Select page number"></select>
+                    <select class="form-control custom-select px-4 pagenum" style="padding: 0px 15px; height: 31px; margin: 5px;" title="Select page number"></select>
 
-                    <input type="text" class="form-control" placeholder="Search...." id="mySearch" style="width: 270px; margin: 5px;" />
+                    <input type="text" class="form-control" placeholder="Search...." id="mySearch" style="width: 170px; margin: 5px;" />
 
                   </div>
                 </th>

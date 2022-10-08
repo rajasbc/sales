@@ -37,7 +37,7 @@ class Customer extends Dbconnection {
 		}
 		
 
-		return  ["status"=>"success",'id'=>$custid,"name"=>$customer['name'],"company_name"=>$customer['company_name'],"mobile"=>$customer['mobile'],"address"=>$customer['address'],"city"=>$customer['city'],"state"=>$customer['state'],"country"=>$customer['country']];
+		return  ["status"=>"success",'id'=>$custid,"name"=>$customer['name'],"company_name"=>$customer['company_name'],"email"=>$vendor['email'],"mobile"=>$customer['mobile'],"address"=>$customer['address'],"city"=>$customer['city'],"state"=>$customer['state'],"country"=>$customer['country'],"companyname"=>$vendor['company_name']];
 
 	}
 	function get_customer() {
@@ -88,7 +88,18 @@ $sql = "select * from " . $this->tablename . " where  id = ".$cId;
 		return $result;
 	}
 	public function search_email(){
+
+		$id = $this->db->getpost('id');
+
+		if($id!='')
+		{
+		$sql = "select email from " . $this->tablename . " where  email = '".$this->db->getpost('email')."' and id!='".$id."'";
+		}
+		else
+		{
 		$sql = "select email from " . $this->tablename . " where  email = '".$this->db->getpost('email')."'";
+		}
+
 		$res=$this->db->GetResultsArray($sql);
 		if(count($res)==0)
 		{
@@ -97,9 +108,10 @@ $sql = "select * from " . $this->tablename . " where  id = ".$cId;
 		}
 		else
 		{
-			return "Email Already Availble";
+			return "Email Already Exist";
 		}
 	}
 
 }
+
 ?>

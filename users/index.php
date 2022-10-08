@@ -61,7 +61,7 @@ select.custom-select {
 
 							<div class="card">
 
-								<div class="container">
+								<div class="container mb-4">
 
 							<?php
 
@@ -78,7 +78,7 @@ select.custom-select {
 											<div class="row align-items-center m-b-25">
 												<div class="col">
 													<h6 class="m-b-5 text-white">Total Buyers</h6>
-													<h3 class="m-b-0 text-white"><?=count($tcust)?></h3>
+													<h3 class="m-b-0 text-white"><?php if(count($tcust)>0){ echo count($tcust); } else{ echo '0'; } ?></h3>
 												</div>
 												<div class="col-auto">
 													<i class="fas fa-users text-c-red f-18"></i>
@@ -93,7 +93,7 @@ select.custom-select {
 											<div class="row align-items-center m-b-25">
 												<div class="col">
 													<h6 class="m-b-5 text-white">Total Orders</h6>
-													<h3 class="m-b-0 text-white"><?=$sgrt['grandtotal']?></h3>
+													<h3 class="m-b-0 text-white"><?php if($sgrt['grandtotal']>0){ echo $sgrt['grandtotal']; }else{ echo '0'; } ?></h3>
 												</div>
 												<div class="col-auto">
 													<i class="fas fa-dollar-sign text-c-blue f-18"></i>
@@ -108,7 +108,7 @@ select.custom-select {
 											<div class="row align-items-center m-b-25">
 												<div class="col">
 													<h6 class="m-b-5 text-white">Product Sold</h6>
-													<h3 class="m-b-0 text-white"><?=$sqty['qty']?></h3>
+													<h3 class="m-b-0 text-white"><?php if($sqty['qty']>0){ echo $sqty['qty']; } else{ echo '0'; } ?></h3>
 												</div>
 												<div class="col-auto">
 													<i class="fas fa-tags text-c-green f-18"></i>
@@ -123,7 +123,7 @@ select.custom-select {
 											<div class="row align-items-center m-b-25">
 												<div class="col">
 													<h6 class="m-b-5 text-white">Total Vendors</h6>
-													<h3 class="m-b-0 text-white"><?=count($tvend)?></h3>
+													<h3 class="m-b-0 text-white"><?php if(count($tvend)>0){ echo count($tvend); } else{ echo '0'; } ?></h3>
 												</div>
 												<div class="col-auto">
 													<i class="fas fa-database text-c-yellow f-18"></i>
@@ -232,7 +232,7 @@ select.custom-select {
 
                                         	?>
 
-                                            <button class="btn btn-sm btn-primary mt-1" id="go">Go</button>
+                                            &nbsp;<button class="btn btn-sm btn-primary mt-1" id="go">Go</button>
 
 							                </div>
 
