@@ -204,7 +204,7 @@ if($_GET['bill_check_group']!='')
               <table class="table bill-table table-bordered" id="doc-table" style="display: none">
                 <thead>
                   <tr>
-                    <th class="text-left">S.No</th>
+                    <!-- <th class="text-left">S.No</th> -->
                     <th class="text-left">File Name</th>
                     <th class="text-left">Description</th>
                     <th class="text-left">Action</th>
@@ -217,7 +217,7 @@ if($_GET['bill_check_group']!='')
               <table class="table bill-table table-bordered" id="bill-table">
                 <thead>
                   <tr>
-                    <th class="text-left">S.No</th>
+                    <!-- <th class="text-left">S.No</th> -->
                     <th class="text-left">Items</th>
                     <th class="text-left">Price ($)</th>
                     <th class="text-left">Qty</th>
@@ -2092,13 +2092,15 @@ function other_charges_calc()
   // $("#subid").remove();
   // $("#taxid").remove();
   }
+  
     function removeDocItem(idval){
   jQuery("#trDoc_"+idval).empty('');
-  delete doc_items["sid"+idval] ;
+  delete doc_items["docsid"+idval] ;
   if (doc_items.length==0) {
     $("#doc-table").css('display','none');
   }
   }
+
   $(document).ready(function(){
   $('#custnameid').autocomplete({
   source: "ajaxCalls/get_vendor.php",
@@ -3001,10 +3003,10 @@ getBillType();
     "file_description":file_description,
     };
 
+// '<td class="text-left ch-4">{{sno}}</td>',
 
 var trItemTemplate = [
 '<tr id="trDoc_{{sno}}">',
-'<td class="text-left ch-4">{{sno}}</td>',
 '<td class="text-left ch-10">{{file_name}}</td>',
 '<td class="text-left ch-10">{{file_description}}</td>',
 

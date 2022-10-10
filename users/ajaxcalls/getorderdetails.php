@@ -35,9 +35,9 @@ $sno++;
    
     $new_array[$sno]=$output_array;
 
+// <td>".$sno."</td>
 
-$output .=  "<tr id='trItem_".$sno."'><input type='hidden' id='calcmethod".$sno."' value='".$calc."'>
-<td>".$sno."</td>";
+$output .=  "<tr id='trItem_".$sno."'><input type='hidden' id='calcmethod".$sno."' value='".$calc."'>";
 $output.="<td>".$itemresult['name']."</td>";
 
 $output .="<td><input onkeyup=costupdate(".$sno.",this) type='text' class='form-control price enterKeyclass' name='price[]' id='priceid".$sno."' data-id='".$sno."' value='".number_format($value['rate'],2,'.','')."' style='width:5rem; height:1.75rem' onkeypress='if(this.value.length==8) return false'></td>";

@@ -74,13 +74,19 @@ if($_GET['bill_check_group']!='')
             <div class="col-md-6">
 <input type="hidden" name="s_no" id="s_no">
 <input type="hidden" name="doc_sno" id="doc_sno" value="0">
-                  <img src="images\usericon.jpg" class="media-object" data-toggle="modal" data-target="#customerModal" style="width:40px;cursor:pointer;margin-left:-10px"> <b style="font-weight:bold; font-size: 15px;">Vendor Details</b>
+                  
+                  <!-- <img src="images\usericon.jpg" class="media-object" data-toggle="modal" data-target="#customerModal" style="width:40px;cursor:pointer;margin-left:-10px"> -->
+
+                  <b style="font-weight:bold; font-size: 15px;">Vendor Details</b>
 
                   <div class="row">
 
-                    <div class="col-md-12 mt-0 pt-0">
+                    <div class="col-md-12 mt-1 pt-0">
 
-                <em id='ccustomername'></em><br>
+                <em id="name_1">
+                      <img src="images\usericon.jpg" class="media-object" style="width:20px; margin-left: -5px;">
+                    </em>
+                    <em id='ccustomername'></em><br>
 
                 <div id="companyname_show_hide"> <!--  style="display:none;" -->
                     <em id="companyname_1">
@@ -205,7 +211,7 @@ if($_GET['bill_check_group']!='')
               <table class="table bill-table table-bordered" id="doc-table" style="display: none">
                 <thead>
                   <tr>
-                    <th class="text-left">S.No</th>
+                    <!-- <th class="text-left">S.No</th> -->
                     <th class="text-left">File Name</th>
                     <th class="text-left">Description</th>
                     <th class="text-left">Action</th>
@@ -218,7 +224,7 @@ if($_GET['bill_check_group']!='')
               <table class="table bill-table table-bordered" id="bill-table">
                 <thead>
                   <tr>
-                    <th class="text-left">S.No</th>
+                    <!-- <th class="text-left">S.No</th> -->
                     <th class="text-left">Items</th>
                     <th class="text-left">Price ($)</th>
                     <th class="text-left">Qty</th>
@@ -228,9 +234,9 @@ if($_GET['bill_check_group']!='')
                   </tr>
                 </thead>
                 <tbody class="text-left" id="tdata">
-                  <?php for ($i = 1; $i < 9; $i++) { ?>
+                  <?php for ($i = 1; $i < 2; $i++) { ?>
                   <tr class="emptyTr">
-                    <td>&nbsp;</td>
+                    <!-- <td>&nbsp;</td> -->
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
@@ -849,6 +855,7 @@ $("#gst_calc_type").attr("disabled", true);
   $('#cid').val(dataResult.vid);
   $('#custid').val(dataResult.vid);
   $('#orderdate').val(dataResult.orderdate);
+  $('#ccustomername').html(dataResult.cvendorname);
   $('#ccompanyname').html(dataResult.ccompanyname);
   $('#ccaddress_line_1').html(dataResult.ccaddress_line_1+","+dataResult.city);
   $('#cstate').html(dataResult.cstate);
@@ -2097,13 +2104,15 @@ function other_charges_calc()
   // $("#subid").remove();
   // $("#taxid").remove();
   }
-      function removeDocItem(idval){
+
+  function removeDocItem(idval){
   jQuery("#trDoc_"+idval).empty('');
-  delete doc_items["sid"+idval] ;
+  delete doc_items["docsid"+idval] ;
   if (doc_items.length==0) {
     $("#doc-table").css('display','none');
   }
   }
+
   $(document).ready(function(){
   $('#custnameid').autocomplete({
   source: "ajaxCalls/get_vendor.php",
@@ -3007,10 +3016,10 @@ getBillType();
     "file_description":file_description,
     };
 
+// '<td class="text-left ch-4">{{sno}}</td>',
 
 var trItemTemplate = [
 '<tr id="trDoc_{{sno}}">',
-'<td class="text-left ch-4">{{sno}}</td>',
 '<td class="text-left ch-10">{{file_name}}</td>',
 '<td class="text-left ch-10">{{file_description}}</td>',
 
