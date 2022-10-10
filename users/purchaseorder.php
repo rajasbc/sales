@@ -1172,12 +1172,15 @@ function costupdate(idval,ele){
       title:"Error",
       message:"Please enter Valid Amount"
     });
-    $(ele).focus();
-    return false;
+    // $(ele).focus();
+    // return false;
+    $('#pay').attr('disabled',true);
+      return false;
     
   }
   else
   {
+    $('#pay').attr('disabled',false);
     $(ele).css("border","1px solid #ccc");
   }
 
@@ -1234,6 +1237,12 @@ function priceupdate1(idval,ele){
       });
       $('#pay').attr('disabled',true);
       return false;
+    }
+    else
+    {
+      $('#pay').attr('disabled',false);
+      $(ele).css("border","1px solid #ccc");
+      // return false;
     }
 
 

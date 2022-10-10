@@ -1695,12 +1695,15 @@ items[ref].gstpercentage=gstpercentage;
             title:"Error",
             message:"Please enter Valid Amount"
           });
-        $(ele).focus();
+         $(ele).focus();
+        // return false;
+        $('#pay').attr('disabled',true);
         return false;
     
   }
   else
   {
+    $('#pay').attr('disabled',false);
     $(ele).css("border","1px solid #ccc");
   }
 

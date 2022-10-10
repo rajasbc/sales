@@ -1699,11 +1699,13 @@ items[ref].gstpercentage=(gstpercentage*100);
             message:"Please enter Valid Amount"
           });
         $(ele).focus();
-        return false;
-    
+        // return false;
+        $('#pay').attr('disabled',true);
+        return false;    
   }
   else
   {
+    $('#pay').attr('disabled',false);
     $(ele).css("border","1px solid #ccc");
   }
 

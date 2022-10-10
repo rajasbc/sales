@@ -1139,6 +1139,9 @@ if(res.status=='success'){
     }
 
     var salesperson = $("#salesperson").val();
+
+
+    $('#save_bill').attr('disabled','disabled');
     
 
       // ajaxRequest();
