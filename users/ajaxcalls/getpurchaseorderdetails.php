@@ -40,9 +40,9 @@ $sno++;
    
     $new_array[$sno]=$output_array;
 
+// <td>".$sno."</td>
 
-$output .=  "<tr id='trItem_".$sno."'><input type='hidden' id='calcmethod".$sno."' value='".$calc."'>
-<td>".$sno."</td>";
+$output .=  "<tr id='trItem_".$sno."'><input type='hidden' id='calcmethod".$sno."' value='".$calc."'>";
 $output.="<td>".$itemresult['name']."</td>";
 
 $output .="<td><input onkeyup=costupdate(".$sno.",this) type='text' class='form-control price enterKeyclass' name='price[]' id='priceid".$sno."' data-id='".$sno."' value='".$value['rate']."' style='width:5rem; height:1.75rem' return false'></td>";
@@ -77,6 +77,5 @@ $gtot=$gtot+$gt;
 $out=['out'=>$output,'item'=>$new_array,'sno'=>$sno,'gtotal'=>number_format($gtot,2,'.',''),'subtotal'=>number_format($stot,2,'.',''),'totaltax'=>number_format($taxamt,2,'.',''),'vid'=>$vendor_result[0]['id'],'cvendorname'=>$vendor_result[0]['name'],'ccompanyname'=>$vendor_result[0]['company_name'],'ccaddress_line_1'=>$vendor_result[0]['address'],'city'=>$vendor_result[0]['city'],'cstate'=>$vendor_result[0]['state'],'ccphone'=>$vendor_result[0]['mobile'],'cemailid'=>$vendor_result[0]['email'],'orderdate'=>date('d-m-Y',strtotime($ordresult['date']))];
 
 echo json_encode($out);
-
 
 ?>

@@ -292,7 +292,7 @@ $userdet = $userobj->getusername($uid);
       <table class="table table-bordered bill-table" id="bill-table">
         <thead>
           <tr>
-            <th class="text-left">S.No</th>
+            <!-- <th class="text-left">S.No</th> -->
             <th class="text-left">Item Name</th>
             <th class="text-left">Price($)</th>
             <th class="text-left">Qty</th>
@@ -305,7 +305,7 @@ $userdet = $userobj->getusername($uid);
         <tbody class="text-left" id="tdata">
           <?php for ($i = 1; $i < 3; $i++) { ?>
             <tr class="emptyTr">
-              <td id="s_no">&nbsp;</td>
+              <!-- <td id="s_no">&nbsp;</td> -->
               <td id="item_name">&nbsp;</td>
               <td id="price">&nbsp;</td>
               <td id="qty">&nbsp;</td>
@@ -637,6 +637,25 @@ $userdet = $userobj->getusername($uid);
   var price=$("#price1").val();
   var id=$("#item_id").val();
   var qty=$("#qty1").val();
+
+
+  // if(Number($("#price1").val())==0)
+  // {
+  //   $("#price1").css("border","1px solid red");
+  //   $("#price1").focus();
+  //   var qty1= $("#qty1").val(); 
+  //   $.growl.error({
+  //     title:"Price issue",
+  //     message:"Please enter price"
+  //   });
+  //   return false;
+  // }
+  // else
+  // {
+  //   $("#price1").css("border","1px solid #ced4da");
+  // }
+
+
   if(Number($("#qty1").val())==0)
   {
     $("#qty1").css("border","1px solid red");
@@ -652,6 +671,7 @@ $userdet = $userobj->getusername($uid);
   {
     $("#qty1").css("border","1px solid #ced4da");
   }
+
 
   $.ajax({
     type:"POST",
@@ -799,9 +819,10 @@ items["sid"+sno] = {
   "total":total,
 };
 
+//'<td class="text-left ch-4">{{sno}}</td>',
+
 var trItemTemplate = [
 '<tr class="productrow" id="trItem_{{sno}}">',
-'<td class="text-left ch-4">{{sno}}</td>',
 '<td class="text-left ch-10">{{itemname}}</td>',
 
 '<td class="text-left ch-6">',

@@ -192,7 +192,7 @@ if($_GET['bill_check_group']!='')
               <table class="table bill-table table-bordered" id="bill-table">
                 <thead>
                   <tr>
-                    <th class="text-left">S.No</th>
+                    <!-- <th class="text-left">S.No</th> -->
                     <th class="text-left">Items</th>
                     <th class="text-left">Price ($)</th>
                     <th class="text-left">Qty</th>
@@ -204,7 +204,7 @@ if($_GET['bill_check_group']!='')
                 <tbody class="text-left" id="tdata">
                   <?php for ($i = 1; $i < 4; $i++) { ?>
                     <tr class="emptyTr">
-                      <td>&nbsp;</td>
+                      <!-- <td>&nbsp;</td> -->
                       <td>&nbsp;</td>
                       <td>&nbsp;</td>
                       <td>&nbsp;</td>
@@ -1172,7 +1172,10 @@ function costupdate(idval,ele){
       title:"Error",
       message:"Please enter Valid Amount"
     });
-    // $(ele).focus();
+
+    // alert("sd");
+
+    $(ele).focus();
     // return false;
     $('#pay').attr('disabled',true);
       return false;
