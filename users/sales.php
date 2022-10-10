@@ -2096,9 +2096,9 @@ function other_charges_calc()
     function removeDocItem(idval){
   jQuery("#trDoc_"+idval).empty('');
   delete doc_items["docsid"+idval] ;
-  if (doc_items.length==0) {
-    $("#doc-table").css('display','none');
-  }
+  // if (doc_items.length==0) {
+  //   $("#doc-table").css('display','none');
+  // }
   }
 
   $(document).ready(function(){
