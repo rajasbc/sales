@@ -56,18 +56,16 @@ $output.="<td class='text-right' id='totalid".$sno."' value='".number_format($va
 
 
 $output.="</tr>";
-$total_product_value=$itemresult['price']*$value['qty'];
-// $total_tax_value=$total_tax_value+$value['tax'];
+
+$total_product_value=$value['rate']*$value['qty'];
 $total_subtotal=$total_subtotal+$total_product_value;
-
 $overalltotal=$overalltotal+$value['total'];
-
 $total_tax=$total_tax+$value['tax_amount'];
-
 }
 
 $out=['out'=>$output,'item'=>$new_array,'sno'=>$sno,'gtotal'=>number_format($overalltotal,2,'.',''),'subtotal'=>number_format($total_subtotal,2,'.',''),'totaltax'=>number_format($total_tax,2,'.','')];
 
 echo json_encode($out);
+
 
 ?>
