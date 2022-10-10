@@ -23,10 +23,9 @@ $temp_array['hsncode']=$row['hsncode'];
 $output[]=$temp_array;
 }
 }
-else{
- $output['label'] = 'No Record Found';
-}
+// else{
+//  $output['label'] = 'No Record Found';
+// }
 echo json_encode($output);
-
 
 ?>

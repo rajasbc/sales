@@ -20,9 +20,8 @@ $temp_array['companyname']=$row['company_name'];
 $output[]=$temp_array;
 }
 }
-else{
- $output['label'] = 'No Record Found';
-}
+// else{
+//  $output['label'] = 'No Record Found';
+// }
 echo json_encode($output);
-
 ?>
