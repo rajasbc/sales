@@ -9,7 +9,7 @@ $output_array=array();
 $output='';
 
 $ordresult = $obj->get_order($_POST['bill_id']);
-$result = $obj->get_orderdetails($_POST['bill_id']);
+$result = $obj->get_orderdetails($_POST['bill_id'],'show');
 
 $vendor_result=$vendor_obj->get_vendors($ordresult['vendor']);
 
@@ -31,7 +31,7 @@ foreach ($result as $key => $value) {
 $sno++;
     $output_array['item_id']=$value['product'];
     $output_array['final_itemname']=$itemresult['name'];
-    $output_array['final_qty']=$value['qty'];
+    $output_array['final_qty']=$value['balance_qty'];
     $output_array['final_total']=$value['total'];
     $output_array['final_gst']=$value['tax'];
     $output_array['gstamount']=$value['tax_amount'];
@@ -47,7 +47,9 @@ $output.="<td>".$itemresult['name']."</td>";
 
 $output .="<td><input onkeyup=costupdate(".$sno.",this) type='text' class='form-control price enterKeyclass' name='price[]' id='priceid".$sno."' data-id='".$sno."' value='".$value['rate']."' style='width:5rem; height:1.75rem' return false'></td>";
 
-  $output.="<td><input onkeyup=priceupdate1(".$sno.",this) type='text' class='form-control qty' name='qty[]' id='num_qty".$sno."' value='".$value['qty']."' style='width:5rem; height:1.75rem' onkeypress='if(this.value.length==8) return false'></td>";
+  $output.="<td>".$value['qty']."</td>";
+  $output.="<td>".$value['delivered_qty']."</td>";
+  $output.="<td><input onkeyup=priceupdate1(".$sno.",this) type='text' class='form-control qty' name='qty[]' id='num_qty".$sno."' value='".$value['balance_qty']."' style='width:5rem; height:1.75rem' onkeypress='if(this.value.length==8) return false'></td>";
 
 
 $output.="<td><input onkeyup=gstupdate(".$sno.",this) type='text' value='".$value['tax']."' class='form-control gst'

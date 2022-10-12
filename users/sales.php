@@ -48,11 +48,11 @@ if($_GET['bill_check_group']!='')
         <div class="row align-items-center">
          <div class="col-md-12">
           <div class="page-header-title">
-           <h5 class="m-b-10">Sales</h5>
+           <h5 class="m-b-10">Outgoing Invoice</h5>
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <li class="breadcrumb-item">Sales</li>
+           <li class="breadcrumb-item">Outgoing Invoice</li>
          </ul>
        </div>
      </div>
@@ -75,7 +75,7 @@ if($_GET['bill_check_group']!='')
 <input type="hidden" name="s_no" id="s_no">
 <input type="hidden" name="doc_sno" id="doc_sno" value="0">
 
-                  <img src="images\usericon.jpg" class="media-object" data-toggle="modal" data-target="#customerModal" style="width:40px;cursor:pointer;margin-left:-10px"> <b style="font-weight:bold; font-size: 15px;">Customer Details</b>
+                  <img src="images\usericon.jpg" class="media-object" data-toggle="modal" data-target="#customerModal" style="width:40px;cursor:pointer;margin-left:-10px;display: none"> <b style="font-weight:bold; font-size: 15px;">Customer Details</b>
 
                   <div class="row">
 
@@ -220,7 +220,9 @@ if($_GET['bill_check_group']!='')
                     <!-- <th class="text-left">S.No</th> -->
                     <th class="text-left">Items</th>
                     <th class="text-left">Price ($)</th>
-                    <th class="text-left">Qty</th>
+                    <th class="text-left">Req.Qty</th>
+                    <th class="text-left">Delivered Qty</th>
+                    <th class="text-left">Send Qty</th>
                     <th class="text-left">VAT % </th>
                     <th class="text-left">Total ($)</th>
                     <th class="text-left">Action</th>
@@ -903,8 +905,8 @@ $("#gst_calc_type").attr("disabled", true);
 
     $("#taxid").html(dataResult.totaltax);
     $("#subid").html(dataResult.subtotal);
-
     $("#grandid").text(dataResult.gtotal);
+    $(".qty").keyup();
     // $("#balance").val(dataResult.balance);
     // if(dataResult.pack_percentage!=0 || dataResult.freight_percentage!=0){
     //   $('#other_charge_check').prop('checked',true);
@@ -2075,15 +2077,9 @@ function other_charges_calc()
 
   function removeItem(idval){
   // $("#trItem_"+idval).remove();
-  
-  if ("<?=$_GET['bill_check_group']?>"=="") {
   jQuery("#trItem_"+idval).empty('');
   delete items["sid"+idval] ;
-}else{
-  jQuery("#trItem_"+idval).empty('');
-  var ref = "sid"+idval;
-  items[ref].deleted='yes';
-}
+
   // sno--;
   $('#tdata tr').each(function(index){
     $(this).find('span.sn').html(index+1);

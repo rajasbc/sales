@@ -15,10 +15,18 @@ class Purchaseorder extends Dbconnection {
 	}
 	
 	function get_orders() {
-		$sql = "select * from " . $this->tablename;
+		$sql = "select * from " . $this->tablename.' order by id desc';
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
 	}
+    function get_reminderorders() {
+        $date = date('Y-m-d');
+        $date = date('Y-m-d', strtotime($date.' + 5 days'));
+        $sql = "select * from " . $this->tablename.' where status="New" and date(expected_date)<="'.$date.'"';
+        // echo $sql;die();
+        $result = $this->db->GetResultsArray($sql);
+        return $result;
+    }
 
 
 
@@ -45,6 +53,10 @@ try
 
 	$purchase['vendor']=$_POST['cid'];
 	$purchase['sales_orderid']=$_POST['salesorderno'];
+    if ($_POST['exp_date']!='') {
+       $purchase['expected_date']=$_POST['exp_date'];
+    }
+    
     $purchase['date']=date('Y-m-d');
     $purchase['status']='New';
     $purchase['created_at']=date('Y-m-d H:i:s');
@@ -116,9 +128,19 @@ $response = ["status" => "success" ,"order_id"=>$bill_id];
 		$result = $this->db->GetAsIsArray($sql);
 		return $result;
 	}
-
-	function get_orderdetails($id) {
-		$sql = "select * from " . $this->tablename1." where orderid='".$id."'";
+public function cancel_order($id)
+    {
+    $up="update ".$this->tablename." set status='Cancelled' where orderid='".$id."'";
+    $this->db->ExecuteQuery($up);
+    return ['status'=>'success'];
+    }
+	function get_orderdetails($id,$condition='hide') {
+        if ($condition=='hide') {
+            $sql = "select * from " . $this->tablename1." where orderid='".$id."'";
+        }else{
+            $sql = "select * from " . $this->tablename1." where orderid='".$id."' and balance_qty!=0";
+        }
+		
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
 	}

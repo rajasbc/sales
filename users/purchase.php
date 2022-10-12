@@ -227,7 +227,9 @@ if($_GET['bill_check_group']!='')
                     <!-- <th class="text-left">S.No</th> -->
                     <th class="text-left">Items</th>
                     <th class="text-left">Price ($)</th>
-                    <th class="text-left">Qty</th>
+                    <th class="text-left">Req.Qty</th>
+                    <th class="text-left">Rec.Qty</th>
+                    <th class="text-left">Bal.Qty</th>
                     <th class="text-left">VAT % </th>
                     <th class="text-left">Total ($)</th>
                     <th class="text-left">Action</th>
@@ -912,6 +914,7 @@ $("#gst_calc_type").attr("disabled", true);
     $("#subid").html(dataResult.subtotal);
 
     $("#grandid").text(dataResult.gtotal);
+    $(".qty").keyup();
     // $("#balance").val(dataResult.balance);
     // if(dataResult.pack_percentage!=0 || dataResult.freight_percentage!=0){
     //   $('#other_charge_check').prop('checked',true);
@@ -1735,7 +1738,18 @@ items[ref].gstamount=gstamount;
 items[ref].gstpercentage=gstper;
 
   calculation();
-
+$(".qty").each(function(){
+  if ($(this).val()==0) {
+    $("#pay").attr('disabled',true);
+    return false;
+  }
+});
+$(".price").each(function(){
+  if ($(this).val()==0) {
+    $("#pay").attr('disabled',true);
+    return false;
+  }
+});
   }
   function priceupdate1(idval,ele){
   if ($("#calcmethod"+idval).val()=='qty_calc') {
@@ -1801,6 +1815,18 @@ $("#totalid"+idval).html(totaltemp);
 items[ref].gstamount=gstamount;
 items[ref].gstpercentage=gstper;
   calculation();
+  $(".qty").each(function(){
+  if ($(this).val()==0) {
+    $("#pay").attr('disabled',true);
+    return false;
+  }
+});
+$(".price").each(function(){
+  if ($(this).val()==0) {
+    $("#pay").attr('disabled',true);
+    return false;
+  }
+});
 }else{
    var qtytemp=$(ele).val();
     var ref = "sid"+idval;
@@ -2088,14 +2114,9 @@ function other_charges_calc()
   function removeItem(idval){
   // $("#trItem_"+idval).remove();
   
-  if ("<?=$_GET['bill_check_group']?>"=="") {
   jQuery("#trItem_"+idval).empty('');
   delete items["sid"+idval] ;
-}else{
-  jQuery("#trItem_"+idval).empty('');
-  var ref = "sid"+idval;
-  items[ref].deleted='yes';
-}
+
   // sno--;
   $('#tdata tr').each(function(index){
     $(this).find('span.sn').html(index+1);

@@ -15,7 +15,7 @@ class Sales extends Dbconnection {
 	}
 	
 	function get_list() {
-		$sql = "select * from " . $this->tablename;
+		$sql = "select * from " . $this->tablename.' order by id desc';
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
 	}
@@ -85,7 +85,7 @@ try
     $bal = $sl1['balance_qty']-$itemvar['qty'];
 
 
-    $upsales = "update salesorder_details set balance_qty='".$bal."' where id='".$sl1['id']."'";
+    $upsales = "update salesorder_details set balance_qty=balance_qty-".$itemvar['qty'].",delivered_qty=delivered_qty+".$itemvar['qty']." where id='".$sl1['id']."'";
     $this->db->ExecuteQuery($upsales);
 
 

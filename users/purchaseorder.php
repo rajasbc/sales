@@ -138,6 +138,16 @@ if($_GET['bill_check_group']!='')
                   <input type='text' class="form-control" value="<?=$ores['invoice_no']?>" readonly />
                 </div>
               </div>
+              <br>
+              <br>
+              <div class=" col-lg-10 col-sm-10 col-sm-10 md-6">
+                <div class="input-group input-group-sm">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text " style="width: 85px">Exp.Date</span>
+                  </div>
+                  <input type='date' class="form-control" id="exp_date" min="<?=date('Y-m-d')?>">
+                </div>
+              </div>
 
             </div>
 
@@ -1963,11 +1973,12 @@ $("#advance").keyup(function() {
         var pack_per=pack_percentage();
 
         var salesorderno=$("#salesorderno").val();
+        var exp_date=$("#exp_date").val();
         $.ajax({
           type: "POST",
           url:"ajaxCalls/add_purchaseorder.php",
           dataType:'JSON',
-          data: $.param(obj)+'&'+$.param(cobj)+'&salesorderno='+salesorderno,
+          data: $.param(obj)+'&'+$.param(cobj)+'&salesorderno='+salesorderno+'&exp_date='+exp_date,
           success: function(dataResult) {
         // localStorage.clear('myArray');
       // console.log(dataResult);

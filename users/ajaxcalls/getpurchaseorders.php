@@ -16,8 +16,14 @@ if (count($result) > 0) {
 		$out .= "
 		<tr>
 		<td>" . $row['invoice_no'] . "</td>
-		<td>" . date('d-m-Y',strtotime($row['date'])) . "</td>
-		<td>" . $cresult[0]['name']. "</td>
+		<td>" . date('d-m-Y',strtotime($row['date'])) . "</td>";
+		if ($row['expected_date']!='') {
+			$out .="<td>" . date('d-m-Y',strtotime($row['expected_date'])) . "</td>";
+		}else{
+			$out .="<td></td>";
+		}
+		
+		$out .="<td>" . $cresult[0]['name']. "</td>
 		<td>" . $cresult[0]['email'] . "</td>
 		<td>" . $row['grandtotal'] . "</td>
 		<td>" . $row['status'] . "</td>
@@ -27,9 +33,13 @@ if (count($result) > 0) {
 		if($_SESSION['utype']=='Admin')
 		{
 
-		if($row['status']=='New')
+		if($row['status']=='New' || $row['status']=='Partially Completed')
 		{
 		$out .="<a class='btn btn-sm btn-warning' href='purchase.php?bill_check_group=".base64_encode($row['orderid'])."'>Invoice</a>";
+		}
+		if($row['status']!='Completed' && $row['status']!='Cancelled')
+		{
+		$out .="<a class='btn btn-sm btn-secondary' style='color:white' onclick='open_alert(".$row['orderid'].")'>Cancel</a>";
 		}
 
 		}

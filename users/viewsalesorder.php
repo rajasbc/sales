@@ -121,7 +121,27 @@ select.custom-select {
 </div>
 </div>
 </section>
-
+<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="customerModalTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form id="cform" onsubmit="javascript:return false;">
+      <input type="hidden" name="cust_address_id" id="cust_address_id" value="0">
+      <input type="hidden" name="address_info" id="address_info" value="primary">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="customerModalTitle"><strong>Confirmation Alert</strong></h5>
+          <button class="close" type="button" data-dismiss="modal" id="customerCloseBtn" aria-label="Close"><span aria-hidden="true">×</span></button>
+        </div>
+        <div class="modal-body">
+         <h6>Are You Sure Cancel This Order...</h6>
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" name="delete_order_id" id="delete_order_id">
+              <button class="btn btn-sm btn-secondary cust_form" type="button" id="delete_order" >Yes</button>
+              <button class="btn btn-sm btn-danger" id="modelclose" type="button" data-dismiss="modal">No</button>
+            </div>
+          </div>
+          </div>
+    </div>
 <?php
 
 include 'footer.php';
@@ -131,18 +151,7 @@ include 'footer.php';
   <script>
     $(document).ready(function(){
 
-     $.ajax({
-      type:"POST",
-      url:'ajaxCalls/getsalesorders.php',
-      dataType:"json",
-      success: function(res){
-
-        $('#mytable').html(res.out);
-        $("table").trigger('update');
-
-
-      }
-    });
+    get_data();
 
 
      $("#mySearch").keyup(function() {
@@ -232,4 +241,41 @@ $.fn.columnCount = function() {
 
 
 
+</script>
+<script type="text/javascript">
+  function open_alert(e){
+    $("#alertModal").modal('show');
+    $("#delete_order_id").val(e);
+  }
+  $("#delete_order").click(function(){
+   $.ajax({
+      type:"POST",
+      url:'ajaxCalls/cancel_orders.php',
+      data:{'id':$("#delete_order_id").val(),'type':'sales'},
+      dataType:"json",
+      success: function(res){
+
+        if (res.status=='success') {
+          get_data();
+          $("#alertModal").modal('hide');
+        }
+
+
+      }
+    });
+  });
+  function get_data(){
+    $.ajax({
+      type:"POST",
+      url:'ajaxCalls/getsalesorders.php',
+      dataType:"json",
+      success: function(res){
+
+        $('#mytable').html(res.out);
+        $("table").trigger('update');
+
+
+      }
+    });
+  }
 </script>

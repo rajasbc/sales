@@ -14,7 +14,7 @@ class Purchase extends Dbconnection {
 	}
 	
 	function get_list() {
-		$sql = "select * from " . $this->tablename;
+		$sql = "select * from " . $this->tablename.' order by id desc';
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
 	}
@@ -79,10 +79,10 @@ try
     $sl="select * from purchaseorder_details where orderid='".$_POST['purchaseorderno']."' and product='".$itemvar['itemno']."'";
     $sl1=$this->db->GetAsIsArray($sl);
 
-    $bal = $sl1['balance_qty']-$itemvar['qty'];
+    $bal = $sl1['qty']-$itemvar['qty'];
 
 
-    $upsales = "update purchaseorder_details set balance_qty='".$bal."' where id='".$sl1['id']."'";
+    $upsales = "update purchaseorder_details set balance_qty=balance_qty-".$itemvar['qty'].",delivered_qty=delivered_qty+".$itemvar['qty']." where id='".$sl1['id']."'";
     $this->db->ExecuteQuery($upsales);
 
 
