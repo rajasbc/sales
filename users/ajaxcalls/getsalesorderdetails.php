@@ -9,7 +9,7 @@ $output_array=array();
 $output='';
 
 $ordresult = $obj->get_order($_POST['bill_id']);
-    $result = $obj->get_orderdetails($_POST['bill_id']);
+    $result = $obj->get_orderdetails($_POST['bill_id'],'show');
     $customer_result=$customer_obj->get_customers($ordresult['customer']);
 
     // print_r($customer_result);
@@ -29,7 +29,7 @@ foreach ($result as $key => $value) {
 $sno++;
     $output_array['item_id']=$value['product'];
     $output_array['final_itemname']=$itemresult['name'];
-    $output_array['final_qty']=$value['qty'];
+    $output_array['final_qty']=$value['balance_qty'];
     $output_array['final_total']=$value['total'];
     $output_array['final_gst']=$value['tax'];
     $output_array['final_gstpercentage']=$value['tax'];
@@ -45,7 +45,9 @@ $output.="<td>".$itemresult['name']."</td>";
 
 $output .="<td><input onkeyup=costupdate(".$sno.",this) type='text' class='form-control price enterKeyclass' name='price[]' id='priceid".$sno."' data-id='".$sno."' value='".number_format($itemresult['price'],2,'.','')."' style='width:5rem; height:1.75rem' onkeypress='if(this.value.length==8) return false'></td>";
 
-  $output.="<td><input onkeyup=priceupdate1(".$sno.",this) type='text' class='form-control qty' name='qty[]' id='num_qty".$sno."' value='".$value['qty']."' style='width:5rem; height:1.75rem' onkeypress='if(this.value.length==8) return false'></td>";
+  $output.="<td>".$value['qty']."</td>";
+  $output.="<td>".$value['delivered_qty']."</td>";
+  $output.="<td><input onkeyup=priceupdate1(".$sno.",this) type='text' class='form-control qty' name='qty[]' id='num_qty".$sno."' value='".$value['balance_qty']."' style='width:5rem; height:1.75rem' onkeypress='if(this.value.length==8) return false'></td>";
 
 
 $output.="<td><input onkeyup=gstupdate(".$sno.",this) type='text' value='".number_format($value['tax'],2,'.','')."' class='form-control gst'

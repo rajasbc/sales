@@ -15,7 +15,7 @@ class Salesorder extends Dbconnection {
 	}
 	
 	function get_orders() {
-		$sql = "select * from " . $this->tablename;
+		$sql = "select * from " . $this->tablename.' order by id desc';
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
 	}
@@ -136,10 +136,22 @@ $response = ["status" => "success" ,"order_id"=>$bill_id];
 		return $result;
 	}
 
-	function get_orderdetails($id) {
-		$sql = "select * from " . $this->tablename1." where orderid='".$id."'";
-		$result = $this->db->GetResultsArray($sql);
+	function get_orderdetails($id,$condition='hide') {
+		if ($condition=='hide') {
+			$sql = "select * from " . $this->tablename1." where orderid='".$id."'";
+
+		}else{
+			$sql = "select * from " . $this->tablename1." where orderid='".$id."' and balance_qty!=0";
+
+		}
+				$result = $this->db->GetResultsArray($sql);
 		return $result;
+	}
+	public function cancel_order($id)
+	{
+	$up="update ".$this->tablename." set status='Cancelled' where orderid='".$id."'";
+    $this->db->ExecuteQuery($up);
+    return ['status'=>'success'];
 	}
 
 

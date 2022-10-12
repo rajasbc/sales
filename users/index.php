@@ -18,6 +18,9 @@ $sqty = $slobj->totalqty();
 $vobj = new Vendor();
 $tvend = $vobj->get_vendor();
 
+$purchase_obj = new Purchaseorder();
+$purchase_res =  $purchase_obj->get_reminderorders();
+
 ?>
 
 <style type="text/css">
@@ -264,6 +267,69 @@ select.custom-select {
 								      </table>
 								    </div>
 								</div>
+<?php if(count($purchase_res)>0){?>
+								<div class="card-body table-border-style">
+									<h5>Remainder Orders</h5><br>
+								      <div class="table-responsive">
+
+								        <table class="table table-hover">
+								           <thead>
+           <tr>
+            <th style="width:10%;">Order#</th>
+            <th>Date</th>
+            <th>Expected Date</th>
+            <th>Vendor</th>
+            <th>Email</th>
+            <th>Total ($)</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+								        <tbody>
+								        	<?php 
+$k = 0;
+	foreach ($purchase_res as $row) {
+
+		$cresult = $vobj->get_vendors($row['vendor']);
+
+		$k++;
+		echo  "
+		<tr>
+		<td>" . $row['invoice_no'] . "</td>
+		<td>" . date('d-m-Y',strtotime($row['date'])) . "</td>";
+		if ($row['expected_date']!='') {
+			echo "<td>" . date('d-m-Y',strtotime($row['expected_date'])) . "</td>";
+		}else{
+			echo "<td></td>";
+		}
+		
+		echo "<td>" . $cresult[0]['name']. "</td>
+		<td>" . $cresult[0]['email'] . "</td>
+		<td>" . $row['grandtotal'] . "</td>
+		<td>" . $row['status'] . "</td>
+		<td>
+		<a class='btn btn-sm btn-success' href='viewpurchaseorderdetails.php?id=".$row['orderid']."'>View</a> &nbsp; ";
+
+		if($_SESSION['utype']=='Admin')
+		{
+
+		if($row['status']=='New' || $row['status']=='Partially Completed')
+		{
+		echo "<a class='btn btn-sm btn-warning' href='purchase.php?bill_check_group=".base64_encode($row['orderid'])."'>Invoice</a>";
+		}
+
+		}
+
+		echo "</td>
+		</tr>";
+	}
+								        	?>
+
+								        </tbody>
+								      </table>
+								    </div>
+								</div>
+							<?php }?>
 
 							</div>
 
