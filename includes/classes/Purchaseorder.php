@@ -26,7 +26,32 @@ class Purchaseorder extends Dbconnection {
 
         if($search!='')
         {
-		$sql = "select a.*,b.name as name from " . $this->tablename." a join vendor b on a.vendor=b.id where a.date between '".$fdate."' and '".$tdate."' and (a.invoice_no like '%".strtolower($search)."%' or DATE_FORMAT(a.date,'%d-%m-%Y') like '%".strtolower($search)."%' or a.grandtotal like '%".strtolower($search)."%' or b.name like '%".strtolower($search)."%') order by id desc";
+		$sql = "select a.*,b.name as name from " . $this->tablename." a join vendor b on a.vendor=b.id where a.date between '".$fdate."' and '".$tdate."' and (a.invoice_no like '%".strtolower($search)."%' or DATE_FORMAT(a.date,'%d-%m-%Y') like '%".strtolower($search)."%' or a.grandtotal like '%".strtolower($search)."%' or b.name like '%".strtolower($search)."%') order by id desc LIMIT ". $offset .",". $no_of_records_per_page;
+        }
+        else
+        {
+        $sql = "select a.*,b.name as name from " . $this->tablename." a join vendor b on a.vendor=b.id where a.date between '".$fdate."' and '".$tdate."' order by id desc LIMIT ". $offset .",". $no_of_records_per_page;
+        }
+
+        // echo $sql;
+
+		$result = $this->db->GetResultsArray($sql);
+		return $result;
+	}
+
+    function get_totalorders() {
+
+        $no_of_records_per_page =$this->db->getpost('size');
+        $pageno= $this->db->getpost('page');
+        $offset = ($pageno) * $no_of_records_per_page;
+        $search=$this->db->getpost('search');
+
+        $fdate = $this->db->getpost('fdate');
+        $tdate = $this->db->getpost('tdate');
+
+        if($search!='')
+        {
+        $sql = "select a.*,b.name as name from " . $this->tablename." a join vendor b on a.vendor=b.id where a.date between '".$fdate."' and '".$tdate."' and (a.invoice_no like '%".strtolower($search)."%' or DATE_FORMAT(a.date,'%d-%m-%Y') like '%".strtolower($search)."%' or a.grandtotal like '%".strtolower($search)."%' or b.name like '%".strtolower($search)."%') order by id desc";
         }
         else
         {
@@ -35,9 +60,10 @@ class Purchaseorder extends Dbconnection {
 
         // echo $sql;
 
-		$result = $this->db->GetResultsArray($sql);
-		return $result;
-	}
+        $result = $this->db->GetResultsArray($sql);
+        return $result;
+    }
+
     function get_reminderorders() {
         $date = date('Y-m-d');
         $date = date('Y-m-d', strtotime($date.' + 5 days'));

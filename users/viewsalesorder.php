@@ -80,9 +80,8 @@ select.custom-select {
                       <option selected="selected" value="10">10</option>
                       <option value="20">20</option>
                       <option value="30">30</option>
-                      <option value="all">All Rows</option>
                     </select>
-                    <select class="form-control custom-select px-4 pagenum"  style="padding: 0px 15px; height: 31px; margin: 5px; display: none;" title="Select page number"></select>
+                    <select class="form-control custom-select px-4 pagenum"  style="padding: 0px 15px; height: 31px; margin: 5px; display:none;" title="Select page number"></select>
 
                     <input type="text" class="form-control" placeholder="Search...." id="mySearch" style="width: 170px; margin: 5px;" onkeyup="get_data(this)" autocomplete="off" />
 

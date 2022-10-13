@@ -2,13 +2,14 @@
 include '../includes/config.php';
 include 'header.php';
 
+// error_reporting(E_ALL);
 
 $userobj = new Admin();
 $userresult = $userobj->getsalesperson();
 $userdet = $userobj->getusername($uid);
 
 $cobj = new Customer();
-$tcust = $cobj->get_customer();
+$tcust = $cobj->get_cust();
 
 $slobj = new Salesorder();
 $sgrt = $slobj->totalorders();
@@ -16,7 +17,7 @@ $sgrt = $slobj->totalorders();
 $sqty = $slobj->totalqty();
 
 $vobj = new Vendor();
-$tvend = $vobj->get_vendor();
+$tvend = $vobj->get_vend();
 
 $purchase_obj = new Purchaseorder();
 $purchase_res =  $purchase_obj->get_reminderorders();
@@ -269,7 +270,7 @@ select.custom-select {
 								</div>
 <?php if(count($purchase_res)>0){?>
 								<div class="card-body table-border-style">
-									<h5>Remainder Orders</h5><br>
+									<h5>Reminder Orders</h5><br>
 								      <div class="table-responsive">
 
 								        <table class="table table-hover">

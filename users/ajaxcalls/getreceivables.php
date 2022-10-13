@@ -2,6 +2,7 @@
 include '../../includes/config.php';
 $obj = new Customer();
 $result =  $obj->get_customer();
+$tresult =  $obj->get_totalcustomer();
 
 // error_reporting(E_ALL);
 
@@ -44,11 +45,15 @@ if (count($result) > 0) {
 
 	}
 }
+else
+{
+	$out .="<td colspan='5' style='text-align:center;'>No Record Found</td>";
+}
 
 
 // $output=['out'=>$out];
 
-$output1=['out'=>$out,'count'=>count($result)];
+$output1=['out'=>$out,'count'=>count($tresult)];
 
 
 
