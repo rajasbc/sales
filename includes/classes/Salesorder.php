@@ -15,7 +15,29 @@ class Salesorder extends Dbconnection {
 	}
 	
 	function get_orders() {
-		$sql = "select * from " . $this->tablename.' order by id desc';
+
+		$no_of_records_per_page =$this->db->getpost('size');
+		$pageno= $this->db->getpost('page');
+		$offset = ($pageno) * $no_of_records_per_page;
+		$search=$this->db->getpost('search');
+
+		$fdate = $this->db->getpost('fdate');
+		$tdate = $this->db->getpost('tdate');
+
+		if($search!='')
+		{
+		$sql = "select a.*,b.name as name,c.name as sperson from " . $this->tablename." a join customer b on a.customer=b.id join admin c on a.createdby=c.id where a.date between '".$fdate."' and '".$tdate."' and (a.invoice_no like '%".strtolower($search)."%' or DATE_FORMAT(a.date,'%d-%m-%Y') like '%".strtolower($search)."%' or a.grandtotal like '%".strtolower($search)."%' or a.status like '%".strtolower($search)."%' or b.name like '%".strtolower($search)."%' or c.name like '%".strtolower($search)."%') order by a.id desc";
+		}
+		else
+		{
+		$sql = "select a.*,b.name as name,c.name as sperson from " . $this->tablename." a join customer b on a.customer=b.id join admin c on a.createdby=c.id where a.date between '".$fdate."' and '".$tdate."' order by a.id desc";
+		}
+
+
+		// echo $sql;
+
+
+
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
 	}

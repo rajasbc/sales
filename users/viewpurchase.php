@@ -51,7 +51,7 @@ select.custom-select {
      <div class="card-header">
 
       <div class="row">
-      <div class="col-md-10">
+      <div class="col-md-12">
         
         <table>
                         <thead>
@@ -67,15 +67,31 @@ select.custom-select {
                       <button type="button" class="btn  next" title="next"><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i></button>
                       <button type="button" class="btn  last" title="last"><i class="fa fa-forward" aria-hidden="true"></i></button>
                     </div>
-                    <select class="form-control custom-select pagesize" style="padding: 0px 15px; height: 31px; margin: 5px;" title="Select page size">
+                    <select class="form-control custom-select pagesize" style="padding: 0px 15px; height: 31px; margin: 5px; width:100px;" title="Select page size">
                       <option selected="selected" value="10">10</option>
                       <option value="20">20</option>
                       <option value="30">30</option>
                       <option value="all">All Rows</option>
                     </select>
-                    <select class="form-control custom-select px-4 pagenum" style="padding: 0px 15px; height: 31px; margin: 5px;" title="Select page number"></select>
+                    <select class="form-control custom-select px-4 pagenum" style="padding: 0px 15px; height: 31px; margin: 5px; display:none;" title="Select page number"></select>
 
-                    <input type="text" class="form-control" placeholder="Search...." id="mySearch" style="width: 170px; margin: 5px;" />
+                    <input type="text" class="form-control" placeholder="Search...." id="mySearch" style="width: 170px; margin: 5px;" autocomplete="off" />
+
+                        <div class="input-group input-group-sm ml-3">
+                              <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">From Date</span>
+                            </div>
+                          <input type="date" style="padding:0px 3px;" class="form-control" id="fromdate" value="<?=date('Y-m-d')?>">
+                          </div> &nbsp; &nbsp; 
+
+                          <div class="input-group input-group-sm">
+                              <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1">To Date</span>
+                                              </div>
+                                  <input type="date" style="padding:0px 3px;" class="form-control" id="todate" value="<?=date('Y-m-d')?>">
+                          </div> &nbsp; 
+
+                          <button class="btn btn-sm btn-primary" style="padding:3px 7px;" id="go"> Go </button>
 
                   </div>
                 </th>
@@ -85,9 +101,9 @@ select.custom-select {
 
       </div>
 
-      <div class="col-md-2">
-      <!-- <a class="btn btn-sm btn-primary" href="purchaseorder.php" style="margin-top: 10px; float: right;">+New</a> -->
-      </div>
+      <!--<div class="col-md-2">
+       <a class="btn btn-sm btn-primary" href="purchaseorder.php" style="margin-top: 10px; float: right;">+New</a>
+      </div> -->
     </div>
 
     </div>
@@ -141,7 +157,7 @@ include 'footer.php';
   <script>
     $(document).ready(function(){
 
-      getpurchase();
+      get_data();
 
      $('#mytable').on('click',".btn-action",function(){
       var url=$(this).data("url");
@@ -160,12 +176,18 @@ include 'footer.php';
 
 
      $("#mySearch").keyup(function() {
-    var value = $(this).val().toLowerCase();
-    $("#mytable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
+    // var value = $(this).val().toLowerCase();
+    // $("#mytable tr").filter(function() {
+    //   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    // });
+    get_data();
   });
 
+     $("#go").click(function(){
+   
+      get_data();
+
+     });
 
    });
  </script>
@@ -184,6 +206,7 @@ include 'footer.php';
                     }
             $("#add_balance").attr("disabled","disabled");
             var bill_id=$("#bill_id").val();
+            var invoice_no=$("#invoice_no").val();
             var balance=$("#balance").val();
             var balance_received=$("#balance_received").val();
 
@@ -197,7 +220,7 @@ include 'footer.php';
                 type:"POST",
                 url:"ajaxCalls/addpayment.php",
                 dataType:"json",
-                data:({"bill_id":bill_id,"v_id":v_id,"pay":balance_received}),
+                data:({"bill_id":bill_id,"v_id":v_id,"pay":balance_received,"invoice_no":invoice_no}),
                 success:function(res)
                 {
                     // console.log(res);
@@ -214,27 +237,34 @@ include 'footer.php';
 }
 
 
-   function getpurchase() {
+   // function getpurchase() {
      
-      $.ajax({
-      type:"POST",
-      url:'ajaxCalls/getpurchase.php',
-      dataType:"json",
-      success: function(res){
+   //    $.ajax({
+   //    type:"POST",
+   //    url:'ajaxCalls/getpurchase.php',
+   //    dataType:"json",
+   //    success: function(res){
 
-        $('#mytable').html(res.out);
-        $("table").trigger('update');
+   //      $('#mytable').html(res.out);
+   //      $("table").trigger('update');
 
 
-      }
-      });
+   //    }
+   //    });
 
-   }
+   // }
 
 
  </script>
 
  <script id="js">
+
+function get_data(){
+
+  var fdate = $("#fromdate").val();
+  var tdate = $("#todate").val();
+  var search = $("#mySearch").val();
+
   $(function() {
 $.fn.columnCount = function() {
     return $('th', $(this).find('thead')).length;
@@ -289,24 +319,39 @@ $.fn.columnCount = function() {
     })
     .tablesorterPager({
 
-        // target the pager markup - see the HTML block below
         container: $(".ts-pager"),
 
-        // target the pager page select dropdown - choose a page
         cssGoto  : ".pagenum",
 
-        // remove rows from the table to speed up the sort of large tables.
-        // setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.
         removeRows: false,
 
-        // output string - default is '{page}/{totalPages}';
-        // possible variables: {page}, {totalPages}, {filteredPages}, {startRow}, {endRow}, {filteredRows} and {totalRows}
+        ajaxUrl: "ajaxCalls/getpurchase.php?page={page}&size={size}&search="+search+"&fdate="+ fdate +"&tdate="+ tdate,
+      customAjaxUrl: function(table, url) {
+
+            $(table).trigger('changingUrl');
+
+            return url += '&currentUrl=' + window.location.href;
+          },
+          ajaxProcessing: function(data){
+
+              var total = data.count;
+
+              $("#count_item").text(data.count).css('color','blue');
+              $('#mytable').html(data.out);
+              $("table").trigger('update');
+              return [total];
+
+          },
+
         output: '{startRow} to {endRow} of {filteredRows} ({totalRows})'
 
     });
     
 
 });
+
+
+}
 
 
 

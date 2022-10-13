@@ -143,7 +143,7 @@ if($_GET['bill_check_group']!='')
               <div class=" col-lg-10 col-sm-10 col-sm-10 md-6">
                 <div class="input-group input-group-sm">
                   <div class="input-group-prepend">
-                    <span class="input-group-text " style="width: 85px">Exp.Date</span>
+                    <span class="input-group-text ">Shipment Date</span>
                   </div>
                   <input type='date' class="form-control" id="exp_date" min="<?=date('Y-m-d')?>">
                 </div>
@@ -397,12 +397,12 @@ if($_GET['bill_check_group']!='')
                          foreach ($get_countries as $value) {
                                       // print_r($value);die();
                           if ($value['name']=="INDIA") {
-                           echo "<option value='".$value['name']."' selected='selected' data-id='".$value['phonecode']."'>". $value["name"]."</option>";
+                           echo "<option value='".$value['id']."' selected='selected' data-id='".$value['phonecode']."'>". $value["name"]."</option>";
 
                          }
                          else
                          {                        
-                           echo "<option value='".$value['name']."' data-id='".$value['phonecode']."' >" . $value["name"]."</option>";
+                           echo "<option value='".$value['id']."' data-id='".$value['phonecode']."' >" . $value["name"]."</option>";
 
                          }
                        }

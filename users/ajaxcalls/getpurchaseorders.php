@@ -24,11 +24,10 @@ if (count($result) > 0) {
 		}
 		
 		$out .="<td>" . $cresult[0]['name']. "</td>
-		<td>" . $cresult[0]['email'] . "</td>
 		<td>" . $row['grandtotal'] . "</td>
 		<td>" . $row['status'] . "</td>
 		<td>
-		<a class='btn btn-sm btn-success' href='viewpurchaseorderdetails.php?id=".$row['orderid']."'>View</a> &nbsp; ";
+		<a class='btn btn-sm btn-success' href='viewpurchaseorderdetails.php?id=".$row['orderid']."'>View</a>";
 
 		if($_SESSION['utype']=='Admin')
 		{
@@ -50,7 +49,7 @@ if (count($result) > 0) {
 }
 
 
-$output=['out'=>$out];
+$output=['out'=>$out,'count'=>count($result)];
 
 echo json_encode($output);
 

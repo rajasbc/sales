@@ -19,7 +19,7 @@ if (count($result) > 0) {
 		$out .= "
 		<tr>
 		<td>" . date('d-m-Y',strtotime($row['created_at'])) . "</td>
-		<td>" . $row['billid'] . "</td>
+		<td>" . $row['invoice_no'] . "</td>
 		<td>" . $cresult[0]['name']. "</td>
 		<td>". number_format($row['pay'],2,'.','') ."</td>
 		</tr>";
@@ -27,7 +27,7 @@ if (count($result) > 0) {
 }
 
 
-$output=['out'=>$out];
+$output=['out'=>$out,'count'=>count($result)];
 
 echo json_encode($output);
 

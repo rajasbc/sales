@@ -508,12 +508,12 @@ $userdet = $userobj->getusername($uid);
                       foreach ($get_countries as $value) {
                                       // print_r($value);die();
                         if ($value['name']=="INDIA") {
-                         echo "<option value='".$value['name']."' selected='selected' data-id='".$value['phonecode']."'>". $value["name"]."</option>";
+                         echo "<option value='".$value['id']."' selected='selected' data-id='".$value['phonecode']."'>". $value["name"]."</option>";
 
                        }
                        else
                        {                        
-                         echo "<option value='".$value['name']."' data-id='".$value['phonecode']."' >" . $value["name"]."</option>";
+                         echo "<option value='".$value['id']."' data-id='".$value['phonecode']."' >" . $value["name"]."</option>";
 
                        }
                      }

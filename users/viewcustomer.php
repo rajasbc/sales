@@ -77,7 +77,6 @@ select.custom-select {
 
                     <input type="text" class="form-control" placeholder="Search...." id="mySearch" style="width: 170px; margin: 5px;" onkeyup="getcustomer(this)" />
 
-
                   </div>
                 </th>
               </tr>
