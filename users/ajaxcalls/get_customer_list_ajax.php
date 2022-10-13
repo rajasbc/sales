@@ -2,6 +2,7 @@
 include '../../includes/config.php';
 $obj = new Customer();
 $result =  $obj->get_customer();
+$tresult =  $obj->get_totalcustomer();
 
 $out='';
 
@@ -36,7 +37,7 @@ if (count($result) > 0) {
 
 // $output=['out'=>$out];
 
-$output1=['out'=>$out,'count'=>count($result)];
+$output1=['out'=>$out,'count'=>count($tresult)];
 
 
 
@@ -46,5 +47,4 @@ echo json_encode($output1);
 
 
 ?>
-
 

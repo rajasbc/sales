@@ -2,6 +2,7 @@
 include '../../includes/config.php';
 $obj = new Purchase();
 $result =  $obj->get_list();
+$tresult =  $obj->get_totallist();
 
 // error_reporting(E_ALL);
 
@@ -55,11 +56,14 @@ if (count($result) > 0) {
 		</tr>";
 	}
 }
+else
+{
+	$out .="<td colspan='8' style='text-align:center;'>No Record Found</td>";
+}
 
 
-$output=['out'=>$out,'count'=>count($result)];
+$output=['out'=>$out,'count'=>count($tresult)];
 
 echo json_encode($output);
-
 
 ?>

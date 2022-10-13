@@ -40,6 +40,15 @@ class Customer extends Dbconnection {
 		return  ["status"=>"success",'id'=>$custid,"name"=>$customer['name'],"company_name"=>$customer['company_name'],"email"=>$vendor['email'],"mobile"=>$customer['mobile'],"address"=>$customer['address'],"city"=>$customer['city'],"state"=>$customer['state'],"country"=>$customer['country'],"companyname"=>$vendor['company_name']];
 
 	}
+
+	function get_cust() {
+
+		$sql="select * from ".$this->tablename."";
+		$result = $this->db->GetResultsArray($sql);
+		return $result;
+
+	}
+
 	function get_customer() {
 
 		$no_of_records_per_page =$this->db->getpost('size');
@@ -50,6 +59,25 @@ class Customer extends Dbconnection {
 		if($search!='')
 		{
 		$sql = "select * from ".$this->tablename." where (name like '%".strtolower($search)."%' or company_name like '%".strtolower($search)."%' or email like '%".strtolower($search)."%' or mobile like '%".strtolower($search)."%' or city like '%".strtolower($search)."%') LIMIT ". $offset .",". $no_of_records_per_page;
+		}
+		else
+		{
+		$sql = "select * from " . $this->tablename." LIMIT ". $offset .",". $no_of_records_per_page;
+		}
+
+		$result = $this->db->GetResultsArray($sql);
+		return $result;
+	}
+	function get_totalcustomer() {
+
+		$no_of_records_per_page =$this->db->getpost('size');
+		$pageno= $this->db->getpost('page');
+		$offset = ($pageno) * $no_of_records_per_page;
+		$search=$this->db->getpost('search');
+
+		if($search!='')
+		{
+		$sql = "select * from ".$this->tablename." where (name like '%".strtolower($search)."%' or company_name like '%".strtolower($search)."%' or email like '%".strtolower($search)."%' or mobile like '%".strtolower($search)."%' or city like '%".strtolower($search)."%')";
 		}
 		else
 		{

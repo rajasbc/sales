@@ -3,6 +3,8 @@ include '../../includes/config.php';
 $obj = new Salesorder();
 $result =  $obj->get_orders();
 
+$totresult =  $obj->get_totorders();
+
 $cobj = new Customer();
 
 $aobj = new Admin();
@@ -62,11 +64,11 @@ if (count($result) > 0) {
 }
 else
 {
-	$out = '<td colspan="6" style="text-align:center;">No Records Found</td>';
+	$out .= '<td colspan="6" style="text-align:center;">No Record Found</td>';
 }
 
 
-$output=['out'=>$out,'count'=>count($result)];
+$output=['out'=>$out,'count'=>count($totresult)];
 
 echo json_encode($output);
 
