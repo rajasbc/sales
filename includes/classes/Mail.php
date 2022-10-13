@@ -59,7 +59,7 @@ class Mail extends Dbconnection {
 		$mail->isHTML(true);
 
 		$mail->Subject = "New PO - 2crsi";
-		$mail->Body = "Hi Admin, ".$ures['name']." raise new po<br />Thank You,";
+		$mail->Body = "Hi Admin, a salesperson ".$ures['name']." has raised a new PO.<br />Thank You,";
 
 		// echo $mail;
 

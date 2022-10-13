@@ -17,6 +17,7 @@ $result = $bill->get_bill($billId);
 	<div class="form-row">
 			<input type="hidden" id="vend_id" name="vend_id" value="<?=$result['vendor']?>">
 			<input type="hidden" id="bill_id" name="bill_id" value="<?=$billId?>">
+			<input type="hidden" id="invoice_no" name="invoice_no" value="<?=$result['invoice_no']?>">
 				<table class="table">
 					<thead>
 						<tr>
