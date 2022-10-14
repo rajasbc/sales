@@ -72,7 +72,7 @@ class Salesorder extends Dbconnection {
 	}
 
 	function totalqty() {
-		$sql = "select sum(qty) as qty from " . $this->tablename1;
+		$sql = "select sum(qty) as qty from " . $this->tablename1." a join ".$this->tablename." b on a.orderid=b.orderid where b.status='Completed'";
 		$result = $this->db->GetAsIsArray($sql);
 		return $result;
 	}

@@ -235,7 +235,7 @@ include 'footer.php';
                     });
                      
                      $("#bill_settlement").modal('hide');
-                     getsales();
+                     get_data();
 
                 }
                 });
