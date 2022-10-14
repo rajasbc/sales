@@ -27,12 +27,9 @@ if (count($result) > 0) {
 		<td>" . date('d-m-Y',strtotime($row['date'])) . "</td>
 		<td>" . $cresult[0]['name']. "</td>";
 
-		if($_SESSION['utype']=='Admin')
-        {
 
 		$out .= "<td>" . $aresult['name']. "</td>";
 
-		}
 
 		$out .="<td>" . $row['grandtotal'] . "</td>
 		<td>" . $row['status'] . "</td>
