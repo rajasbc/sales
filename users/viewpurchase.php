@@ -230,7 +230,7 @@ include 'footer.php';
                     });
                      
                      $("#bill_settlement").modal('hide');
-                     getpurchase();
+                     get_data();
 
                 }
                 });
