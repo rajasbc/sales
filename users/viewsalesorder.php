@@ -126,16 +126,7 @@ select.custom-select {
             <th style="width:10%;">Order#</th>
             <th>Date</th>
             <th>Customer</th>
-
-            <?php
-
-            if($_SESSION['utype']=='Admin')
-            {
-            echo"<th>Sales Person</th>";
-            }
-
-            ?>
-
+            <th>Sales Person</th>
             <th>Total ($)</th>
             <th>Status</th>
             <th>Actions</th>

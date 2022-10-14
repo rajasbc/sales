@@ -424,7 +424,7 @@ $userdet = $userobj->getusername($uid);
                 <div class="col-lg-12 ">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">+91<span style="color: red">&nbsp;*</span></span>
+                      <span class="input-group-text input-group-text1">Mobile<span style="color: red">&nbsp;*</span></span>
                     </div>
                     <input class="form-control cust_form "  id="mobile" name="mobile" onKeyPress="if(this.value.length==10)return false;" type="text" autocomplete="off"placeholder='Mobile No.'>
                   </div>

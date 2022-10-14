@@ -7,6 +7,8 @@ $result =  $obj->getdashorders();
 
 $cobj = new Customer();
 
+$aobj = new Admin();
+
 $out = '';
 
 if (count($result) > 0) {
@@ -16,14 +18,20 @@ if (count($result) > 0) {
 
 		$cresult = $cobj->get_customers($row['customer']);
 
+		$aresult = $aobj->getusername($row['createdby']);
+
 		$i++;
 		$out .= "
 		<tr>
 		<td>" . $row['invoice_no'] . "</td>
 		<td>" . date('d-m-Y',strtotime($row['date'])) . "</td>
-		<td>" . $cresult[0]['name']. "</td>
-		<td>" . $cresult[0]['email'] . "</td>
-		<td>" . $row['status'] . "</td>
+		<td>" . $cresult[0]['name']. "</td>";
+
+
+		$out .= "<td>" . $aresult['name']. "</td>";
+
+
+		$out .="<td>" . $row['status'] . "</td>
 		<td>
 		<a class='btn btn-sm btn-success' href='viewsalesorderdetails.php?id=".$row['orderid']."'>View</a> &nbsp; ";
 

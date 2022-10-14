@@ -34,7 +34,10 @@ class Vendor extends Dbconnection {
 		}
 		
 
-		return  ["status"=>'success','id'=>$vendid,"name"=>$vendor['name'],"company_name"=>$vendor['company_name'],"email"=>$vendor['email'],"mobile"=>$vendor['mobile'],"address"=>$vendor['address'],"city"=>$vendor['city'],"state"=>$vendor['state'],"country"=>$vendor['country'],"companyname"=>$vendor['company_name']];
+		$sel="select * from bird_countries where id='".$vendor['country']."'";
+		$selres = $this->db->GetAsIsArray($sel);
+
+		return  ["status"=>'success','id'=>$vendid,"name"=>$vendor['name'],"company_name"=>$vendor['company_name'],"email"=>$vendor['email'],"mobile"=>$vendor['mobile'],"address"=>$vendor['address'],"city"=>$vendor['city'],"state"=>$vendor['state'],"country"=>$selres['name'],"companyname"=>$vendor['company_name']];
 
 	}
 	function get_vend() {

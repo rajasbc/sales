@@ -35,9 +35,13 @@ class Customer extends Dbconnection {
 
 			$custid = $this->db->getpost('id');
 		}
+
+
+		$sel="select * from bird_countries where id='".$customer['country']."'";
+		$selres = $this->db->GetAsIsArray($sel);
 		
 
-		return  ["status"=>"success",'id'=>$custid,"name"=>$customer['name'],"company_name"=>$customer['company_name'],"email"=>$vendor['email'],"mobile"=>$customer['mobile'],"address"=>$customer['address'],"city"=>$customer['city'],"state"=>$customer['state'],"country"=>$customer['country'],"companyname"=>$vendor['company_name']];
+		return  ["status"=>"success",'id'=>$custid,"name"=>$customer['name'],"company_name"=>$customer['company_name'],"email"=>$vendor['email'],"mobile"=>$customer['mobile'],"address"=>$customer['address'],"city"=>$customer['city'],"state"=>$customer['state'],"country"=>$selres['name'],"companyname"=>$vendor['company_name']];
 
 	}
 

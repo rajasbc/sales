@@ -231,7 +231,7 @@ select.custom-select {
                                         	else
                                         	{
 
-                                        	echo"<input type='hidden' id='salesperson' value='".$_SESSION['uid']."' />";
+                                        	echo"<input type='hidden' id='salesperson' value='All' />";
 
                                         	}
 
@@ -258,7 +258,7 @@ select.custom-select {
 								            <th style="width:10%;">Order#</th>
 								            <th>Date</th>
 								            <th>Customer</th>
-								            <th>Email</th>
+								            <th>Sales Person</th>
 								            <th>Status</th>
 								            <th>Actions</th>
 								          </tr>
