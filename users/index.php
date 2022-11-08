@@ -77,6 +77,8 @@ select.custom-select {
 
 							<div class="row mt-4">
 
+								<div class="col-xl-1 col-md-6"></div>
+
 								<div class="col-xl-3 col-md-6">
 									<div class="card prod-p-card bg-c-red">
 										<div class="card-body">
@@ -92,7 +94,7 @@ select.custom-select {
 										</div>
 									</div>
 								</div>
-								<div class="col-xl-3 col-md-6">
+								<!-- <div class="col-xl-3 col-md-6">
 									<div class="card prod-p-card bg-c-green">
 										<div class="card-body">
 											<div class="row align-items-center m-b-25">
@@ -106,7 +108,7 @@ select.custom-select {
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> -->
 								<div class="col-xl-3 col-md-6">
 									<div class="card prod-p-card bg-c-yellow">
 										<div class="card-body">
@@ -137,6 +139,8 @@ select.custom-select {
 										</div>
 									</div>
 								</div>
+
+								<div class="col-xl-2 col-md-6"></div>
 
 							</div>
 

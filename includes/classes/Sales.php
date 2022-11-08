@@ -180,7 +180,7 @@ try
 
     $newinv = $selin['iid']+1;
 
-    $invoiceno = '2crsipi'.date('ymd').sprintf("%04d", $newinv);
+    $invoiceno = '2crsisi'.date('ymd').sprintf("%04d", $newinv);
 
 	//sales total update
 
