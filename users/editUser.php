@@ -5,6 +5,21 @@ $obj=new Admin();
 $user=$obj->getusername($userId);
 
 ?>
+
+<style type="text/css">
+
+.red
+{
+    color: red;
+}
+
+input[type="text"]
+{
+    height: 40px;
+}
+
+</style>
+
 <div class="container">
     <div class='row'>
         <div class='col-lg-12'><h5>Edit User
@@ -21,7 +36,7 @@ $user=$obj->getusername($userId);
 <form id='user_update'>
     <div class="row"><div class="col-lg-12"><br><label id='errorTxt' class="text-danger"></label></div></div>
     <div class="form-row">
-        <div class="form-group col-lg-3">  Name           
+        <div class="form-group col-lg-3">  Name <span class="red">*</span>
         </div>
         <div class="form-group col-lg-9">
             <input type="hidden" name="userId" id="userId" value='<?=$user['id']?>' class="form-control" >
@@ -30,7 +45,7 @@ $user=$obj->getusername($userId);
     </div>
 
 <div class="form-row">
-    <div class="col-lg-3">  Mobile No           
+    <div class="col-lg-3">  Mobile No <span class="red">*</span>
     </div>
     <div class=" col-lg-9">
         <div class="input-group mb-3">
@@ -43,7 +58,7 @@ $user=$obj->getusername($userId);
 </div>
 </div>
 <div class="form-row">
-    <div class="form-group col-lg-3">Email ID           
+    <div class="form-group col-lg-3">Email ID <span class="red">*</span>
     </div>
 
     <div class="form-group col-lg-9">
@@ -53,7 +68,7 @@ $user=$obj->getusername($userId);
 
 <div class="form-row">
     <div class="form-group col-lg-3">
-        Staff Role
+        Staff Role <span class="red">*</span>
     </div>
     <div class="form-group col-lg-9">
 
@@ -68,16 +83,16 @@ $user=$obj->getusername($userId);
 </div>
 
 <div class="form-row">
-    <div class="form-group col-lg-3">Username</div><div class="form-group col-lg-9"><input type="text" name="username" value='<?=$user['username']?>' id="username" class='form-control'></div></div>
+    <div class="form-group col-lg-3">Username <span class="red">*</span></div><div class="form-group col-lg-9"><input type="text" name="username" value='<?=$user['username']?>' id="username" class='form-control'></div></div>
 
 
 
 <div class="form-row">
-    <div class="form-group col-lg-3">Password</div>
+    <div class="form-group col-lg-3">Password <span class="red">*</span></div>
     <div class="form-group col-lg-9">
         <div class="input-group mb-3">
           <div class="input-group " id="conPassword">
-              <input class="form-control " type="password" name="password_edit" id="password_edit" >
+              <input class="form-control" style="height:40px;" type="password" name="password_edit" id="password_edit" >
 
               <div class="input-group-append">
                 <span class="input-group-text" id="basic-addon2"><div class="input-group-addon">

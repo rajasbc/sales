@@ -82,7 +82,7 @@ select.custom-select {
 										<div class="card-body">
 											<div class="row align-items-center m-b-25">
 												<div class="col">
-													<h6 class="m-b-5 text-white">Total Buyers</h6>
+													<b class="m-b-5 text-white">Buyers</b>
 													<h3 class="m-b-0 text-white"><?php if(count($tcust)>0){ echo count($tcust); } else{ echo '0'; } ?></h3>
 												</div>
 												<div class="col-auto">
@@ -97,7 +97,7 @@ select.custom-select {
 										<div class="card-body">
 											<div class="row align-items-center m-b-25">
 												<div class="col">
-													<h6 class="m-b-5 text-white">Product Sold</h6>
+													<b class="m-b-5 text-white">Product Sold</b>
 													<h3 class="m-b-0 text-white"><?php if($sqty['qty']>0){ echo $sqty['qty']; } else{ echo '0'; } ?></h3>
 												</div>
 												<div class="col-auto">
@@ -112,7 +112,7 @@ select.custom-select {
 										<div class="card-body">
 											<div class="row align-items-center m-b-25">
 												<div class="col">
-													<h6 class="m-b-5 text-white">Total Vendors</h6>
+													<b class="m-b-5 text-white">Vendors</b>
 													<h3 class="m-b-0 text-white"><?php if(count($tvend)>0){ echo count($tvend); } else{ echo '0'; } ?></h3>
 												</div>
 												<div class="col-auto">
@@ -127,7 +127,7 @@ select.custom-select {
 										<div class="card-body">
 											<div class="row align-items-center m-b-25">
 												<div class="col">
-													<h6 class="m-b-5 text-white">Total Users</h6>
+													<b class="m-b-5 text-white">Users</b>
 													<h3 class="m-b-0 text-white"><?=count($tusers)?></h3>
 												</div>
 												<div class="col-auto">

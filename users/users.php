@@ -22,6 +22,16 @@ select.custom-select {
         z-index: 99999 !important;
     }
 
+.red
+{
+    color: red;
+}
+
+input[type="text"]
+{
+    height: 40px;
+}
+
 </style>
 
 <section class="pcoded-main-container">
@@ -197,7 +207,7 @@ select.custom-select {
         <div class="row"><div class="col-lg-12"><label id='errorTxt' class="text-danger"></label></div></div>
 
         <div class="form-row">
-            <div class="form-group col-lg-3">  Name
+            <div class="form-group col-lg-3">  Name <span class="red">*</span>
             </div>
             <div class="form-group col-lg-9">
                 <input type="text" name="username" id="username" class="form-control" >
@@ -205,7 +215,7 @@ select.custom-select {
         </div>
         
         <div class="form-row">
-            <div class="col-lg-3">  Mobile No
+            <div class="col-lg-3">  Mobile No  <span class="red">*</span>
             </div>
             <div class=" col-lg-9">
                     <div class="input-group mb-3">
@@ -215,7 +225,7 @@ select.custom-select {
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-lg-3">Email ID
+            <div class="form-group col-lg-3">Email ID  <span class="red">*</span>
             </div>
 
             <div class="form-group col-lg-9">
@@ -226,7 +236,7 @@ select.custom-select {
         
         <div class="form-row">
             <div class="form-group col-lg-3">
-                Role
+                Role  <span class="red">*</span>
             </div>
             <div class="form-group col-lg-9">
                 <select id='staff_category' name="staff_category" class="form-control">
@@ -239,7 +249,7 @@ select.custom-select {
         </div>
         
         <div class="form-row">
-            <div class="form-group col-lg-3">Username</div><div class="form-group col-lg-9"><input type="text" name="login_username" id="login_username" class='form-control'></div>
+            <div class="form-group col-lg-3">Username  <span class="red">*</span></div><div class="form-group col-lg-9"><input type="text" name="login_username" id="login_username" class='form-control'></div>
 
         </div>
 
@@ -250,11 +260,11 @@ select.custom-select {
         </div>
 
 
-        <div class="form-row"><div class="form-group col-lg-3">Password</div>
+        <div class="form-row"><div class="form-group col-lg-3">Password  <span class="red">*</span></div>
             <div class=" col-lg-9">
              <div class="input-group mb-3">
                 <div class="input-group " id="confirmPassword">
-                  <input class="form-control " type="password" name="password" id="password" >
+                  <input class="form-control " style="height:40px;" type="password" name="password" id="password" >
 
                   <div class="input-group-append">
                         <span class="input-group-text" id="basic-addon2">
@@ -269,11 +279,11 @@ select.custom-select {
           </div>
                                                     
             <div class="form-row">
-              <div class="form-group col-lg-3">Confirm Password</div>
+              <div class="form-group col-lg-3">Confirm Password  <span class="red">*</span></div>
                  <div class="form-group col-lg-9">
                     <div class="input-group mb-3">
                       <div class="input-group " id="conPassword">
-                          <input class="form-control " type="password" name="confirm_password" id="confirm_password" >
+                          <input class="form-control" style="height:40px;" type="password" name="confirm_password" id="confirm_password" >
 
                       <div class="input-group-append">
                         <span class="input-group-text" id="basic-addon2"><div class="input-group-addon">
