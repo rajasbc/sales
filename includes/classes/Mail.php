@@ -1,5 +1,11 @@
 <?php
 
+include_once $_SERVER["DOCUMENT_ROOT"].'/vendor/autoload.php';
+include_once $_SERVER["DOCUMENT_ROOT"].'/includes/config.php';
+
+use \PHPMailer\PHPMailer\PHPMailer;
+use \PHPMailer\PHPMailer\Exception;
+
 class Mail extends Dbconnection {
 	var $mail;
 	var $db;
@@ -15,7 +21,7 @@ class Mail extends Dbconnection {
 
 	public function sendEmail(){
 
-		$mail = new PHPMailer\PHPMailer\PHPMailer(true);
+		$mail = new PHPMailer(true);
 
 		$mail->From = "adminpo@2crsi.com";
 		$mail->FromName = "Admin";
@@ -42,7 +48,7 @@ class Mail extends Dbconnection {
 
 	public function sendorderEmail(){
 
-		$mail = new PHPMailer\PHPMailer\PHPMailer(true);
+		$mail = new PHPMailer(true);
 
 		$mail->From = "adminpo@2crsi.com";
 		$mail->FromName = "Admin";

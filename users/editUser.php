@@ -49,9 +49,9 @@ input[type="text"]
     </div>
     <div class=" col-lg-9">
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
+          <!-- <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">+91</span>
-        </div>
+        </div> -->
         <input type="text" name="edit_mobile_no" id="edit_mobile_no" maxlength="10" value='<?=$user['mobile']?>' class="form-control number_only" >
     </div>
 

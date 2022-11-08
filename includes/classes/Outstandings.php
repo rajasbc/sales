@@ -38,7 +38,7 @@ class Outstandings extends Dbconnection {
 
 	function getvendorpayable($id) {
 
-		$sql = "select created_at as time, date as date, concat('Purchase Bill #', billid) as description, grandtotal as credit, null as debit from purchase where vendor='".$id."' and date between '".$this->db->getpost('fromdate')."' and '".$this->db->getpost('todate')."'
+		$sql = "select created_at as time, date as date, concat('Purchase Bill #', invoice_no) as description, grandtotal as credit, null as debit from purchase where vendor='".$id."' and date between '".$this->db->getpost('fromdate')."' and '".$this->db->getpost('todate')."'
 		UNION
 		select created_at as time, date(created_at) as date, concat('Payment #', id) as description, null as credit, pay as debit from payment where vendor='".$id."' and date(created_at) between '".$this->db->getpost('fromdate')."' and '".$this->db->getpost('todate')."' order by time asc";
 
@@ -84,7 +84,7 @@ class Outstandings extends Dbconnection {
 
 	function getcustomerreceivable($id) {
 
-		$sql = "select created_at as time, date as date, concat('Sales Bill #', billid) as description, grandtotal as credit, null as debit from sales where customer='".$id."' and date between '".$this->db->getpost('fromdate')."' and '".$this->db->getpost('todate')."'
+		$sql = "select created_at as time, date as date, concat('Sales Bill #', invoice_no) as description, grandtotal as credit, null as debit from sales where customer='".$id."' and date between '".$this->db->getpost('fromdate')."' and '".$this->db->getpost('todate')."'
 		UNION
 		select created_at as time, date(created_at) as date, concat('Receipt #', id) as description, null as credit, pay as debit from receipt where customer='".$id."' and date(created_at) between '".$this->db->getpost('fromdate')."' and '".$this->db->getpost('todate')."' order by time asc";
 
