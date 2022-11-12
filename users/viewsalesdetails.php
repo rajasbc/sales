@@ -278,7 +278,7 @@ $sordresult = $sobj->get_order($ordresult['sales_orderid']);
                                         <div class="modal-footer">
                                           <input type="hidden" name="delete_id" id="delete_id">
                                           <button type="button" class="btn btn-primary" id='delete_file' >Yes</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button></form>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                                         </div>
                                     </div>
                                 </div>

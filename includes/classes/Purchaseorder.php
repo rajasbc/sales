@@ -152,6 +152,31 @@ try
     $gtot=$gtot+$rowtotal;
 	}
 
+    if ((isset($itemvar["file_name"]) && $itemvar["file_name"] !== '' && $itemvar["file_base"] !== '')) 
+    {
+    $image_data = $itemvar["file_base"];
+    // $fileext = basename($itemvar["file_name"]);
+    $fileext  = pathinfo( $itemvar["file_name"], PATHINFO_EXTENSION );
+    $fullname = 'ord'.$bill_id.date('Ymdhis').'.'.$fileext; //$itemvar["file_name"]
+    $tsrget="../../upload/purchaseorder_documents/";
+
+
+
+    if (file_put_contents($tsrget . $fullname, file_get_contents($image_data))) {
+    $result = $fullname;
+    } else {
+    $result = "error";
+    }
+    if ($result!='error') {
+        $document_array=array();
+        $document_array['order_id']=$bill_id;
+        $document_array['document_name']=$result;
+        $document_array['description']=$itemvar["file_description"];
+        $this->db->mysql_insert('purchaseorder_documents',$document_array);
+    }
+    
+    }
+
     }
 
     $up="update purchaseorder set orderid='".$bill_id."',subtotal='".$sub."',tax_amount='".$gtax."',grandtotal='".$gtot."',invoice_id='".$newinv."',invoice_no='".$invoiceno."' where id='".$bill_id."'";
@@ -189,9 +214,26 @@ public function cancel_order($id)
 		$result = $this->db->GetResultsArray($sql);
 		return $result;
 	}
+
+
+
+    function get_docdetails($id) {
+        $sql = "select * from purchaseorder_documents where order_id='".$id."' and is_deleted='NO'";
+        $result = $this->db->GetResultsArray($sql);
+        return $result;
+    }
+    function delete_document($id) {
+
+        $sql = "UPDATE `purchaseorder_documents` SET is_deleted='YES' WHERE id=".$id;
+        $result = $this->db->ExecuteQuery($sql);
+        return ['status'=>'success'];
+    }
+
 	
 
 }
+
+
 
 
 
