@@ -41,7 +41,7 @@ if (count($result) > 0) {
 
 		if($row['status']=='New')
 		{
-		$out .="<a class='btn btn-sm btn-warning' href='purchaseorder.php?bill_check_group=".base64_encode($row['orderid'])."'>Raise PO</a>";
+		$out .="<a class='btn btn-sm btn-info' title='Edit' style='padding:2px 0px 2px 7px; text-align:center;' href='editsalesorder.php?bill_check_group=".base64_encode($row['orderid'])."'><i class='feather icon-edit'></i></a>&nbsp;<a class='btn btn-sm btn-warning' href='purchaseorder.php?bill_check_group=".base64_encode($row['orderid'])."'>Raise PO</a>";
 		}
 
 		if($row['status']!='New' && $row['status']!='Completed' && $row['status']!='Cancelled')

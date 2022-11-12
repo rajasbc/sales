@@ -9,30 +9,49 @@ if($_GET['bill_check_group']!='')
 }
 
 ?>
-
-<style type="text/css">
-
-.first-col
-{
-  font-weight: bold;
-}
-
-
-#ui-id-1,#ui-id-2
-{
-  z-index: 99999;
-}
-
-.input-group-text1{
+<style>
+  .danger{
+    color: red;
+  }
+  .input-group-text1{
     width: 110px;
   }
+</style>
+<style type="text/css">
 
-  .input-group-text{
-    width: 110px;
-    border: 1px solid #ccc;
+  .ui-autocomplete {
+    max-height: 400px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    /* add padding to account for vertical scrollbar */
+    padding-right: 20px;
+    z-index: 999999;
+  } 
+
+  #ui-id-1,#ui-id-2,#ui-id-3,#custnameid,{
+    z-index: 99999;
+  }
+  
+  .nav-fixed #layoutSidenav #layoutSidenav_content {
+    padding-left: 0rem;
+    top: 0rem;
+  }
+  .footer {
+    height: 0rem;
+  }
+
+  #ui-id-1
+  {
+    z-index: 99999;
+  }
+
+  select.custom-select {
+    -webkit-appearance: menulist;
   }
 
 </style>
+
 
 <link rel="stylesheet" href="assets/css/jquery-ui.css" />
 
@@ -142,51 +161,119 @@ if($_GET['bill_check_group']!='')
                   <div class="input-group-prepend">
                     <span class="input-group-text">Order Date</span>
                   </div>
-                  <input type='text' class="form-control" id="orderdate" readonly />
+                  <input type='date' class="form-control" id="orderdate" />
                 </div>
               </div>
 
               <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
               </div>
-
-              <div class=" col-lg-8 col-sm-8 col-sm-8 md-6 mt-1">
-                <div class="input-group input-group-sm">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Date</span>
-                  </div>
-                  <input type='date' id='date' name='date' class="form-control" value="<?=date('Y-m-d')?>" />
-                </div>
-              </div>
-
-              <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
-              </div>
-              <div class=" col-lg-8 col-sm-8 col-sm-8 md-6 mt-1">
-                <div class="input-group input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">File Upload</span>
-                  </div>
-                  <input type='file' id='file' name='file' class="form-control">
-                  <span name="file_base" id="file_base" style="display: none"></span>
-                </div>
-              </div>
-
-              <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
-              </div>
-               <div class=" col-lg-8 col-sm-8 col-sm-8 md-6 mt-1">
-                <div class="input-group input-group-sm">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Description</span>
-                  </div>
-                  <textarea class="form-control" id='description' name="description"></textarea>
-                </div>
-              </div>
-
-              <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
-              <i class="fa fa-plus-circle" style="font-size: xx-large;color: crimson;cursor: pointer;" aria-hidden="true" id="file_upload"></i>
-              </div>
-              
 
             </div>
+
+
+
+
+            <form id="searchItemDetailForm" onsubmit="javascript:return false;">
+
+
+          <input type="hidden" name="checked_val" id="checked_val" value="F">
+          <div class="form-group">
+            <div class=" col-lg-7 col-sm-7 col-sm-7" style="padding:0px;">
+              <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                  <span class="input-group-text ">🔎<span class="text-danger">*</span></span>
+                </div>
+                <input type='text' id='searchItem' name='searchItem'  class="form-control product_add" placeholder="Search Product Here" autocomplete="off">
+
+                <input type='hidden' id='originalname' name='originalname' >
+              </div>
+            </div>  
+          </div>
+
+
+      <input id="itemno" type="hidden">
+      <div class="form-group row" style="margin-top:-15px;">
+        <div class="col-lg-4 col-sm-4 col-md-4 mt-1">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text">VAT (%)</span>
+            </div>
+            <!-- <input class="form-control"  id="id6" type="text" autocomplete="off"> -->
+            <input class="form-control product_add" id="gst_val" type="text" autocomplete="off">
+          </div>
+          <input id="gstpercentage" type="hidden" >
+        </div>
+        <div class=" col-lg-4 col-sm-4 col-md-4 mt-1">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Price ($)</span>
+            </div>
+            <input class="form-control product_add" id="price1" type="text" onkeypress="if(this.value.length==15)return false" autocomplete="off">
+          </div>
+          <input class="form-control" id="price2" type="hidden" onkeypress="if(this.value.length==15)return false">                
+        </div>
+        <div class="col-lg-4 col-sm-4 col-md-4 mt-1">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text">QTY<span class="text-danger">*</span><div id="available_qty" style="display:none"> <span class="ml-3"  data-toggle='view_qty' title='QTY=' style="cursor:pointer">i</span></div></span>
+            </div>
+            <input class="form-control focus product_add" id="qty1" type="text"  onkeypress="if(this.value.length==10)return false" autocomplete="off">
+
+          </div>
+          <input class="form-control" id="qty2" type="hidden" >
+        </div>
+      </div>
+
+
+      
+
+      <?php
+      if($userdet['type']=='Admin')
+      {
+        ?>
+        <div class="col-lg-7 col-sm-7 col-md-7" style="padding:0px; margin-top:-11px;">
+          <div class="form-group" style="height:25px;">
+
+            <div class="input-group input-group-sm">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Sales Person</span>
+              </div>
+
+              <select name="salesperson" id="salesperson" class="custom-select custom-select-sm product_add">
+                <option value="">-- Select --</option>
+                <?php
+
+                foreach($userresult as $row)
+                {
+                  echo"<option value='".$row['id']."'>".$row['name']."</option>";
+                }
+
+                ?>
+              </select>
+
+            </div>
+          </div>
+        </div>
+
+        <?php
+      }
+      else
+      {
+        echo"<input type='hidden' name='salesperson' id='salesperson' value='".$_SESSION['uid']."' />";
+      }
+      ?>
+
+      
+
+
+      <div class="form-group row">
+
+        <div class="col-lg-2 col-sm-2 col-md-2">
+          <button class="btn btn-sm btn-info align-center product_add" id="add" type="button>" >ADD</button>
+        </div>
+
+      </div>
+    </form>
 
 
 
@@ -200,20 +287,9 @@ if($_GET['bill_check_group']!='')
 
         <div class="row mt-3">
           <div class="well col-sm-12 col-md-12 col-lg-12 mt-1">
-            <div class="table-scroll">
-              <table class="table bill-table table-bordered" id="doc-table" style="display: none">
-                <thead>
-                  <tr>
-                    <!-- <th class="text-left">S.No</th> -->
-                    <th class="text-left">File Name</th>
-                    <th class="text-left">Description</th>
-                    <th class="text-left">Action</th>
-                  </tr>
-                </thead>
-                <tbody class="text-left" id="docdata">
-                </tbody>
-              </table>
-            </div>
+            
+
+
             <div id="table-scroll" class="table-scroll">
               <table class="table bill-table table-bordered" id="bill-table">
                 <thead>
@@ -221,9 +297,7 @@ if($_GET['bill_check_group']!='')
                     <!-- <th class="text-left">S.No</th> -->
                     <th class="text-left">Items</th>
                     <th class="text-left">Price ($)</th>
-                    <th class="text-left">Req.Qty</th>
-                    <th class="text-left">Delivered Qty</th>
-                    <th class="text-left">Send Qty</th>
+                    <th class="text-left">Qty</th>
                     <th class="text-left">VAT % </th>
                     <th class="text-left">Total ($)</th>
                     <th class="text-left">Action</th>
@@ -271,13 +345,82 @@ if($_GET['bill_check_group']!='')
                           <input type='hidden' class="text" id="grandid1" value="0">
                         </div>
                       </div>
+</div>
 
-                      <div class="col-lg-3 col-sm-3 col-md-3">
+
+<div class="row" class="mt-5"><br /></div>
+
+              <div class="row">
+
+                <div class=" col-lg-1 col-sm-1 col-sm-1 md-6 mt-1"></div>
+
+              <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
+                <div class="input-group input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">File Upload</span>
+                  </div>
+                  <input type='file' id='file' name='file' class="form-control">
+                  <span name="file_base" id="file_base" style="display: none"></span>
+                </div>
+              </div>
+
+               <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
+                <div class="input-group input-group-sm">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Description</span>
+                  </div>
+                  <textarea class="form-control" id='description' name="description"></textarea>
+                </div>
+              </div>
+
+
+              <div class=" col-lg-2 col-sm-2 col-sm-2 md-6 mt-1">
+              <i class="fa fa-plus-circle" style="font-size: xx-large; padding-top: 15px; color: crimson;cursor: pointer;" aria-hidden="true" id="file_upload"></i>
+              </div>
+
+
+              <div class=" col-lg-1 col-sm-1 col-sm-1 md-6 mt-1"></div>
+
+
+              </div>
+
+
+              <div class="row mt-4">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                <div class="table-scroll">
+                  <table class="table bill-table table-bordered" id="doc-table" style="display: none">
+                    <thead>
+                      <tr>
+                        <!-- <th class="text-left">S.No</th> -->
+                        <th class="text-left" style="width:35%;">File Name</th>
+                        <th class="text-left" style="width:55%;">Description</th>
+                        <th class="text-left" style="width:10%;">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-left" id="docdata">
+                    </tbody>
+                  </table>
+                </div>
+                </div>
+                <div class="col-md-1"></div>
+              </div>
+
+
+
+
+
+<div class="row">
+
+
+                      <div class="col-lg-8 col-sm-8 col-md-8">
+
+                      
+
+                      </div>
 
                       <div class="col-lg-1 col-sm-1 col-md-1">
                         <input type="button" class="btn btn-sm btn-success save_bill" id="pay" value="Save" />
-                      </div>
-
                       </div>
 
                     </div>
@@ -482,38 +625,7 @@ var cid=$("#cid").val();
 
      setTimeout(refresh, 600000);
 </script>
-<script type="text/javascript">
-  $(document).ready(function(){
-    $("#wholesale_check").on('change',function(){
-      if($("#searchItem").val()!=''){
-      if($("#wholesale_check").prop('checked')==true){
-        $("#price1").val($("#wholesale_sale_price").val());
-        // $("#discount1").val($("#wholesale_discount").val());
-        <?php if($shopConfiguration['required_discount'] == 'yes'){?>
-  $('#discount1').val($("#wholesale_discount").val());
-  <?php if($shopConfiguration['over_all_disc'] == 'yes'){?>
-  $('#discount1').val(0.00);
-<?php }?>
-<?php } else{?>
-  $('#discount1').val(0.00);
-<?php }?>
 
-      }else{
-        $("#price1").val($("#retail_sale_price").val());
-        // $("#discount1").val($("#retail_discount").val());
-        <?php if($shopConfiguration['required_discount'] == 'yes'){?>
-  $('#discount1').val($("#retail_discount").val());
-  <?php if($shopConfiguration['over_all_disc'] == 'yes'){?>
-  $('#discount1').val(0.00);
-<?php }?>
-<?php } else{?>
-  $('#discount1').val(0.00);
-<?php }?>
-      }
-      }
-    })
-  })
-</script>
 <script>
     $('#modal_charge_id').click(function(){
     get_other_charges();
@@ -804,12 +916,16 @@ if($('#checked_val').val()=='F' && item.price!='0') {
   var bill_id=atob('<?php echo $_GET['bill_check_group']?>');
   if(bill_id!='')
   {
+
+
+$("#doc-table").css('display','');
+
   $(".modal .close").click();
   $("#customerCloseBtn").click();
   $.ajax({
   data: {'bill_id':bill_id,"bill":"bill"} ,
   type: "POST",
-  url:"ajaxCalls/getsalesorderdetails.php",
+  url:"ajaxCalls/getsalesorderdetails1.php",
   dataType:'JSON',
   success: function(dataResult) {
   if(dataResult.out=='Cancelled')
@@ -872,6 +988,9 @@ $("#gst_calc_type").attr("disabled", true);
               "gstamount":Number(value.gstamount),
               "gstpercentage":value.final_gstpercentage,
               "total":Number(value.final_total),
+              "deleted":'no',
+              "flag":'old',
+              "main_id":value.main_id,
     };
     calculation();
     });
@@ -888,6 +1007,50 @@ $("#gst_calc_type").attr("disabled", true);
   }
   }
   });
+
+
+
+
+$.ajax({
+  data: {'bill_id':bill_id,"bill":"bill"} ,
+  type: "POST",
+  url:"ajaxCalls/getsalesorderdocuments.php",
+  dataType:'JSON',
+  success: function(dataResult) {
+
+
+
+
+  $('#docdata').prepend(dataResult.out);
+
+   $("#doc_sno").val(dataResult.sno);
+   var doc_sno=0;
+      $.each(dataResult.item,function(key, value){
+         
+       doc_sno=doc_sno+1;
+          
+        doc_items["docsid"+doc_sno] = {
+
+                  "sid":doc_sno,
+                  "file_name":value.file_name,
+                  "file_type":value.file_type,
+                  "file_base":value.file_base,
+                  "file_description":value.file_description,
+                  "docmain_id":value.main_id,
+                  "deleted":'no',
+
+        };
+        });  
+  
+  }
+  });
+
+
+
+
+
+
+
   }
   else if ('<?=base64_decode($_GET['future_ids'])?>'=='' && bill_id=='' && localStorage.getItem('myArray')==null){
   $("#customerModal").modal('show');
@@ -1134,165 +1297,6 @@ location.reload();
   $("#add").click();
   }
   
-  function autoFillSearchItem(item) {
-  var expiry = '';
-  var duplicatearr=new Array();
-  $('#itemno').val(item.item_no);
-  $('#searchItem').val(item.label);
-  $('#wholesale_discount').val(item.wholesale_discount);
-  $('#wholesale_sale_price').val(item.wholesale_sale_price);
-  $('#retail_sale_price').val(item.price);
-  $('#originalname').val(item.label);
-  $('#perunit').val(item.units);
-  $('#expiry_date').val(item.item_expiry_date);
-  <?php if ($shopConfiguration['required_weight_multiple']=='yes') {?>
-  $('#weight').val(item.default_wt);
-  <?php } ?>
-  $('#is_weight_reduce').val(item.is_weight_reduce);
-  $('#price2').val(item.price);
-  if($("#wholesale_check").prop('checked')==true){
-    $('#price2').val(item.wholesale_sale_price);
-  }
-  if($("#exchange_val").prop('checked') == true){
-    $('#is_weight_reduce').val('yes');
-  }
-  if($('#is_weight_reduce').val()=='no'){
-    $('#price1').val(item.price);
-    if($("#wholesale_check").prop('checked')==true){
-    $('#price1').val(item.wholesale_sale_price);
-  }
-  }
-  else
-  {
-    var price=$('#silver_price_span').text().replace(/,/ , '');
-    var gold_price=$('#gold_price_span').text().replace(/,/ , '');
-    if(item.material_type=='silver'){
-    $('#price1').val(parseFloat(price).toFixed(2));
-    }
-    else{
-    $('#price1').val(parseFloat(gold_price).toFixed(2));
-    }
-  }
-<?php if ($shopDetails['is_silver_shop']=='yes') {?>
-$('#reorder_qty').val(item.reorder_qty);
-$('#reorder_level').val(item.reorder_level);
-<?php } ?>
-  $('#weight').val('');
-  <?php if ($shopConfiguration['required_weight_multiple']=='yes') {?>
-  $('#weight').val(item.default_wt);
-  <?php } ?>
-  $('#qty1').val(1);
-  $('#qty2').val(item.qty);
-
-  //MULTIPLE ITEM PRICE
-<?php if($shopConfiguration['multiple_item_price']=='yes'){?>
-  $("#check_priceA").val(item.price1);
-  $("#check_priceB").val(item.price2);
-  $("#check_priceC").val(item.price3);
-  $("#check_priceD").val(item.price4);
-  $("#check_priceE").val(item.price5);
-  $("#check_priceF").val(item.price);
-
-  $("#check_priceA_disc").val(item.price1disc);
-  $("#check_priceB_disc").val(item.price2disc);
-  $("#check_priceC_disc").val(item.price3disc);
-  $("#check_priceD_disc").val(item.price4disc);
-  $("#check_priceE_disc").val(item.price5disc);
-  $("#check_priceF_disc").val(item.discount);
-
-<?php } ?>
-<?php if($shopConfiguration['required_discount'] == 'yes'){?>
-  $('#discount1').val(item.discount);
-   $('#retail_discount').val(item.discount);
-  if($("#wholesale_check").prop('checked')==true){
-    $('#discount1').val(item.wholesale_discount);
-  }
-  <?php if($shopConfiguration['over_all_disc'] == 'yes'){?>
-  $('#discount1').val(0.00);
-   $('#retail_discount').val(0.00);
-<?php }?>
-<?php } else{?>
-  $('#discount1').val(0.00);
-   $('#retail_discount').val(0.00);
-<?php }?>
-  if(item.item_combination_id!=null){
-  $('#combination_id').val(item.item_combination_id);
-}
-  <?php if ($shopConfiguration['required_commongst'] === 'yes') {
-  $gst = $shopConfiguration['common_gst'];
-  $cgst = $gst / 2;
-  $sgst = $gst / 2;?>
-  $('#gst_val').val(<?php echo $gst ?>);
-  $('#sgst').val(<?php echo $sgst ?>);
-  $('#cgst1').val(<?php echo $cgst ?>);
-  <?php } else {?>
-  $('#gst_val').val(item.gst);
-  $('#sgst').val(item.sgst);
-  $('#cgst1').val(item.cgst);
-  <?php }?>
-  expiry = item.expiry;
-  if(expiry!="0000-00-00 00:00:00") {
-  $('#ex').show();
-  $('#expiry_date').val(expiry);
-  // $('#id5').val(item.expiry);
-  } else {
-  $('#ex').hide();
-  }
-  $('#id6').val(item.hsn);
-  var product_name=$("#searchItem").val();
-  if(product_name!="" && product_name!="No Record Found"){
-    $("#available_qty").css('display','');
-  }
-  else{
-    $("#available_qty").css('display','none');
-  }
-  <?php if ($shopDetails['is_silver_shop']=='yes') {?>
-  $("#available_qty").html('<span class="ml-3"  data-toggle="view_qty" title="QTY='+item.qty+' , WEIGHT='+item.item_weight+'" style="cursor:pointer">i</span>');
-<?php }else{ ?>
-  $("#available_qty").html('<span class="ml-3"  data-toggle="view_qty" title="QTY='+item.qty+'" style="cursor:pointer">i</span>');
-<?php } ?>
-
-<?php if($shopConfiguration['multiple_item_price']=='yes'){?>
-
-  if($('#checked_val').val()=='A' && item.price1!='0') {
-  $("#price1").val(item.price1);
-  <?php if($shopConfiguration['required_discount'] == 'yes'){?>
-    $("#discount1").val(item.price1disc);
-  <?php } ?>
-}
-if($('#checked_val').val()=='B' && item.price2!='0') {
-  $("#price1").val(item.price2);
-  <?php if($shopConfiguration['required_discount'] == 'yes'){?>
-    $("#discount1").val(item.price2disc);
-  <?php } ?>
-}
-if($('#checked_val').val()=='C' && item.price3!='0') {
-  $("#price1").val(item.price3);
-  <?php if($shopConfiguration['required_discount'] == 'yes'){?>
-    $("#discount1").val(item.price3disc);
-  <?php } ?>
-}
-if($('#checked_val').val()=='D' && item.price4!='0') {
-  $("#price1").val(item.price4);
-  <?php if($shopConfiguration['required_discount'] == 'yes'){?>
-    $("#discount1").val(item.price4disc);
-  <?php } ?>
-}
-if($('#checked_val').val()=='E' && item.price5!='0') {
-  $("#price1").val(item.price5);
-  <?php if($shopConfiguration['required_discount'] == 'yes'){?>
-    $("#discount1").val(item.price5disc);
-  <?php } ?>
-}
-if($('#checked_val').val()=='F' && item.price!='0') {
-  $("#price1").val(item.price);
-  <?php if($shopConfiguration['required_discount'] == 'yes'){?>
-    $("#discount1").val(item.discount);
-  <?php } ?>
-}
-<?php } ?>
-
-  }
   function inputComplete() {
   $.ajax({
   url:"ajaxCalls/get_item.php",
@@ -1365,7 +1369,7 @@ if($('#checked_val').val()=='F' && item.price!='0') {
   minLength: 1,
   select: function(event,ui) {
 
-      autoFillSearchItem(ui.item);
+      // autoFillSearchItem(ui.item);
     
 
   }
@@ -1392,212 +1396,224 @@ if($('#checked_val').val()=='F' && item.price!='0') {
   which_btn_click=this.id;  
   });
   
-  //add click function 
-  $('#add').on('click', function(){
-
-    // alert();
-    
-
   
-  var item_id_check=$('#itemno').val();
+
+  $("#add").on('click',function(){
+
+     $("#item_id").val('');
+
+   if($("#searchItem").val()==''  ){
+    $.growl.error({
+      title:"Warning",
+      message:"Atleast Add One Item"
+    });
+    $("#searchItem").focus();
+    return false;
+  }
+  var product_name=$("#searchItem").val();
+  // var hsn_code=$("#id6").val();
+  var price=$("#price1").val();
+  var price=$("#price1").val();
+  var price=$("#price1").val();
+  var id=$("#item_id").val();
+  var qty=$("#qty1").val();
+
   if(Number($("#qty1").val())==0)
   {
-  $("#qty1").css("border","1px solid red");
-  $("#qty1").focus();
-  var qty1= $("#qty1").val(); 
-  $.growl.error({
-  title:"Quantity issue",
-  message:"Please enter quantity"
-  });
-  return false;
+    $("#qty1").css("border","1px solid red");
+    $("#qty1").focus();
+    var qty1= $("#qty1").val(); 
+    $.growl.error({
+      title:"Quantity issue",
+      message:"Please enter quantity"
+    });
+    return false;
   }
   else
   {
-  $("#qty1").css("border","1px solid #ced4da");
+    $("#qty1").css("border","1px solid #ced4da");
   }
 
 
-  if($("#searchItem").val()!="" && $("#price1").val()!=""){
-    var serial_no=$("#s_no").val();   
-      if(Number(serial_no)!=0)
-      {
-        sno=Number(sno)+Number(serial_no);
-        $("#s_no").val(0);   
+  $.ajax({
+    type:"POST",
+    url:"ajaxCalls/add_products.php",
+    data:{'product_name':product_name,"price":price,"qty":qty,"id":id},
+    dataType:'json',
+    success: function(res){
+      // alert(res);
+      if(res.status=="success"){
+        $("#itemno").val(res.id);
+
+
+
+        add_productrow();
+
+
       }
-  sno=sno+1;
-  var gqty=$("#qty1").val();
-  var gstp = 0;
-  var gstpercentage = 0;
+
+    }
+  });
+
+
+});
+
+
+var sno = 0;
+customerarray = [];
+items = [];
+
+function add_productrow()
+{
+
+  $('#overall_disc').val('');
+  
+  $('#balance').val('');
+  $('#advance').val('');
+  $('#change').val('');
+
+  
+  // var item_id_check=$('#itemno').val();
+  // if(Number($("#qty1").val())==0)
+  // {
+  //   $("#qty1").css("border","1px solid red");
+  //   $("#qty1").focus();
+  //   var qty1= $("#qty1").val(); 
+  //   $.growl.error({
+  //     title:"Quantity issue",
+  //     message:"Please enter quantity"
+  //   });
+  //   return false;
+  // }
+  // else
+  // {
+  //   $("#qty1").css("border","1px solid #ced4da");
+  // }
+
+
+  if($("#searchItem").val()!=""){
+
+// alert($("#searchItem").val());
+
+var serial_no=$("#s_no").val();   
+if(Number(serial_no)!=0)
+{
+  sno=Number(sno)+Number(serial_no);
+  $("#s_no").val(0);   
+}
+sno=sno+1;
+var gqty=$("#qty1").val();
+
+var gstp = 0;
+var gstpercentage = 0;
 
   // alert(sno);
 
   gstp=Number($('#gst_val').val());
   gstpercentage=gstp/100;
+
+  // data["itemno"]=$("#itemno").val();
   
-  data["itemno"]=$("#itemno").val();
+  data['bags']='';
 
-  var wast_unit='';
-
-  // console.log(perunit);
-  data["gstpercentage"]=gstpercentage;
-  data["price"]=$("#price1").val();
-  data["batch_no"]=$("#batch_no").val();
   data["qty"]=$("#qty1").val();
+  
+  var cqty=$("#qty1").val();
+  // data["total"]=total.toFixed(2);
+  // var cid=$("#cid").val();
+  var itemcol=$("#searchItem").val();
+  var price=$("#price1").val();
+  var qty=$("#qty1").val();
+  var itemno=$("#itemno").val();
+
+  data["gstpercentage"]=gstpercentage;
+  data["itemname"]=itemcol;
+  data["price"]=price;
+  data["id"]=itemno;
   data["gst"]=gstp;
 
   total1=Number(data["price"])*Number(data["qty"]);
   
   total=Number(total1)+Number(total1)*gstpercentage;
 
-  var cqty=$("#qty1").val();
+  prototal=Number(($("#price1").val()*$("#qty1").val()));
+
+  gstamount=prototal*Number(gstpercentage);
   data["total"]=total.toFixed(2);
-  var cid=$("#cid").val();
-  var itemcol=$("#searchItem").val();
-  var allSelecteBox = $('.itemAttributeDynamicForm .attributes option:selected');
-  // var selectedcolour ="";
-  for(var k = 0; k < allSelecteBox.length; k += 1) {
-  if (allSelecteBox[k].value != '') {
-  itemcol = itemcol+ ' - ' + allSelecteBox[k].text;
-  }
-  }
-  check[0]=itemcol;
-
-
-    itemcol= itemcol;
-
-data["itemname"]=itemcol;
-var gst_calc_type=$('#cal_type_gst').val();
-
-if ($('#cal_type_gst').val()=="") {
-var gst_calc_type='GST';
-}
-
-prototal=Number(($("#price1").val()*$("#qty1").val()));
-
-gstamount=prototal*Number(gstpercentage);
+  // alert($("#qty1").val());
 
 //item array insertion
 
-  items["sid"+sno] = {
+items["sid"+sno] = {
   "sid":sno,
-  "itemno":$("#itemno").val(),
+  "itemno":itemno,
   "itemname":itemcol,
-  "qty":$("#qty1").val(),
-  "price":$("#price1").val(),
+  "price":price,
   "gst":gstp,
   "gstpercentage":gstpercentage,
   "gstamount":gstamount,
-  "discount":$("#discount1").val(),
-  "hsn":$("#id6").val(),
+  "qty":$("#qty1").val(),
   "total":total,
-  };
-  
+  "flag":'new',
+  'deleted':'no',
+};
 
-  calculation();
-  $("#batch").hide();
-  $("#comb_batch").hide();
-  var trItemTemplate = [
-  '<tr class="productrow" id="trItem_{{sno}}">',
-    '<td class="text-left ch-4">{{sno}}</td>',
-    '<td class="text-left ch-10">{{itemname}}</td>',
+//'<td class="text-left ch-4">{{sno}}</td>',
 
-    '<td class="text-left ch-6">',
-      '<input type="hidden" name="price[]" id="priceid{{sno}}" value="{{price}}">',
-    '{{price}}</td>',
-    '<td class="text-left ch-4">',
-      '<input onkeyup=priceupdate({{sno}},this) type="number" class="form-control qty" name="qty[]" id="num_qty{{sno}}" value="{{cqty}}" style="width:5rem; height:1.75rem" onkeypress="if(this.value.length==8) return false">',
-    '</td>',
-    '<td class="text-left ch-4" id="gstpid{{sno}}"><input type="hidden" id="gstper{{sno}}" value="{{gst}}">{{gst}}</td>',
-    '<td class="text-right ch-6" id="totalid{{sno}}">{{total}}</td>',
-    '<td class="text-left ch-4">',
-      '<button type="button" class="btn btn-default btn-sm" onclick="removeItem({{sno}})">',
-      '<span class="glyphicon glyphicon-trash">',
-        '<i class="fas fa-trash"></i>',
-      '</span>',
-      '</button>',
-    '</td>',
-  '</tr>'].join(''),
-  tr = trItemTemplate;
-  tr = tr.replace(getRegEx('sno'), sno);
-  tr = tr.replace(getRegEx('itemname'), data['itemname']);
-  tr = tr.replace(getRegEx('price'), data['price']);
-  tr = tr.replace(getRegEx('cqty'), cqty);
-  tr = tr.replace(getRegEx('gst'), data['gst']);
-  tr = tr.replace(getRegEx('total'), data['total']);
-  var emptyTr = $('#tdata .emptyTr').first();
-  if (emptyTr.length === 0) {
+var trItemTemplate = [
+'<tr class="productrow" id="trItem_{{sno}}">',
+'<td class="text-left ch-10">{{itemname}}</td>',
+
+'<td class="text-left ch-6">',
+'<input type="text" onkeyup=costupdate({{sno}},this) class="form-control price" name="price[]" id="priceid{{sno}}" value="{{price}}" style="width:5rem; height:1.75rem">',
+'</td>',
+'<td class="text-left ch-4">',
+'<input onkeyup=priceupdate({{sno}},this) type="text" class="form-control qty" name="qty[]" id="num_qty{{sno}}" value="{{qty}}" style="width:5rem; height:1.75rem" onkeypress="if(this.value.length==8) return false">',
+'</td>',
+'<td class="text-left ch-4"><input type="text" class="form-control gst" onkeyup=gstupdate({{sno}},this) id="gstpid{{sno}}" value="{{gst}}" style="width:5rem; height:1.75rem"></td>',
+'<td class="text-right ch-6" id="totalid{{sno}}">{{total}}</td>',
+'<td class="text-left ch-4">',
+'<button type="button" id="remove_tr{{sno}}" data-id="new" class="btn btn-default btn-sm" onclick="removeItem({{sno}})">',
+'<span class="glyphicon glyphicon-trash">',
+'<i class="fas fa-trash"></i>',
+'</span>',
+'</button>',
+'</td>',
+'</tr>'].join(''),
+tr = trItemTemplate;
+tr = tr.replace(getRegEx('sno'), sno);
+tr = tr.replace(getRegEx('itemname'), data['itemname']);
+tr = tr.replace(getRegEx('price'),data['price']);
+tr = tr.replace(getRegEx('qty'), data['qty']);
+tr = tr.replace(getRegEx('gst'), data['gst']);
+tr = tr.replace(getRegEx('total'), data['total']);
+var emptyTr = $('#tdata .emptyTr').first();
+
+
+if (emptyTr.length === 0) {
   $('#tdata').append(tr);
-  }
-  else {
+}
+else {
   $('#tdata .emptyTr').first().replaceWith(tr);
-  }
-  $('#pay').attr('disabled',false);
-  $('#save_bill').attr('disabled',false);
-  check_radio_id = $("#checked_val").val();
-  $('#searchItemDetailForm').trigger("reset");
-  $('#itemAttributeForm').trigger("reset");
-  $(".itemAttributeDynamicForm").empty();
-  $('#searchItem').val('').focus();
-  $('#gst_val').val('');
-  $('#price1').val('');
-  $('#qty1').val('');  
-  $("#combination_id").val(0);
-  $("#description_box").css('display','none');
-  }
-  });
+}
 
- function priceupdate(idval,ele){
-  var gst_type=$('#gst_type').val();
-  var totaltemp=0;
-  var get_id=idval;
-  var qtytemp1=$(ele).val();
-  var qtytemp=$(ele).val();
-  
-  var pricetemp=$("#priceid"+get_id).val();
+$('#save_bill').attr('disabled',false);
+// $('#searchItemDetailForm').trigger("reset");
+$('#searchItem').val('').focus();
+$('#qty1').val('');
+$("#gst_val").val('');
+$("#price1").val('');
+calculation();
+<?php if ($shopConfiguration['other_shop_product']=='no') {?>
+  $('#itemno').val('');
+<?php }else{ ?>
+  $('#itemno').val('other');
+<?php } ?>
+}
 
+calculation();
 
-  var gstper=$("#gstpid"+idval).val();
-
-  totaltemp=totaltemp+Number(pricetemp)*Number(qtytemp);
-
-  $("#totalid"+get_id).html(totaltemp);
-  var ref = "sid"+get_id;
-  items[ref].qty=qtytemp1;
-  items[ref].total=totaltemp;
-  var availableQty=items[ref].availableQty;
-  var name=items[ref].itemname;
-
-  if(Number(qtytemp)<=0){
-    $(ele).css("border","1px solid red");
-    $.growl.error({
-        title:"Valid Quantity",
-        message:"Please enter Valid quantity:"
-      });
-    $('#pay').attr('disabled',true);
-    return false;
-  }
-  else
-  {
-    $('#pay').attr('disabled',false);
-    $(ele).css("border","1px solid #ccc");
-    // return false;
-  }
-
-// alert(gstper);
-
-  var gstpercentage=Number(gstper)/100;
-
-
-prototal=Number(($("#priceid"+idval).val()*$("#num_qty"+idval).val()));
-
-gstamount=prototal*Number(gstpercentage);
-
-items[ref].gstamount=gstamount;
-items[ref].gstpercentage=gstpercentage;
-
-  calculation();
-
-  }
+}
 
 
 function gstupdate(idval,ele){
@@ -1850,7 +1866,11 @@ items[ref].gstpercentage=gstpercentage;
 
 // alert(subtotal1);
 
-  tempItem = itemslist[vale];
+tempItem = itemslist[vale];
+
+if (tempItem['deleted']=='no') {
+
+  
   val=Number(tempItem["qty"]);
 
   total= Number(tempItem["price"])*Number(tempItem["qty"]);
@@ -1868,6 +1888,7 @@ items[ref].gstpercentage=gstpercentage;
   subtotal1=Number(subtotal1)+Number(temp_subtotal);
 
   tax=Number(tax)+Number(temp_subtotal)*Number(tempItem.gstpercentage);
+}
   i++;
 
   }
@@ -2045,22 +2066,65 @@ function other_charges_calc()
 }
 
   function removeItem(idval){
-  // $("#trItem_"+idval).remove();
-  jQuery("#trItem_"+idval).empty('');
-  delete items["sid"+idval] ;
 
-  // sno--;
+
+
+    if ($("#remove_tr"+idval).data('id')=='old') {
+       var id = idval;
+       jQuery('#trItem_' + id).empty('');
+       var ref = "sid"+idval;
+       items[ref].deleted='yes';
+       // delete items[ref] ;
+
+     }else{
+       var id = idval;
+       jQuery('#trItem_' + id).empty('');
+       delete items["sid"+idval] ;
+     }
+
+
+  // jQuery("#trItem_"+idval).empty('');
+  // delete items["sid"+idval] ;
+  // items[ref].is_delete='yes';
+
+
   $('#tdata tr').each(function(index){
     $(this).find('span.sn').html(index+1);
   });
   calculation();
-  // $("#subid").remove();
-  // $("#taxid").remove();
+  
   }
   
     function removeDocItem(idval){
-  jQuery("#trDoc_"+idval).empty('');
-  delete doc_items["docsid"+idval] ;
+
+
+      if ($("#removedoc_tr"+idval).data('id')=='old') {
+       var id = idval;
+       jQuery('#trDoc_' + id).empty('');
+       var ref = "docsid"+idval;
+       doc_items[ref].deleted='yes';
+       // delete items[ref] ;
+
+     }else{
+       var id = idval;
+       jQuery('#trDoc_' + id).empty('');
+       delete doc_items["docsid"+idval] ;
+     }
+
+
+  // jQuery("#trItem_"+idval).empty('');
+  // delete items["sid"+idval] ;
+  // items[ref].is_delete='yes';
+
+
+  $('#docdata tr').each(function(index){
+    $(this).find('span.sn').html(index+1);
+  });
+
+
+
+  // jQuery("#trDoc_"+idval).empty('');
+  // delete doc_items["docsid"+idval] ;
   // if (doc_items.length==0) {
   //   $("#doc-table").css('display','none');
   // }
@@ -2494,7 +2558,7 @@ check.length=1;
       // ajaxRequest();
       $.ajax({
       type: "POST",
-      url:"ajaxCalls/add_sales.php",
+      url:"ajaxCalls/edit_salesorder.php",
       dataType:'JSON',
       data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&salesorderno='+salesorderno,
       success: function(dataResult) {
@@ -2506,11 +2570,11 @@ check.length=1;
 
           $.growl.notice({
            title:"SUCCESS",
-           message:"Sales Invoice Created Successfully"
+           message:"Sales Invoice Edited Successfully"
           });
 
           setTimeout(function(){
-          window.location='viewsalesdetails.php?id='+dataResult.bill_id;
+          window.location='viewsalesorderdetails.php?id='+dataResult.order_id;
           }, 1000);
 
       }
@@ -2966,6 +3030,7 @@ getBillType();
     "file_type":file_type,
     "file_base":$("#file_base").text(),
     "file_description":file_description,
+    "deleted":'no',
     };
 
 // '<td class="text-left ch-4">{{sno}}</td>',
@@ -2976,7 +3041,7 @@ var trItemTemplate = [
 '<td class="text-left ch-10">{{file_description}}</td>',
 
 '<td class="text-left ch-4">',
-'<button type="button" class="btn btn-default btn-sm" onclick="removeDocItem({{sno}})">',
+'<button type="button" id="removedoc_tr{{sno}}" data-id="new" class="btn btn-default btn-sm" onclick="removeDocItem({{sno}})">',
 '<span class="glyphicon glyphicon-trash">',
 '<i class="fas fa-trash"></i>',
 '</span>',

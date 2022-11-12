@@ -9,6 +9,7 @@ $id=$_GET['id'];
 $obj = new Purchaseorder();
 $ordresult = $obj->get_order($id);
 $result = $obj->get_orderdetails($id);
+$doc_result = $obj->get_docdetails($id);
 
 $cobj = new Vendor();
 $cresult = $cobj->get_vendors($ordresult['vendor']);
@@ -123,6 +124,43 @@ $sordresult = $sobj->get_order($ordresult['sales_orderid']);
 
       <div class="row mt-3">
 
+
+<?php if (count($doc_result)>0) {?>
+<div class="table-responsive">
+
+        <table class="table table-hover">
+          <thead>
+           <tr>
+            <th>S.No.</th>
+            <th>Document Name</th>
+            <th>Description</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <?php
+
+          $i=0;
+          foreach($doc_result as $value)
+          {
+
+            $i=$i+1;
+
+            echo'<tr id="doc_data'.$value['id'].'"><td>'.$i.'</td><td>'.$value['document_name'].'</td>
+            <td>'.$value['description'].'</td>
+            <td><button type="button" class="btn btn-default btn-sm" data-id="../upload/purchaseorder_documents/'.$value['document_name'].'" onclick="viewItem(this)"><span class="glyphicon glyphicon-trash"><i class="fas fa-eye" style="    color:darkblue;"></i></span></button><button type="button" class="btn btn-default btn-sm" onclick="removeItem('.$value['id'].')"><span class="glyphicon glyphicon-trash"><i class="fas fa-trash" style="    color: crimson;"></i></span></button></td></tr>';
+
+          }
+
+          ?>
+
+        </tbody>
+
+      </table>
+    </div>
+  <?php }?>
+
       <div class="table-responsive">
 
         <table class="table table-hover">
@@ -223,8 +261,67 @@ $sordresult = $sobj->get_order($ordresult['sales_orderid']);
 </div>
 </section>
 
+<div id="confDelete" class="modal fade" tabindex="3" data-backdrop="static" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8"> <h5 class="modal-title" id="exampleModalLabel">Are You Sure Delete This Item...</h5></div>
+                        <div class="col-lg-4 text-right">
+                            <!-- <button type="button" class="btn btnupdate" id='top' onclick='selectTest()'>Submit</button> -->
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+              </div>
+                                       
+                                      
+                                        <div class="modal-footer">
+                                          <input type="hidden" name="delete_id" id="delete_id">
+                                          <button type="button" class="btn btn-primary" id='delete_file' >Yes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
 <?php
 
 include 'footer.php';
 
 ?>
+<script type="text/javascript">
+  function removeItem(a) {
+    $("#delete_id").val(a);
+    $("#confDelete").modal('show');
+  }
+  function viewItem(e) {
+    var page=$(e).data('id');
+    window.open(page,'_blank');
+  }
+  $("#delete_file").click(function(){
+    $.ajax({
+url:"ajaxCalls/delete_documents.php",
+type: "POST",
+dataType: "json",
+data: {'id':$("#delete_id").val(),'type':'purchaseorder'},
+// cache: false,
+success: function(res)
+{
+if (res.status=='success') {
+  $.growl.notice({
+  title:"Success",
+  message:"This Document Deleted Successfully"
+  });
+  $("#confDelete").modal('hide');
+  $("#doc_data"+$("#delete_id").val()).remove();
+}
+}
+});
+  })
+</script>

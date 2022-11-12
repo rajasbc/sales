@@ -70,6 +70,7 @@ if($_GET['bill_check_group']!='')
 
           <div class="col-md-6">
             <input type="hidden" name="s_no" id="s_no">
+            <input type="hidden" name="doc_sno" id="doc_sno" value="0">
             <em id="customername" data-toggle="tooltip" title="Select Vendor">
               <img src="images\usericon.jpg" class="media-object" id ="selectCustomerBtn" data-toggle="modal" data-target="#customerModal" style="width:40px;cursor:pointer;margin-left:-14px">
             </em> 
@@ -256,6 +257,68 @@ if($_GET['bill_check_group']!='')
                           </div>
                         </div>
 </div>
+
+
+<div class="row" class="mt-5"><br /></div>
+
+              <div class="row">
+
+                <div class=" col-lg-1 col-sm-1 col-sm-1 md-6 mt-1"></div>
+
+              <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
+                <div class="input-group input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">File Upload</span>
+                  </div>
+                  <input type='file' id='file' name='file' class="form-control">
+                  <span name="file_base" id="file_base" style="display: none"></span>
+                </div>
+              </div>
+
+               <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
+                <div class="input-group input-group-sm">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Description</span>
+                  </div>
+                  <textarea class="form-control" id='description' name="description"></textarea>
+                </div>
+              </div>
+
+
+              <div class=" col-lg-2 col-sm-2 col-sm-2 md-6 mt-1">
+              <i class="fa fa-plus-circle" style="font-size: xx-large; padding-top: 15px; color: crimson;cursor: pointer;" aria-hidden="true" id="file_upload"></i>
+              </div>
+
+
+              <div class=" col-lg-1 col-sm-1 col-sm-1 md-6 mt-1"></div>
+
+
+              </div>
+
+
+              <div class="row mt-4">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                <div class="table-scroll">
+                  <table class="table bill-table table-bordered" id="doc-table" style="display: none">
+                    <thead>
+                      <tr>
+                        <!-- <th class="text-left">S.No</th> -->
+                        <th class="text-left" style="width:35%;">File Name</th>
+                        <th class="text-left" style="width:55%;">Description</th>
+                        <th class="text-left" style="width:10%;">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-left" id="docdata">
+                    </tbody>
+                  </table>
+                </div>
+                </div>
+                <div class="col-md-1"></div>
+              </div>
+
+
+
 <div class="row mt-3">
   <div class="col-lg-10"></div>
                         
@@ -825,6 +888,15 @@ else {
 }
 
 
+function removeDocItem(idval){
+  jQuery("#trDoc_"+idval).empty('');
+  delete doc_items["docsid"+idval] ;
+  // if (doc_items.length==0) {
+  //   $("#doc-table").css('display','none');
+  // }
+  }
+
+
   // Assume that it is from the scanner if it was entered really fast
 
   // Determine if the user is just typing slowly
@@ -843,22 +915,24 @@ else{
   reportValues();
 }
 }
-$('#searchItem').autocomplete({
-  source: "ajaxCalls/get_items.php?type=text",
-  minLength: 1,
-  select: function(event,ui) {
 
-    autoFillSearchItem(ui.item);
+// $('#searchItem').autocomplete({
+//   source: "ajaxCalls/get_items.php?type=text",
+//   minLength: 1,
+//   select: function(event,ui) {
+
+//     autoFillSearchItem(ui.item);
     
 
-  }
-}).data('ui-autocomplete')._renderItem = function(ul, item){
-  return $("<li class='ui-autocomplete-row'></li>")
-  .data("item.autocomplete",item)
-  .append(item.label+" ")
-  .append(item.hsn)
-  .appendTo(ul);
-};
+//   }
+// }).data('ui-autocomplete')._renderItem = function(ul, item){
+//   return $("<li class='ui-autocomplete-row'></li>")
+//   .data("item.autocomplete",item)
+//   .append(item.label+" ")
+//   .append(item.hsn)
+//   .appendTo(ul);
+// };
+
 });
 
 customerarray = [];
@@ -1557,14 +1631,27 @@ if(taxable_amt_1>0){
 function removeItem(idval){
   // $("#trItem_"+idval).remove();
   
-  if ("<?=$_GET['bill_check_group']?>"=="") {
-    jQuery("#trItem_"+idval).empty('');
-    delete items["sid"+idval] ;
-  }else{
-    jQuery("#trItem_"+idval).empty('');
-    var ref = "sid"+idval;
-    items[ref].deleted='yes';
-  }
+  // if ("<?=$_GET['bill_check_group']?>"=="") {
+  //   jQuery("#trItem_"+idval).empty('');
+  //   delete items["sid"+idval] ;
+  // }else{
+  //   jQuery("#trItem_"+idval).empty('');
+  //   var ref = "sid"+idval;
+  //   items[ref].deleted='yes';
+  // }
+  // // sno--;
+  // $('#tdata tr').each(function(index){
+  //   $(this).find('span.sn').html(index+1);
+  // });
+  // calculation();
+  // $("#subid").remove();
+  // $("#taxid").remove();
+
+
+// $("#trItem_"+idval).remove();
+  jQuery("#trItem_"+idval).empty('');
+  delete items["sid"+idval] ;
+
   // sno--;
   $('#tdata tr').each(function(index){
     $(this).find('span.sn').html(index+1);
@@ -1572,6 +1659,11 @@ function removeItem(idval){
   calculation();
   // $("#subid").remove();
   // $("#taxid").remove();
+
+
+
+
+  
 }
 $(document).ready(function(){
   $('#custnameid').autocomplete({
@@ -1787,7 +1879,7 @@ $('#cform').trigger("reset");
 (phonevar !== '') ? $("#phone_show_hide").show(): $("#phone_show_hide").hide();
 (email !== '') ? $("#email_show_hide").show(): $("#email_show_hide").hide();
 (address_line_1 !== '') ? $("#address_1_show_hide").show(): $("#address_1_show_hide").hide();
-(address_line_2 !== '') ? $("#address_2_show_hide").show(): $("#address_2_show_hide").hide();
+// (address_line_2 !== '') ? $("#address_2_show_hide").show(): $("#address_2_show_hide").hide();
 (city !== '') ? $("#city_show_hide").show(): $("#city_show_hide").hide();
 (area !== '') ? $("#area_show_hide").show(): $("#area_show_hide").hide();
 (pincode !== '') ? $("#pincode_show_hide").show(): $("#pincode_show_hide").hide();
@@ -1951,6 +2043,7 @@ $("#advance").keyup(function() {
         customerarray["totalgstamount"]=$("#taxid").text();
         var cobj=$.extend({},customerarray);
         var obj = $.extend({}, items);
+        var doc_obj = $.extend({}, doc_items);
 
         if($.isEmptyObject(items)==true)
         {
@@ -1979,7 +2072,7 @@ $("#advance").keyup(function() {
           type: "POST",
           url:"ajaxCalls/add_purchaseorder.php",
           dataType:'JSON',
-          data: $.param(obj)+'&'+$.param(cobj)+'&salesorderno='+salesorderno+'&exp_date='+exp_date,
+          data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&salesorderno='+salesorderno+'&exp_date='+exp_date,
           success: function(dataResult) {
         // localStorage.clear('myArray');
       // console.log(dataResult);
@@ -2021,3 +2114,69 @@ $("#advance").keyup(function() {
       }
     })
   </script>
+
+
+<script type="text/javascript">
+  doc_items = [];
+        $("#file_upload").click(function(){
+          $("#doc-table").css('display','');
+           data=[];
+          var file_base='';
+          var doc_sno=Number($("#doc_sno").val())+1;
+         var file = $('#file')[0].files[0];
+      var file_name=file['name'];
+      var file_type=file['type'];
+      var file_description=$("#description").val();
+     
+  data["file_name"]=file_name;
+  data["file_type"]=file_type;
+  data["file_base"]=$("#file_base").text();
+  data["file_description"]=file_description;
+
+    doc_items["docsid"+doc_sno] = {
+    "sid":doc_sno,
+    "file_name":file_name,
+    "file_type":file_type,
+    "file_base":$("#file_base").text(),
+    "file_description":file_description,
+    };
+
+// '<td class="text-left ch-4">{{sno}}</td>',
+
+var trItemTemplate = [
+'<tr id="trDoc_{{sno}}">',
+'<td class="text-left ch-10">{{file_name}}</td>',
+'<td class="text-left ch-10">{{file_description}}</td>',
+
+'<td class="text-left ch-4">',
+'<button type="button" class="btn btn-default btn-sm" onclick="removeDocItem({{sno}})">',
+'<span class="glyphicon glyphicon-trash">',
+'<i class="fas fa-trash"></i>',
+'</span>',
+'</button>',
+'</td>',
+'</tr>'].join(''),
+tr = trItemTemplate;
+tr = tr.replace(getRegEx('sno'), doc_sno);
+tr = tr.replace(getRegEx('file_name'), data['file_name']);
+tr = tr.replace(getRegEx('file_description'), data['file_description']);
+var emptyTr = $('#docdata .emptyTr').first();
+if (emptyTr.length === 0) {
+  $('#docdata').append(tr);
+}
+else {
+  $('#docdata .emptyTr').first().replaceWith(tr);
+}
+$("#file").val('');
+$("#description").val('');
+$("#doc_sno").val(doc_sno);
+        });
+        $("#file").on('change',function(){
+          var file = $('#file')[0].files[0];
+         var reader = new FileReader();
+         reader.readAsDataURL($('#file')[0].files[0]);
+         reader.onload = function () {
+       $("#file_base").html(reader.result);
+             };
+        });
+      </script>

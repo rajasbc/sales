@@ -148,6 +148,7 @@ $userdet = $userobj->getusername($uid);
 
       
       <input type="hidden" id="s_no">
+      <input type="hidden" name="doc_sno" id="doc_sno" value="0">
       <div class="col-sm-6 col-lg-6 ml-auto col-md-6 mt-1">
         <input class="form-control" id="combination_id" type="hidden" value="0" >
 
@@ -162,7 +163,7 @@ $userdet = $userobj->getusername($uid);
                   <span class="input-group-text ">🔎<span class="text-danger">*</span></span>
                 </div>
                 <input type='text' id='searchItem' name='searchItem'  class="form-control product_add" placeholder="Search Product Here" autocomplete="off">
-
+                <input id="item_id" type="hidden" name="item_id" >
                 <input type='hidden' id='originalname' name='originalname' >
               </div>
             </div>  
@@ -199,8 +200,8 @@ $userdet = $userobj->getusername($uid);
 
 
       <input id="itemno" type="hidden">
-      <div class="form-group row">
-        <div class="col-lg-4 col-sm-4 col-md-4">
+      <div class="form-group row" style="margin-top:-15px;">
+        <div class="col-lg-4 col-sm-4 col-md-4 mt-1">
           <div class="input-group input-group-sm">
             <div class="input-group-prepend">
               <span class="input-group-text">VAT (%)</span>
@@ -210,7 +211,7 @@ $userdet = $userobj->getusername($uid);
           </div>
           <input id="gstpercentage" type="hidden" >
         </div>
-        <div class=" col-lg-4 col-sm-4 col-md-4" >
+        <div class=" col-lg-4 col-sm-4 col-md-4 mt-1">
           <div class="input-group input-group-sm">
             <div class="input-group-prepend">
               <span class="input-group-text">Price ($)</span>
@@ -219,7 +220,7 @@ $userdet = $userobj->getusername($uid);
           </div>
           <input class="form-control" id="price2" type="hidden" onkeypress="if(this.value.length==15)return false">                
         </div>
-        <div class="col-lg-4 col-sm-4 col-md-4">
+        <div class="col-lg-4 col-sm-4 col-md-4 mt-1">
           <div class="input-group input-group-sm">
             <div class="input-group-prepend">
               <span class="input-group-text">QTY<span class="text-danger">*</span><div id="available_qty" style="display:none"> <span class="ml-3"  data-toggle='view_qty' title='QTY=' style="cursor:pointer">i</span></div></span>
@@ -238,7 +239,7 @@ $userdet = $userobj->getusername($uid);
       if($userdet['type']=='Admin')
       {
         ?>
-        <div class="col-lg-7 col-sm-7 col-md-7" style="padding:0px;">
+        <div class="col-lg-7 col-sm-7 col-md-7" style="padding:0px; margin-top:-11px;">
           <div class="form-group" style="height:25px;">
 
             <div class="input-group input-group-sm">
@@ -349,10 +350,72 @@ $userdet = $userobj->getusername($uid);
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-lg-11"></div>
 
-                <div class="col-lg-1 col-sm-1 col-md-1">
+<div class="row" class="mt-5"><br /></div>
+
+              <div class="row">
+
+                <div class=" col-lg-1 col-sm-1 col-sm-1 md-6 mt-1"></div>
+
+              <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
+                <div class="input-group input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">File Upload</span>
+                  </div>
+                  <input type='file' id='file' name='file' class="form-control">
+                  <span name="file_base" id="file_base" style="display: none"></span>
+                </div>
+              </div>
+
+               <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
+                <div class="input-group input-group-sm">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Description</span>
+                  </div>
+                  <textarea class="form-control" id='description' name="description"></textarea>
+                </div>
+              </div>
+
+
+              <div class=" col-lg-2 col-sm-2 col-sm-2 md-6 mt-1">
+              <i class="fa fa-plus-circle" style="font-size: xx-large; padding-top: 15px; color: crimson;cursor: pointer;" aria-hidden="true" id="file_upload"></i>
+              </div>
+
+
+              <div class=" col-lg-1 col-sm-1 col-sm-1 md-6 mt-1"></div>
+
+
+              </div>
+
+
+              <div class="row mt-4">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                <div class="table-scroll">
+                  <table class="table bill-table table-bordered" id="doc-table" style="display: none">
+                    <thead>
+                      <tr>
+                        <!-- <th class="text-left">S.No</th> -->
+                        <th class="text-left" style="width:35%;">File Name</th>
+                        <th class="text-left" style="width:55%;">Description</th>
+                        <th class="text-left" style="width:10%;">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-left" id="docdata">
+                    </tbody>
+                  </table>
+                </div>
+                </div>
+                <div class="col-md-1"></div>
+              </div>
+
+
+
+
+              <div class="row mt-5">
+                <div class="col-lg-8"></div>
+
+                <div class="col-lg-4 col-sm-4 col-md-4">
                   <input type="button" class="btn btn-sm btn-success save_bill" id="save_bill" value="Save" />
                 </div>
 
@@ -450,7 +513,7 @@ $userdet = $userobj->getusername($uid);
                     <input class="form-control cust_form" id="companyname" name="companyname" type="text" autocomplete="off" placeholder="Company name"onkeypress="if(this.value.length==25) return false;">
                     <select class="form-control" style="border-left-width: 0px;display: none" id="billadd"></select>
                     <input id="cid" type="hidden" name="cid" >
-                    <input id="item_id" type="hidden" name="item_id" >
+                    
                   </div>
                 </div>
               </div>
@@ -596,12 +659,8 @@ $userdet = $userobj->getusername($uid);
     select: function(event,ui) {
       if( ui.item.label != 'No Record Found')
       {
-  // console.log(ui.item);
-  // alert(ui.item[0].address_info);
   $('#searchItem').val(ui.item.name);
   $('#id6').val(ui.item.hsn_code);
-  // $('#price1').val(ui.item.price);
-  // $('#qty1').val(ui.item.qty);
   $('#item_id').val(ui.item.id);
   
 }
@@ -616,12 +675,24 @@ $userdet = $userobj->getusername($uid);
 };
 
 });
+
+function removeDocItem(idval){
+  jQuery("#trDoc_"+idval).empty('');
+  delete doc_items["docsid"+idval] ;
+  // if (doc_items.length==0) {
+  //   $("#doc-table").css('display','none');
+  // }
+  }
+
 </script>
 <script type="text/javascript">
 
   data = [];
 
   $("#add").on('click',function(){
+
+    $("#item_id").val('');
+
    if($("#searchItem").val()==''  ){
     $.growl.error({
       title:"Warning",
@@ -1147,6 +1218,7 @@ if(res.status=='success'){
     
     var cobj=$.extend({},customerarray);
     var obj = $.extend({}, items);
+    var doc_obj = $.extend({}, doc_items);
 
     // console.log(items);
 
@@ -1170,7 +1242,7 @@ if(res.status=='success'){
         type: "POST",
         url:"ajaxCalls/add_order.php",
         dataType:'JSON',
-        data: $.param(obj)+'&'+$.param(cobj)+'&salesperson='+salesperson,
+        data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&salesperson='+salesperson,
         success: function(dataResult) {
 
           var order_id = (dataResult.order_id);
@@ -1367,3 +1439,67 @@ qtyarray.push({
 }); 
 </script>
 
+<script type="text/javascript">
+  doc_items = [];
+        $("#file_upload").click(function(){
+          $("#doc-table").css('display','');
+           data=[];
+          var file_base='';
+          var doc_sno=Number($("#doc_sno").val())+1;
+         var file = $('#file')[0].files[0];
+      var file_name=file['name'];
+      var file_type=file['type'];
+      var file_description=$("#description").val();
+     
+  data["file_name"]=file_name;
+  data["file_type"]=file_type;
+  data["file_base"]=$("#file_base").text();
+  data["file_description"]=file_description;
+
+    doc_items["docsid"+doc_sno] = {
+    "sid":doc_sno,
+    "file_name":file_name,
+    "file_type":file_type,
+    "file_base":$("#file_base").text(),
+    "file_description":file_description,
+    };
+
+// '<td class="text-left ch-4">{{sno}}</td>',
+
+var trItemTemplate = [
+'<tr id="trDoc_{{sno}}">',
+'<td class="text-left ch-10">{{file_name}}</td>',
+'<td class="text-left ch-10">{{file_description}}</td>',
+
+'<td class="text-left ch-4">',
+'<button type="button" class="btn btn-default btn-sm" onclick="removeDocItem({{sno}})">',
+'<span class="glyphicon glyphicon-trash">',
+'<i class="fas fa-trash"></i>',
+'</span>',
+'</button>',
+'</td>',
+'</tr>'].join(''),
+tr = trItemTemplate;
+tr = tr.replace(getRegEx('sno'), doc_sno);
+tr = tr.replace(getRegEx('file_name'), data['file_name']);
+tr = tr.replace(getRegEx('file_description'), data['file_description']);
+var emptyTr = $('#docdata .emptyTr').first();
+if (emptyTr.length === 0) {
+  $('#docdata').append(tr);
+}
+else {
+  $('#docdata .emptyTr').first().replaceWith(tr);
+}
+$("#file").val('');
+$("#description").val('');
+$("#doc_sno").val(doc_sno);
+        });
+        $("#file").on('change',function(){
+          var file = $('#file')[0].files[0];
+         var reader = new FileReader();
+         reader.readAsDataURL($('#file')[0].files[0]);
+         reader.onload = function () {
+       $("#file_base").html(reader.result);
+             };
+        });
+      </script>
