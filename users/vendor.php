@@ -80,7 +80,7 @@ $get_countries=$obj->get_countries();
       <div class="col-md-6">
 
         <div class="form-group">
-         <label for="country">Country</label>
+         <label for="country">Country <span class="danger"> *</span></label>
          <select  type='text' name='country' id='country' class='form-control enterAsTab'  >
           <?php
           foreach ($get_countries as $value) {
@@ -97,18 +97,18 @@ $get_countries=$obj->get_countries();
 
      </div>
      <div class="form-group">
-       <label for="state">State</label>
+       <label for="state">State <span class="danger"> *</span></label>
        <input type="text" class="form-control enterAsTab" id="state" aria-describedby="stateHelp" placeholder="Enter State" value="<?php echo $result[0]['state'] ?>" autocomplete="off">
 
      </div>
      <div class="form-group">
-       <label for="city">City</label>
+       <label for="city">City <span class="danger"> *</span></label>
        <input type="text" class="form-control enterAsTab" id="city" aria-describedby="cityHelp" placeholder="Enter City" value="<?php echo $result[0]['city'] ?>" autocomplete="off">
      </div>
 
      <div class="form-group">
-       <label for="address">Address</label>
-       <textarea class="form-control enterAsTab" id="address" placeholder="Enter Address" aria-describedby="addressHelp" ><?php echo $result[0]['address'] ?></textarea>
+       <label for="address">Address <span class="danger"> *</span></label>
+       <textarea class="form-control" id="address" placeholder="Enter Address" aria-describedby="addressHelp" ><?php echo $result[0]['address'] ?></textarea>
      </div>
 
    </div>
@@ -189,6 +189,41 @@ else{
   $('#email').css("border","1px solid lightgray");
 }
 
+if($("#country").val()==''){
+ $('#country').css("border","1px solid red");
+ $('#country').focus();
+ return false
+}
+else{
+  $('#country').css("border","1px solid lightgray");
+}
+
+if($("#state").val()==''){
+ $('#state').css("border","1px solid red");
+ $('#state').focus();
+ return false
+}
+else{
+  $('#state').css("border","1px solid lightgray");
+}
+
+if($("#city").val()==''){
+ $('#city').css("border","1px solid red");
+ $('#city').focus();
+ return false
+}
+else{
+  $('#city').css("border","1px solid lightgray");
+}
+
+if($("#address").val()==''){
+ $('#address').css("border","1px solid red");
+ $('#address').focus();
+ return false
+}
+else{
+  $('#address').css("border","1px solid lightgray");
+}
 
 
 var name=$("#name").val();
@@ -284,6 +319,34 @@ $.ajax({
 });
 </script>
 <script>
+
+
+function isEmail(email) {
+  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  return regex.test(email);
+}
+                $("#email").blur(function(){
+
+                     if(isEmail($("#email").val())==false){
+                  $("#email").addClass("errorCall");
+
+                    $("#email").val('');
+                    $("#email").attr('placeholder','Enter Valid Email ID');
+                    $("#email").css('border','1px solid #ff0000');
+                    $("#email").focus();
+
+                }else{
+                    $("#email").css("border","1px solid #ccc");
+                }
+
+                $('.txtOnly').bind('keyup blur',function(){
+    var node = $(this);
+    node.val(node.val().replace(/[^a-z]/g,'') ); }
+
+);
+});
+
+
   $("#email").blur(function(){
     var email=$('#email').val();
 

@@ -168,30 +168,6 @@ if($_GET['bill_check_group']!='')
 
               <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
               </div>
-              <div class=" col-lg-8 col-sm-8 col-sm-8 md-6 mt-1">
-                <div class="input-group input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">File Upload</span>
-                  </div>
-                  <input type='file' id='file' name='file' class="form-control">
-                  <span name="file_base" id="file_base" style="display: none"></span>
-                </div>
-              </div>
-
-              <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
-              </div>
-               <div class=" col-lg-8 col-sm-8 col-sm-8 md-6 mt-1">
-                <div class="input-group input-group-sm">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Description</span>
-                  </div>
-                  <textarea class="form-control" id='description' name="description"></textarea>
-                </div>
-              </div>
-
-              <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
-              <i class="fa fa-plus-circle" style="font-size: xx-large;color: crimson;cursor: pointer;" aria-hidden="true" id="file_upload"></i>
-              </div>
 
             </div>
 
@@ -207,19 +183,7 @@ if($_GET['bill_check_group']!='')
 
         <div class="row mt-3">
           <div class="well col-sm-12 col-md-12 col-lg-12 mt-1">
-            <div class="table-scroll">
-              <table class="table bill-table table-bordered" id="doc-table" style="display: none">
-                <thead>
-                  <tr>
-                    <!-- <th class="text-left">S.No</th> -->
-                    <th class="text-left">File Name</th>
-                    <th class="text-left">Description</th>
-                    <th class="text-left">Action</th>
-                  </tr>
-                </thead>
-                <tbody class="text-left" id="docdata">
-                </tbody>
-            </div>
+            
             <div id="table-scroll" class="table-scroll">
               <table class="table bill-table table-bordered" id="bill-table">
                 <thead>
@@ -278,11 +242,75 @@ if($_GET['bill_check_group']!='')
                         </div>
                       </div>
 
+                    </div>
+
+
+                    <div class="row" class="mt-5"><br /></div>
+
+              <div class="row">
+
+                <div class=" col-lg-1 col-sm-1 col-sm-1 md-6 mt-1"></div>
+
+              <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
+                <div class="input-group input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">File Upload</span>
+                  </div>
+                  <input type='file' id='file' name='file' class="form-control">
+                  <span name="file_base" id="file_base" style="display: none"></span>
+                </div>
+              </div>
+
+               <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
+                <div class="input-group input-group-sm">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Description</span>
+                  </div>
+                  <textarea class="form-control" id='description' name="description"></textarea>
+                </div>
+              </div>
+
+
+              <div class=" col-lg-2 col-sm-2 col-sm-2 md-6 mt-1">
+              <i class="fa fa-plus-circle" style="font-size: xx-large; padding-top: 15px; color: crimson;cursor: pointer;" aria-hidden="true" id="file_upload"></i>
+              </div>
+
+
+              <div class=" col-lg-1 col-sm-1 col-sm-1 md-6 mt-1"></div>
+
+
+              </div>
+
+
+              <div class="row mt-4">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                <div class="table-scroll">
+                  <table class="table bill-table table-bordered" id="doc-table" style="display: none">
+                    <thead>
+                      <tr>
+                        <!-- <th class="text-left">S.No</th> -->
+                        <th class="text-left" style="width:35%;">File Name</th>
+                        <th class="text-left" style="width:55%;">Description</th>
+                        <th class="text-left" style="width:10%;">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-left" id="docdata">
+                    </tbody>
+                  </table>
+                </div>
+                </div>
+                <div class="col-md-1"></div>
+              </div>
+
+
+                    <div class="row mt-8">
+
+                      <div class="col-lg-9 col-sm-9 col-md-9"></div>
+
                       <div class="col-lg-3 col-sm-3 col-md-3">
 
-                      <div class="col-lg-1 col-sm-1 col-md-1">
                         <input type="button" class="btn btn-sm btn-success save_bill" id="pay" value="Save" />
-                      </div>
 
                       </div>
 

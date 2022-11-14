@@ -214,9 +214,9 @@ $userdet = $userobj->getusername($uid);
         <div class=" col-lg-4 col-sm-4 col-md-4 mt-1">
           <div class="input-group input-group-sm">
             <div class="input-group-prepend">
-              <span class="input-group-text">Price ($)</span>
+              <span class="input-group-text">Price ($)<span class="text-danger">*</span></span>
             </div>
-            <input class="form-control product_add" id="price1" type="text" onkeypress="if(this.value.length==15)return false" autocomplete="off">
+            <input class="form-control product_add numeric" id="price1" type="text" onkeypress="if(this.value.length==15)return false" autocomplete="off">
           </div>
           <input class="form-control" id="price2" type="hidden" onkeypress="if(this.value.length==15)return false">                
         </div>
@@ -225,7 +225,7 @@ $userdet = $userobj->getusername($uid);
             <div class="input-group-prepend">
               <span class="input-group-text">QTY<span class="text-danger">*</span><div id="available_qty" style="display:none"> <span class="ml-3"  data-toggle='view_qty' title='QTY=' style="cursor:pointer">i</span></div></span>
             </div>
-            <input class="form-control focus product_add" id="qty1" type="text"  onkeypress="if(this.value.length==10)return false" autocomplete="off">
+            <input class="form-control focus product_add numeric" id="qty1" type="text"  onkeypress="if(this.value.length==10)return false" autocomplete="off">
 
           </div>
           <input class="form-control" id="qty2" type="hidden" >
@@ -615,6 +615,25 @@ $userdet = $userobj->getusername($uid);
       this.value = this.value.replace(/[^0-9\.]/g, '');
     });
 
+    function isNumberKey(el, evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    var number = el.value.split('.');
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    //just one dot
+    if(number.length>1 && charCode == 46){
+         return false;
+    }
+    //get the carat position
+    var caratPos = getSelectionStart(el);
+    var dotPos = el.value.indexOf(".");
+    if( caratPos > dotPos && dotPos>-1 && (number[1].length > 1)){
+        return false;
+    }
+    return true;
+}
+
     $(document).ready(function(){
 
       $('#custnameid').autocomplete({
@@ -710,21 +729,21 @@ function removeDocItem(idval){
   var qty=$("#qty1").val();
 
 
-  // if(Number($("#price1").val())==0)
-  // {
-  //   $("#price1").css("border","1px solid red");
-  //   $("#price1").focus();
-  //   var qty1= $("#qty1").val(); 
-  //   $.growl.error({
-  //     title:"Price issue",
-  //     message:"Please enter price"
-  //   });
-  //   return false;
-  // }
-  // else
-  // {
-  //   $("#price1").css("border","1px solid #ced4da");
-  // }
+  if(Number($("#price1").val())==0)
+  {
+    $("#price1").css("border","1px solid red");
+    $("#price1").focus();
+    var qty1= $("#qty1").val(); 
+    $.growl.error({
+      title:"Price issue",
+      message:"Please enter price"
+    });
+    return false;
+  }
+  else
+  {
+    $("#price1").css("border","1px solid #ced4da");
+  }
 
 
   if(Number($("#qty1").val())==0)
@@ -897,12 +916,12 @@ var trItemTemplate = [
 '<td class="text-left ch-10">{{itemname}}</td>',
 
 '<td class="text-left ch-6">',
-'<input type="text" onkeyup=costupdate({{sno}},this) class="form-control price" name="price[]" id="priceid{{sno}}" value="{{price}}" style="width:5rem; height:1.75rem">',
+'<input type="text" onkeyup=costupdate({{sno}},this) class="form-control price" onkeypress="return isNumberKey(this,event)" name="price[]" id="priceid{{sno}}" value="{{price}}" style="width:5rem; height:1.75rem">',
 '</td>',
 '<td class="text-left ch-4">',
-'<input onkeyup=priceupdate({{sno}},this) type="text" class="form-control qty" name="qty[]" id="num_qty{{sno}}" value="{{qty}}" style="width:5rem; height:1.75rem" onkeypress="if(this.value.length==8) return false">',
+'<input onkeyup=priceupdate({{sno}},this) type="text" class="form-control qty" name="qty[]" id="num_qty{{sno}}" value="{{qty}}" style="width:5rem; height:1.75rem" onkeypress="return isNumberKey(this,event)">',
 '</td>',
-'<td class="text-left ch-4"><input type="text" class="form-control gst" onkeyup=gstupdate({{sno}},this) id="gstpid{{sno}}" value="{{gst}}" style="width:5rem; height:1.75rem"></td>',
+'<td class="text-left ch-4"><input type="text" class="form-control gst" onkeyup=gstupdate({{sno}},this) id="gstpid{{sno}}" value="{{gst}}" style="width:5rem; height:1.75rem" onkeypress="return isNumberKey(this,event)"></td>',
 '<td class="text-right ch-6" id="totalid{{sno}}">{{total}}</td>',
 '<td class="text-left ch-4">',
 '<button type="button" class="btn btn-default btn-sm" onclick="removeItem({{sno}})">',
