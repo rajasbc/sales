@@ -241,7 +241,7 @@ try
 
     $bill_id=$salesorderno;
 
-    $up="update salesorder set invoice_no='".$invoiceno."' where id='".$salesorderno."'";
+    $up="update salesorder set date='".$_POST['orderdate']."',invoice_no='".$invoiceno."' where id='".$salesorderno."'";
     $this->db->ExecuteQuery($up);
 
     $sub=0;

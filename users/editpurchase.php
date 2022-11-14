@@ -4,14 +4,14 @@ include 'header.php';
 
 if($_GET['bill_check_group']!='')
 {
-  $oobj = new Salesorder();
-  $ores = $oobj->get_order(base64_decode($_GET['bill_check_group']));
+  $oobj = new Purchase();
+  $ores = $oobj->get_bill(base64_decode($_GET['bill_check_group']));
 }
 
 ?>
 
 <style type="text/css">
-
+  
 .first-col
 {
   font-weight: bold;
@@ -48,11 +48,11 @@ if($_GET['bill_check_group']!='')
         <div class="row align-items-center">
          <div class="col-md-12">
           <div class="page-header-title">
-           <h5 class="m-b-10">Outgoing Invoice</h5>
+           <h5 class="m-b-10">Incoming Invoice</h5>
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <li class="breadcrumb-item">Outgoing Invoice</li>
+           <li class="breadcrumb-item">Incoming Invoice</li>
          </ul>
        </div>
      </div>
@@ -74,14 +74,19 @@ if($_GET['bill_check_group']!='')
             <div class="col-md-6">
 <input type="hidden" name="s_no" id="s_no">
 <input type="hidden" name="doc_sno" id="doc_sno" value="0">
+                  
+                  <!-- <img src="images\usericon.jpg" class="media-object" data-toggle="modal" data-target="#customerModal" style="width:40px;cursor:pointer;margin-left:-10px"> -->
 
-                  <img src="images\usericon.jpg" class="media-object" data-toggle="modal" data-target="#customerModal" style="width:40px;cursor:pointer;margin-left:-10px;display: none"> <b style="font-weight:bold; font-size: 15px;">Customer Details</b>
+                  <b style="font-weight:bold; font-size: 15px;">Vendor Details</b>
 
                   <div class="row">
 
-                    <div class="col-md-12 mt-0 pt-0">
+                    <div class="col-md-12 mt-1 pt-0">
 
-                <em id='ccustomername'></em><br>
+                <em id="name_1">
+                      <img src="images\usericon.jpg" class="media-object" style="width:20px; margin-left: -5px;">
+                    </em>
+                    <em id='ccustomername'></em><br>
 
                 <div id="companyname_show_hide"> <!--  style="display:none;" -->
                     <em id="companyname_1">
@@ -127,10 +132,13 @@ if($_GET['bill_check_group']!='')
               <div class="col-lg-8 col-sm-8 col-sm-8 md-6">
                 <div class="input-group input-group-sm">
                   <div class="input-group-prepend">
-                    <span class="input-group-text">S.Order No.</span>
-                    <input type='hidden' id='salesorderno' name='salesorderno' class="form-control" placeholder="Sales Order No" value="<?=base64_decode($_GET['bill_check_group'])?>" readonly />
+                    <span class="input-group-text">Invoice No.</span>
+
+                    <input type='hidden' id='billno' name='billno' class="form-control" placeholder="Purchase Order No" value="<?=base64_decode($_GET['bill_check_group'])?>" readonly />
                   </div>
+                  
                   <input type='text' class="form-control" value="<?=$ores['invoice_no']?>" readonly />
+
                 </div>
               </div>
 
@@ -140,28 +148,14 @@ if($_GET['bill_check_group']!='')
               <div class=" col-lg-8 col-sm-8 col-sm-8 md-6 mt-1">
                 <div class="input-group input-group-sm">
                   <div class="input-group-prepend">
-                    <span class="input-group-text">Order Date</span>
-                  </div>
-                  <input type='text' class="form-control" id="orderdate" readonly />
-                </div>
-              </div>
-
-              <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
-              </div>
-
-              <div class=" col-lg-8 col-sm-8 col-sm-8 md-6 mt-1">
-                <div class="input-group input-group-sm">
-                  <div class="input-group-prepend">
                     <span class="input-group-text">Date</span>
                   </div>
-                  <input type='date' id='date' name='date' class="form-control" value="<?=date('Y-m-d')?>" />
+                  <input type='date' class="form-control" id="date" name="date" />
                 </div>
               </div>
 
               <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
               </div>
-              
-              
 
             </div>
 
@@ -177,7 +171,6 @@ if($_GET['bill_check_group']!='')
 
         <div class="row mt-3">
           <div class="well col-sm-12 col-md-12 col-lg-12 mt-1">
-            
             <div id="table-scroll" class="table-scroll">
               <table class="table bill-table table-bordered" id="bill-table">
                 <thead>
@@ -185,18 +178,16 @@ if($_GET['bill_check_group']!='')
                     <!-- <th class="text-left">S.No</th> -->
                     <th class="text-left">Items</th>
                     <th class="text-left">Price ($)</th>
-                    <th class="text-left">Req.Qty</th>
-                    <th class="text-left">Delivered Qty</th>
-                    <th class="text-left">Send Qty</th>
+                    <th class="text-left">Qty</th>
                     <th class="text-left">VAT % </th>
                     <th class="text-left">Total ($)</th>
                     <th class="text-left">Action</th>
                   </tr>
                 </thead>
                 <tbody class="text-left" id="tdata">
-                  <!-- <?php for ($i = 1; $i < 9; $i++) { ?>
+                  <?php for ($i = 1; $i < 2; $i++) { ?>
                   <tr class="emptyTr">
-                    <td>&nbsp;</td>
+                    <!-- <td>&nbsp;</td> -->
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
@@ -204,7 +195,7 @@ if($_GET['bill_check_group']!='')
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                   </tr>
-                  <?php }?> -->
+                  <?php }?>
                 </tbody>
                 <tfoot>
                 <tr>
@@ -236,13 +227,14 @@ if($_GET['bill_check_group']!='')
                         </div>
                       </div>
 
-                      <div class="col-lg-3 col-sm-3 col-md-3">
-                      </div>
+                      <div class="col-lg-3"></div>
 
                     </div>
 
 
-                    <div class="row" class="mt-5"><br /></div>
+
+
+<div class="row" class="mt-5"><br /></div>
 
               <div class="row">
 
@@ -301,11 +293,11 @@ if($_GET['bill_check_group']!='')
               </div>
 
 
+<div class="row">
+  <div class="col-md-9"></div>
 
-                    <div class="row mt-8">
 
-                      <div class="col-lg-9 col-sm-9 col-md-9">
-                      </div>
+
 
                       <div class="col-lg-3 col-sm-3 col-md-3">
 
@@ -396,7 +388,7 @@ if($_GET['bill_check_group']!='')
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">Address<span style="color: red" class="<?php echo $hide_silver_data1?>">&nbsp;*</span></span>
+                      <span class="input-group-text input-group-text1">Address<span style="color: red" class="<?php echo $hide_silver_data1?>">&nbsp;</span></span>
                     </div>
                     <input class="form-control cust_form" id="address" name="address" type="text" autocomplete="off" placeholder="Address" onkeypress="if(this.value.length==50) return false;">
                     <!-- <select class="form-control" style="border-left-width: 0px" id="billadd"></select> -->
@@ -474,7 +466,7 @@ include 'footer.php';
 
 <script type="text/javascript">
 
-  
+
     $('.numeric').on('input', function (event) { 
       this.value = this.value.replace(/[^0-9\.]/g, '');
     });
@@ -496,7 +488,8 @@ include 'footer.php';
         return false;
     }
     return true;
-}
+}  
+
 
     $('#cform').on('keydown', 'input', function(e) {
 var cid=$("#cid").val();
@@ -539,334 +532,25 @@ var cid=$("#cid").val();
 
      setTimeout(refresh, 600000);
 </script>
-<script type="text/javascript">
-  $(document).ready(function(){
-    $("#wholesale_check").on('change',function(){
-      if($("#searchItem").val()!=''){
-      if($("#wholesale_check").prop('checked')==true){
-        $("#price1").val($("#wholesale_sale_price").val());
-        // $("#discount1").val($("#wholesale_discount").val());
-        <?php if($shopConfiguration['required_discount'] == 'yes'){?>
-  $('#discount1').val($("#wholesale_discount").val());
-  <?php if($shopConfiguration['over_all_disc'] == 'yes'){?>
-  $('#discount1').val(0.00);
-<?php }?>
-<?php } else{?>
-  $('#discount1').val(0.00);
-<?php }?>
 
-      }else{
-        $("#price1").val($("#retail_sale_price").val());
-        // $("#discount1").val($("#retail_discount").val());
-        <?php if($shopConfiguration['required_discount'] == 'yes'){?>
-  $('#discount1').val($("#retail_discount").val());
-  <?php if($shopConfiguration['over_all_disc'] == 'yes'){?>
-  $('#discount1').val(0.00);
-<?php }?>
-<?php } else{?>
-  $('#discount1').val(0.00);
-<?php }?>
-      }
-      }
-    })
-  })
-</script>
-<script>
-    $('#modal_charge_id').click(function(){
-    get_other_charges();
-    other_charges_calc();
-    $('#other_charges_modal').modal('toggle');
-  });
-
-      function get_other_charges(){
-      var form_data=$('#other_charges_form').serialize();
-      return form_data;
-      }
-
-      function  silver_price_upate(){
-        var silver=$('#silver_price_id').val();
-        var gold=$('#gold_price_id').val();
-        if(Number(silver)>0 && silver!=''){
-          $('#silver_price_id').css('border','1px solid #ced4da');
-          $('#silver_price_span').text(silver);
-        }
-        else{
-          $('#silver_price_id').css('border','1px solid red');
-          $('#silver_price_id').focus();
-          $.growl.error({title:"Error",message:"Please Enter Proper Silver Value"});
-          return false;
-        }
-        if(Number(gold)>0 && gold!=''){
-          $('#gold_price_id').css('border','1px solid #ced4da');
-          $('#gold_price_span').text(gold);
-        }
-        else{
-          $('#gold_price_id').css('border','1px solid red');
-          $('#gold_price_id').focus();
-          $.growl.error({title:"Error",message:"Please Enter Proper Gold Value"});
-          return false;
-        }
-        
-        
-
-        $.ajax({
-            url:"ajaxCalls/update_silver_price_ajax.php",
-            type: "POST",
-            dataType: "json",
-            data: {"silver_price":silver,"gold_price":gold},
-            success: function(response) {
-              $('#silver_modal').modal('toggle');
-              $.growl.notice({title:"SUCCESS",message:"Price Details Updated Successfully"});
-              
-            }
-            });
-      }
-
-
-      $('#saveshippingBtn').on('click', function(){
-      var transfort= $('#Dispatched_through').val();
-      var transfortno= $('#motorVehicleNo').val();
-      if(transfort!='')
-      {
-      if(transfortno!='')
-      {
-      $('#motorVehicleNo').css("border","1px solid #ced4da");
-      $("#shippingClose").click();
-      }
-      else{
-      $('#motorVehicleNo').css("border","1px solid red");
-      }
-      }
-      else
-      {
-      $("#shippingClose").click();
-      }
-      
-      });
-      </script>
 
     </main>
   </div>
 
-<script type="text/javascript">
-$("#exchange_val").click(function(){
-    if($("#exchange_val").prop('checked') == true){
-    $("#description_box").css('display','');
-    $("#wast_span").text("WAST g");
-    if($("#searchItem").val()!=''){
-    $('#is_weight_reduce').val('yes');
-    var price=$('#silver_price_span').text();
-    $('#price1').val(Number(price));
-    if ($("#grams").val()!='') {
-      wastage();
-    }
-    
-  }
-}else{
-   $("#description_box").css('display','none');
-   $("#wast_span").text("WAST %");
-   if($("#searchItem").val()!=''){
-   $('#is_weight_reduce').val('no');
-    var price2=$('#price2').val();
-    $('#price1').val(Number(price2));
-  }
-}
-})
-$("#wast").on('blur',function(){
-  wastage();
-})
-function wastage(){
-    if($("#exchange_val").prop('checked') == true){
-   var grams =$("#grams").val();
-   var wast =$("#wast").val();
-   if (Number(grams) <= Number(wast) && grams>0) {
-    $.growl.warning({title:"Warning",message:"Enter Wastage is Lesser Than Weight"});
-    $("#wast").val('');
-    $("#wast").focus();
-   }
-}
-}
-</script>
-
-
-
-<script type="text/javascript">
-    function customer_wise_price(item,cuid) {
-      $.ajax({
-  url:"ajaxCalls/customer_wise_price.php",
-  type: "POST",
-  dataType:"JSON",
-  data:  {'shopid':'<?=$shop_id_for_bill?>','itemId':item.item_no,'combination_id':item.item_combination_id, 'cid':cuid},
-  // cache: false,
-  success: function(dataResult) {
-    // console.log(dataResult);return false;
-  // $("#diasvsa").val(item.id);
-  autoFillSearchItem12(dataResult[0]);
-
-  }
-  });
-    }
-    function autoFillSearchItem12(item) {
-  var expiry = '';
-  var duplicatearr=new Array();
-  $('#itemno').val(item.item_no);
-  $('#searchItem').val(item.label);
-  $('#wholesale_discount').val(item.wholesale_discount);
-  $('#wholesale_sale_price').val(item.wholesale_sale_price);
-  $('#retail_sale_price').val(item.price);
-  $('#originalname').val(item.label);
-  $('#perunit').val(item.units);
-  $('#expiry_date').val(item.item_expiry_date);
-  $('#is_weight_reduce').val(item.is_weight_reduce);
-  $('#price2').val(item.price);
-  if($("#wholesale_check").prop('checked')==true){
-    $('#price2').val(item.wholesale_sale_price);
-  }
-  if($("#exchange_val").prop('checked') == true){
-    $('#is_weight_reduce').val('yes');
-  }
-  if($('#is_weight_reduce').val()=='no'){
-    $('#price1').val(item.price);
-    if($("#wholesale_check").prop('checked')==true){
-    $('#price1').val(item.wholesale_sale_price);
-  }
-  }
-  else
-  {
-    var price=$('#silver_price_span').text().replace(/,/ , '');
-    var gold_price=$('#gold_price_span').text().replace(/,/ , '');
-    if(item.material_type=='silver'){
-    $('#price1').val(parseFloat(price).toFixed(2));
-    }
-    else{
-    $('#price1').val(parseFloat(gold_price).toFixed(2));
-    }
-  }
-<?php if ($shopDetails['is_silver_shop']=='yes') {?>
-$('#reorder_qty').val(item.reorder_qty);
-$('#reorder_level').val(item.reorder_level);
-<?php } ?>
-  $('#weight').val('');
-  $('#qty2').val(item.qty);
-
-<?php if($shopConfiguration['multiple_item_price']=='yes'){?>
-  $("#check_priceA").val(item.price1);
-  $("#check_priceB").val(item.price2);
-  $("#check_priceC").val(item.price3);
-  $("#check_priceD").val(item.price4);
-  $("#check_priceE").val(item.price5);
-  $("#check_priceF").val(item.price);
-
-  $("#check_priceA_disc").val(item.price1disc);
-  $("#check_priceB_disc").val(item.price2disc);
-  $("#check_priceC_disc").val(item.price3disc);
-  $("#check_priceD_disc").val(item.price4disc);
-  $("#check_priceE_disc").val(item.price5disc);
-  $("#check_priceF_disc").val(item.discount);
-<?php } ?>
-
-<?php if($shopConfiguration['required_discount'] == 'yes'){?>
-  $('#discount1').val(item.discount);
-   $('#retail_discount').val(item.discount);
-  if($("#wholesale_check").prop('checked')==true){
-    $('#discount1').val(item.wholesale_discount);
-  }
-  <?php if($shopConfiguration['over_all_disc'] == 'yes'){?>
-  $('#discount1').val(0.00);
-   $('#retail_discount').val(0.00);
-<?php }?>
-<?php } else{?>
-  $('#discount1').val(0.00);
-   $('#retail_discount').val(0.00);
-<?php }?>
-  if(item.item_combination_id!=null){
-  $('#combination_id').val(item.item_combination_id);
-}
-  <?php if ($shopConfiguration['required_commongst'] === 'yes') {
-  $gst = $shopConfiguration['common_gst'];
-  $cgst = $gst / 2;
-  $sgst = $gst / 2;?>
-  $('#gst_val').val(<?php echo $gst ?>);
-  $('#sgst').val(<?php echo $sgst ?>);
-  $('#cgst1').val(<?php echo $cgst ?>);
-  <?php } else {?>
-  $('#gst_val').val(item.gst);
-  $('#sgst').val(item.sgst);
-  $('#cgst1').val(item.cgst);
-  <?php }?>
-  expiry = item.expiry;
-  if(expiry!="0000-00-00 00:00:00") {
-  $('#ex').show();
-  // $('#id5').val(item.expiry);
-  } else {
-  $('#ex').hide();
-  }
-  $('#id6').val(item.hsn);
-  var product_name=$("#searchItem").val();
-  if(product_name!="" && product_name!="No Record Found"){
-    $("#available_qty").css('display','');
-  }
-  else{
-    $("#available_qty").css('display','none');
-  }
-  <?php if ($shopDetails['is_silver_shop']=='yes') {?>
-  $("#available_qty").html('<span class="ml-3"  data-toggle="view_qty" title="QTY='+item.qty+' , WEIGHT='+item.item_weight+'" style="cursor:pointer">i</span>');
-<?php }else{ ?>
-  $("#available_qty").html('<span class="ml-3"  data-toggle="view_qty" title="QTY='+item.qty+'" style="cursor:pointer">i</span>');
-<?php } ?>
-
-   <?php if($shopConfiguration['multiple_item_price']=='yes'){?>
-  if($('#checked_val').val()=='A' && item.price1!='0') {
-  $("#price1").val(item.price1);
-  <?php if($shopConfiguration['required_discount'] == 'yes'){?>
-    $("#discount1").val(item.price1disc);
-  <?php } ?>
-}
-if($('#checked_val').val()=='B' && item.price2!='0') {
-  $("#price1").val(item.price2);
-  <?php if($shopConfiguration['required_discount'] == 'yes'){?>
-    $("#discount1").val(item.price2disc);
-  <?php } ?>
-}
-if($('#checked_val').val()=='C' && item.price3!='0') {
-  $("#price1").val(item.price3);
-  <?php if($shopConfiguration['required_discount'] == 'yes'){?>
-    $("#discount1").val(item.price3disc);
-  <?php } ?>
-}
-if($('#checked_val').val()=='D' && item.price4!='0') {
-  $("#price1").val(item.price4);
-  <?php if($shopConfiguration['required_discount'] == 'yes'){?>
-    $("#discount1").val(item.price4disc);
-  <?php } ?>
-}
-if($('#checked_val').val()=='E' && item.price5!='0') {
-  $("#price1").val(item.price5);
-  <?php if($shopConfiguration['required_discount'] == 'yes'){?>
-    $("#discount1").val(item.price5disc);
-  <?php } ?>
-}
-if($('#checked_val').val()=='F' && item.price!='0') {
-  $("#price1").val(item.price);
-  <?php if($shopConfiguration['required_discount'] == 'yes'){?>
-    $("#discount1").val(item.discount);
-  <?php } ?>
-}
-<?php } ?>
-  }
-  </script>
   <script type="text/javascript">
   $(document).ready(function(){
-    doc_items = [];
   var bill_id=atob('<?php echo $_GET['bill_check_group']?>');
   if(bill_id!='')
   {
+
+  $("#doc-table").css('display','');
+
   $(".modal .close").click();
   $("#customerCloseBtn").click();
   $.ajax({
   data: {'bill_id':bill_id,"bill":"bill"} ,
   type: "POST",
-  url:"ajaxCalls/getsalesorderdetails.php",
+  url:"ajaxCalls/getpurchasedetails.php",
   dataType:'JSON',
   success: function(dataResult) {
   if(dataResult.out=='Cancelled')
@@ -890,12 +574,9 @@ getBillType();
 
   $("#bill_no_val").val(dataResult.invoice_no);
   
-  // $("#grandid1").val(dataResult.gtotal);
-  // $("#taxid").html(dataResult.totaltax);
   $("#bill_id").val(dataResult.bill_id);
-  // $("#advancedb").val(dataResult.advancedb);
-  // $("#subid").html(dataResult.subtotal);
-  if(dataResult.gst_calc_type=='igst'){
+
+if(dataResult.gst_calc_type=='igst'){
 
 $('#gst_calc_type').prop('checked',false);
 gst_calc_type_function();
@@ -906,9 +587,11 @@ $("#gst_calc_type").attr("disabled", true);
   }
   $("#billDate").removeAttr('readonly');
   $('#ccustomername').html(dataResult.ccustomername);
-  $('#cid').val(dataResult.cid);
-  $('#custid').val(dataResult.cid);
-  $('#orderdate').val(dataResult.orderdate);
+  $('#cid').val(dataResult.vid);
+  $('#custid').val(dataResult.vid);
+  $('#date').val(dataResult.date);
+  $('#shipmentdate').val(dataResult.shipmentdate);
+  $('#ccustomername').html(dataResult.cvendorname);
   $('#ccompanyname').html(dataResult.ccompanyname);
   $('#ccaddress_line_1').html(dataResult.ccaddress_line_1+","+dataResult.city);
   $('#cstate').html(dataResult.cstate);
@@ -929,12 +612,16 @@ $("#gst_calc_type").attr("disabled", true);
               "gstamount":Number(value.gstamount),
               "gstpercentage":value.final_gstpercentage,
               "total":Number(value.final_total),
+              "deleted":'no',
+              "flag":'old',
+              "main_id":value.main_id,
     };
     calculation();
     });
 
     $("#taxid").html(dataResult.totaltax);
     $("#subid").html(dataResult.subtotal);
+
     $("#grandid").text(dataResult.gtotal);
     $(".qty").keyup();
   }
@@ -945,141 +632,47 @@ $("#gst_calc_type").attr("disabled", true);
   }
   }
   });
-  }
-  else if ('<?=base64_decode($_GET['future_ids'])?>'=='' && bill_id=='' && localStorage.getItem('myArray')==null){
-  $("#customerModal").modal('show');
-  $('#pay').attr('disabled','disabled');
-  $('#save_bill').attr('disabled','disabled');
-  }
-  $("#thisshopid").val(<?php echo $shopDetails['id']; ?>);
-  // $('.shopname').on('click',function() {
-  //         if($(this).is(':checked'))
-  //           {
-  //             var valv=$('input[name="shopname"]:checked').val();
-  //             console.log("ram"+valv);
-  //             // alert("it's checked");
-  //              }
-  //         });
-  var shoplist="";
-  var last_checked=0;
-  $("#Select_shop").click(function(){
-  var shop_id=$('#shop_id').val();
-  var userid=$('#user_id').val();
-  // console.log(userid);
-  $.ajax({
-  data: {'userid':userid} ,
+
+
+
+$.ajax({
+  data: {'bill_id':bill_id,"bill":"bill"} ,
   type: "POST",
-  url:"ajaxCalls/getAllshop_details.php",
-  success: function(e){
-  $(".list_of_all_branches").html(e);
-  var results=JSON.parse(e);
-  var results_rows="";
-  // console.log(results);
-  shoplist=results;
-  // console.log("ram"+shoplist);
-  
-  $.each( results, function( key1, value1 ) {
-  var checked;
-   
-  if(shop_id==value1['id'])
-  {
-  checked="<input type='radio' class='shopname' id='shopname_"+key1+"' name='shopname' value='"+key1+"' checked>";
-  }
-  else
-  {
-  checked="<input type='radio' class='shopname' id='shopname_"+value1["id"]+"'  name='shopname' value='"+key1+"'>";
-  }
-   results_rows=results_rows+
-                "<div style='margin-top:10px'>"+
-                    checked+"&nbsp"+"<b>"+value1["name"]+"</b><br>"+"&nbsp;&nbsp;&nbsp;&nbsp"+
-                    ('<img src="images/location_icon.png" style="width:15px">')+'&nbsp'+
-                    value1["address1"]+", "+
-                    value1["address2"]+"&nbsp"+value1["area"]+"<br>"+
-
-                    "<div id='multiple_shop_area' style='display:none'>"
-                    +value1["area"]+"<br>"+
-                    "</div>"+
-
-                    "&nbsp;&nbsp;&nbsp;&nbsp"+
-                    ('<img src="images/location_icon.png" style="width:15px">')+'&nbsp'+
-                    value1["city"]+"-"+
-                    value1["pincode"]+", "+
-                    value1["state"]+"<br>"+"&nbsp;&nbsp;&nbsp;&nbsp"+
-                    ('<img src="images/landline.svg" style="width:15px">')+'&nbsp'+
-                    value1["mobile_no"];
-
-                "</div></option>";
-  });
-  
-  $(".list_of_all_branches").html(results_rows);
-  }
-  });
-  
-  });
-  $("#Select_shop").click(function(){
-if($("#cid").val()==""){
-$("#Select_shopModal").modal("show");
-  }else{
-     $.growl.error({
-  title:"ERROR",
-  message:"All information will be erased if you change to another shop"
-  });
-$("#Select_shopModal").modal("show");
-  }
-  })
-  
-  $("#selectedShopBtn").click(function(){
-  var selectedBranch=shoplist[$('input[name="shopname"]:checked').val()];
-  $('#tab_title').text(selectedBranch["name"]);
-  $('#header_title').text(selectedBranch["name"]);
-  
-  $.ajax({
-  url:'set_selected_shop.php',
-  type : 'POST',
+  url:"ajaxCalls/getpurchasedocuments.php",
   dataType:'JSON',
-  data:{'shop_id':selectedBranch["id"],'tab_title':selectedBranch["name"]},
-  success:function(res){
-// console.log(res);
-$("#billformat").val(res.billformat);
-location.reload();
+  success: function(dataResult) {
 
-  },
-  error:function(e){
-  // console.log(e);
-  // console.log(<?=$_SESSION['shop_id_for_bill']?>);
+
+
+
+  $('#docdata').prepend(dataResult.out);
+
+   $("#doc_sno").val(dataResult.sno);
+   var doc_sno=0;
+      $.each(dataResult.item,function(key, value){
+         
+       doc_sno=doc_sno+1;
+          
+        doc_items["docsid"+doc_sno] = {
+
+                  "sid":doc_sno,
+                  "file_name":value.file_name,
+                  "file_type":value.file_type,
+                  "file_base":value.file_base,
+                  "file_description":value.file_description,
+                  "docmain_id":value.main_id,
+                  "deleted":'no',
+
+        };
+        });  
+  
   }
   });
-  // $("#shopname_"+this).attr('checked', 'checked');
-  // console.log();
-  
-  // console.log(selectedBranch);
-  last_checked=$('input[name="shopname"]:checked').val();
-  $('#shopname_'+1).prop('checked', false);
-  $('#shopname_'+selectedBranch["id"]).prop('checked', true);
-  // console.log(selectedBranch);
-  $("#thisshopid").val(selectedBranch["id"]);
-  // console.log(selectedBranch["id"]);
-  $("#shop_id").val(selectedBranch["id"]);
-  // console.log(selectedBranch);
-  // $('#').html();
-  if(selectedBranch["shop_logo"]!=''){
-  $('#shop_logo_id').attr("src",'../uploads/'+selectedBranch["shop_logo"]);
-  }
-  else{
-  $('#shop_logo_id').attr("src",'../uploads/no_image.png');
+
+
   }
   
-  $("#shopname").html(selectedBranch["name"]);
-  $("#shopname1").html(selectedBranch["name"]);
-  $("#ph").html('<img src="images/landline.svg" style="width:10px">'+selectedBranch["mobile_no"]);
-  $('#emailid').html(selectedBranch["email"]);
-  $("#gstno").html("GSTN : "+(selectedBranch["shop_gst_no"]!='')?selectedBranch["shop_gst_no"]:"");
-  var address=selectedBranch["address1"]+selectedBranch["address2"]+selectedBranch["city"];
-  $("#addressid").html("Address : "+(address!='')?address:"");
-  $("#addressid1").html("State : "+(selectedBranch["state"]!='')?selectedBranch["state"]:"");
-  $("#addressid2").html("State Code : "+(selectedBranch["state_code"]!='')?selectedBranch["state_code"]:"");
-  $("#Select_shopModal").modal('toggle');
-  });
+  
   });
   function getBillType() {
   var BILL_TYPE = 'bill';
@@ -1089,16 +682,6 @@ location.reload();
   return BILL_TYPE;
   }
 
-  function getExchange() {
-  var exchange = '';
-  if ($('#exchange_val').prop('checked') === true) {
-  exchange = 'yes'
-  }
-  else{
-    exchange = 'no'
-  }
-  return exchange;
-  }
 
   function check_credit_bill() {
   var credit_bill='';
@@ -1417,22 +1000,8 @@ if($('#checked_val').val()=='F' && item.price!='0') {
   reportValues();
   }
   }
-  $('#searchItem').autocomplete({
-  source: "ajaxCalls/get_items.php?type=text",
-  minLength: 1,
-  select: function(event,ui) {
+  
 
-      autoFillSearchItem(ui.item);
-    
-
-  }
-  }).data('ui-autocomplete')._renderItem = function(ul, item){
-  return $("<li class='ui-autocomplete-row'></li>")
-  .data("item.autocomplete",item)
-  .append(item.label+" ")
-  .append(item.hsn)
-  .appendTo(ul);
-  };
   });
 
   customerarray = [];
@@ -1658,6 +1227,9 @@ items[ref].gstpercentage=gstpercentage;
 
 
 function gstupdate(idval,ele){
+
+
+
   var gstamount=0;
   var prototal=0;
   var totaltemp=0;
@@ -1690,7 +1262,7 @@ totaltemp=totaltemp.toFixed(2);
 $("#totalid"+idval).html(totaltemp);
 
 items[ref].gstamount=gstamount;
-items[ref].gstpercentage=gstpercentage;
+items[ref].gstpercentage=(gstpercentage*100);
   calculation();
 // enkerkeypress();
   } 
@@ -1723,11 +1295,10 @@ items[ref].gstpercentage=gstpercentage;
             title:"Error",
             message:"Please enter Valid Amount"
           });
-         $(ele).focus();
+        $(ele).focus();
         // return false;
         $('#pay').attr('disabled',true);
-        return false;
-    
+        return false;    
   }
   else
   {
@@ -1751,9 +1322,21 @@ totaltemp=totaltemp.toFixed(2);
 $("#totalid"+get_id).html(totaltemp);
 
 items[ref].gstamount=gstamount;
-items[ref].gstpercentage=gstpercentage;
-  calculation();
+items[ref].gstpercentage=gstper;
 
+  calculation();
+$(".qty").each(function(){
+  if ($(this).val()==0) {
+    $("#pay").attr('disabled',true);
+    return false;
+  }
+});
+$(".price").each(function(){
+  if ($(this).val()==0) {
+    $("#pay").attr('disabled',true);
+    return false;
+  }
+});
   }
   function priceupdate1(idval,ele){
   if ($("#calcmethod"+idval).val()=='qty_calc') {
@@ -1817,8 +1400,20 @@ $("#totalid"+idval).html(totaltemp);
 
 
 items[ref].gstamount=gstamount;
-items[ref].gstpercentage=gstpercentage;
+items[ref].gstpercentage=gstper;
   calculation();
+  $(".qty").each(function(){
+  if ($(this).val()==0) {
+    $("#pay").attr('disabled',true);
+    return false;
+  }
+});
+$(".price").each(function(){
+  if ($(this).val()==0) {
+    $("#pay").attr('disabled',true);
+    return false;
+  }
+});
 }else{
    var qtytemp=$(ele).val();
     var ref = "sid"+idval;
@@ -1895,7 +1490,7 @@ items[ref].gstpercentage=gstpercentage;
 
   subtotal1=Number(subtotal1)+Number(temp_subtotal);
 
-  tax=Number(tax)+Number(temp_subtotal)*Number(tempItem.gstpercentage);
+  tax=Number(tax)+Number(temp_subtotal)*Number(tempItem.gstpercentage)/100;
   i++;
 
   }
@@ -1908,6 +1503,10 @@ items[ref].gstpercentage=gstpercentage;
 // alert(subtotal1);
 
   tempItem = itemslist[vale];
+
+
+if (tempItem['deleted']=='no') {
+
   val=Number(tempItem["qty"]);
 
   total= Number(tempItem["price"])*Number(tempItem["qty"]);
@@ -1924,11 +1523,14 @@ items[ref].gstpercentage=gstpercentage;
   
   subtotal1=Number(subtotal1)+Number(temp_subtotal);
 
-  tax=Number(tax)+Number(temp_subtotal)*Number(tempItem.gstpercentage);
+  tax=Number(tax)+Number(temp_subtotal)*Number(tempItem.gstpercentage)/100;
+}
   i++;
 
   }
 }
+
+// alert(tax);
 
   // This calculation for exclusive_Tax and it was default calculation
   grand_total=Number(tax)+Number(subtotal1);
@@ -2102,22 +1704,65 @@ function other_charges_calc()
 }
 
   function removeItem(idval){
-  // $("#trItem_"+idval).remove();
-  jQuery("#trItem_"+idval).empty('');
-  delete items["sid"+idval] ;
+  
 
-  // sno--;
+
+    if ($("#remove_tr"+idval).data('id')=='old') {
+       var id = idval;
+       jQuery('#trItem_' + id).empty('');
+       var ref = "sid"+idval;
+       items[ref].deleted='yes';
+       // delete items[ref] ;
+
+     }else{
+       var id = idval;
+       jQuery('#trItem_' + id).empty('');
+       delete items["sid"+idval] ;
+     }
+
+
+  // jQuery("#trItem_"+idval).empty('');
+  // delete items["sid"+idval] ;
+  // items[ref].is_delete='yes';
+
+
   $('#tdata tr').each(function(index){
     $(this).find('span.sn').html(index+1);
   });
   calculation();
-  // $("#subid").remove();
-  // $("#taxid").remove();
-  }
   
-    function removeDocItem(idval){
-  jQuery("#trDoc_"+idval).empty('');
-  delete doc_items["docsid"+idval] ;
+  }
+
+  function removeDocItem(idval){
+  
+
+      if ($("#removedoc_tr"+idval).data('id')=='old') {
+       var id = idval;
+       jQuery('#trDoc_' + id).empty('');
+       var ref = "docsid"+idval;
+       doc_items[ref].deleted='yes';
+       // delete items[ref] ;
+
+     }else{
+       var id = idval;
+       jQuery('#trDoc_' + id).empty('');
+       delete doc_items["docsid"+idval] ;
+     }
+
+
+  // jQuery("#trItem_"+idval).empty('');
+  // delete items["sid"+idval] ;
+  // items[ref].is_delete='yes';
+
+
+  $('#docdata tr').each(function(index){
+    $(this).find('span.sn').html(index+1);
+  });
+
+
+
+  // jQuery("#trDoc_"+idval).empty('');
+  // delete doc_items["docsid"+idval] ;
   // if (doc_items.length==0) {
   //   $("#doc-table").css('display','none');
   // }
@@ -2259,7 +1904,7 @@ data:  $('#cform').serialize(),
 // cache: false,
 success: function(dataResult)
 {
-  // console.log(dataResult);
+  console.log(dataResult);
 if(dataResult.status=="new Customer") {
 $("#destination").show();
 $("#shipadd").hide();
@@ -2390,18 +2035,7 @@ $("#product_subcategory").append('<option value=' + value['name'] + '>' + value[
   $('#add').attr('disabled',false);
   }
   });
-  /*
-  */
-  // $("#advance").keyup(function(){
-  //     var advance=$(this).val();
-  //     if(Number(advance)>grand['id']){
-  //       $(this).css("border","1px solid red");
-  //       // $(".errorCall").html("Should be less than Total Amount");
-  //     }
-  //     else{
-  //       $(this).css("border","1px solid lightgray");
-  //     }
-  //   });
+  
   $("#advance").keyup(function() {
   var bill_amt=Number($('#grandid').text());
   if(bill_amt<Number($('#advance').val()))
@@ -2483,13 +2117,6 @@ check.length=1;
   if ($('#cal_type_gst').val()=="") {
     var gst_calc_type='GST';
   }
-  // if(checked_credit=='credit_bill'){
-  //   if(cid==''|| cid==0){
-  //   $.growl.warning({title:"Notice", message:"Customer Name is Mandatory for Credit Bill"
-  //   });  
-  //   return false;
-  //   }
-  // }
 
 
 
@@ -2500,21 +2127,17 @@ check.length=1;
     {
           $.growl.error({
            title:"SUCCESS",
-           message:"Select Customer"
+           message:"Select Vendor"
           });
           return false;
     }
 
 
     customerarray["taxable_amt"]=$("#subid1").val();
-    // customerarray["gst_calc_type"]=gst_calc_type;
     customerarray["totalgstamount"]=$("#taxid").text();
-    // customerarray["cust_address_id"]=$("#cust_address_id").val();
     var cobj=$.extend({},customerarray);
     var obj = $.extend({}, items);
     var doc_obj = $.extend({}, doc_items);
-    // var bobj=$.extend({},bill_log);
-    // console.log($.isEmptyObject(items));
 
     if($.isEmptyObject(items)==true)
     {
@@ -2527,9 +2150,7 @@ check.length=1;
     
     $('#pay').attr('disabled','disabled');
     $('#pay').val('loading');
-    // var shop_id=$('#shop_id').val();
-    // var gst_type=$('#gst_type').val();
-    // var business_type =$("#businesstype").val();
+
     var bill_id=atob('<?php echo $_GET['bill_check_group']?>');
   if(bill_id=='')
   {
@@ -2541,19 +2162,15 @@ check.length=1;
     // var other_charges=get_other_charges();
     var pack_per=pack_percentage();
 
-    var salesorderno=$("#salesorderno").val();
-
-
-
-
-
+    var billno=$("#billno").val();
+    var date=$("#date").val();
 
       // ajaxRequest();
       $.ajax({
       type: "POST",
-      url:"ajaxCalls/add_sales.php",
+      url:"ajaxCalls/edit_purchase.php",
       dataType:'JSON',
-      data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&salesorderno='+salesorderno,
+      data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&billno='+billno+'&date='+date,
       success: function(dataResult) {
         // localStorage.clear('myArray');
       // console.log(dataResult);
@@ -2563,11 +2180,11 @@ check.length=1;
 
           $.growl.notice({
            title:"SUCCESS",
-           message:"Sales Invoice Created Successfully"
+           message:"Purchase Edited Successfully"
           });
 
           setTimeout(function(){
-          window.location='viewsalesdetails.php?id='+dataResult.bill_id;
+          window.location='viewpurchasedetails.php?id='+dataResult.bill_id;
           }, 1000);
 
       }
@@ -2720,6 +2337,7 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
+      doc_items = [];
       var cost_j=0;
       if ('<?=base64_decode($_GET['future_ids'])?>'!='') {
           // $(".modal .close").click();

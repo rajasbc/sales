@@ -584,6 +584,31 @@ include 'footer.php';
 
 <script type="text/javascript">
 
+    $('.numeric').on('input', function (event) { 
+      this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
+
+    
+  function isNumberKey(el, evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    var number = el.value.split('.');
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    //just one dot
+    if(number.length>1 && charCode == 46){
+         return false;
+    }
+    //get the carat position
+    var caratPos = getSelectionStart(el);
+    var dotPos = el.value.indexOf(".");
+    if( caratPos > dotPos && dotPos>-1 && (number[1].length > 1)){
+        return false;
+    }
+    return true;
+}
+
+
     $('#cform').on('keydown', 'input', function(e) {
 var cid=$("#cid").val();
     if (e.key === "Enter") {
@@ -1565,12 +1590,12 @@ var trItemTemplate = [
 '<td class="text-left ch-10">{{itemname}}</td>',
 
 '<td class="text-left ch-6">',
-'<input type="text" onkeyup=costupdate({{sno}},this) class="form-control price" name="price[]" id="priceid{{sno}}" value="{{price}}" style="width:5rem; height:1.75rem">',
+'<input type="text" onkeyup=costupdate({{sno}},this) class="form-control price" name="price[]" id="priceid{{sno}}" value="{{price}}" style="width:5rem; height:1.75rem" onkeypress="return isNumberKey(this,event)">',
 '</td>',
 '<td class="text-left ch-4">',
-'<input onkeyup=priceupdate({{sno}},this) type="text" class="form-control qty" name="qty[]" id="num_qty{{sno}}" value="{{qty}}" style="width:5rem; height:1.75rem" onkeypress="if(this.value.length==8) return false">',
+'<input onkeyup=priceupdate({{sno}},this) type="text" class="form-control qty" name="qty[]" id="num_qty{{sno}}" value="{{qty}}" style="width:5rem; height:1.75rem" onkeypress="return isNumberKey(this,event)">',
 '</td>',
-'<td class="text-left ch-4"><input type="text" class="form-control gst" onkeyup=gstupdate({{sno}},this) id="gstpid{{sno}}" value="{{gst}}" style="width:5rem; height:1.75rem"></td>',
+'<td class="text-left ch-4"><input type="text" class="form-control gst" onkeyup=gstupdate({{sno}},this) id="gstpid{{sno}}" value="{{gst}}" style="width:5rem; height:1.75rem" onkeypress="return isNumberKey(this,event)"></td>',
 '<td class="text-right ch-6" id="totalid{{sno}}">{{total}}</td>',
 '<td class="text-left ch-4">',
 '<button type="button" id="remove_tr{{sno}}" data-id="new" class="btn btn-default btn-sm" onclick="removeItem({{sno}})">',
@@ -2549,7 +2574,7 @@ check.length=1;
     var pack_per=pack_percentage();
 
     var salesorderno=$("#salesorderno").val();
-
+    var orderdate=$("#orderdate").val();
 
 
 
@@ -2560,7 +2585,7 @@ check.length=1;
       type: "POST",
       url:"ajaxCalls/edit_salesorder.php",
       dataType:'JSON',
-      data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&salesorderno='+salesorderno,
+      data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&salesorderno='+salesorderno+'&orderdate='+orderdate,
       success: function(dataResult) {
         // localStorage.clear('myArray');
       // console.log(dataResult);

@@ -74,8 +74,8 @@ class Admin extends Dbconnection {
 		$userId = $this->db->mysql_insert($this->tablename, $users);
 
 
-		// $mobj = new Mail();
-		// $mres = $mobj->sendEmail();
+		$mobj = new Mail();
+		$mres = $mobj->sendEmail();
 
 
 		if (!$userId) {

@@ -47,10 +47,12 @@ if (count($result) > 0) {
 		<td>
 		<a class='btn btn-sm btn-success' href='viewpurchasedetails.php?id=".$row['billid']."'>View</a> &nbsp; ";
 
-		// if($row['status']=='New')
-		// {
-		// $out .="<a class='btn btn-sm btn-warning' href='purchase.php?bill_check_group=".base64_encode($row['orderid'])."'>Invoice</a>";
-		// }
+		if($_SESSION['utype']=='Admin')
+		{
+
+		$out.="<a class='btn btn-sm btn-info' href='editpurchase.php?bill_check_group=".base64_encode($row['billid'])."'><i class='feather icon-edit'></i></a>";
+
+		}
 
 		$out .="</td>
 		</tr>";

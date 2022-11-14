@@ -509,6 +509,30 @@ include 'footer.php';
 
 <script type="text/javascript">
 
+  
+    $('.numeric').on('input', function (event) { 
+      this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
+
+    function isNumberKey(el, evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    var number = el.value.split('.');
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    //just one dot
+    if(number.length>1 && charCode == 46){
+         return false;
+    }
+    //get the carat position
+    var caratPos = getSelectionStart(el);
+    var dotPos = el.value.indexOf(".");
+    if( caratPos > dotPos && dotPos>-1 && (number[1].length > 1)){
+        return false;
+    }
+    return true;
+}
+
   $('#cform').on('keydown', 'input', function(e) {
     var cid=$("#cid").val();
     if (e.key === "Enter") {

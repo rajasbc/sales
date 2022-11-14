@@ -45,6 +45,14 @@ if (count($result) > 0) {
 		<td>
 		<a class='btn btn-sm btn-success' href='viewsalesdetails.php?id=".$row['billid']."'>View</a> &nbsp; ";
 
+
+		if($_SESSION['utype']=='Admin')
+		{
+
+		$out.="<a class='btn btn-sm btn-info' href='editsales.php?bill_check_group=".base64_encode($row['billid'])."'><i class='feather icon-edit'></i></a>";
+
+		}
+
 		// if($row['status']=='New')
 		// {
 		// $out .="<a class='btn btn-sm btn-warning' href='purchase.php?bill_check_group=".base64_encode($row['orderid'])."'>Invoice</a>";

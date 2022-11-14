@@ -33,6 +33,12 @@ if (count($result) > 0) {
 		$out .= "</tr>";
 	}
 }
+else
+{
+
+	$out .= "<td colspan='7'>No Records Found.</td>";
+
+}
 
 
 // $output=['out'=>$out];
