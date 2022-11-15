@@ -71,8 +71,9 @@ $total_tax=$total_tax+$value['tax_amount'];
 
 }
 
+$grt = $overalltotal+$ordresult['shippingcharges'];
 
-$out=['out'=>$output,'item'=>$new_array,'sno'=>$sno,'gtotal'=>number_format($overalltotal,2,'.',''),'subtotal'=>number_format($total_subtotal,2,'.',''),'totaltax'=>number_format($total_tax,2,'.',''),'cid'=>$customer_result[0]['id'],'ccustomername'=>$customer_result[0]['name'],'ccompanyname'=>$customer_result[0]['company_name'],'ccaddress_line_1'=>$customer_result[0]['address'],'city'=>$customer_result[0]['city'],'cstate'=>$customer_result[0]['state'],'ccphone'=>$customer_result[0]['mobile'],'cemailid'=>$customer_result[0]['email'],'date'=>$ordresult['date']];
+$out=['out'=>$output,'item'=>$new_array,'sno'=>$sno,'shipping'=>number_format($ordresult['shippingcharges'],2,'.',''),'grtotal'=>number_format($grt,2,'.',''),'gtotal'=>number_format($overalltotal,2,'.',''),'subtotal'=>number_format($total_subtotal,2,'.',''),'totaltax'=>number_format($total_tax,2,'.',''),'cid'=>$customer_result[0]['id'],'ccustomername'=>$customer_result[0]['name'],'ccompanyname'=>$customer_result[0]['company_name'],'ccaddress_line_1'=>$customer_result[0]['address'],'city'=>$customer_result[0]['city'],'cstate'=>$customer_result[0]['state'],'ccphone'=>$customer_result[0]['mobile'],'cemailid'=>$customer_result[0]['email'],'date'=>$ordresult['date']];
 
 echo json_encode($out);
 

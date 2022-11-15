@@ -321,6 +321,7 @@ if($_GET['bill_check_group']!='')
                   <td colspan="13" class="td-last-1">
                    
                     <div class="row">
+                      <div class="col-md-2"></div>
                       <div class="col-lg-3 col-sm-3 col-md-3">
                         <div class="">
                           <span class="">Total Amount  Before Tax ($)</span>
@@ -328,7 +329,7 @@ if($_GET['bill_check_group']!='')
                           <input type="hidden" name="subid1" id="subid1">
                         </div>
                       </div>
-                      <div class="col-lg-3 col-sm-3 col-md-3">
+                      <div class="col-lg-3 col-sm-3 col-md-3 text-center">
                         <div class="">
                         
                           <span>VAT ($)</span>
@@ -336,7 +337,7 @@ if($_GET['bill_check_group']!='')
                         
                         </div>
                       </div>
-                      <div class="col-lg-3 col-sm-3 col-md-3">
+                      <div class="col-lg-3 col-sm-3 col-md-3 text-center">
                         <div class="">
                           
                           <span class="">Total Amount ($)</span>
@@ -364,18 +365,18 @@ if($_GET['bill_check_group']!='')
                 </div>
               </div>
 
-               <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
+               <div class=" col-lg-6 col-sm-6 col-sm-6 md-6 mt-1">
                 <div class="input-group input-group-sm">
                   <div class="input-group-prepend">
                     <span class="input-group-text">Description</span>
                   </div>
-                  <textarea class="form-control" id='description' name="description"></textarea>
+                  <textarea class="form-control" id='description' name="description" style="height: 45px;"></textarea>
                 </div>
               </div>
 
 
-              <div class=" col-lg-2 col-sm-2 col-sm-2 md-6 mt-1">
-              <i class="fa fa-plus-circle" style="font-size: xx-large; padding-top: 15px; color: crimson;cursor: pointer;" aria-hidden="true" id="file_upload"></i>
+              <div class=" col-lg-1 col-sm-1 col-sm-1 md-6 mt-1">
+              <i class="fa fa-plus-circle" style="font-size: xx-large; padding-top: 5px; color: crimson;cursor: pointer;" aria-hidden="true" id="file_upload"></i>
               </div>
 
 

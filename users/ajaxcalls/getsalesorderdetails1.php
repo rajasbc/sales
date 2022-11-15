@@ -44,14 +44,13 @@ $sno++;
 $output .=  "<tr id='trItem_".$sno."'><input type='hidden' id='calcmethod".$sno."' value='".$calc."'>";
 $output.="<td>".$itemresult['name']."</td>";
 
-$output .="<td><input onkeyup=costupdate(".$sno.",this) type='text' class='form-control price enterKeyclass' name='price[]' id='priceid".$sno."' data-id='".$sno."' value='".number_format($value['rate'],2,'.','')."' style='width:5rem; height:1.75rem' onkeypress='if(this.value.length==8) return false'></td>";
+$output .="<td><input onkeyup=costupdate(".$sno.",this) type='text' class='form-control price enterKeyclass' name='price[]' id='priceid".$sno."' data-id='".$sno."' value='".number_format($value['rate'],2,'.','')."' style='width:5rem; height:1.75rem' onkeypress='return isNumberKey(this,event)'></td>";
 
-  $output.="<td><input onkeyup=priceupdate1(".$sno.",this) type='text' class='form-control qty' name='qty[]' id='num_qty".$sno."' value='".$value['qty']."' style='width:5rem; height:1.75rem' onkeypress='if(this.value.length==8) return false'></td>";
+  $output.="<td><input onkeyup=priceupdate1(".$sno.",this) type='text' class='form-control qty' name='qty[]' id='num_qty".$sno."' value='".$value['qty']."' style='width:5rem; height:1.75rem' onkeypress='return isNumberKey(this,event)'></td>";
 
 
 $output.="<td><input onkeyup=gstupdate(".$sno.",this) type='text' value='".$value['tax']."' class='form-control gst'
-name='gst[]' id='gstpid".$sno."' style='width:5rem; height:1.75rem'
-onkeypress='if(this.value.length==6) return false'></td>";
+name='gst[]' id='gstpid".$sno."' style='width:5rem; height:1.75rem' onkeypress='return isNumberKey(this,event)'></td>";
 
 
 $output.="<td class='text-right' id='totalid".$sno."'>".number_format($value['total'],2,'.','')."</td><td><button type='button' class='btn btn-default btn-sm' id='remove_tr".$sno."' data-id='old' onclick='removeItem(".$sno.")'><span class='glyphicon glyphicon-trash'>
