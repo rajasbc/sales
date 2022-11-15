@@ -275,18 +275,18 @@ if($_GET['bill_check_group']!='')
                 </div>
               </div>
 
-               <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
+               <div class=" col-lg-6 col-sm-6 col-sm-6 md-6 mt-1">
                 <div class="input-group input-group-sm">
                   <div class="input-group-prepend">
                     <span class="input-group-text">Description</span>
                   </div>
-                  <textarea class="form-control" id='description' name="description"></textarea>
+                  <textarea class="form-control" id='description' name="description" style="height: 45px;"></textarea>
                 </div>
               </div>
 
 
-              <div class=" col-lg-2 col-sm-2 col-sm-2 md-6 mt-1">
-              <i class="fa fa-plus-circle" style="font-size: xx-large; padding-top: 15px; color: crimson;cursor: pointer;" aria-hidden="true" id="file_upload"></i>
+              <div class=" col-lg-1 col-sm-1 col-sm-1 md-6 mt-1">
+              <i class="fa fa-plus-circle" style="font-size: xx-large; padding-top: 5px; color: crimson;cursor: pointer;" aria-hidden="true" id="file_upload"></i>
               </div>
 
 
@@ -398,7 +398,7 @@ if($_GET['bill_check_group']!='')
                     <div class="col-lg-12">
                       <div class="input-group input-group-sm">
                         <div class="input-group-prepend">
-                          <span class="input-group-text input-group-text1" id="com">Company Name<span style="color: red" class="<?php echo $hide_silver_data1?>"></span></span>
+                          <span class="input-group-text input-group-text1" id="com">Company Name<span style="color: red">&nbsp;*</span></span>
                         </div>
                         <input class="form-control cust_form" id="companyname" name="companyname" type="text" autocomplete="off" onkeypress="if(this.value.length==25) return false;">
                         <select class="form-control" style="border-left-width: 0px;display: none" id="billadd"></select>
@@ -412,7 +412,7 @@ if($_GET['bill_check_group']!='')
                     <div class="col-lg-12">
                       <div class="input-group input-group-sm">
                         <div class="input-group-prepend">
-                          <span class="input-group-text input-group-text1">Address<span style="color: red" class="<?php echo $hide_silver_data1?>">&nbsp;</span></span>
+                          <span class="input-group-text input-group-text1">Address<span style="color: red">&nbsp;*</span></span>
                         </div>
                         <input class="form-control cust_form" id="address" name="address" type="text" autocomplete="off" placeholder="Address" onkeypress="if(this.value.length==50) return false;">
                         <!-- <select class="form-control" style="border-left-width: 0px" id="billadd"></select> -->
@@ -425,7 +425,7 @@ if($_GET['bill_check_group']!='')
                     <div class="col-lg-12">
                       <div class="input-group input-group-sm">
                         <div class="input-group-prepend">
-                          <span class="input-group-text input-group-text1">City</span>
+                          <span class="input-group-text input-group-text1">City<span style="color: red">&nbsp;*</span></span>
                         </div>
                         <input class="form-control cust_form" id="city" name="city" type="text" autocomplete="off" placeholder="City" onkeypress="if(this.value.length==25) return false;">
                       </div>
@@ -437,7 +437,7 @@ if($_GET['bill_check_group']!='')
                     <div class="col-lg-12">
                       <div class="input-group input-group-sm">
                         <div class="input-group-prepend">
-                          <span class="input-group-text input-group-text1">State</span>
+                          <span class="input-group-text input-group-text1">State<span style="color: red">&nbsp;*</span></span>
                         </div>
                         <input class="form-control cust_form" id="state" name="state" type="text" autocomplete="off" placeholder="State" onkeypress="if(this.value.length==25) return false;">
 
@@ -449,7 +449,7 @@ if($_GET['bill_check_group']!='')
                     <div class="col-lg-12">
                       <div class="input-group input-group-sm">
                         <div class="input-group-prepend">
-                          <span class="input-group-text input-group-text1">Country</span>
+                          <span class="input-group-text input-group-text1">Country<span style="color: red">&nbsp;*</span></span>
                         </div>
 
                         <select name="country" class="form-control cust_form" id="country" >
@@ -1718,6 +1718,32 @@ $(document).ready(function(){
   .appendTo(ul);
 };
 
+
+function isEmail(email) {
+  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  return regex.test(email);
+}
+                $("#email").blur(function(){
+
+                     if(isEmail($("#email").val())==false){
+                  $("#email").addClass("errorCall");
+
+                    $("#email").val('');
+                    $("#email").attr('placeholder','Enter Valid Email ID');
+                    $("#email").css('border','1px solid #ff0000');
+                    $("#email").focus();
+
+                }else{
+                    $("#email").css("border","1px solid #ccc");
+                }
+
+                $('.txtOnly').bind('keyup blur',function(){
+    var node = $(this);
+    node.val(node.val().replace(/[^a-z]/g,'') ); }
+
+);
+});
+
 $('#saveCustomerBtn').on('click', function(){
   if($("#custnameid").val()=='' || $("#custnameid").val()=='No Record Found')
   {
@@ -1731,23 +1757,17 @@ $('#saveCustomerBtn').on('click', function(){
     $('#custnameid').css("border","1px solid #ced4da");
   }
 
-
-
-
-
-
   if($("#mobile").val()=='')
   {
     $('#mobile').css("border","1px solid red");
     $('#mobile').focus();
-    $.growl.error({title:"Name Issue", message:"Please Enter Email"});
+    $.growl.error({title:"Name Issue", message:"Please Enter Mobile"});
     return false;
   }
   else
   {
     $('#mobile').css("border","1px solid #ced4da");
   }
-
 
   if($("#email").val()=='')
   {
@@ -1761,16 +1781,66 @@ $('#saveCustomerBtn').on('click', function(){
     $('#email').css("border","1px solid #ced4da");
   }
 
-  if($("#phone").val()=='')
+  if($("#companyname").val()=='')
   {
-    $('#phone').css("border","1px solid red");
-    $('#phone').focus();
+    $('#companyname').css("border","1px solid red");
+    $('#companyname').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Company Name"});
     return false;
   }
   else
   {
-    $('#phone').css("border","1px solid #ced4da");
+    $('#companyname').css("border","1px solid #ced4da");
   }
+
+  if($("#address").val()=='')
+  {
+    $('#address').css("border","1px solid red");
+    $('#address').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Address"});
+    return false;
+  }
+  else
+  {
+    $('#address').css("border","1px solid #ced4da");
+  }
+
+  if($("#city").val()=='')
+  {
+    $('#city').css("border","1px solid red");
+    $('#city').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter City"});
+    return false;
+  }
+  else
+  {
+    $('#city').css("border","1px solid #ced4da");
+  }
+
+  if($("#state").val()=='')
+  {
+    $('#state').css("border","1px solid red");
+    $('#state').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter State"});
+    return false;
+  }
+  else
+  {
+    $('#state').css("border","1px solid #ced4da");
+  }
+
+  if($("#country").val()=='')
+  {
+    $('#country').css("border","1px solid red");
+    $('#country').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Country"});
+    return false;
+  }
+  else
+  {
+    $('#country').css("border","1px solid #ced4da");
+  }
+
 
 
   var email=$("#idemail").val();

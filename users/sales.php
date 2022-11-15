@@ -211,6 +211,7 @@ if($_GET['bill_check_group']!='')
                   <td colspan="13" class="td-last-1">
                    
                     <div class="row">
+                      <div class="col-md-2"></div>
                       <div class="col-lg-3 col-sm-3 col-md-3">
                         <div class="">
                           <span class="">Total Amount  Before Tax ($)</span>
@@ -218,7 +219,7 @@ if($_GET['bill_check_group']!='')
                           <input type="hidden" name="subid1" id="subid1">
                         </div>
                       </div>
-                      <div class="col-lg-3 col-sm-3 col-md-3">
+                      <div class="col-lg-3 col-sm-3 col-md-3 text-center">
                         <div class="">
                         
                           <span>VAT ($)</span>
@@ -226,7 +227,7 @@ if($_GET['bill_check_group']!='')
                         
                         </div>
                       </div>
-                      <div class="col-lg-3 col-sm-3 col-md-3">
+                      <div class="col-lg-3 col-sm-3 col-md-3 text-center">
                         <div class="">
                           
                           <span class="">Total Amount ($)</span>
@@ -240,6 +241,61 @@ if($_GET['bill_check_group']!='')
                       </div>
 
                     </div>
+
+                    <div class="row">
+                      <div class="col-md-12"><br /></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-2"></div>
+                      <div class="col-lg-3 col-sm-3 col-md-3">
+                        
+                      </div>
+                      <div class="col-lg-2 col-sm-2 col-md-2 text-center">
+                        
+                      </div>
+                      <div class="col-lg-4 col-md-4">
+                        
+                        <div class="input-group input-group-sm">
+                          <div class="input-group-prepend" style="width:50%;">
+                            <span class="input-group-text" style="padding: 0 5px 0 3px; width:100%; border:1px solid #ddd;">Shipping Charges ($)</span>
+                          </div>
+                          <input type="text" name="shippingcharges" class="form-control" id="shippingcharges" onkeyup="updateshipping()" value="0" />
+                        </div>
+
+                      </div>
+                    </div>
+
+
+                    <div class="row">
+                      <div class="col-md-12"><br /></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-2"></div>
+                      <div class="col-lg-3 col-sm-3 col-md-3">
+                        
+                      </div>
+                      <div class="col-lg-3 col-sm-3 col-md-3 text-center">
+                        
+                      </div>
+                      <div class="col-lg-3 col-sm-3 col-md-3 text-center">
+                        <div class="">
+                          
+                          <span class="">Grand Total ($)</span>
+                        
+                          <span class="text" id="grandtot">0</span>
+                          <input type='hidden' class="text" id="grandtot1" value="0">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-3 col-sm-3 col-md-3">
+                      </div>
+
+                    </div>
+
+
+
 
 
                     <div class="row" class="mt-5"><br /></div>
@@ -258,18 +314,18 @@ if($_GET['bill_check_group']!='')
                 </div>
               </div>
 
-               <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
+               <div class=" col-lg-6 col-sm-6 col-sm-6 md-6 mt-1">
                 <div class="input-group input-group-sm">
                   <div class="input-group-prepend">
                     <span class="input-group-text">Description</span>
                   </div>
-                  <textarea class="form-control" id='description' name="description"></textarea>
+                  <textarea class="form-control" id='description' name="description" style="height: 45px;"></textarea>
                 </div>
               </div>
 
 
-              <div class=" col-lg-2 col-sm-2 col-sm-2 md-6 mt-1">
-              <i class="fa fa-plus-circle" style="font-size: xx-large; padding-top: 15px; color: crimson;cursor: pointer;" aria-hidden="true" id="file_upload"></i>
+              <div class=" col-lg-1 col-sm-1 col-sm-1 md-6 mt-1">
+              <i class="fa fa-plus-circle" style="font-size: xx-large; padding-top: 5px; color: crimson;cursor: pointer;" aria-hidden="true" id="file_upload"></i>
               </div>
 
 
@@ -1938,13 +1994,38 @@ items[ref].gstpercentage=gstpercentage;
   $("#subid1").val(subtotal1.toFixed(2));
   $("#taxid").html(tax.toFixed(2));
   $("#discid").html(discount.toFixed(2));
-  $("#grandid").html(Math.round(fgrand_total));
-  $("#grandid1").val(Math.round(fgrand_total));
+  $("#grandid").html(fgrand_total.toFixed(2));
+  $("#grandid1").val(fgrand_total.toFixed(2));
+  $("#grandtot").html(fgrand_total.toFixed(2));
+  $("#grandtot1").val(fgrand_total.toFixed(2));
   
   grand['id']=fgrand_total;
   other_charges_calc();
 
+  updateshipping();
+
   }
+
+
+
+  function updateshipping()
+  {
+
+    // alert($(e).val());
+
+    var shipping = $("#shippingcharges").val();
+    var subtl = $("#grandid").html();
+
+    var grnd = (subtl*1)+(shipping*1);
+
+    // alert(shipping);
+
+    $("#grandtot").html(grnd.toFixed(2));
+    $("#grandtot1").val(grnd.toFixed(2));
+
+  }
+
+
 
   $('#change_disc_pref').on('click',function(){
   checked_disc=$('input[name=disc_pref]:checked').val();
@@ -2542,7 +2623,7 @@ check.length=1;
     var pack_per=pack_percentage();
 
     var salesorderno=$("#salesorderno").val();
-
+    var shippingcharges=$("#shippingcharges").val();
 
 
 
@@ -2553,7 +2634,7 @@ check.length=1;
       type: "POST",
       url:"ajaxCalls/add_sales.php",
       dataType:'JSON',
-      data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&salesorderno='+salesorderno,
+      data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&salesorderno='+salesorderno+'&shippingcharges='+shippingcharges,
       success: function(dataResult) {
         // localStorage.clear('myArray');
       // console.log(dataResult);

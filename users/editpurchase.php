@@ -202,6 +202,7 @@ if($_GET['bill_check_group']!='')
                   <td colspan="13" class="td-last-1">
                    
                     <div class="row">
+                      <div class="col-md-2"></div>
                       <div class="col-lg-3 col-sm-3 col-md-3">
                         <div class="">
                           <span class="">Total Amount  Before Tax ($)</span>
@@ -209,7 +210,7 @@ if($_GET['bill_check_group']!='')
                           <input type="hidden" name="subid1" id="subid1">
                         </div>
                       </div>
-                      <div class="col-lg-3 col-sm-3 col-md-3">
+                      <div class="col-lg-3 col-sm-3 col-md-3 text-center">
                         <div class="">
                         
                           <span>VAT ($)</span>
@@ -217,7 +218,7 @@ if($_GET['bill_check_group']!='')
                         
                         </div>
                       </div>
-                      <div class="col-lg-3 col-sm-3 col-md-3">
+                      <div class="col-lg-3 col-sm-3 col-md-3 text-center">
                         <div class="">
                           
                           <span class="">Total Amount ($)</span>
@@ -228,6 +229,58 @@ if($_GET['bill_check_group']!='')
                       </div>
 
                       <div class="col-lg-3"></div>
+
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12"><br /></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-2"></div>
+                      <div class="col-lg-3 col-sm-3 col-md-3">
+                        
+                      </div>
+                      <div class="col-lg-2 col-sm-2 col-md-2 text-center">
+                        
+                      </div>
+                      <div class="col-lg-4 col-md-4">
+                        
+                        <div class="input-group input-group-sm">
+                          <div class="input-group-prepend" style="width:50%;">
+                            <span class="input-group-text" style="padding: 0 5px 0 3px; width:100%; border:1px solid #ddd;">Shipping Charges ($)</span>
+                          </div>
+                          <input type="text" name="shippingcharges" class="form-control" id="shippingcharges" onkeyup="updateshipping()" />
+                        </div>
+
+                      </div>
+                    </div>
+
+
+                    <div class="row">
+                      <div class="col-md-12"><br /></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-2"></div>
+                      <div class="col-lg-3 col-sm-3 col-md-3">
+                        
+                      </div>
+                      <div class="col-lg-3 col-sm-3 col-md-3 text-center">
+                        
+                      </div>
+                      <div class="col-lg-3 col-sm-3 col-md-3 text-center">
+                        <div class="">
+                          
+                          <span class="">Grand Total ($)</span>
+                        
+                          <span class="text" id="grandtot">0</span>
+                          <input type='hidden' class="text" id="grandtot1" value="0">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-3 col-sm-3 col-md-3">
+                      </div>
 
                     </div>
 
@@ -621,8 +674,9 @@ $("#gst_calc_type").attr("disabled", true);
 
     $("#taxid").html(dataResult.totaltax);
     $("#subid").html(dataResult.subtotal);
-
     $("#grandid").text(dataResult.gtotal);
+    $("#shippingcharges").val(dataResult.shipping);
+    $("#grandtot").text(dataResult.grtotal);
     $(".qty").keyup();
   }
   else
@@ -1546,7 +1600,30 @@ if (tempItem['deleted']=='no') {
   grand['id']=fgrand_total;
   other_charges_calc();
 
+  updateshipping();
+
   }
+
+
+  function updateshipping()
+  {
+
+    // alert($(e).val());
+
+    var shipping = $("#shippingcharges").val();
+    var subtl = $("#grandid").html();
+
+    var grnd = (subtl*1)+(shipping*1);
+
+    // alert(shipping);
+
+    $("#grandtot").html(grnd.toFixed(2));
+    $("#grandtot1").val(grnd.toFixed(2));
+
+  }
+
+
+
 
   $('#change_disc_pref').on('click',function(){
   checked_disc=$('input[name=disc_pref]:checked').val();
@@ -2164,13 +2241,14 @@ check.length=1;
 
     var billno=$("#billno").val();
     var date=$("#date").val();
+    var shippingcharges=$("#shippingcharges").val();
 
       // ajaxRequest();
       $.ajax({
       type: "POST",
       url:"ajaxCalls/edit_purchase.php",
       dataType:'JSON',
-      data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&billno='+billno+'&date='+date,
+      data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&billno='+billno+'&date='+date+'&shippingcharges='+shippingcharges,
       success: function(dataResult) {
         // localStorage.clear('myArray');
       // console.log(dataResult);

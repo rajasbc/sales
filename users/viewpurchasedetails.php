@@ -113,6 +113,7 @@ $sordresult = $sobj->get_order($ordresult['purchase_orderid']);
 
           <table>
             <tr><td class="first-col">Purchase Order Ref No.</td><td style="padding:0 7px;">:</td><td><?=$sordresult['invoice_no']?></td></tr>
+            <tr><td class="first-col">Invoice Date</td><td style="padding:0 7px;">:</td><td><?=date('d-m-Y',strtotime($ordresult['date']))?></td></tr>
           </table>
           
         </div>
@@ -237,6 +238,58 @@ $sordresult = $sobj->get_order($ordresult['purchase_orderid']);
                         </td>
                       
                       </tr>
+
+
+
+                      <tr style="font-weight:bold;">
+
+                      <td colspan="2"></td>
+                      <td colspan="2">
+
+                      </td>
+
+                      <td>
+                          
+                      </td>
+
+                        <td class="text-right pr-5">
+                   
+                        <span class="text-right">Shipping Charges ($)</span> &nbsp; 
+                    
+                        <span class="text" id="grandid"> <?=number_format($ordresult['shippingcharges'],2,'.','')?></span>
+
+                        </td>
+                      
+                      </tr>
+
+
+                      <tr style="font-weight:bold;">
+
+                      <td colspan="2"></td>
+                      <td colspan="2">
+
+                      </td>
+
+                      <td>
+                          
+                      </td>
+
+                        <td class="text-right pr-5">
+                   
+                        <span class="text-right">Grand Total ($)</span> &nbsp; 
+
+                        <?php
+
+                        $btotal = $overalltotal+$ordresult['shippingcharges']
+
+                        ?>
+                    
+                        <span class="text" id="grandid"> <?=number_format($btotal,2,'.','')?></span>
+
+                        </td>
+                      
+                      </tr>
+
 
         </tfoot>
 

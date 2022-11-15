@@ -157,7 +157,7 @@ $userdet = $userobj->getusername($uid);
 
           <input type="hidden" name="checked_val" id="checked_val" value="F">
           <div class="form-group">
-            <div class=" col-lg-7 col-sm-7 col-sm-7" style="padding:0px;">
+            <div class=" col-lg-12 col-sm-12 col-sm-12" style="padding:0px;">
               <div class="input-group input-group-sm">
                 <div class="input-group-prepend">
                   <span class="input-group-text ">🔎<span class="text-danger">*</span></span>
@@ -201,17 +201,7 @@ $userdet = $userobj->getusername($uid);
 
       <input id="itemno" type="hidden">
       <div class="form-group row" style="margin-top:-15px;">
-        <div class="col-lg-4 col-sm-4 col-md-4 mt-1">
-          <div class="input-group input-group-sm">
-            <div class="input-group-prepend">
-              <span class="input-group-text">VAT (%)</span>
-            </div>
-            <!-- <input class="form-control"  id="id6" type="text" autocomplete="off"> -->
-            <input class="form-control product_add" id="gst_val" type="text" autocomplete="off">
-          </div>
-          <input id="gstpercentage" type="hidden" >
-        </div>
-        <div class=" col-lg-4 col-sm-4 col-md-4 mt-1">
+        <div class=" col-lg-6 col-sm-6 col-md-6 mt-1">
           <div class="input-group input-group-sm">
             <div class="input-group-prepend">
               <span class="input-group-text">Price ($)<span class="text-danger">*</span></span>
@@ -220,7 +210,7 @@ $userdet = $userobj->getusername($uid);
           </div>
           <input class="form-control" id="price2" type="hidden" onkeypress="if(this.value.length==15)return false">                
         </div>
-        <div class="col-lg-4 col-sm-4 col-md-4 mt-1">
+        <div class="col-lg-6 col-sm-6 col-md-6 mt-1">
           <div class="input-group input-group-sm">
             <div class="input-group-prepend">
               <span class="input-group-text">QTY<span class="text-danger">*</span><div id="available_qty" style="display:none"> <span class="ml-3"  data-toggle='view_qty' title='QTY=' style="cursor:pointer">i</span></div></span>
@@ -230,6 +220,21 @@ $userdet = $userobj->getusername($uid);
           </div>
           <input class="form-control" id="qty2" type="hidden" >
         </div>
+
+        <div class="col-lg-6 col-sm-6 col-md-6 mt-1">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text">VAT (%)</span>
+            </div>
+            <!-- <input class="form-control"  id="id6" type="text" autocomplete="off"> -->
+            <input class="form-control product_add" id="gst_val" type="text" autocomplete="off">
+          </div>
+          <input id="gstpercentage" type="hidden" >
+        </div>
+
+        <div class="col-lg-6 col-sm-6 col-md-6 mt-1">
+        </div>
+
       </div>
 
 
@@ -367,18 +372,18 @@ $userdet = $userobj->getusername($uid);
                 </div>
               </div>
 
-               <div class=" col-lg-4 col-sm-4 col-sm-4 md-6 mt-1">
+               <div class=" col-lg-6 col-sm-6 col-sm-6 md-6 mt-1">
                 <div class="input-group input-group-sm">
                   <div class="input-group-prepend">
                     <span class="input-group-text">Description</span>
                   </div>
-                  <textarea class="form-control" id='description' name="description"></textarea>
+                  <textarea class="form-control" id='description' name="description" style="height: 45px;"></textarea>
                 </div>
               </div>
 
 
-              <div class=" col-lg-2 col-sm-2 col-sm-2 md-6 mt-1">
-              <i class="fa fa-plus-circle" style="font-size: xx-large; padding-top: 15px; color: crimson;cursor: pointer;" aria-hidden="true" id="file_upload"></i>
+              <div class=" col-lg-1 col-sm-1 col-sm-1 md-6 mt-1">
+              <i class="fa fa-plus-circle" style="font-size: xx-large; padding-top: 5px; color: crimson;cursor: pointer;" aria-hidden="true" id="file_upload"></i>
               </div>
 
 
@@ -508,7 +513,7 @@ $userdet = $userobj->getusername($uid);
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1" id="com">Company Name<span style="color: red" class="<?php echo $hide_silver_data1?>"></span></span>
+                      <span class="input-group-text input-group-text1" id="com">Company Name<span style="color: red;">&nbsp;*</span></span>
                     </div>
                     <input class="form-control cust_form" id="companyname" name="companyname" type="text" autocomplete="off" placeholder="Company name"onkeypress="if(this.value.length==25) return false;">
                     <select class="form-control" style="border-left-width: 0px;display: none" id="billadd"></select>
@@ -522,7 +527,7 @@ $userdet = $userobj->getusername($uid);
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">Address<span style="color: red" class="<?php echo $hide_silver_data1?>">&nbsp;</span></span>
+                      <span class="input-group-text input-group-text1">Address<span style="color: red;">&nbsp;*</span></span>
                     </div>
                     <input class="form-control cust_form" id="address" name="address" type="text" autocomplete="off" placeholder="Address" onkeypress="if(this.value.length==50) return false;">
                     <!-- <select class="form-control" style="border-left-width: 0px" id="billadd"></select> -->
@@ -535,7 +540,7 @@ $userdet = $userobj->getusername($uid);
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">City</span>
+                      <span class="input-group-text input-group-text1">City<span style="color: red;">&nbsp;*</span></span>
                     </div>
                     <input class="form-control cust_form" id="city" name="city" type="text" autocomplete="off" placeholder="City" onkeypress="if(this.value.length==25) return false;">
                   </div>
@@ -547,7 +552,7 @@ $userdet = $userobj->getusername($uid);
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">State</span>
+                      <span class="input-group-text input-group-text1">State<span style="color: red;">&nbsp;*</span></span>
                     </div>
                     <input class="form-control cust_form" id="state" name="state" type="text" autocomplete="off" placeholder="State" onkeypress="if(this.value.length==25) return false;">
                     
@@ -559,12 +564,12 @@ $userdet = $userobj->getusername($uid);
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">Country</span>
+                      <span class="input-group-text input-group-text1">Country<span style="color: red;">&nbsp;*</span></span>
                     </div>
                     <!--  <input class="form-control cust_form" id="country" name="country" type="text" autocomplete="off" placeholder="Country" onkeypress="if(this.value.length==25) return false;"> -->
 
                     <select name="country" class="form-control cust_form" id="country" >
-                      <option value="select">Select Country</option>
+                      <option value="">Select Country</option>
 
                       <?php
 
@@ -1127,6 +1132,32 @@ calculation();
 
 
 
+function isEmail(email) {
+  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  return regex.test(email);
+}
+                $("#email").blur(function(){
+
+                     if(isEmail($("#email").val())==false){
+                  $("#email").addClass("errorCall");
+
+                    $("#email").val('');
+                    $("#email").attr('placeholder','Enter Valid Email ID');
+                    $("#email").css('border','1px solid #ff0000');
+                    $("#email").focus();
+
+                }else{
+                    $("#email").css("border","1px solid #ccc");
+                }
+
+                $('.txtOnly').bind('keyup blur',function(){
+    var node = $(this);
+    node.val(node.val().replace(/[^a-z]/g,'') ); }
+
+);
+});
+
+
 
 $("#saveCustomerBtn").on('click',function(){
   if($("#custnameid").val()=='' || $("#custnameid").val()=='No Record Found')
@@ -1141,6 +1172,19 @@ $("#saveCustomerBtn").on('click',function(){
     $('#custnameid').css("border","1px solid #ced4da");
   }
 
+
+  if($("#mobile").val()=='')
+  {
+    $('#mobile').css("border","1px solid red");
+    $('#mobile').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Mobile"});
+    return false;
+  }
+  else
+  {
+    $('#mobile').css("border","1px solid #ced4da");
+  }
+
   if($("#email").val()=='')
   {
     $('#email').css("border","1px solid red");
@@ -1153,17 +1197,64 @@ $("#saveCustomerBtn").on('click',function(){
     $('#email').css("border","1px solid #ced4da");
   }
 
-
-  if($("#mobile").val()=='')
+  if($("#companyname").val()=='')
   {
-    $('#mobile').css("border","1px solid red");
-    $('#mobile').focus();
-    $.growl.error({title:"Name Issue", message:"Please Enter Email"});
+    $('#companyname').css("border","1px solid red");
+    $('#companyname').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Company Name"});
     return false;
   }
   else
   {
-    $('#mobile').css("border","1px solid #ced4da");
+    $('#companyname').css("border","1px solid #ced4da");
+  }
+
+  if($("#address").val()=='')
+  {
+    $('#address').css("border","1px solid red");
+    $('#address').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Address"});
+    return false;
+  }
+  else
+  {
+    $('#address').css("border","1px solid #ced4da");
+  }
+
+  if($("#city").val()=='')
+  {
+    $('#city').css("border","1px solid red");
+    $('#city').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter City"});
+    return false;
+  }
+  else
+  {
+    $('#city').css("border","1px solid #ced4da");
+  }
+
+  if($("#state").val()=='')
+  {
+    $('#state').css("border","1px solid red");
+    $('#state').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter State"});
+    return false;
+  }
+  else
+  {
+    $('#state').css("border","1px solid #ced4da");
+  }
+
+  if($("#country").val()=='')
+  {
+    $('#country').css("border","1px solid red");
+    $('#country').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Country"});
+    return false;
+  }
+  else
+  {
+    $('#country').css("border","1px solid #ced4da");
   }
 
   var name=$("#custnameid").val();

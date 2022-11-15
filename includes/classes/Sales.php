@@ -77,6 +77,7 @@ $updatearray = array();
 $purchase = array();
 $item = $_POST;
 $bill_date = date('Y-m-d');
+$shippingcharges = $_POST['shippingcharges'];
 
         
 try 
@@ -186,7 +187,9 @@ try
 
 	//sales total update
 
-	$up="update sales set billid='".$bill_id."',subtotal='".$sub."',tax_amount='".$gtax."',grandtotal='".$gtot."',invoice_id='".$newinv."',invoice_no='".$invoiceno."' where id='".$bill_id."'";
+    $gtot = $gtot+$shippingcharges;
+
+	$up="update sales set billid='".$bill_id."',subtotal='".$sub."',tax_amount='".$gtax."',shippingcharges='".$shippingcharges."',grandtotal='".$gtot."',invoice_id='".$newinv."',invoice_no='".$invoiceno."' where id='".$bill_id."'";
     $this->db->ExecuteQuery($up);
 
 	$response = ["status" => "success" ,"bill_id"=>$bill_id];
@@ -215,6 +218,7 @@ $item = $_POST;
 $bill_date = date('Y-m-d');
 $cust_id=$_POST['cid'];
 $billno=$_POST['billno'];
+$shippingcharges=$_POST['shippingcharges'];
 
 // $customerDetails = $this->customerObj->getcustDetails($cust_id);
 // print_r($customerDetails);die();        
@@ -390,8 +394,10 @@ try
     }
 
 
+    $gtot=$gtot+$shippingcharges;
 
-    $up="update sales set subtotal='".$sub."',tax_amount='".$gtax."',grandtotal='".$gtot."' where id='".$bill_id."'";
+
+    $up="update sales set subtotal='".$sub."',tax_amount='".$gtax."',shippingcharges='".$shippingcharges."',grandtotal='".$gtot."' where id='".$bill_id."'";
     $this->db->ExecuteQuery($up);
 
 
