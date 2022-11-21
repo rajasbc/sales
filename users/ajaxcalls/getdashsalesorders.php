@@ -5,11 +5,16 @@ $result =  $obj->getdashorders();
 
 // error_reporting(E_ALL);
 
+$pobj = new Purchaseorder();
+
 $cobj = new Customer();
 
 $aobj = new Admin();
 
 $out = '';
+
+$ordertotal = 0;
+$pototal = 0;
 
 if (count($result) > 0) {
 
@@ -20,6 +25,8 @@ if (count($result) > 0) {
 
 		$aresult = $aobj->getusername($row['createdby']);
 
+		$presult = $pobj->get_salesorderpototal($row['orderid']);
+
 		$i++;
 		$out .= "
 		<tr>
@@ -28,7 +35,9 @@ if (count($result) > 0) {
 		<td>" . $cresult[0]['name']. "</td>";
 
 
-		$out .= "<td>" . $aresult['name']. "</td>";
+		$out .= "<td>" . $aresult['name']. "</td>
+		<td>" . $row['grandtotal']. "</td>
+		<td>" . $presult['grandtotal']. "</td>";
 
 
 		$out .="<td>" . $row['status'] . "</td>
@@ -52,17 +61,20 @@ if (count($result) > 0) {
 
 		$out .="</td>
 		</tr>";
+
+		$ordertotal = $ordertotal+$row['grandtotal'];
+		$pototal = $pototal+$presult['grandtotal'];
 	}
 }
 else
 {
 
-	$out .= "<td colspan='6' style='text-align:center;'>No Data Found</td>";
+	$out .= "<td colspan='8' style='text-align:center;'>No Data Found</td>";
 
 }
 
 
-$output=['out'=>$out];
+$output=['out'=>$out,'ordertotal'=>number_format($ordertotal,2,'.',''),'pototal'=>number_format($pototal,2,'.',''),'count'=>count($result)];
 
 echo json_encode($output);
 

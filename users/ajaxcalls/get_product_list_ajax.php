@@ -1,8 +1,8 @@
 <?php
 include '../../includes/config.php';
-$obj = new Customer();
-$result =  $obj->get_customer();
-$tresult =  $obj->get_totalcustomer();
+$obj = new Product();
+$result =  $obj->get_products();
+$tresult =  $obj->get_totalproducts();
 
 $out='';
 
@@ -14,17 +14,14 @@ if (count($result) > 0) {
 		$out .= "
 		<tr id='row" . $row['id'] . "'>
 		<td>" . $i . "</td>
-		<td>" . $row['name'] . "</td>
-		<td>" . $row['company_name']. "</td>
-		<td>" .$row['email'] . "</td>
-		<td>" . $row['mobile'] . "</td>";
+		<td>" . $row['name'] . "</td>";
 
 
 		if($_SESSION['utype']=='Admin')
         {
 
 		$out .= "<td>
-		<a data-id=".$row['id']." class='btn btn-sm btn-success' href='customer.php?id=".$row['id']."' value='".$row['id']."'>Edit</a> 
+		<a data-id=".$row['id']." class='btn btn-sm btn-success' href='product.php?id=".$row['id']."' value='".$row['id']."'>Edit</a> 
 		</td>";
 
 		}
@@ -50,3 +47,4 @@ echo json_encode($output1);
 
 
 ?>
+

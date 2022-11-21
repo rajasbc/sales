@@ -6,7 +6,22 @@ if($_GET['bill_check_group']!='')
 {
   $oobj = new Salesorder();
   $ores = $oobj->get_order(base64_decode($_GET['bill_check_group']));
+
+  $aobj = new Admin();
+  $ares = $aobj->getusername($ores['createdby']);
 }
+
+$obj1 = new Vendor();
+$get_countries=$obj1->get_countries();
+
+$obj2= new Product();
+$prresult = $obj2->get_prlist();
+
+$uid = $_SESSION['uid'];
+
+$userobj = new Admin();
+$userresult = $userobj->getsalesperson();
+$userdet = $userobj->getusername($uid);
 
 ?>
 <style>
@@ -50,7 +65,27 @@ if($_GET['bill_check_group']!='')
     -webkit-appearance: menulist;
   }
 
+
+
 </style>
+
+             <?php
+
+             if($userdet['type']=='Admin')
+             {
+
+              echo'<style>
+
+              .select2-container {
+                  width: 95% !important;
+              }
+
+              </style>';
+             
+             }
+
+             ?>
+
 
 
 <link rel="stylesheet" href="assets/css/jquery-ui.css" />
@@ -96,11 +131,22 @@ if($_GET['bill_check_group']!='')
 
                   <img src="images\usericon.jpg" class="media-object" data-toggle="modal" data-target="#customerModal" style="width:40px;cursor:pointer;margin-left:-10px;display: none"> <b style="font-weight:bold; font-size: 15px;">Customer Details</b>
 
+
+                   &nbsp; &nbsp; &nbsp; <img src="images\usericon.jpg" class="media-object" id="selectCustomerBtn" data-toggle="modal" data-target="#customerModal" style="width:40px; cursor:pointer; margin-left:-14px" title="Edit">
+                  
+
                   <div class="row">
 
                     <div class="col-md-12 mt-0 pt-0">
 
                 <em id='ccustomername'></em><br>
+
+                <div id="companyname_show_hide">
+                  <em id="companyname_1">
+                    Ref : 
+                  </em>
+                  <em id='creference'></em>
+                </div>
 
                 <div id="companyname_show_hide"> <!--  style="display:none;" -->
                     <em id="companyname_1">
@@ -177,33 +223,48 @@ if($_GET['bill_check_group']!='')
 
 
           <input type="hidden" name="checked_val" id="checked_val" value="F">
-          <div class="form-group">
-            <div class=" col-lg-7 col-sm-7 col-sm-7" style="padding:0px;">
+          
+            <div class=" col-lg-12 col-sm-12 col-sm-12" style="padding:0px;">
               <div class="input-group input-group-sm">
-                <div class="input-group-prepend">
-                  <span class="input-group-text ">🔎<span class="text-danger">*</span></span>
-                </div>
-                <input type='text' id='searchItem' name='searchItem'  class="form-control product_add" placeholder="Search Product Here" autocomplete="off">
+                
 
-                <input type='hidden' id='originalname' name='originalname' >
+                <select name="searchItem" id="searchItem" class="form-control js-example-basic-single">
+                  <option value="">-- Select Product --</option>
+
+                  <?php
+
+                  foreach($prresult as $prlist)
+                  {
+
+                    echo"<option value='".$prlist['id']."' data-name='".$prlist['name']."'>".$prlist['name']."</option>";
+
+                  }
+
+                  ?>
+
+                </select>
+
+
+                <?php
+                if($userdet['type']=='Admin')
+                {
+                ?>
+
+                <span class="input-group-text" style="display:inline; padding:3px 7px 3px 6px;"><a href=''data-toggle="modal" data-target="#add_new_product">+</a></span>
+
+                <?php
+                }
+                ?>
+
               </div>
             </div>  
-          </div>
+          
 
 
       <input id="itemno" type="hidden">
-      <div class="form-group row" style="margin-top:-15px;">
-        <div class="col-lg-4 col-sm-4 col-md-4 mt-1">
-          <div class="input-group input-group-sm">
-            <div class="input-group-prepend">
-              <span class="input-group-text">VAT (%)</span>
-            </div>
-            <!-- <input class="form-control"  id="id6" type="text" autocomplete="off"> -->
-            <input class="form-control product_add" id="gst_val" type="text" autocomplete="off">
-          </div>
-          <input id="gstpercentage" type="hidden" >
-        </div>
-        <div class=" col-lg-4 col-sm-4 col-md-4 mt-1">
+      <div class="form-group row">
+        
+        <div class=" col-lg-6 col-sm-6 col-md-6 mt-1">
           <div class="input-group input-group-sm">
             <div class="input-group-prepend">
               <span class="input-group-text">Price ($)</span>
@@ -212,7 +273,7 @@ if($_GET['bill_check_group']!='')
           </div>
           <input class="form-control" id="price2" type="hidden" onkeypress="if(this.value.length==15)return false">                
         </div>
-        <div class="col-lg-4 col-sm-4 col-md-4 mt-1">
+        <div class="col-lg-6 col-sm-6 col-md-6 mt-1">
           <div class="input-group input-group-sm">
             <div class="input-group-prepend">
               <span class="input-group-text">QTY<span class="text-danger">*</span><div id="available_qty" style="display:none"> <span class="ml-3"  data-toggle='view_qty' title='QTY=' style="cursor:pointer">i</span></div></span>
@@ -222,52 +283,48 @@ if($_GET['bill_check_group']!='')
           </div>
           <input class="form-control" id="qty2" type="hidden" >
         </div>
+
+        <div class="col-lg-6 col-sm-6 col-md-6 mt-1">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text">VAT (%)</span>
+            </div>
+            <!-- <input class="form-control"  id="id6" type="text" autocomplete="off"> -->
+            <input class="form-control product_add" id="gst_val" type="text" autocomplete="off">
+          </div>
+          <input id="gstpercentage" type="hidden" >
+        </div>
+
+        <div class="col-lg-6 col-sm-6 col-md-6 mt-1">
+          
+        </div>
+
+        <div class="col-lg-10 col-sm-6 col-md-10 mt-1">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Sales Person</span>
+            </div>
+            <input class="form-control" value="<?=$ares['name']?>" readonly />
+          </div>
+        </div>
+
+
       </div>
 
 
       
 
       <?php
-      if($userdet['type']=='Admin')
-      {
-        ?>
-        <div class="col-lg-7 col-sm-7 col-md-7" style="padding:0px; margin-top:-11px;">
-          <div class="form-group" style="height:25px;">
-
-            <div class="input-group input-group-sm">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Sales Person</span>
-              </div>
-
-              <select name="salesperson" id="salesperson" class="custom-select custom-select-sm product_add">
-                <option value="">-- Select --</option>
-                <?php
-
-                foreach($userresult as $row)
-                {
-                  echo"<option value='".$row['id']."'>".$row['name']."</option>";
-                }
-
-                ?>
-              </select>
-
-            </div>
-          </div>
-        </div>
-
-        <?php
-      }
-      else
-      {
+      
         echo"<input type='hidden' name='salesperson' id='salesperson' value='".$_SESSION['uid']."' />";
-      }
+      
       ?>
 
       
 
 
       <div class="form-group row">
-
+<input id="item_id" type="hidden" name="item_id" >
         <div class="col-lg-2 col-sm-2 col-md-2">
           <button class="btn btn-sm btn-info align-center product_add" id="add" type="button>" >ADD</button>
         </div>
@@ -441,6 +498,7 @@ if($_GET['bill_check_group']!='')
         <input type="hidden" id="idiscount1">
         <input type="hidden" id="igst1">
         <input id="cid" type="hidden" name="cid" >
+        <input id="referencename" type="hidden" name="referencename" >
         <input id="custid" type="hidden" name="custid" >
 
 
@@ -452,18 +510,28 @@ if($_GET['bill_check_group']!='')
       <input type="hidden" name="address_info" id="address_info" value="primary">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="customerModalTitle"><strong>Vendor Details</strong></h5>
+          <h5 class="modal-title" id="customerModalTitle"><strong>Customer Details</strong></h5>
           <button class="close" type="button" data-dismiss="modal" id="customerCloseBtn" aria-label="Close"><span aria-hidden="true">×</span></button>
         </div>
         <div class="modal-body">
           <div class="form-group row">
-
+            <!--     <div class="col-lg-4 col-sm-4 col-md-4">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Title</span>
+                    </div>
+                    <select class="form-control cust_form" id="title" name="title">
+                      <option value="Mr">Mr</option>
+                      <option value="Ms">Ms</option>
+                    </select>
+                  </div>
+                </div> -->
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
                       <span class="input-group-text input-group-text1">Name<span style="color: red;">&nbsp;*</span></span>
                     </div>
-                    <input class="form-control cust_form" id="custnameid" name="custname" type="text" placeholder="Vendor Name" autocomplete="off" onkeypress="if(this.value.length==50) return false;">
+                    <input class="form-control cust_form" id="custnameid" name="custname" type="text" placeholder="Customer Name" autocomplete="off" onkeypress="if(this.value.length==50) return false;">
                   </div>
                 </div>
               </div>
@@ -472,9 +540,20 @@ if($_GET['bill_check_group']!='')
                 <div class="col-lg-12 ">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">+91<span style="color: red">&nbsp;*</span></span>
+                      <span class="input-group-text input-group-text1">Reference<span style="color: red">&nbsp;*</span></span>
                     </div>
-                    <input class="form-control cust_form"  id="mobile" name="mobile" onKeyPress="if(this.value.length==10)return false;" type="text" autocomplete="off"placeholder='Mobile No.'>
+                    <input class="form-control cust_form" id="reference" name="reference" type="text" autocomplete="off"placeholder='Enter Reference'>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-lg-12 ">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text input-group-text1">Mobile<span style="color: red">&nbsp;*</span></span>
+                    </div>
+                    <input class="form-control cust_form "  id="mobile" name="mobile" onKeyPress="if(this.value.length==10)return false;" type="text" autocomplete="off"placeholder='Mobile No.'>
                   </div>
                 </div>
               </div>
@@ -482,9 +561,9 @@ if($_GET['bill_check_group']!='')
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">Email</span>
+                      <span class="input-group-text input-group-text1">Email<span style="color: red;">&nbsp;*</span></span>
                     </div>
-                    <input  class="form-control cust_form" type="email" id="email"  name="email" autocomplete="off" placeholder="Email Id" onkeypress="if(this.value.length==25) return false;">
+                    <input  class="form-control cust_form" type="email" id="email" name="email" autocomplete="off" placeholder="Email Id" onkeypress="if(this.value.length==25) return false;">
                   </div>
                 </div>
               </div>
@@ -493,12 +572,12 @@ if($_GET['bill_check_group']!='')
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1" id="com">Company Name<span style="color: red" class="<?php echo $hide_silver_data1?>"></span></span>
+                      <span class="input-group-text input-group-text1" id="com">Company Name<span style="color: red;">&nbsp;*</span></span>
                     </div>
-                    <input class="form-control cust_form" id="companyname" name="companyname" type="text" autocomplete="off" onkeypress="if(this.value.length==25) return false;">
+                    <input class="form-control cust_form" id="companyname" name="companyname" type="text" autocomplete="off" placeholder="Company name"onkeypress="if(this.value.length==25) return false;">
                     <select class="form-control" style="border-left-width: 0px;display: none" id="billadd"></select>
+                    <input id="cid" type="hidden" name="cid" >
                     
-                    <input id="item_id" type="hidden" name="item_id" >
                   </div>
                 </div>
               </div>
@@ -507,7 +586,7 @@ if($_GET['bill_check_group']!='')
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">Address<span style="color: red" class="<?php echo $hide_silver_data1?>">&nbsp;*</span></span>
+                      <span class="input-group-text input-group-text1">Address<span style="color: red;">&nbsp;*</span></span>
                     </div>
                     <input class="form-control cust_form" id="address" name="address" type="text" autocomplete="off" placeholder="Address" onkeypress="if(this.value.length==50) return false;">
                     <!-- <select class="form-control" style="border-left-width: 0px" id="billadd"></select> -->
@@ -532,9 +611,9 @@ if($_GET['bill_check_group']!='')
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">State</span>
+                      <span class="input-group-text input-group-text1">State </span>
                     </div>
-                    <input class="form-control cust_form" id="state" name="state" type="text" autocomplete="off" placeholder="City" onkeypress="if(this.value.length==25) return false;">
+                    <input class="form-control cust_form" id="state" name="state" type="text" autocomplete="off" placeholder="State" onkeypress="if(this.value.length==25) return false;">
                     
                   </div>
                 </div>
@@ -544,24 +623,49 @@ if($_GET['bill_check_group']!='')
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">Country</span>
+                      <span class="input-group-text input-group-text1">Country<span style="color: red;">&nbsp;*</span></span>
                     </div>
-                    <input class="form-control cust_form" id="country" name="country" type="text" autocomplete="off" placeholder="Country" onkeypress="if(this.value.length==25) return false;">
-                  </div>
-                </div>
-                
 
-              </div>
-              <div style="margin-left: 320px;margin-top: 10px;"><span style="color: red;">&nbsp;* </span><i>Required Fields</i></div>
-            </div>
-            <div class="modal-footer">
-              <button class="btn btn-sm btn-success cust_form" type="button" id="saveCustomerBtn" data-dismiss="modal">Save</button>
-              <button class="btn btn-sm btn-warning" id="modelclose" type="button" data-dismiss="modal">Close</button>
-            </div>
+                    <select name="country" class="form-control cust_form" id="country" >
+                      <option value="">Select Country</option>
+
+                      <?php
+
+                      foreach ($get_countries as $value) {
+                                      // print_r($value);die();
+                        if ($value['name']=="INDIA") {
+                         echo "<option value='".$value['id']."' selected='selected' data-id='".$value['phonecode']."'>". $value["name"]."</option>";
+
+                       }
+                       else
+                       {                        
+                         echo "<option value='".$value['id']."' data-id='".$value['phonecode']."' >" . $value["name"]."</option>";
+
+                       }
+                     }
+
+                     ?>
+
+                   </select>
+
+
+
+
+                 </div>
+               </div>
+
+
+             </div>
+             <div style="margin-left: 320px;margin-top: 10px;"><span style="color: red;">&nbsp;* </span><i>Required Fields</i></div>
+           </div>
+           <div class="modal-footer">
+            <button class="btn btn-sm btn-success cust_form" type="button" id="saveCustomerBtn" data-dismiss="modal">Save</button>
+            <button class="btn btn-sm btn-warning"  id="modelclose" type="button" data-dismiss="modal">Close</button>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
+  </div>
 
 
 
@@ -577,6 +681,44 @@ if($_GET['bill_check_group']!='')
 </div>
 </section>
 
+
+
+              <div class="modal fade" id="add_new_product"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                 <div class="modal-body">
+                  <form id="product_form_category" enctype="multipart/form-data">
+                   <div class="container">
+                    <div class='row'>
+                     <div class='col-lg-12'>
+                      <h5>Add New Product
+                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                       </button>
+                      </h5>
+                     </div>
+                    </div>
+                    <div class="form-row">
+                     <div class="form-group col-lg-12">Product
+                      <span><label class="text-danger">*</label></span>
+                      <input type="text" name="product" id="product" class="form-control enterAsTab" onkeypress="if(this.value.length==30)return false" placeholder="Product Name">
+                     </div>
+                    </div>
+                    <div class="form-row">
+                     <div class="form-group col-lg-12 text-right">
+                      <input type="button" id='add_product_category_save' class="btn btn-success enterAsTab enterAsTabr" value="Save">
+                     </div>
+                    </div>
+                   </div>
+                  </form>
+                 </div>
+                </div>
+               </div>
+              </div>
+
+
+
+
 <?php
 
 include 'footer.php';
@@ -584,6 +726,52 @@ include 'footer.php';
 ?>
 
 <script type="text/javascript">
+
+
+    $("#add_product_category_save").click(function(){
+  if($("#product").val()==''){
+   $('#product').css("border","1px solid red");
+   $('#product').focus();
+   return false
+  }
+  else{
+   $('#product').css("border","1px solid navy");
+  }
+
+  var product=$("#product").val(); 
+                              // var name=$("#").val(); 
+                              $.ajax({
+                               type:"POST",
+                               url:'ajaxCalls/add_item.php',
+                               dataType:"json",
+                               data:{"product_name":product},
+                               success: function(res){
+                                // console.log(res);
+                                if(res.status=='Failed')
+                                {
+                                 $.growl.error({title:"FAILED",message:"Product Already Exists"});
+                                 $("#product_form_category").trigger("reset");
+                                }
+                                if(res.status=='success')
+                                {
+                                 $.growl.notice({title:"SUCCESS",message:"Product Saved Successfully"});
+                                 $("#searchItem").append("<option selected data-name='"+res.name+"' value='"+res.id+"'>"+res.name+"</option>");
+                                 $("#product_form_category").trigger("reset");
+                                 $(".modal .close").click();
+
+                                 $("#itemno").val(res.id);
+
+                                }
+                                if(res.status=='hide')
+                                {
+                                 $.growl.notice({title:"SUCCESS",message:"Product Saved Successfully"});
+                                 $("#product_form_category").trigger("reset");
+                                 $(".modal .close").click();
+
+                                }   
+                               }
+                              });
+                             });
 
     $('.numeric').on('input', function (event) { 
       this.value = this.value.replace(/[^0-9\.]/g, '');
@@ -633,6 +821,41 @@ var cid=$("#cid").val();
     }
 
     })
+
+
+
+    $(document).ready(function(){
+
+      $('#custnameid').autocomplete({
+
+        source: "ajaxCalls/get_custom.php",
+        minLength: 1,
+        select: function(event,ui) {
+          if( ui.item.label != 'No Record Found')
+          {
+  // console.log(ui.item);
+  // alert(ui.item[0].address_info);
+  $('#cid').val(ui.item.id);
+  $('#mobile').val(ui.item.mobile);
+  $('#custnameid').val(ui.item.name);
+  $('#email').val(ui.item.email);
+  $('#address').val(ui.item.address);
+  $('#city').val(ui.item.city);
+  $('#state').val(ui.item.state);
+  $('#country').val(ui.item.country);
+  $('#companyname').val(ui.item.companyname);
+
+}
+},
+}).data('ui-autocomplete')._renderItem = function(ul, item){
+  // console.log('item', item);
+  return $("<li class='ui-autocomplete-row'></li>")
+  .data("item.autocomplete",item)
+  .append(item.label+" ")
+  .appendTo(ul);
+};
+});
+
     
   </script>
 
@@ -991,6 +1214,8 @@ $("#gst_calc_type").attr("disabled", true);
   }
   $("#billDate").removeAttr('readonly');
   $('#ccustomername').html(dataResult.ccustomername);
+  $('#creference').html(dataResult.creference);
+  $('#referencename').val(dataResult.creference);
   $('#cid').val(dataResult.cid);
   $('#custid').val(dataResult.cid);
   $('#orderdate').val(dataResult.orderdate);
@@ -999,6 +1224,22 @@ $("#gst_calc_type").attr("disabled", true);
   $('#cstate').html(dataResult.cstate);
   $('#ccphone').html(dataResult.ccphone);
   $('#cemailid').html(dataResult.cemailid);
+
+
+  $("#custnameid").val(dataResult.ccustomername);
+  $('#reference').val(dataResult.creference);
+  $("#address").val(dataResult.ccaddress_line_1);
+  $("#state").val(dataResult.cstate);
+  $("#email").val(dataResult.cemailid);
+  $("#companyname").val(dataResult.ccompanyname);
+  $("#city").val(dataResult.city);
+  $("#country").val(dataResult.country);
+  $("#mobile").val(dataResult.ccphone);
+
+
+
+
+
    $("#s_no").val(dataResult.sno);
    var sno=0;
       $.each(dataResult.item,function(key, value){
@@ -1342,25 +1583,14 @@ location.reload();
   }
   });
   }
-  $("#searchItem").on("change",function(){
-    var item_id_check=$('#itemno').val();
-      if(Number(item_id_check)==0)
-  {
-    if("<?=$shopDetails['customer_previous_prcie_and_discount']?>"=='no'){
-  $("#searchItem").css("border","1px solid red");
-  $("#searchItem").focus();
-  $("#searchItem").val(''); 
-  $.growl.error({
-  title:"Item issue",
-  message:"Please Add Items In Product List"
-  });
-  return false;
-}
-  }else{
-  $("#searchItem").css("border","1px solid lightgray");
-  return true;
-  }
-  })
+  
+
+$("#searchItem").on('change',function(){
+
+$("#itemno").val($(this).val());
+
+});
+
   function resetValues() {
   // clear the variables
   inputStart = null;
@@ -1396,7 +1626,7 @@ location.reload();
   select: function(event,ui) {
 
       // autoFillSearchItem(ui.item);
-    
+    $('#item_id').val(ui.item.id);
 
   }
   }).data('ui-autocomplete')._renderItem = function(ul, item){
@@ -1422,64 +1652,18 @@ location.reload();
   which_btn_click=this.id;  
   });
   
+
+  $("#searchItem").on('change',function(){
+
+$("#itemno").val($(this).val());
+
+});
   
 
   $("#add").on('click',function(){
 
-     $("#item_id").val('');
 
-   if($("#searchItem").val()==''  ){
-    $.growl.error({
-      title:"Warning",
-      message:"Atleast Add One Item"
-    });
-    $("#searchItem").focus();
-    return false;
-  }
-  var product_name=$("#searchItem").val();
-  // var hsn_code=$("#id6").val();
-  var price=$("#price1").val();
-  var price=$("#price1").val();
-  var price=$("#price1").val();
-  var id=$("#item_id").val();
-  var qty=$("#qty1").val();
-
-  if(Number($("#qty1").val())==0)
-  {
-    $("#qty1").css("border","1px solid red");
-    $("#qty1").focus();
-    var qty1= $("#qty1").val(); 
-    $.growl.error({
-      title:"Quantity issue",
-      message:"Please enter quantity"
-    });
-    return false;
-  }
-  else
-  {
-    $("#qty1").css("border","1px solid #ced4da");
-  }
-
-
-  $.ajax({
-    type:"POST",
-    url:"ajaxCalls/add_products.php",
-    data:{'product_name':product_name,"price":price,"qty":qty,"id":id},
-    dataType:'json',
-    success: function(res){
-      // alert(res);
-      if(res.status=="success"){
-        $("#itemno").val(res.id);
-
-
-
-        add_productrow();
-
-
-      }
-
-    }
-  });
+    add_productrow();
 
 
 });
@@ -1547,7 +1731,7 @@ var gstpercentage = 0;
   var cqty=$("#qty1").val();
   // data["total"]=total.toFixed(2);
   // var cid=$("#cid").val();
-  var itemcol=$("#searchItem").val();
+  var itemcol=$("#searchItem").find(':selected').attr('data-name'); //$("#searchItem").val();
   var price=$("#price1").val();
   var qty=$("#qty1").val();
   var itemno=$("#itemno").val();
@@ -1625,7 +1809,7 @@ else {
 
 $('#save_bill').attr('disabled',false);
 // $('#searchItemDetailForm').trigger("reset");
-$('#searchItem').val('').focus();
+$('#searchItem').val('').trigger('change').focus();
 $('#qty1').val('');
 $("#gst_val").val('');
 $("#price1").val('');
@@ -2157,188 +2341,138 @@ function other_charges_calc()
   }
 
   $(document).ready(function(){
-  $('#custnameid').autocomplete({
-  source: "ajaxCalls/get_vendor.php",
-  minLength: 1,
-  select: function(event,ui) {
-  if( ui.item.label != 'No Record Found')
-  {
-  // console.log(ui.item);
-  // alert(ui.item[0].address_info);
-  $('#cid').val(ui.item.id);
-  $('#custid').val(ui.item.id);
-  $('#mobile').val(ui.item.mobile);
-  $('#custnameid').val(ui.item.name);
-  $('#email').val(ui.item.email);
-  $('#address').val(ui.item.address);
-  $('#city').val(ui.item.city);
-  $('#state').val(ui.item.state);
-  $('#country').val(ui.item.country);
-  $('#companyname').val(ui.item.companyname);
-  }
-  },
-  }).data('ui-autocomplete')._renderItem = function(ul, item){
-  // console.log('item', item);
-  return $("<li class='ui-autocomplete-row'></li>")
-  .data("item.autocomplete",item)
-  .append(item.label+" ")
-  .appendTo(ul);
-  };
   
-$('#saveCustomerBtn').on('click', function(){
-if($("#custnameid").val()=='' || $("#custnameid").val()=='No Record Found')
-{
-$('#custnameid').css("border","1px solid red");
-$('#custnameid').focus();
-$.growl.error({title:"Name Issue", message:"Please Enter Proper Name"});
-return false;
+  
+$("#saveCustomerBtn").on('click',function(){
+  if($("#custnameid").val()=='' || $("#custnameid").val()=='No Record Found')
+  {
+    $('#custnameid').css("border","1px solid red");
+    $('#custnameid').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Proper Name"});
+    return false;
+  }
+  else
+  {
+    $('#custnameid').css("border","1px solid #ced4da");
+  }
+
+  if($("#reference").val()=='')
+  {
+    $('#reference').css("border","1px solid red");
+    $('#reference').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Reference"});
+    return false;
+  }
+  else
+  {
+    $('#reference').css("border","1px solid #ced4da");
+  }
+
+  if($("#mobile").val()=='')
+  {
+    $('#mobile').css("border","1px solid red");
+    $('#mobile').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Mobile"});
+    return false;
+  }
+  else
+  {
+    $('#mobile').css("border","1px solid #ced4da");
+  }
+
+  if($("#email").val()=='')
+  {
+    $('#email').css("border","1px solid red");
+    $('#email').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Email"});
+    return false;
+  }
+  else
+  {
+    $('#email').css("border","1px solid #ced4da");
+  }
+
+  if($("#companyname").val()=='')
+  {
+    $('#companyname').css("border","1px solid red");
+    $('#companyname').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Company Name"});
+    return false;
+  }
+  else
+  {
+    $('#companyname').css("border","1px solid #ced4da");
+  }
+
+  if($("#address").val()=='')
+  {
+    $('#address').css("border","1px solid red");
+    $('#address').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Address"});
+    return false;
+  }
+  else
+  {
+    $('#address').css("border","1px solid #ced4da");
+  }
+
+  if($("#country").val()=='')
+  {
+    $('#country').css("border","1px solid red");
+    $('#country').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Country"});
+    return false;
+  }
+  else
+  {
+    $('#country').css("border","1px solid #ced4da");
+  }
+
+  var name=$("#custnameid").val();
+  var reference = $("#reference").val();
+  var address=$("#address").val();
+  var state=$("#state").val();
+  var email=$("#email").val();
+  var company_name=$("#companyname").val();
+  var city=$("#city").val();
+  var country=$("#country option:selected").val();
+  var mobile=$("#mobile").val();
+  var id = $("#cid").val();
+
+  $.ajax({
+    type:"POST",
+    url:"ajaxCalls/add_customer.php",
+    data:{'name':name,'address':address,'state':state,'email':email,'company_name':company_name,'city':city,'country':country,'mobile':mobile,'id':id},
+    dataType:'json',
+    success: function(res){
+// alert(res.id);
+
+if(res.status=='success'){
+
+  $("#cid").val(res.id);
+  $("#custid").val(res.id);  
+  $("#ccustomername").html(res.name);
+  $("#creference").html(reference);
+  $("#referencename").val(reference);
+  $("#ccompanyname").html(res.company_name);
+  $("#email").html(res.email);
+  $("#ccphone").html(res.mobile);
+  $("#ccaddress").html(res.address);
+  $("#ccity").html(res.city);
+  $("#cstate").html(res.state);
+  $("#ccountry").html(res.country);
+  $("#customer_icon_hide").css('display','');
+
+
 }
-else
-{
-$('#custnameid').css("border","1px solid #ced4da");
-}
 
-if($("#phone").val()=='')
-{
-$('#phone').css("border","1px solid red");
-$('#phone').focus();
-return false;
-}
-else
-{
-$('#phone').css("border","1px solid #ced4da");
-}
-
-
-var email=$("#idemail").val();
-var customname=$("#custnameid").val();
-var cid=$("#cid").val();
-// alert(cid);
-customerarray["cid"]=cid;
-var phonevar=$("#mobile").val();
-var address_line_1=$("#address").val();
-var city=$("#city").val();
-var pincode=$("#pincode").val();
-var state=$("#state option:selected").text();
-if (state=="Select State") {
-state=""
-}else{
-state=$("#state option:selected").text();
-}
-var area=$("#area").val();
-var state_code=$("#state_code").val();
-
-var companynamevar=$("#companyname").val();
-var cgst=$("#customer_gst").val();
-var cdlno=$("#customer_dlno").val();
-var shopscode=$("#addressid2").text();
-if (state_code==0) {
-state_codes=shopscode;
-}else{
-state_codes=$("#state_code").val();
-}
-
-if(shopscode==state_codes) {
-$('#gst_calc_type').prop('checked',true);
-gst_calc_type_function();
-$(".changegst").text("GST ₹");
-$(".changegst1").text("Bill Amount (inclusive GST ");
-$("#gst_calc_type").attr("disabled", true);
-}
-
-if (shopscode!=state_codes) {
-$('#gst_calc_type').prop('checked',false);
-gst_calc_type_function();
-$(".changegst").text("IGST ₹");
-$(".changegst1").text("Bill Amount (inclusive IGST ");
-$("#gst_calc_type").attr("disabled", true);
-}
-
-$('#ccustomername').html(customname);
-$('#ccompanyname').html(companynamevar);
-$('#ccphone').html(phonevar);
-$('#ccemailid').html(email);
-$('#companynameid').html(companynamevar);
-$('#ccaddress_line_1').html(address_line_1);
-$('#ccity').html(city);
-$('#cstate').html("("+state_code+")"+state);
-$('#cstate_code').val(state_code);
-$("#modelclose").click();
-
-customers["customname"]=customname;
-customers["email"]=email;
-customers["phonevar"]=phonevar;
-customers["address"]=address_line_1;
-customers["city"]=city;
-customers["pincode"]=pincode;
-customers["state"]=state;
-customers["companynamevar"]=companynamevar;
-customers["cgst"]=cgst;
-
-
-
-$('#saveCustomerBtn').attr('disabled','disabled');
-$('#saveCustomerBtn').html('loading');
-$("#customerModal").modal("toggle");
-$("#customer_icon_hide").show();
-var cust_address_id=$('#cust_address_id').val();
-
-if(cust_address_id==0){
-$.ajax({
-url:"ajaxCalls/add_vendor.php",
-type: "POST",
-dataType: "json",
-data:  $('#cform').serialize(),
-// cache: false,
-success: function(dataResult)
-{
-  // console.log(dataResult);
-if(dataResult.status=="new Customer") {
-$("#destination").show();
-$("#shipadd").hide();
-$("#credit_amt").val(dataResult.prepaid);
-}
-$("#cid").val(dataResult.insert_id);
-$('#billadd').hide();
-$('#saveCustomerBtn').attr('disabled',false);
-$('#saveCustomerBtn').html('Save');
-$("#credit_amt").val(dataResult.prepaid);
-$("#destination").val($("#shipping_destination").val());
 }
 });
-}
-else
-{
-$.ajax({
-url:"ajaxCalls/update_custom_address.php",
-type: "POST",
-dataType: "json",
-data:  $('#cform').serialize(),
-// cache: false,
-success: function(dataResult)
-{
-$("#cid").val(dataResult.res.cid);
-$("#cust_address_id").val(dataResult.res.id);
-$('#billadd').hide();
-$('#saveCustomerBtn').attr('disabled',false);
-$('#saveCustomerBtn').html('Save');
-}
 });
-}
-$('#cform').trigger("reset");
-(customname !== '') ? $("#customername").show(): $("#customername").hide();
-(companynamevar !== '') ? $("#companyname_show_hide").show(): $("#companyname_show_hide").hide();
-(phonevar !== '') ? $("#phone_show_hide").show(): $("#phone_show_hide").hide();
-(email !== '') ? $("#email_show_hide").show(): $("#email_show_hide").hide();
-(address_line_1 !== '') ? $("#address_1_show_hide").show(): $("#address_1_show_hide").hide();
-(address_line_2 !== '') ? $("#address_2_show_hide").show(): $("#address_2_show_hide").hide();
-(city !== '') ? $("#city_show_hide").show(): $("#city_show_hide").hide();
-(area !== '') ? $("#area_show_hide").show(): $("#area_show_hide").hide();
-(pincode !== '') ? $("#pincode_show_hide").show(): $("#pincode_show_hide").hide();
-(state !== '') ? $("#state_show_hide").show(): $("#state_show_hide").hide(); 
-(cgst !== '') ? $("#ccgst").show(): $("#ccgst").hide();
-$('#searchItem').focus();
-});
+
+
+
+
 });
 
 $("#selectCustomerBtn").click(function(){
@@ -2576,6 +2710,7 @@ check.length=1;
 
     var salesorderno=$("#salesorderno").val();
     var orderdate=$("#orderdate").val();
+    var reference = $("#referencename").val();
 
 
 
@@ -2586,7 +2721,7 @@ check.length=1;
       type: "POST",
       url:"ajaxCalls/edit_salesorder.php",
       dataType:'JSON',
-      data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&salesorderno='+salesorderno+'&orderdate='+orderdate,
+      data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&salesorderno='+salesorderno+'&orderdate='+orderdate+'&reference='+reference,
       success: function(dataResult) {
         // localStorage.clear('myArray');
       // console.log(dataResult);
@@ -2596,7 +2731,7 @@ check.length=1;
 
           $.growl.notice({
            title:"SUCCESS",
-           message:"Sales Invoice Edited Successfully"
+           message:"Sales Order Edited Successfully"
           });
 
           setTimeout(function(){

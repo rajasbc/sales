@@ -113,7 +113,7 @@ try
 
     $newinv = $selin['iid']+1;
 
-    $invoiceno = '2crsipo'.date('ymd').sprintf("%04d", $newinv);
+    $invoiceno = '2CRSIPO'.date('ymd').sprintf("%04d", $newinv);
 
 
     $upsales = "update salesorder set status='Converted' where orderid='".$_POST['salesorderno']."'";
@@ -234,7 +234,7 @@ try
 
     $bill_id=$purchaseorderno;
 
-    $up="update purchaseorder set date='".$_POST['orderdate']."',expected_date='".$_POST['shipmentdate']."',invoice_no='".$invoiceno."' where id='".$purchaseorderno."'";
+    $up="update purchaseorder set vendor='".$_POST['cid']."',date='".$_POST['orderdate']."',expected_date='".$_POST['shipmentdate']."',invoice_no='".$invoiceno."' where id='".$purchaseorderno."'";
     $this->db->ExecuteQuery($up);
 
     $sub=0;
@@ -402,6 +402,15 @@ public function cancel_order($id)
         return ['status'=>'success'];
     }
 
+    function get_salesorderpototal($id)
+    {
+
+        $sql = "select sum(grandtotal) as grandtotal from purchaseorder where sales_orderid='".$id."'";
+        $result = $this->db->GetAsIsArray($sql);
+
+        return $result;
+
+    }
 	
 
 }

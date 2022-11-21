@@ -117,9 +117,7 @@ select.custom-select {
             <th>Date</th>
             <th>Vendor</th>
             <th>Total ($)</th>
-            <th>Paid ($)</th>
-            <th>Balance ($)</th>
-            <th>Pay</th>
+            <th>Order #</th>
             <th>Actions</th>
           </tr>
         </thead>

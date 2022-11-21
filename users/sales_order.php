@@ -11,6 +11,7 @@ $obj1= new Product();
 
 
 $get_countries=$obj1->get_countries();
+$prresult = $obj1->get_prlist();
 // print_r($get_countries);die();
 // echo $get_countries;
 
@@ -67,7 +68,26 @@ $userdet = $userobj->getusername($uid);
     -webkit-appearance: menulist;
   }
 
+
 </style>
+
+
+             <?php
+
+             if($userdet['type']=='Admin')
+             {
+
+              echo'<style>
+
+              .select2-container {
+                  width: 95% !important;
+              }
+
+              </style>';
+             
+             }
+
+             ?>
 
 <link rel="stylesheet" href="assets/css/jquery-ui.css" />
 
@@ -109,6 +129,14 @@ $userdet = $userobj->getusername($uid);
         </em> 
         <em id='ccustomername'></em>
         <div id="customer_icon_hide" style="display: none;">
+          
+          <div id="companyname_show_hide">
+            <em id="companyname_1">
+              Ref : 
+            </em>
+            <em id='creference'></em>
+          </div>
+
           <div id="companyname_show_hide">
             <em id="companyname_1">
               <img src="images\company_icon.png" class="media-object" style="width:10px">
@@ -156,51 +184,52 @@ $userdet = $userobj->getusername($uid);
 
 
           <input type="hidden" name="checked_val" id="checked_val" value="F">
-          <div class="form-group">
-            <div class=" col-lg-12 col-sm-12 col-sm-12" style="padding:0px;">
-              <div class="input-group input-group-sm">
-                <div class="input-group-prepend">
-                  <span class="input-group-text ">🔎<span class="text-danger">*</span></span>
-                </div>
-                <input type='text' id='searchItem' name='searchItem'  class="form-control product_add" placeholder="Search Product Here" autocomplete="off">
+          
+          
+
+          <div class="col-lg-12 col-sm-12 col-md-12" style="padding:0px;">
+          
+          <div class="input-group input-group-sm">
+          
+                <select name="searchItem" id="searchItem" class="form-control js-example-basic-single">
+                  <option value="">-- Select Product --</option>
+
+                  <?php
+
+                  foreach($prresult as $prlist)
+                  {
+
+                    echo"<option value='".$prlist['id']."' data-name='".$prlist['name']."'>".$prlist['name']."</option>";
+
+                  }
+
+                  ?>
+
+                </select>
+
                 <input id="item_id" type="hidden" name="item_id" >
                 <input type='hidden' id='originalname' name='originalname' >
-              </div>
-            </div>  
-          </div>
-<!--       <div class="form-group">
 
-        
-        <div class="col-lg-7 col-sm-7 col-md-7" style="padding:0px;">
-          <div class="input-group input-group-sm">
-            <div class="input-group-prepend">
-              <span class="input-group-text">QTY<div id="available_qty" style="display:none"> <span class="ml-3"  data-toggle='view_qty' title='QTY=' style="cursor:pointer">i</span></div></span>
-            </div>
-            <input class="form-control focus numeric" id="qty1" type="text" placeholder="Enter Qty" autocomplete="off">
+             <?php
+             if($userdet['type']=='Admin')
+             {
+             ?>
 
-          </div>
-          <input class="form-control" id="qty2" type="hidden" >
-          <input class="form-control" id="reorder_qty" type="hidden" >
-          <input class="form-control" id="reorder_level" type="hidden" >
+             <span class="input-group-text" style="display:inline; padding:3px 7px 3px 6px;"><a href=''data-toggle="modal" data-target="#add_new_product">+</a></span>
+
+             <?php
+             }
+             ?>
+
+           </div>
           
-        </div>
-
-          <div class="col-lg-8 col-sm-8 col-md-8" style="padding:15px; border-left-width: 50px;">
-          <div class="input-group input-group-sm">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Price<div id="price"> <span class="ml-3"  data-toggle='price' title='price=' style="cursor:pointer"></span></div></span>
-            </div>
-            <input class="form-control focus numeric" id="price1" type="text" placeholder="Enter Price" autocomplete="off">
-
           </div>
+
           
-        </div>
-        
-      </div> -->
 
 
       <input id="itemno" type="hidden">
-      <div class="form-group row" style="margin-top:-15px;">
+      <div class="form-group row">
         <div class=" col-lg-6 col-sm-6 col-md-6 mt-1">
           <div class="input-group input-group-sm">
             <div class="input-group-prepend">
@@ -492,6 +521,17 @@ $userdet = $userobj->getusername($uid);
                 <div class="col-lg-12 ">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
+                      <span class="input-group-text input-group-text1">Reference<span style="color: red">&nbsp;*</span></span>
+                    </div>
+                    <input class="form-control cust_form" id="reference" name="reference" type="text" autocomplete="off"placeholder='Enter Reference'>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-lg-12 ">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
                       <span class="input-group-text input-group-text1">Mobile<span style="color: red">&nbsp;*</span></span>
                     </div>
                     <input class="form-control cust_form "  id="mobile" name="mobile" onKeyPress="if(this.value.length==10)return false;" type="text" autocomplete="off"placeholder='Mobile No.'>
@@ -540,7 +580,7 @@ $userdet = $userobj->getusername($uid);
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">City<span style="color: red;">&nbsp;*</span></span>
+                      <span class="input-group-text input-group-text1">City</span>
                     </div>
                     <input class="form-control cust_form" id="city" name="city" type="text" autocomplete="off" placeholder="City" onkeypress="if(this.value.length==25) return false;">
                   </div>
@@ -552,7 +592,7 @@ $userdet = $userobj->getusername($uid);
                 <div class="col-lg-12">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">State<span style="color: red;">&nbsp;*</span></span>
+                      <span class="input-group-text input-group-text1">State </span>
                     </div>
                     <input class="form-control cust_form" id="state" name="state" type="text" autocomplete="off" placeholder="State" onkeypress="if(this.value.length==25) return false;">
                     
@@ -566,7 +606,6 @@ $userdet = $userobj->getusername($uid);
                     <div class="input-group-prepend">
                       <span class="input-group-text input-group-text1">Country<span style="color: red;">&nbsp;*</span></span>
                     </div>
-                    <!--  <input class="form-control cust_form" id="country" name="country" type="text" autocomplete="off" placeholder="Country" onkeypress="if(this.value.length==25) return false;"> -->
 
                     <select name="country" class="form-control cust_form" id="country" >
                       <option value="">Select Country</option>
@@ -610,11 +649,95 @@ $userdet = $userobj->getusername($uid);
   </div>
 
 
+              <div class="modal fade" id="add_new_product"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                 <div class="modal-body">
+                  <form id="product_form_category" enctype="multipart/form-data">
+                   <div class="container">
+                    <div class='row'>
+                     <div class='col-lg-12'>
+                      <h5>Add New Product
+                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                       </button>
+                      </h5>
+                     </div>
+                    </div>
+                    <div class="form-row">
+                     <div class="form-group col-lg-12">Product
+                      <span><label class="text-danger">*</label></span>
+                      <input type="text" name="product" id="product" class="form-control enterAsTab" onkeypress="if(this.value.length==30)return false" placeholder="Product Name">
+                     </div>
+                    </div>
+                    <div class="form-row">
+                     <div class="form-group col-lg-12 text-right">
+                      <input type="button" id='add_product_category_save' class="btn btn-success enterAsTab enterAsTabr" value="Save">
+                     </div>
+                    </div>
+                   </div>
+                  </form>
+                 </div>
+                </div>
+               </div>
+              </div>
+
+
+
   <?php
   include 'footer.php';
   ?>
 
   <script type="text/javascript">
+
+
+
+    $("#add_product_category_save").click(function(){
+  if($("#product").val()==''){
+   $('#product').css("border","1px solid red");
+   $('#product').focus();
+   return false
+  }
+  else{
+   $('#product').css("border","1px solid navy");
+  }
+
+  var product=$("#product").val(); 
+                              // var name=$("#").val(); 
+                              $.ajax({
+                               type:"POST",
+                               url:'ajaxCalls/add_item.php',
+                               dataType:"json",
+                               data:{"product_name":product},
+                               success: function(res){
+                                // console.log(res);
+                                if(res.status=='Failed')
+                                {
+                                 $.growl.error({title:"FAILED",message:"Product Already Exists"});
+                                 $("#product_form_category").trigger("reset");
+                                }
+                                if(res.status=='success')
+                                {
+                                 $.growl.notice({title:"SUCCESS",message:"Product Saved Successfully"});
+                                 $("#searchItem").append("<option selected data-name='"+res.name+"' value='"+res.id+"'>"+res.name+"</option>");
+                                 $("#product_form_category").trigger("reset");
+                                 $(".modal .close").click();
+
+                                 $("#itemno").val(res.id);
+
+                                }
+                                if(res.status=='hide')
+                                {
+                                 $.growl.notice({title:"SUCCESS",message:"Product Saved Successfully"});
+                                 $("#product_form_category").trigger("reset");
+                                 $(".modal .close").click();
+
+                                }   
+                               }
+                              });
+                             });
+
+
 
     $('.numeric').on('input', function (event) { 
       this.value = this.value.replace(/[^0-9\.]/g, '');
@@ -713,81 +836,17 @@ function removeDocItem(idval){
 
   data = [];
 
+  
+$("#searchItem").on('change',function(){
+
+$("#itemno").val($(this).val());
+
+});
+
+
   $("#add").on('click',function(){
 
-    $("#item_id").val('');
-
-   if($("#searchItem").val()==''  ){
-    $.growl.error({
-      title:"Warning",
-      message:"Atleast Add One Item"
-    });
-    $("#searchItem").focus();
-    return false;
-  }
-  var product_name=$("#searchItem").val();
-  // var hsn_code=$("#id6").val();
-  var price=$("#price1").val();
-  var price=$("#price1").val();
-  var price=$("#price1").val();
-  var id=$("#item_id").val();
-  var qty=$("#qty1").val();
-
-
-  if(Number($("#price1").val())==0)
-  {
-    $("#price1").css("border","1px solid red");
-    $("#price1").focus();
-    var qty1= $("#qty1").val(); 
-    $.growl.error({
-      title:"Price issue",
-      message:"Please enter price"
-    });
-    return false;
-  }
-  else
-  {
-    $("#price1").css("border","1px solid #ced4da");
-  }
-
-
-  if(Number($("#qty1").val())==0)
-  {
-    $("#qty1").css("border","1px solid red");
-    $("#qty1").focus();
-    var qty1= $("#qty1").val(); 
-    $.growl.error({
-      title:"Quantity issue",
-      message:"Please enter quantity"
-    });
-    return false;
-  }
-  else
-  {
-    $("#qty1").css("border","1px solid #ced4da");
-  }
-
-
-  $.ajax({
-    type:"POST",
-    url:"ajaxCalls/add_products.php",
-    data:{'product_name':product_name,"price":price,"qty":qty,"id":id},
-    dataType:'json',
-    success: function(res){
-      // alert(res);
-      if(res.status=="success"){
-        $("#itemno").val(res.id);
-
-
-
-        add_productrow();
-
-
-      }
-
-    }
-  });
-
+  add_productrow();
 
 }); 
 
@@ -879,7 +938,7 @@ var gstpercentage = 0;
   var cqty=$("#qty1").val();
   // data["total"]=total.toFixed(2);
   // var cid=$("#cid").val();
-  var itemcol=$("#searchItem").val();
+  var itemcol=$("#searchItem").find(':selected').attr('data-name'); //$("#searchItem").val();
   var price=$("#price1").val();
   var qty=$("#qty1").val();
   var itemno=$("#itemno").val();
@@ -955,7 +1014,7 @@ else {
 
 $('#save_bill').attr('disabled',false);
 // $('#searchItemDetailForm').trigger("reset");
-$('#searchItem').val('').focus();
+$('#searchItem').val('').trigger('change').focus();
 $('#qty1').val('');
 $("#gst_val").val('');
 $("#price1").val('');
@@ -1172,6 +1231,17 @@ $("#saveCustomerBtn").on('click',function(){
     $('#custnameid').css("border","1px solid #ced4da");
   }
 
+  if($("#reference").val()=='')
+  {
+    $('#reference').css("border","1px solid red");
+    $('#reference').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Reference"});
+    return false;
+  }
+  else
+  {
+    $('#reference').css("border","1px solid #ced4da");
+  }
 
   if($("#mobile").val()=='')
   {
@@ -1221,30 +1291,6 @@ $("#saveCustomerBtn").on('click',function(){
     $('#address').css("border","1px solid #ced4da");
   }
 
-  if($("#city").val()=='')
-  {
-    $('#city').css("border","1px solid red");
-    $('#city').focus();
-    $.growl.error({title:"Name Issue", message:"Please Enter City"});
-    return false;
-  }
-  else
-  {
-    $('#city').css("border","1px solid #ced4da");
-  }
-
-  if($("#state").val()=='')
-  {
-    $('#state').css("border","1px solid red");
-    $('#state').focus();
-    $.growl.error({title:"Name Issue", message:"Please Enter State"});
-    return false;
-  }
-  else
-  {
-    $('#state').css("border","1px solid #ced4da");
-  }
-
   if($("#country").val()=='')
   {
     $('#country').css("border","1px solid red");
@@ -1258,6 +1304,7 @@ $("#saveCustomerBtn").on('click',function(){
   }
 
   var name=$("#custnameid").val();
+  var reference = $("#reference").val();
   var address=$("#address").val();
   var state=$("#state").val();
   var email=$("#email").val();
@@ -1279,6 +1326,7 @@ if(res.status=='success'){
 
   $("#cid").val(res.id);
   $("#ccustomername").html(res.name);
+  $("#creference").html(reference);
   $("#ccompanyname").html(res.company_name);
   $("#email").html(res.email);
   $("#ccphone").html(res.mobile);
@@ -1342,6 +1390,7 @@ if(res.status=='success'){
     }
 
     var salesperson = $("#salesperson").val();
+    var reference = $("#reference").val();
 
 
     $('#save_bill').attr('disabled','disabled');
@@ -1352,7 +1401,7 @@ if(res.status=='success'){
         type: "POST",
         url:"ajaxCalls/add_order.php",
         dataType:'JSON',
-        data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&salesperson='+salesperson,
+        data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&salesperson='+salesperson+'&reference='+reference,
         success: function(dataResult) {
 
           var order_id = (dataResult.order_id);

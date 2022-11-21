@@ -90,6 +90,7 @@ $sordresult = $sobj->get_order($ordresult['sales_orderid']);
           <table style="line-height: 25px;">
             
             <tr><td class="first-col">Customer Name</td><td style="padding:0 7px;">:</td><td><?=$cresult[0]['name']?></td></tr>
+            <tr><td class="first-col">Ref Name</td><td style="padding:0 7px;">:</td><td><?=$sordresult['customer_reference']?></td></tr>
             <tr><td class="first-col" valign="top">Address</td><td valign="top" style="padding:0 7px;">:</td><td><?=$cresult[0]['address']?>
               
             <?php

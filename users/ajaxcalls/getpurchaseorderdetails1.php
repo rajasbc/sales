@@ -73,8 +73,9 @@ $gtot=$gtot+$gt;
 
 }
 
-$out=['out'=>$output,'item'=>$new_array,'sno'=>$sno,'gtotal'=>number_format($gtot,2,'.',''),'subtotal'=>number_format($stot,2,'.',''),'totaltax'=>number_format($taxamt,2,'.',''),'vid'=>$vendor_result[0]['id'],'cvendorname'=>$vendor_result[0]['name'],'ccompanyname'=>$vendor_result[0]['company_name'],'ccaddress_line_1'=>$vendor_result[0]['address'],'city'=>$vendor_result[0]['city'],'cstate'=>$vendor_result[0]['state'],'ccphone'=>$vendor_result[0]['mobile'],'cemailid'=>$vendor_result[0]['email'],'orderdate'=>$ordresult['date'],'shipmentdate'=>$ordresult['expected_date']];
+$out=['out'=>$output,'item'=>$new_array,'sno'=>$sno,'gtotal'=>number_format($gtot,2,'.',''),'subtotal'=>number_format($stot,2,'.',''),'totaltax'=>number_format($taxamt,2,'.',''),'vid'=>$vendor_result[0]['id'],'cvendorname'=>$vendor_result[0]['name'],'ccompanyname'=>$vendor_result[0]['company_name'],'ccaddress_line_1'=>$vendor_result[0]['address'],'city'=>$vendor_result[0]['city'],'cstate'=>$vendor_result[0]['state'],'ccphone'=>$vendor_result[0]['mobile'],'cemailid'=>$vendor_result[0]['email'],'orderdate'=>$ordresult['date'],'shipmentdate'=>$ordresult['expected_date'],'country'=>$vendor_result[0]['country']];
 
 echo json_encode($out);
+
 
 ?>

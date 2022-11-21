@@ -8,6 +8,8 @@ $robj = new Receipt();
 
 $cobj = new Customer();
 
+$sobj = new Salesorder();
+
 $out = '';
 
 if (count($result) > 0) {
@@ -21,6 +23,8 @@ if (count($result) > 0) {
 
 		$bal = $row['grandtotal']-$rsresult['paid'];
 
+		$sordresult = $sobj->get_order($row['sales_orderid']);
+
 		$i++;
 		$out .= "
 		<tr>
@@ -28,20 +32,7 @@ if (count($result) > 0) {
 		<td>" . date('d-m-Y',strtotime($row['date'])) . "</td>
 		<td>" . $cresult[0]['name']. "</td>
 		<td>" . $row['grandtotal'] . "</td>
-		<td>". number_format($rsresult['paid'],2,'.','') ."</td>
-		<td>" . number_format($bal,2,'.','') . "</td>
-		<td>";
-
-		if($bal!='0')
-		{
-			$out.="<button class='btn btn-warning btn-action btn-sm' data-id='" . $row['billid'] . "' data-url='selectBill.php?t=".$row['billid']."' value='".$row['billid']."' name='pay' id='test_edit".$row['billid']."' data-toggle='modal'>Pay</button>";
-		}
-		else if($bal=='0')
-		{
-			$out.="<button class='btn btn-primary btn-sm'>Paid</button>";
-		}
-
-		$out .="</td>
+		<td>". $sordresult['invoice_no'] ."</td>
 		<td>
 		<a class='btn btn-sm btn-success' href='viewsalesdetails.php?id=".$row['billid']."'>View</a> &nbsp; ";
 
@@ -53,11 +44,6 @@ if (count($result) > 0) {
 
 		}
 
-		// if($row['status']=='New')
-		// {
-		// $out .="<a class='btn btn-sm btn-warning' href='purchase.php?bill_check_group=".base64_encode($row['orderid'])."'>Invoice</a>";
-		// }
-
 		$out .="</td>
 		</tr>";
 	}
@@ -67,9 +53,9 @@ else
 	$out .="<td colspan='8' style='text-align:center;'>No Record Found</td>";
 }
 
-
 $output=['out'=>$out,'count'=>count($tresult)];
 
 echo json_encode($output);
+
 
 ?>

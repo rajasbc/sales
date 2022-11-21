@@ -2624,6 +2624,7 @@ check.length=1;
 
     var salesorderno=$("#salesorderno").val();
     var shippingcharges=$("#shippingcharges").val();
+    var date = $("#date").val();
 
 
 
@@ -2634,7 +2635,7 @@ check.length=1;
       type: "POST",
       url:"ajaxCalls/add_sales.php",
       dataType:'JSON',
-      data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&salesorderno='+salesorderno+'&shippingcharges='+shippingcharges,
+      data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&date='+date+'&salesorderno='+salesorderno+'&shippingcharges='+shippingcharges,
       success: function(dataResult) {
         // localStorage.clear('myArray');
       // console.log(dataResult);

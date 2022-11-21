@@ -8,6 +8,9 @@ if($_GET['bill_check_group']!='')
   $ores = $oobj->get_order(base64_decode($_GET['bill_check_group']));
 }
 
+$obj1= new Product();
+$get_countries=$obj1->get_countries();
+
 ?>
 
 <style type="text/css">
@@ -75,9 +78,11 @@ if($_GET['bill_check_group']!='')
 <input type="hidden" name="s_no" id="s_no">
 <input type="hidden" name="doc_sno" id="doc_sno" value="0">
                   
-                  <!-- <img src="images\usericon.jpg" class="media-object" data-toggle="modal" data-target="#customerModal" style="width:40px;cursor:pointer;margin-left:-10px"> -->
+                  <!--  -->
 
                   <b style="font-weight:bold; font-size: 15px;">Vendor Details</b>
+
+                  &nbsp; &nbsp; &nbsp; <img src="images\usericon.jpg" class="media-object" data-toggle="modal" data-target="#customerModal" style="width:40px;cursor:pointer;margin-left:-10px">
 
                   <div class="row">
 
@@ -339,116 +344,138 @@ if($_GET['bill_check_group']!='')
 
 
 
+
 <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <form id="cform" onsubmit="javascript:return false;">
-      <input type="hidden" name="cust_address_id" id="cust_address_id" value="0">
-      <input type="hidden" name="address_info" id="address_info" value="primary">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="customerModalTitle"><strong>Vendor Details</strong></h5>
-          <button class="close" type="button" data-dismiss="modal" id="customerCloseBtn" aria-label="Close"><span aria-hidden="true">×</span></button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group row">
-
-                <div class="col-lg-12">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">Name<span style="color: red;">&nbsp;*</span></span>
-                    </div>
-                    <input class="form-control cust_form" id="custnameid" name="custname" type="text" placeholder="Vendor Name" autocomplete="off" onkeypress="if(this.value.length==50) return false;">
-                  </div>
+          <div class="modal-dialog" role="document">
+            <form id="cform" onsubmit="javascript:return false;">
+              <input type="hidden" name="cust_address_id" id="cust_address_id" value="0">
+              <input type="hidden" name="address_info" id="address_info" value="primary">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="customerModalTitle"><strong>Vendor Details</strong></h5>
+                  <button class="close" type="button" data-dismiss="modal" id="customerCloseBtn" aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
-              </div>
+                <div class="modal-body">
+                  <div class="form-group row">
 
-              <div class="form-group row">
-                <div class="col-lg-12 ">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">+91<span style="color: red">&nbsp;*</span></span>
+                    <div class="col-lg-12">
+                      <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text input-group-text1">Name<span style="color: red;">&nbsp;*</span></span>
+                        </div>
+                        <input class="form-control cust_form" id="custnameid" name="custname" type="text" placeholder="Vendor Name" autocomplete="off" onkeypress="if(this.value.length==50) return false;">
+                      </div>
                     </div>
-                    <input class="form-control cust_form"  id="mobile" name="mobile" onKeyPress="if(this.value.length==10)return false;" type="text" autocomplete="off"placeholder='Mobile No.'>
                   </div>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-lg-12">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">Email</span>
+
+                  <div class="form-group row">
+                    <div class="col-lg-12 ">
+                      <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text input-group-text1">Mobile<span style="color: red">&nbsp;*</span></span>
+                        </div>
+                        <input class="form-control cust_form"  id="mobile" name="mobile" onKeyPress="if(this.value.length==10)return false;" type="text" autocomplete="off"placeholder='Mobile No.'>
+                      </div>
                     </div>
-                    <input  class="form-control cust_form" type="email" id="email"  name="email" autocomplete="off" placeholder="Email Id" onkeypress="if(this.value.length==25) return false;">
                   </div>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-lg-12">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1" id="com">Company Name<span style="color: red" class="<?php echo $hide_silver_data1?>"></span></span>
+                  <div class="form-group row">
+                    <div class="col-lg-12">
+                      <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text input-group-text1">Email<span style="color: red">&nbsp;*</span></span>
+                        </div>
+                        <input  class="form-control cust_form" type="email" id="email"  name="email" autocomplete="off" placeholder="Email Id" onkeypress="if(this.value.length==25) return false;">
+                      </div>
                     </div>
-                    <input class="form-control cust_form" id="companyname" name="companyname" type="text" autocomplete="off" onkeypress="if(this.value.length==25) return false;">
-                    <select class="form-control" style="border-left-width: 0px;display: none" id="billadd"></select>
-                    
-                    <input id="item_id" type="hidden" name="item_id" >
                   </div>
-                </div>
-              </div>
 
-              <div class="form-group row">
-                <div class="col-lg-12">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">Address<span style="color: red" class="<?php echo $hide_silver_data1?>">&nbsp;</span></span>
+                  <div class="form-group row">
+                    <div class="col-lg-12">
+                      <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text input-group-text1" id="com">Company Name<span style="color: red">&nbsp;*</span></span>
+                        </div>
+                        <input class="form-control cust_form" id="companyname" name="companyname" type="text" autocomplete="off" onkeypress="if(this.value.length==25) return false;">
+                        <select class="form-control" style="border-left-width: 0px;display: none" id="billadd"></select>
+
+                        <input id="item_id" type="hidden" name="item_id" >
+                      </div>
                     </div>
-                    <input class="form-control cust_form" id="address" name="address" type="text" autocomplete="off" placeholder="Address" onkeypress="if(this.value.length==50) return false;">
-                    <!-- <select class="form-control" style="border-left-width: 0px" id="billadd"></select> -->
                   </div>
-                </div>
-              </div>
 
-
-              <div class="form-group row">
-                <div class="col-lg-12">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">City</span>
+                  <div class="form-group row">
+                    <div class="col-lg-12">
+                      <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text input-group-text1">Address<span style="color: red">&nbsp;*</span></span>
+                        </div>
+                        <input class="form-control cust_form" id="address" name="address" type="text" autocomplete="off" placeholder="Address" onkeypress="if(this.value.length==50) return false;">
+                        <!-- <select class="form-control" style="border-left-width: 0px" id="billadd"></select> -->
+                      </div>
                     </div>
-                    <input class="form-control cust_form" id="city" name="city" type="text" autocomplete="off" placeholder="City" onkeypress="if(this.value.length==25) return false;">
                   </div>
-                </div>
-                
 
-              </div>
-              <div class="form-group row">
-                <div class="col-lg-12">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">State</span>
+
+                  <div class="form-group row">
+                    <div class="col-lg-12">
+                      <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text input-group-text1">City</span>
+                        </div>
+                        <input class="form-control cust_form" id="city" name="city" type="text" autocomplete="off" placeholder="City" onkeypress="if(this.value.length==25) return false;">
+                      </div>
                     </div>
-                    <input class="form-control cust_form" id="state" name="state" type="text" autocomplete="off" placeholder="City" onkeypress="if(this.value.length==25) return false;">
-                    
-                  </div>
-                </div>
 
-              </div>
-              <div class="form-group row">
-                <div class="col-lg-12">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text input-group-text1">Country</span>
+
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-lg-12">
+                      <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text input-group-text1">State</span>
+                        </div>
+                        <input class="form-control cust_form" id="state" name="state" type="text" autocomplete="off" placeholder="State" onkeypress="if(this.value.length==25) return false;">
+
+                      </div>
                     </div>
-                    <input class="form-control cust_form" id="country" name="country" type="text" autocomplete="off" placeholder="Country" onkeypress="if(this.value.length==25) return false;">
-                  </div>
-                </div>
-                
 
-              </div>
-              <div style="margin-left: 320px;margin-top: 10px;"><span style="color: red;">&nbsp;* </span><i>Required Fields</i></div>
-            </div>
-            <div class="modal-footer">
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-lg-12">
+                      <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text input-group-text1">Country<span style="color: red">&nbsp;*</span></span>
+                        </div>
+
+                        <select name="country" class="form-control cust_form" id="country" >
+                           <option value="select">Select Country</option>
+
+                         <?php
+
+                         foreach ($get_countries as $value) {
+                                      // print_r($value);die();
+                          if ($value['name']=="INDIA") {
+                           echo "<option value='".$value['id']."' selected='selected' data-id='".$value['phonecode']."'>". $value["name"]."</option>";
+
+                         }
+                         else
+                         {                        
+                           echo "<option value='".$value['id']."' data-id='".$value['phonecode']."' >" . $value["name"]."</option>";
+
+                         }
+                       }
+
+                       ?>
+
+                     </select>
+                   </div>
+                 </div>
+
+
+               </div>
+               <div style="margin-left: 320px;margin-top: 10px;"><span style="color: red;">&nbsp;* </span><i>Required Fields</i></div>
+             </div>
+             <div class="modal-footer">
               <button class="btn btn-sm btn-success cust_form" type="button" id="saveCustomerBtn" data-dismiss="modal">Save</button>
               <button class="btn btn-sm btn-warning" id="modelclose" type="button" data-dismiss="modal">Close</button>
             </div>
@@ -611,6 +638,21 @@ $("#gst_calc_type").attr("disabled", true);
   $('#ccphone').html(dataResult.ccphone);
   $('#cemailid').html(dataResult.cemailid);
    $("#s_no").val(dataResult.sno);
+
+
+   $("#email").val(dataResult.cemailid);
+   $("#custnameid").val(dataResult.cvendorname);
+   $("#companyname").val(dataResult.ccompanyname);
+   $("#mobile").val(dataResult.ccphone);
+   $("#address").val(dataResult.ccaddress_line_1);
+   $("#city").val(dataResult.city);
+   $("#state").val(dataResult.cstate);
+   $("#country").val(dataResult.country);
+
+
+
+
+
    var sno=0;
       $.each(dataResult.item,function(key, value){
          
@@ -1811,33 +1853,86 @@ function other_charges_calc()
   };
   
 $('#saveCustomerBtn').on('click', function(){
+
+
+
 if($("#custnameid").val()=='' || $("#custnameid").val()=='No Record Found')
-{
-$('#custnameid').css("border","1px solid red");
-$('#custnameid').focus();
-$.growl.error({title:"Name Issue", message:"Please Enter Proper Name"});
-return false;
-}
-else
-{
-$('#custnameid').css("border","1px solid #ced4da");
-}
+  {
+    $('#custnameid').css("border","1px solid red");
+    $('#custnameid').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Proper Name"});
+    return false;
+  }
+  else
+  {
+    $('#custnameid').css("border","1px solid #ced4da");
+  }
 
-if($("#phone").val()=='')
-{
-$('#phone').css("border","1px solid red");
-$('#phone').focus();
-return false;
-}
-else
-{
-$('#phone').css("border","1px solid #ced4da");
-}
+  if($("#mobile").val()=='')
+  {
+    $('#mobile').css("border","1px solid red");
+    $('#mobile').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Mobile"});
+    return false;
+  }
+  else
+  {
+    $('#mobile').css("border","1px solid #ced4da");
+  }
+
+  if($("#email").val()=='')
+  {
+    $('#email').css("border","1px solid red");
+    $('#email').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Email"});
+    return false;
+  }
+  else
+  {
+    $('#email').css("border","1px solid #ced4da");
+  }
+
+  if($("#companyname").val()=='')
+  {
+    $('#companyname').css("border","1px solid red");
+    $('#companyname').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Company Name"});
+    return false;
+  }
+  else
+  {
+    $('#companyname').css("border","1px solid #ced4da");
+  }
+
+  if($("#address").val()=='')
+  {
+    $('#address').css("border","1px solid red");
+    $('#address').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Address"});
+    return false;
+  }
+  else
+  {
+    $('#address').css("border","1px solid #ced4da");
+  }
+
+  if($("#country").val()=='')
+  {
+    $('#country').css("border","1px solid red");
+    $('#country').focus();
+    $.growl.error({title:"Name Issue", message:"Please Enter Country"});
+    return false;
+  }
+  else
+  {
+    $('#country').css("border","1px solid #ced4da");
+  }
 
 
-var email=$("#idemail").val();
-var customname=$("#custnameid").val();
-var cid=$("#cid").val();
+
+  var email=$("#idemail").val();
+  var customname=$("#custnameid").val();
+  var cid=$("#cid").val();
 // alert(cid);
 customerarray["cid"]=cid;
 var phonevar=$("#mobile").val();
@@ -1846,48 +1941,50 @@ var city=$("#city").val();
 var pincode=$("#pincode").val();
 var state=$("#state option:selected").text();
 if (state=="Select State") {
-state=""
+  state=""
 }else{
-state=$("#state option:selected").text();
+  state=$("#state option:selected").text();
 }
 var area=$("#area").val();
 var state_code=$("#state_code").val();
 
 var companynamevar=$("#companyname").val();
+var country=$("#country option:selected").val();
 var cgst=$("#customer_gst").val();
 var cdlno=$("#customer_dlno").val();
 var shopscode=$("#addressid2").text();
 if (state_code==0) {
-state_codes=shopscode;
+  state_codes=shopscode;
 }else{
-state_codes=$("#state_code").val();
+  state_codes=$("#state_code").val();
 }
 
 if(shopscode==state_codes) {
-$('#gst_calc_type').prop('checked',true);
-gst_calc_type_function();
-$(".changegst").text("GST ₹");
-$(".changegst1").text("Bill Amount (inclusive GST ");
-$("#gst_calc_type").attr("disabled", true);
+  $('#gst_calc_type').prop('checked',true);
+  gst_calc_type_function();
+  $(".changegst").text("GST ₹");
+  $(".changegst1").text("Bill Amount (inclusive GST ");
+  $("#gst_calc_type").attr("disabled", true);
 }
 
 if (shopscode!=state_codes) {
-$('#gst_calc_type').prop('checked',false);
-gst_calc_type_function();
-$(".changegst").text("IGST ₹");
-$(".changegst1").text("Bill Amount (inclusive IGST ");
-$("#gst_calc_type").attr("disabled", true);
+  $('#gst_calc_type').prop('checked',false);
+  gst_calc_type_function();
+  $(".changegst").text("IGST ₹");
+  $(".changegst1").text("Bill Amount (inclusive IGST ");
+  $("#gst_calc_type").attr("disabled", true);
 }
 
 $('#ccustomername').html(customname);
 $('#ccompanyname').html(companynamevar);
 $('#ccphone').html(phonevar);
 $('#ccemailid').html(email);
+$('#ccountry').html(country);
 $('#companynameid').html(companynamevar);
-$('#ccaddress_line_1').html(address_line_1);
+$('#ccaddress').html(address_line_1);
 $('#ccity').html(city);
-$('#cstate').html("("+state_code+")"+state);
-$('#cstate_code').val(state_code);
+$('#cstate').html(state);
+// $('#cstate_code').val(state_code);
 $("#modelclose").click();
 
 customers["customname"]=customname;
@@ -1898,6 +1995,8 @@ customers["city"]=city;
 customers["pincode"]=pincode;
 customers["state"]=state;
 customers["companynamevar"]=companynamevar;
+customers["country"]=country;
+
 customers["cgst"]=cgst;
 
 
@@ -1906,64 +2005,60 @@ $('#saveCustomerBtn').attr('disabled','disabled');
 $('#saveCustomerBtn').html('loading');
 $("#customerModal").modal("toggle");
 $("#customer_icon_hide").show();
+
 var cust_address_id=$('#cust_address_id').val();
+var name=$("#custnameid").val();
+var address=$("#address").val();
+var state=$("#state").val();
+var email=$("#email").val();
+var company_name=$("#companyname").val();
+var city=$("#city").val();
+var country=$("#country option:selected").val();
+var mobile=$("#mobile").val();
+var id = $("#cid").val();
 
 if(cust_address_id==0){
-$.ajax({
-url:"ajaxCalls/add_vendor.php",
-type: "POST",
-dataType: "json",
-data:  $('#cform').serialize(),
+  $.ajax({
+    url:"ajaxCalls/add_vendor.php",
+    type: "POST",
+    dataType: "json",
+    data:{'name':name,'address':address,'state':state,'email':email,'company_name':company_name,'city':city,'country':country,'mobile':mobile,'id':id},
 // cache: false,
 success: function(dataResult)
 {
   console.log(dataResult);
-if(dataResult.status=="new Customer") {
-$("#destination").show();
-$("#shipadd").hide();
-$("#credit_amt").val(dataResult.prepaid);
-}
-$("#cid").val(dataResult.insert_id);
-$('#billadd').hide();
-$('#saveCustomerBtn').attr('disabled',false);
-$('#saveCustomerBtn').html('Save');
-$("#credit_amt").val(dataResult.prepaid);
-$("#destination").val($("#shipping_destination").val());
-}
-});
-}
-else
-{
-$.ajax({
-url:"ajaxCalls/update_custom_address.php",
-type: "POST",
-dataType: "json",
-data:  $('#cform').serialize(),
-// cache: false,
-success: function(dataResult)
-{
-$("#cid").val(dataResult.res.cid);
-$("#cust_address_id").val(dataResult.res.id);
-$('#billadd').hide();
-$('#saveCustomerBtn').attr('disabled',false);
-$('#saveCustomerBtn').html('Save');
+  if(dataResult.status=="new Customer") {
+    $("#destination").show();
+    $("#shipadd").hide();
+    $("#credit_amt").val(dataResult.prepaid);
+  }
+  $("#cid").val(dataResult.id);
+  $("#custid").val(dataResult.id);
+
+  $('#mobile').val(dataResult.mobile);
+  $('#custnameid').val(dataResult.name);
+  $('#email').val(dataResult.email);
+  $('#address').val(dataResult.address);
+  $('#city').val(dataResult.city);
+  $('#state').val(dataResult.state);
+  $('#country').val(dataResult.country);
+  $('#ccountry').html(dataResult.country);
+  $('#companyname').val(dataResult.companyname);
+
+  $('#billadd').hide();
+  $('#saveCustomerBtn').attr('disabled',false);
+  $('#saveCustomerBtn').html('Save');
+  $("#credit_amt").val(dataResult.prepaid);
+  $("#destination").val($("#shipping_destination").val());
 }
 });
 }
-$('#cform').trigger("reset");
-(customname !== '') ? $("#customername").show(): $("#customername").hide();
-(companynamevar !== '') ? $("#companyname_show_hide").show(): $("#companyname_show_hide").hide();
-(phonevar !== '') ? $("#phone_show_hide").show(): $("#phone_show_hide").hide();
-(email !== '') ? $("#email_show_hide").show(): $("#email_show_hide").hide();
-(address_line_1 !== '') ? $("#address_1_show_hide").show(): $("#address_1_show_hide").hide();
-(address_line_2 !== '') ? $("#address_2_show_hide").show(): $("#address_2_show_hide").hide();
-(city !== '') ? $("#city_show_hide").show(): $("#city_show_hide").hide();
-(area !== '') ? $("#area_show_hide").show(): $("#area_show_hide").hide();
-(pincode !== '') ? $("#pincode_show_hide").show(): $("#pincode_show_hide").hide();
-(state !== '') ? $("#state_show_hide").show(): $("#state_show_hide").hide(); 
-(cgst !== '') ? $("#ccgst").show(): $("#ccgst").hide();
-$('#searchItem').focus();
+
+
+
 });
+
+
 });
 
 $("#selectCustomerBtn").click(function(){

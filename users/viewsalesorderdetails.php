@@ -87,6 +87,7 @@ $aresult = $aobj->getusername($ordresult['createdby']);
           <table style="line-height: 25px;">
             
             <tr><td class="first-col">Customer Name</td><td style="padding:0 7px;">:</td><td><?=$cresult[0]['name']?></td></tr>
+            <tr><td class="first-col">Ref Name</td><td style="padding:0 7px;">:</td><td><?=$ordresult['customer_reference']?></td></tr>
             <tr><td class="first-col" valign="top">Address</td><td valign="top" style="padding:0 7px;">:</td><td><?=$cresult[0]['address']?>
               
             <?php
@@ -110,6 +111,7 @@ $aresult = $aobj->getusername($ordresult['createdby']);
 
           <table>
             <tr><td class="first-col">Sales Person</td><td style="padding:0 7px;">:</td><td><?=$aresult['name']?></td></tr>
+            <tr><td class="first-col">Order Date</td><td style="padding:0 7px;">:</td><td><?=date('d-m-Y',strtotime($ordresult['date']))?></td></tr>
           </table>
           
         </div>

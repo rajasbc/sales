@@ -2661,6 +2661,7 @@ check.length=1;
 
     var purchaseorderno=$("#purchaseorderno").val();
     var shippingcharges=$("#shippingcharges").val();
+    var date = $("#date").val();
 
 
 
@@ -2669,7 +2670,7 @@ check.length=1;
       type: "POST",
       url:"ajaxCalls/add_purchase.php",
       dataType:'JSON',
-      data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&purchaseorderno='+purchaseorderno+'&shippingcharges='+shippingcharges,
+      data: $.param(obj)+'&'+$.param(doc_obj)+'&'+$.param(cobj)+'&date='+date+'&purchaseorderno='+purchaseorderno+'&shippingcharges='+shippingcharges,
       success: function(dataResult) {
         // localStorage.clear('myArray');
       // console.log(dataResult);
