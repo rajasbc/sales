@@ -100,6 +100,7 @@ try
 {
 
 	$sales['customer']=$_POST['cid'];
+	$sales['customer_reference'] = $_POST['reference'];
     $sales['date']=date('Y-m-d');
     $sales['createdby']=$_POST['salesperson'];
     $sales['status']='New';
@@ -112,7 +113,7 @@ try
 
     $newinv = $selin['iid']+1;
 
-    $invoiceno = '2crsiso'.date('ymd').sprintf("%04d", $newinv);
+    $invoiceno = '2CRSISO'.date('ymd').sprintf("%04d", $newinv);
 
 
     //update orderid and invoiceno
@@ -241,7 +242,7 @@ try
 
     $bill_id=$salesorderno;
 
-    $up="update salesorder set date='".$_POST['orderdate']."',invoice_no='".$invoiceno."' where id='".$salesorderno."'";
+    $up="update salesorder set customer='".$_POST['cid']."',customer_reference='".$_POST['reference']."',date='".$_POST['orderdate']."',invoice_no='".$invoiceno."' where id='".$salesorderno."'";
     $this->db->ExecuteQuery($up);
 
     $sub=0;

@@ -97,12 +97,12 @@ $get_countries=$obj->get_countries();
 
      </div>
      <div class="form-group">
-       <label for="state">State <span class="danger"> *</span></label>
+       <label for="state">State </label>
        <input type="text" class="form-control enterAsTab" id="state" aria-describedby="stateHelp" placeholder="Enter State" value="<?php echo $result[0]['state'] ?>" autocomplete="off">
 
      </div>
      <div class="form-group">
-       <label for="city">City <span class="danger"> *</span></label>
+       <label for="city">City </label>
        <input type="text" class="form-control enterAsTab" id="city" aria-describedby="cityHelp" placeholder="Enter City" value="<?php echo $result[0]['city'] ?>" autocomplete="off">
      </div>
 
@@ -196,24 +196,6 @@ if($("#country").val()==''){
 }
 else{
   $('#country').css("border","1px solid lightgray");
-}
-
-if($("#state").val()==''){
- $('#state').css("border","1px solid red");
- $('#state').focus();
- return false
-}
-else{
-  $('#state').css("border","1px solid lightgray");
-}
-
-if($("#city").val()==''){
- $('#city').css("border","1px solid red");
- $('#city').focus();
- return false
-}
-else{
-  $('#city').css("border","1px solid lightgray");
 }
 
 if($("#address").val()==''){

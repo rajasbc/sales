@@ -94,21 +94,7 @@ select.custom-select {
 										</div>
 									</div>
 								</div>
-								<!-- <div class="col-xl-3 col-md-6">
-									<div class="card prod-p-card bg-c-green">
-										<div class="card-body">
-											<div class="row align-items-center m-b-25">
-												<div class="col">
-													<b class="m-b-5 text-white">Product Sold</b>
-													<h3 class="m-b-0 text-white"><?php if($sqty['qty']>0){ echo $sqty['qty']; } else{ echo '0'; } ?></h3>
-												</div>
-												<div class="col-auto">
-													<i class="fas fa-tags text-c-green f-18"></i>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div> -->
+								
 								<div class="col-xl-3 col-md-6">
 									<div class="card prod-p-card bg-c-yellow">
 										<div class="card-body">
@@ -263,6 +249,8 @@ select.custom-select {
 								            <th>Date</th>
 								            <th>Customer</th>
 								            <th>Sales Person</th>
+								            <th>Total ($)</th>
+								            <th>PO Total ($)</th>
 								            <th>Status</th>
 								            <th>Actions</th>
 								          </tr>
@@ -272,7 +260,28 @@ select.custom-select {
 								        </tbody>
 								      </table>
 								    </div>
+
+								    <div id="grandtotal" style="display:none;">
+								    	
+								    	<table style="font-weight:bold; font-size:15px; color:#000;">
+								    		
+								    		<tr><td>Total Order Value &nbsp; </td><td style="padding:0 7px">:</td><td style="text-align:right;" id="ordertotal"></td></tr>
+								    		<tr><td>Total Purchase Value &nbsp; </td><td style="padding:0 7px">:</td><td style="text-align:right;" id="pototal"></td></tr>
+
+								    	</table>
+
+								    </div>
+
 								</div>
+
+
+
+
+
+
+
+
+
 <?php if(count($purchase_res)>0){?>
 								<div class="card-body table-border-style">
 									<h5>Reminder Orders</h5><br>
@@ -283,9 +292,8 @@ select.custom-select {
            <tr>
             <th style="width:10%;">Order#</th>
             <th>Date</th>
-            <th>Expected Date</th>
+            <th>Shippment Date</th>
             <th>Vendor</th>
-            <th>Email</th>
             <th>Total ($)</th>
             <th>Status</th>
             <th>Actions</th>
@@ -310,7 +318,6 @@ $k = 0;
 		}
 		
 		echo "<td>" . $cresult[0]['name']. "</td>
-		<td>" . $cresult[0]['email'] . "</td>
 		<td>" . $row['grandtotal'] . "</td>
 		<td>" . $row['status'] . "</td>
 		<td>
@@ -409,6 +416,13 @@ include 'footer.php';
 
 	        $('#mytable').html(res.out);
 	        $("table").trigger('update');
+
+	        if(res.count!=0)
+	        {
+	        $('#grandtotal').css('display','');
+	        $('#ordertotal').html('$ '+res.ordertotal);
+	        $('#pototal').html('$ '+res.pototal);
+	    	}
 
 	      }
 	    });

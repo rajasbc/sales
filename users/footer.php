@@ -6,6 +6,12 @@
 
     <script src="assets/js/jquery-ui.js"></script>
 
+    
+
+<script src="assets/plugins/select2/js/select2.full.min.js"></script>
+
+<script src="assets/js/pages/form-select-custom.js"></script>
+
 
     <!-- chart-morris Js -->
     <!-- <script src="assets/plugins/chart-morris/js/raphael.min.js"></script>

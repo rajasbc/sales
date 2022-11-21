@@ -1,8 +1,6 @@
 <?php
 include '../includes/config.php';
 include 'header.php';
-// $obj = new Customer();
-// $result =  $obj->get_customer();
 ?>
 
 <style type="text/css">
@@ -30,11 +28,11 @@ select.custom-select {
         <div class="row align-items-center">
          <div class="col-md-12">
           <div class="page-header-title">
-           <h5 class="m-b-10">Customers</h5>
+           <h5 class="m-b-10">Products</h5>
          </div>
          <ul class="breadcrumb">
            <li class="breadcrumb-item"><a href="index.php"><i class="feather icon-home"></i></a></li>
-           <li class="breadcrumb-item">Customers</li>
+           <li class="breadcrumb-item">Products</li>
          </ul>
        </div>
      </div>
@@ -75,7 +73,7 @@ select.custom-select {
                     </select>
                     <select class="form-control custom-select px-4 pagenum" style="padding: 0px 15px; height: 31px; margin: 5px;" title="Select page number"></select>
 
-                    <input type="text" class="form-control" placeholder="Search...." id="mySearch" style="width: 170px; margin: 5px;" onkeyup="getcustomer(this)" />
+                    <input type="text" class="form-control" placeholder="Search...." id="mySearch" style="width: 170px; margin: 5px;" onkeyup="getproduct(this)" />
 
                   </div>
                 </th>
@@ -87,7 +85,7 @@ select.custom-select {
 
       <div class="col-md-2" style="float:right; margin-top: 5px;">
 
-      <a class="btn btn-sm btn-info" href="customer.php" style="margin-top: 10px; float: right;">+New</a>
+      <a class="btn btn-sm btn-info" href="product.php" style="margin-top: 10px; float: right;">+New</a>
 
       </div>
 
@@ -105,9 +103,6 @@ select.custom-select {
            <tr>
             <th>S.No</th>
             <th>Name</th>
-            <th>Company Name</th>
-            <th>Email</th>
-            <th>Mobile</th>
 
             <?php
             if($_SESSION['utype']=='Admin')
@@ -147,7 +142,7 @@ include 'footer.php';
   <script>
     $(document).ready(function(){
 
-      getcustomer();
+      getproduct();
 
    });
 
@@ -155,7 +150,7 @@ include 'footer.php';
 
  <script id="js">
 
-function getcustomer()
+function getproduct()
 {
 
   var search = $("#mySearch").val();
@@ -207,7 +202,7 @@ function getcustomer()
 
         removeRows: false,
 
-        ajaxUrl: "ajaxCalls/get_customer_list_ajax.php?page={page}&size={size}&search="+search,
+        ajaxUrl: "ajaxCalls/get_product_list_ajax.php?page={page}&size={size}&search="+search,
       customAjaxUrl: function(table, url) {
 
             $(table).trigger('changingUrl');
@@ -233,7 +228,6 @@ function getcustomer()
 });
 
 }
-
 
 
 </script>

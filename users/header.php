@@ -43,6 +43,9 @@ if($udetails['type']=='Admin')
 	<link rel="stylesheet" href="assets/css/theme.bootstrap_4.css">
 <!-- users\assets\css\pages
  -->	<!-- vendor css -->
+
+ <link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
+ 
 	<link rel="stylesheet" href="assets/css/style.css">
 
 <style type="text/css">
@@ -111,7 +114,6 @@ if($udetails['type']=='Admin')
 						<ul class="pcoded-submenu">
 							<li class=""><a href="viewsalesorder.php" class="">Incoming PO</a></li>
 							<li class=""><a href="viewsales.php" class="">Outgoing Invoice</a></li>
-							<li class=""><a href="viewreceipt.php" class="">Receipt</a></li>
 						</ul>
 					</li>
 					<li class="nav-item">
@@ -122,17 +124,13 @@ if($udetails['type']=='Admin')
 						<ul class="pcoded-submenu">
 							<li class=""><a href="viewpurchaseorder.php" class="">Outgoing PO</a></li>
 							<li class=""><a href="viewpurchase.php" class="">Incoming Invoice</a></li>
-							<li class=""><a href="viewpayment.php" class="">Payment</a></li>
 						</ul>
 					</li>
 
-					<li class="nav-item pcoded-hasmenu">
-						<a href="" class="nav-link disable-anchor"><span class="pcoded-micon"><i class="feather icon-map"></i></span><span class="pcoded-mtext">Outstandings</span></a>
-						<ul class="pcoded-submenu">
-							<li class=""><a href="payables.php" class="">Payables</a></li><!-- payables.php -->
-							<li class=""><a href="receivables.php" class="">Receivables</a></li><!-- receivables.php -->
-						</ul>
+					<li class="nav-item">
+						<a href="viewproduct.php" class="nav-link"><span class="pcoded-micon"><i class="feather icon-map"></i></span><span class="pcoded-mtext">Product</span></a>
 					</li>
+
 					<li class="nav-item">
 						<a href="users.php" class="nav-link"><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Users</span></a>
 					</li>	
@@ -214,6 +212,9 @@ elseif($udetails['type']=='Sales Person')
 	<link rel="stylesheet" href="assets/css/theme.bootstrap_4.css">
 <!-- users\assets\css\pages
  -->	<!-- vendor css -->
+
+ 	<link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
+
 	<link rel="stylesheet" href="assets/css/style.css">
 
 <style type="text/css">
@@ -359,6 +360,9 @@ elseif($udetails['type']='Accounts')
 	<link rel="stylesheet" href="assets/css/theme.bootstrap_4.css">
 <!-- users\assets\css\pages
  -->	<!-- vendor css -->
+
+ 	<link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
+
 	<link rel="stylesheet" href="assets/css/style.css">
 
 <style type="text/css">
@@ -427,7 +431,6 @@ elseif($udetails['type']='Accounts')
 						<ul class="pcoded-submenu">
 							<li class=""><a href="viewsalesorder.php" class="">Incoming PO</a></li>
 							<li class=""><a href="viewsales.php" class="">Outgoing Invoice</a></li>
-							<li class=""><a href="viewreceipt.php" class="">Receipt</a></li>
 						</ul>
 					</li>
 					<li class="nav-item">
@@ -438,15 +441,6 @@ elseif($udetails['type']='Accounts')
 						<ul class="pcoded-submenu">
 							<li class=""><a href="viewpurchaseorder.php" class="">Outgoing PO</a></li>
 							<li class=""><a href="viewpurchase.php" class="">Incoming Invoice</a></li>
-							<li class=""><a href="viewpayment.php" class="">Payment</a></li>
-						</ul>
-					</li>
-
-					<li class="nav-item pcoded-hasmenu">
-						<a href="" class="nav-link disable-anchor"><span class="pcoded-micon"><i class="feather icon-map"></i></span><span class="pcoded-mtext">Outstandings</span></a>
-						<ul class="pcoded-submenu">
-							<li class=""><a href="payables.php" class="">Payables</a></li><!-- payables.php -->
-							<li class=""><a href="receivables.php" class="">Receivables</a></li><!-- receivables.php -->
 						</ul>
 					</li>
 

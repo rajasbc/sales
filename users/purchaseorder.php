@@ -425,7 +425,7 @@ if($_GET['bill_check_group']!='')
                     <div class="col-lg-12">
                       <div class="input-group input-group-sm">
                         <div class="input-group-prepend">
-                          <span class="input-group-text input-group-text1">City<span style="color: red">&nbsp;*</span></span>
+                          <span class="input-group-text input-group-text1">City</span>
                         </div>
                         <input class="form-control cust_form" id="city" name="city" type="text" autocomplete="off" placeholder="City" onkeypress="if(this.value.length==25) return false;">
                       </div>
@@ -437,7 +437,7 @@ if($_GET['bill_check_group']!='')
                     <div class="col-lg-12">
                       <div class="input-group input-group-sm">
                         <div class="input-group-prepend">
-                          <span class="input-group-text input-group-text1">State<span style="color: red">&nbsp;*</span></span>
+                          <span class="input-group-text input-group-text1">State</span>
                         </div>
                         <input class="form-control cust_form" id="state" name="state" type="text" autocomplete="off" placeholder="State" onkeypress="if(this.value.length==25) return false;">
 
@@ -1803,30 +1803,6 @@ $('#saveCustomerBtn').on('click', function(){
   else
   {
     $('#address').css("border","1px solid #ced4da");
-  }
-
-  if($("#city").val()=='')
-  {
-    $('#city').css("border","1px solid red");
-    $('#city').focus();
-    $.growl.error({title:"Name Issue", message:"Please Enter City"});
-    return false;
-  }
-  else
-  {
-    $('#city').css("border","1px solid #ced4da");
-  }
-
-  if($("#state").val()=='')
-  {
-    $('#state').css("border","1px solid red");
-    $('#state').focus();
-    $.growl.error({title:"Name Issue", message:"Please Enter State"});
-    return false;
-  }
-  else
-  {
-    $('#state').css("border","1px solid #ced4da");
   }
 
   if($("#country").val()=='')

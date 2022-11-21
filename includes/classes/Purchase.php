@@ -77,7 +77,7 @@ $invoice = array();
 $updatearray = array();
 $purchase = array();
 $item = $_POST;
-$bill_date = date('Y-m-d');
+$bill_date = $_POST['date']; //date('Y-m-d')
 $shippingcharges = $_POST['shippingcharges'];
 
         
@@ -86,7 +86,7 @@ try
 
 	$purchase['vendor']=$_POST['cid'];
 	$purchase['purchase_orderid']=$_POST['purchaseorderno'];
-    $purchase['date']=date('Y-m-d');
+    $purchase['date']=$_POST['date'];
     $purchase['status']='New';
     $purchase['created_at']=date('Y-m-d H:i:s');
     $bill_id=$this->db->mysql_insert($this->tablename,$purchase);
@@ -182,7 +182,7 @@ try
 
     $newinv = $selin['iid']+1;
 
-    $invoiceno = '2crsipi'.date('ymd').sprintf("%04d", $newinv);
+    $invoiceno = '2CRSIPI'.date('ymd').sprintf("%04d", $newinv);
 
 
 
